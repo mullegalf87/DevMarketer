@@ -26,17 +26,19 @@
                     <button class="btn btn-primary w-100" onclick="add_prod()">Add</button>
                 </div>
             </div>
-            <table class="table">
-                <thead>
-                    <th>Id</th>
-                    <th>Name</th>
-                    <th>Price</th>
-                    <th class="text-center">Action</th>
-                </thead>
-                <tbody id="append_prod">
+            <div class="table-responsive">
+                <table class="table">
+                    <thead>
+                        <th>Id</th>
+                        <th>Name</th>
+                        <th>Price</th>
+                        <th class="text-center">Action</th>
+                    </thead>
+                    <tbody id="append_prod">
 
-                </tbody>
-            </table>
+                    </tbody>
+                </table>
+            </div>
         </div>
         <script>
 
@@ -79,7 +81,7 @@
                             '<td>'+data[i].id+'</td>'+
                             '<td><input type="text" name="name_prod" class="form-control" id="name_prod_'+data[i].id+'" value="'+data[i].name_prod+'"/></td>'+
                             '<td><input type="text" name="price_prod" class="form-control" id="price_prod_'+data[i].id+'" value="'+data[i].price_prod+'"/></td>'+
-                            '<td class="text-center">'+
+                            '<td class="justify-content-center d-flex flex-nowrap">'+
                                 '<button class="btn btn-secondary mr-3" onclick="update_prod('+data[i].id+')">update</button>'+
                                 '<button class="btn btn-danger" onclick="delete_prod('+data[i].id+')">delete</button>'+
                             '</td>'+
