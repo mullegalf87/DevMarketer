@@ -32,3 +32,11 @@ Route::get('/home', 'HomeController@index')->name('home');
 Route::get('/test', function () {
   return view('test.home');
 });
+
+Route::get("/add_prod_test","HomeController@add_prod_test");
+
+Route::get("/get_prod_test","HomeController@get_prod_test");
+
+Route::get("/update_prod_test","HomeController@update_prod_test");
+
+Route::get("/delete_prod_test","HomeController@delete_prod_test");
