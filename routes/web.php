@@ -27,3 +27,8 @@ Route::prefix('manage')->middleware('role:superadministrator|administrator|edito
 });
 
 Route::get('/home', 'HomeController@index')->name('home');
+
+// test
+Route::get('/test', function () {
+  return view('test.home');
+});
