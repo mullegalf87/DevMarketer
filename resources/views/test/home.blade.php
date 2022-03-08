@@ -13,126 +13,154 @@
         </style>
     </head>
     <body>
-        <div class="w-100 p-3">
-            <h1>Test</h1>
-            <div class="d-flex flex-nowrap mb-3">
-                <div class="group-form flex-grow-1 mr-3">
-                    <input type="text" name="name_prod" class="form-control" placeholder="Product name" id="name_prod"/>
-                </div>
-                <div class="group-form flex-grow-1 mr-3">
-                    <input type="text" name="price_prod" class="form-control" placeholder="Price name" id="price_prod"/>
-                </div>
-                <div class="group-form flex-grow-1">
-                    <button class="btn btn-primary w-100" onclick="add_prod()">Add</button>
-                </div>
+        <nav class="navbar navbar-expand-lg navbar-light bg-light">
+            <a class="navbar-brand" onclick="change_vis('home')">Home</a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav mr-auto">
+                    @if( auth()->guard('users_test')->check() )
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Ciao {{ auth()->guard('users_test')->user()->name }}
+                        </a>
+                        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                            <a class="dropdown-item" onclick="change_vis('action')">Action</a>
+                            <a class="dropdown-item" onclick="logout_test()">Logout</a>
+                        </div>
+                    </li>
+                    @else
+                    <li class="nav-item">
+                        <a class="nav-link" onclick="change_vis('login')">Login</a>
+                    </li>
+                    @endif 
+                </ul>
+                <form class="form-inline my-2 my-lg-0">
+                    <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
+                    <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+                </form>
             </div>
-            <div class="table-responsive">
-                <table class="table">
-                    <thead>
-                        <th>Id</th>
-                        <th>Name</th>
-                        <th>Price</th>
-                        <th class="text-center">Action</th>
-                    </thead>
-                    <tbody id="append_prod">
-
-                    </tbody>
-                </table>
-            </div>
+        </nav>
+        <div id="login" class="page" style="display: none;">
+            @include("test.login")
+        </div>
+        <div id="action" class="page" style="display: none;">
+            @include("test.action")
         </div>
         <script>
 
-            start_test();
+            var myhistory = [];
+            var data = {!! $data !!};
+            page_to_go = data["page"];
+            change_vis(page_to_go);
 
-            function start_test(){
+            function change_vis(page, history){
+                
+                var res_id=page.split("_")[1];
+                
+                page=page.split("_")[0];
+                
+                var old_page=window.location.href.split("=")[1];
+                
+                if (old_page.indexOf('layout') == 0) {
+                    
+                    $("#layout").hide();
+                    
+                }else{
+                    
+                    $("#"+old_page).hide();
+                    
+                }
+                
+                if(history != 0){
+                    
+                    var id_user_profile="@if( auth()->guard('users_test')->check() ){{ auth()->guard('users_test')->user()->id}}@endif";
+                    
+                    if (old_page=="user_"+id_user_profile) {
+                        
+                    }else{
+                        
+                        myhistory.push(old_page);
+                        
+                    }
+                    
+                }
+                
+                old_page=page;
+                
+                $("#"+page).show();
+                
+                button_back(page, res_id);
+                
+                case_page(page, res_id);
+                
+            }
+            
+            function button_back(page_name, res_id){
+                history.pushState(null, null, history.pushState(null, null, window.location.href.substr(0, window.location.href.indexOf(page_name))));
 
-                get_prod();
-
+                history.pushState(null, null, window.history.replaceState(null, null, "/tt?page="+page_name));
+                
+                // if (page_name=="layout") {
+                    
+                //     history.pushState(null, null, window.history.replaceState(null, null, "/pm?page="+page_name+"_"+res_id));
+                    
+                // } else{
+                    
+                //     history.pushState(null, null, window.history.replaceState(null, null, "/pm?page="+page_name));
+                    
+                // }
+                
+                window.onpopstate = function () {
+                    
+                    if (myhistory.length==1) {
+                        
+                        history.pushState(null, null, location.href);
+                        window.onpopstate = function () {
+                            history.go(1);
+                        };
+                        return "http://localhost:8000/test";
+                        
+                    } else {
+                        change_vis(myhistory.pop(), 0); 
+                    }
+                    
+                };
             }
 
-            function add_prod(){
+            function case_page(page_name, res_id){
                 
-                var name_prod=$("#name_prod").val();
-                var price_prod=$("#price_prod").val();
+                switch(page_name) {
+                    case "home":
+                    break;
+                    case "login":
+                    break;
+                    case "action":
+                        start_test();
+                    break;
+                    default:
+                }
+                
+                $("html, body").animate({ scrollTop: 0 }, "slow");
+                
+                if($(".navbar-collapse").hasClass("show")==true){
+                    $(".navbar-toggler").click();
+                }
+                
+            }
 
-                $.get("/add_prod_test",{name_prod:name_prod, price_prod:price_prod},
-                function(data){
-
-                    console.log("log_add_prod");
-                    console.log(data);
-                    get_prod();
+            function logout_test(){
+                
+                $.get("/logout_test",{},
+                function(){
+                    
+                    window.location.replace("/test");
                     
                 });
-
+                
             }
-
-            function get_prod(){
             
-                $("#append_prod").empty();
-                $("#tr_sum").remove();
-                $.get("/get_prod_test",{},
-                function(data){
-                    var sum_prod=0;
-                    console.log("log_get_prod");
-                    console.log(data);
-                    for(var i=0; i<data.length;i++){
-                        var append_prod=
-                        '<tr>'+
-                            '<td>'+data[i].id+'</td>'+
-                            '<td><input type="text" name="name_prod" class="form-control" id="name_prod_'+data[i].id+'" value="'+data[i].name_prod+'"/></td>'+
-                            '<td><input type="text" name="price_prod" class="form-control" id="price_prod_'+data[i].id+'" value="'+data[i].price_prod+'"/></td>'+
-                            '<td class="justify-content-center d-flex flex-nowrap">'+
-                                '<button class="btn btn-secondary mr-3" onclick="update_prod('+data[i].id+')">update</button>'+
-                                '<button class="btn btn-danger" onclick="delete_prod('+data[i].id+')">delete</button>'+
-                            '</td>'+
-                        '</tr>';
-                        $("#append_prod").append(append_prod);
-                        sum_prod+=parseFloat(data[i].price_prod);
-                    }
-
-                    var append_prod_sum=
-                    '<tr id="tr_sum">'+
-                        '<td>Total: '+data.length+'</td>'+
-                        '<td></td>'+
-                        '<td>€ '+sum_prod+'</td>'+
-                        '<td></td>'+
-                    '</tr>';
-
-                    $("#append_prod").append(append_prod_sum);
-
-                    });
-
-            }
-
-            function update_prod(id){
-
-                var name_prod=$("#name_prod_"+id).val();
-                var price_prod=$("#price_prod_"+id).val();
-
-                $.get("/update_prod_test",{id:id, name_prod:name_prod, price_prod:price_prod},
-                function(data){
-
-                    console.log("log_update_prod");
-                    console.log(data);
-                    get_prod();
-
-                });
-
-            }
-
-            function delete_prod(id){
-
-                $.get("/delete_prod_test",{id:id},
-                function(data){
-
-                    console.log("log_delete_prod");
-                    console.log(data);
-                    get_prod();
-
-                });
-
-            }
-
         </script>
     </body>
 </html>

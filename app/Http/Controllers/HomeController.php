@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use DB;
+use Illuminate\Support\Facades\DB;
 use View;
 use Schema;
 use Request;
@@ -28,8 +28,9 @@ class HomeController extends Controller
      * @return void
      */
     public function __construct()
-    {
-        $this->middleware('auth');
+    {   
+        //se sotto non viene commentato per accedere al db devi essere sempre loggato
+        // $this->middleware('auth');
     }
 
     /**

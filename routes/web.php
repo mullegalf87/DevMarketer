@@ -28,10 +28,22 @@ Route::prefix('manage')->middleware('role:superadministrator|administrator|edito
 
 Route::get('/home', 'HomeController@index')->name('home');
 
-// test
+// test project
 Route::get('/test', function () {
-  return view('test.home');
+  return redirect('/tt?page=home');
 });
+
+Route::get('/tt', 'TestsController@go_to_page');
+
+Route::get('tt/lang', 'TestsController@lang_change')->name('PmLangChange');
+
+Route::post('register_test', 'TestsController@store');
+
+Route::post('login_test', 'TestsController@check_login');
+
+Route::get('logout_test', 'TestsController@logout_test');
+
+Route::post('reset_password_without_token_test', 'TestsController@validatePasswordRequest');
 
 Route::get("/add_prod_test","HomeController@add_prod_test");
 
