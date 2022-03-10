@@ -50,6 +50,16 @@ return [
             'driver' => 'session',
             'provider' => 'users_tests',
           ],
+
+        'users_bookmap' => [
+            'driver' => 'session',
+            'provider' => 'users_bookmaps',
+        ],
+
+        'users_comiziamo' => [
+            'driver' => 'session',
+            'provider' => 'users_comiziamos',
+        ],
     ],
 
     /*
@@ -78,7 +88,17 @@ return [
         'users_tests' => [
             'driver' => 'eloquent',
             'model' => App\Users_test::class,
-            ],   
+        ],  
+        
+        'users_bookmaps' => [
+            'driver' => 'eloquent',
+            'model' => App\Users_bookmap::class,
+        ],
+
+        'users_comiziamos' => [
+            'driver' => 'eloquent',
+            'model' => App\Users_comiziamo::class,
+        ],
 
         // 'users' => [
         //     'driver' => 'database',
@@ -112,7 +132,20 @@ return [
             'provider' => 'users_tests',
             'table' => 'password_resets',
             'expire' => 60,
-          ],
+        ],
+
+        'users_bookmaps' => [
+            'provider' => 'users_bookmaps',
+            'table' => 'password_resets',
+            'expire' => 60,
+        ],
+
+        'users_comiziamos' => [
+            'provider' => 'users_comiziamos',
+            'table' => 'password_resets',
+            'expire' => 60,
+        ],
+
     ],
 
 ];
