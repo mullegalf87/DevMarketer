@@ -312,9 +312,9 @@ td {
               <div class="d-flex flex-column align-items-center text-center">
                 <div onclick="$('#imgupload').trigger('click'); return false;">
                   @if( auth()->guard('users_promotion')->user()->img =="" )
-                  <img id="image_profile" src="uploads/default_img.png?refresh=<?php echo rand(1,999); ?>" alt="Admin" class="rounded-circle" width="150" height="150">
+                  <img id="image_profile" src="promotion_repo/default_img.png?refresh=<?php echo rand(1,999); ?>" alt="Admin" class="rounded-circle" width="150" height="150">
                   @else
-                  <img id="image_profile" src="uploads/img_user/{{ auth()->guard('users_promotion')->user()->img}}?refresh=<?php echo rand(1,999); ?>" alt="Admin" class="rounded-circle" width="150" height="150">
+                  <img id="image_profile" src="promotion_repo/img_user/{{ auth()->guard('users_promotion')->user()->img}}?refresh=<?php echo rand(1,999); ?>" alt="Admin" class="rounded-circle" width="150" height="150">
                   @endif
                 </div>
                 <div class="mt-3">

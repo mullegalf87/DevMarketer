@@ -30,7 +30,7 @@
 <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.21/css/jquery.dataTables.min.css">
 <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/responsive/2.2.5/css/responsive.dataTables.min.css">
 <!-- imagecompressor -->
-<script type="text/javascript" src="js/bookmap/image-compressor.js"></script>
+<script type="text/javascript" src="js/image-compressor.js"></script>
 <!-- google maps -->
 <script src="https://maps.googleapis.com/maps/api/js?libraries=geometry,places&callback=initialize&key=AIzaSyDPMzEErbMtImAPDLz1xPda-n7Ztcb299s" defer></script>
 <!-- boxicon -->

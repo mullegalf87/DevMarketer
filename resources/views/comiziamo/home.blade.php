@@ -78,7 +78,7 @@
   <script src="https://code.highcharts.com/modules/accessibility.js"></script> -->
 
   <!-- imagecompressor -->
-  <script type="text/javascript" src="js/bookmap/image-compressor.js"></script>
+  <script type="text/javascript" src="js/image-compressor.js"></script>
   
 </head>
 

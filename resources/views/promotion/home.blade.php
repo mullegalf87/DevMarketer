@@ -38,7 +38,7 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.15.1/xlsx.full.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/json2html/1.3.0/json2html.min.js"></script>
   <!-- imagecompressor -->
-  <script type="text/javascript" src="js/bookmap/image-compressor.js"></script>
+  <script type="text/javascript" src="js/image-compressor.js"></script>
   <!-- highcharts -->
   <script src="https://code.highcharts.com/highcharts.js"></script>
   <script src="https://code.highcharts.com/modules/data.js"></script>
