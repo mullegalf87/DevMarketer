@@ -651,7 +651,7 @@
         window.onpopstate = function () {
           history.go(1);
         };
-        return "http://comiziamo.tk/promotion";
+        return "/promotion";
         
       } else {
        change_vis(myhistory.pop(), 0); 

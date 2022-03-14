@@ -459,7 +459,7 @@ select.list-dt:focus {
                       </div>
                       <div class="col-md-6">
                         <div class="form-group">
-                          <label>Upload lista clienti <a href="http://176.107.131.30/promotion_repo/download_example_file/listclient.xlsx"><i class="fa fa-download"></i></a></label> 
+                          <label>Upload lista clienti <a href="http://localhost:8000/promotion_repo/download_example_file/listclient.xlsx"><i class="fa fa-download"></i></a></label> 
                           <div class="custom-file mr-3">
                             <input type="file" name="file" class="custom-file-input" id="file-btn">
                             <label class="custom-file-label" for="file-btn">Choose file</label>
@@ -656,7 +656,7 @@ select.list-dt:focus {
         save_setting_promotion(id_select);
     }
 
-    $("#iframe_layout").attr("src","http://176.107.131.30/layout_"+id_layout);
+    $("#iframe_layout").attr("src","http://localhost:8000/layout_"+id_layout);
 
   });
 
@@ -677,7 +677,7 @@ select.list-dt:focus {
 
         get_data_layout(id_layout);
 
-        $("#iframe_layout").attr("src","http://176.107.131.30/layout_"+id_layout);
+        $("#iframe_layout").attr("src","http://localhost:8000/layout_"+id_layout);
 
       });
 
@@ -853,7 +853,7 @@ select.list-dt:focus {
 
         var res=jQuery.parseJSON(data);
 
-        var url_generator='http://176.107.131.30/layout_'+res[0].id_layout+'?layout='+res[0].token_layout+"#";
+        var url_generator='http://localhost:8000/layout_'+res[0].id_layout+'?layout='+res[0].token_layout+"#";
 
         $("#url_layout_preview").attr("href",url_generator).text(url_generator);
 

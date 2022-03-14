@@ -96,7 +96,9 @@
 
     get_edited_element();
 
-    $('#cover-spin').show(0)
+    $('#cover-spin').show(0);
+
+    alert("ciao");
 
   }
 
@@ -170,8 +172,8 @@
           
         //si loggato si token
         } else if(res.response=="1_1"){
-
-          
+        
+          // $("#type_image_"+res.get_edited_element[0].carousel).removeClass("d-none");
           $(".image-2").hide();
 
           $(".dashed-edit").removeClass("dashed-edit text_edit image_edit block_edit_text");
@@ -179,7 +181,7 @@
         //no loggato si token
         } else if(res.response=="0_1"){
 
-          
+          // $("#type_image_"+res.get_edited_element[0].carousel).removeClass("d-none");
 
           $(".dashed-edit").removeClass("dashed-edit text_edit image_edit block_edit_text");
 

@@ -14,7 +14,7 @@
 <!-- jquery 3.5 jquery-->
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <!-- imagecompressor -->
-<script type="text/javascript" src="js/bookmap/image-compressor.js"></script>
+<script type="text/javascript" src="js/image-compressor.js"></script>
 <script src="promotion_repo/category_1/layout_1/slick/slick.min.js"></script>
 <style type="text/css">
   /*start è sempre background image-2*/

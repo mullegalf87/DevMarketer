@@ -28,7 +28,7 @@
   <link rel='stylesheet' href='https://use.fontawesome.com/releases/v5.2.0/css/all.css'>
   <script src="https://use.fontawesome.com/e07be0b1c4.js"></script>
   <!-- imagecompressor -->
-  <script type="text/javascript" src="js/bookmap/image-compressor.js"></script>
+  <script type="text/javascript" src="js/image-compressor.js"></script>
 </head>
 <style id="style_layout_1" type="text/css">
    /* start layout Styles*/
