@@ -216,11 +216,11 @@
 
         if (res.data_user[0].img=="") {
 
-          src_user="uploads/default_img.png?refresh=<?php echo rand(1,999); ?>";
+          src_user="comiziamo_repo/default_img.png?refresh=<?php echo rand(1,999); ?>";
 
         }else{
 
-          src_user="uploads/img_user/"+res.data_user[0].img;
+          src_user="comiziamo_repo/img_user/"+res.data_user[0].img;
 
         }
         $("#image_profile_"+from).attr("src",src_user);
@@ -238,11 +238,11 @@
           $("#card_party").show();
           if (res.data_user[0].img_party=="") {
 
-          src_party="uploads/default_img.png?refresh=<?php echo rand(1,999); ?>";
+          src_party="comiziamo_repo/default_img.png?refresh=<?php echo rand(1,999); ?>";
 
           }else{
 
-            src_party="uploads/img_party/"+res.data_user[0].img_party;
+            src_party="comiziamo_repo/img_party/"+res.data_user[0].img_party;
 
           }
 
@@ -264,11 +264,11 @@
 
           if (res.data_user_party[i].img_party=="") {
 
-            src="uploads/default_img.png?refresh=<?php echo rand(1,999); ?>"
+            src="comiziamo_repo/default_img.png?refresh=<?php echo rand(1,999); ?>"
 
           }else{
 
-            src="uploads/img_party/"+res.data_user_party[i].img_party+"?refresh=<?php echo rand(1,999); ?>"
+            src="comiziamo_repo/img_party/"+res.data_user_party[i].img_party+"?refresh=<?php echo rand(1,999); ?>"
 
           }
 

@@ -336,13 +336,13 @@ function get_product_user(){
       //inserire id user Auth::user()->id
       if (res[i].name_img=="") {
 
-        src="img/bookmap/default_img.png?refresh=<?php echo rand(1,999); ?>";
+        src="bookmap_repo/default_img.png?refresh=<?php echo rand(1,999); ?>";
 
       } else {
 
 
 
-        src="img/bookmap/img_user/"+res[i].id_vendor+"/"+res[i].id+"/"+res[i].name_img.split(",")[0]+"?refresh=<?php echo rand(1,999); ?>";
+        src="bookmap_repo/img_user/"+res[i].id_vendor+"/"+res[i].id+"/"+res[i].name_img.split(",")[0]+"?refresh=<?php echo rand(1,999); ?>";
 
       }
 
@@ -657,7 +657,7 @@ function save_input_prod(numb, id_prod){
                   formData.append('id_prod', id_prod);
                   setTimeout(function(){
                     $.ajax({
-                      url : "bookmap/add_product.php",
+                      url : "bookmap_repo/add_product.php",
                       type: 'POST',
                       data : formData,
                       processData: false, 

@@ -390,9 +390,9 @@
 
           if (arr_list_user[i].image_user_send=="") {
 
-            src="img/bookmap/default_img.png?refresh=<?php echo rand(1,999); ?>"
+            src="bookmap_repo/default_img.png?refresh=<?php echo rand(1,999); ?>"
           }else{
-            src="img/bookmap/img_profile/"+arr_list_user[i].image_user_send+"?refresh=<?php echo rand(1,999); ?>";
+            src="bookmap_repo/img_profile/"+arr_list_user[i].image_user_send+"?refresh=<?php echo rand(1,999); ?>";
 
           }
 
@@ -533,9 +533,9 @@ function send_chat_bookmap(id_user_receive, name_user_receive, from, image_user_
   $(".nickname_user_chat").text(name_user_receive);
   $(".msg_send_btn").attr("onclick","send_chat_bookmap(\""+id_user_receive+"\",\""+name_user_receive+"\",\""+image_user_receive+"\")");
   if (image_user_receive=="") {
-    $(".img_user_chat").attr("src","img/bookmap/default_img.png?refresh=<?php echo rand(1,999); ?>");
+    $(".img_user_chat").attr("src","bookmap_repo/default_img.png?refresh=<?php echo rand(1,999); ?>");
   }else{
-    $(".img_user_chat").attr("src","img/bookmap/img_profile/"+image_user_receive+"?refresh=<?php echo rand(1,999); ?>");
+    $(".img_user_chat").attr("src","bookmap_repo/img_profile/"+image_user_receive+"?refresh=<?php echo rand(1,999); ?>");
   }
 
 
@@ -557,9 +557,9 @@ function send_chat_bookmap(id_user_receive, name_user_receive, from, image_user_
 
           if (res[i].image_user_send=="") {
 
-            src="img/bookmap/default_img.png?refresh=<?php echo rand(1,999); ?>"
+            src="bookmap_repo/default_img.png?refresh=<?php echo rand(1,999); ?>"
           }else{
-            src="img/bookmap/img_profile/"+res[i].image_user_send+"?refresh=<?php echo rand(1,999); ?>";
+            src="bookmap_repo/img_profile/"+res[i].image_user_send+"?refresh=<?php echo rand(1,999); ?>";
 
           }
 

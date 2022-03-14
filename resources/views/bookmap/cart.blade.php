@@ -89,11 +89,11 @@ function start_function_cart(){
 
             if (res[i].name_img=="") {
 
-              src="img/bookmap/default_img.png?refresh=<?php echo rand(1,999); ?>";
+              src="bookmap_repo/default_img.png?refresh=<?php echo rand(1,999); ?>";
 
             } else {
 
-              src="img/bookmap/img_user/"+res[i].id_vendor+"/"+res[i].id+"/"+res[i].name_img.split(",")[0]+"?refresh=<?php echo rand(1,999); ?>";
+              src="bookmap_repo/img_user/"+res[i].id_vendor+"/"+res[i].id+"/"+res[i].name_img.split(",")[0]+"?refresh=<?php echo rand(1,999); ?>";
 
             }
 

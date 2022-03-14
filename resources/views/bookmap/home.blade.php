@@ -13,9 +13,9 @@
 <!-- <meta property="og:description" content="Buy and sell or exchange without expenses near you!"> -->
 <meta property="og:type" content="article" />
 <meta property="og:url" content="https://www.comiziamo.tk/bookmap" />
-<meta property="og:image" content="https://www.comiziamo.tk/img/bookmap/logo_2.png?refresh=<?php echo rand(1,999); ?>">
+<meta property="og:image" content="https://www.comiziamo.tk/bookmap_repo/logo_2.png?refresh=<?php echo rand(1,999); ?>">
 
-<link rel="icon" href="img/bookmap/logo_2.png?refresh=<?php echo rand(1,999); ?>" type="">
+<link rel="icon" href="bookmap_repo/logo_2.png?refresh=<?php echo rand(1,999); ?>" type="">
 <!-- jquery -->
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <!-- popper -->
@@ -800,7 +800,7 @@ cursor:pointer;
 
 .brand_discount {
     padding: 20px;
-    background-image: url("img/bookmap/logo_2.png");
+    background-image: url("bookmap_repo/logo_2.png");
     background-size: cover;
     /*background-position: center center;*/
     color: #fff;
@@ -837,7 +837,7 @@ cursor:pointer;
 <nav class="navbar navbar-expand-md navbar-light bg-light main-menu" style="box-shadow:none; height:78px; padding: 15px;">
   <div class="container col-md-12" style="margin:0; padding:0;">
     <a class="navbar-brand" onclick="change_vis('home')" style="margin-right: 0;">
-      <img id="logo_loading" src="img/bookmap/logo_2.png" width="30" height="30" class="rounded-circle align-bottom mr-1">
+      <img id="logo_loading" src="bookmap_repo/logo_2.png" width="30" height="30" class="rounded-circle align-bottom mr-1">
       Bookmap
     </a>
     <!-- <div class="lds-hourglass" style="display: none;"></div> -->
@@ -1370,9 +1370,9 @@ cursor:pointer;
     <div class="d-flex flex-column align-items-center text-center">
       <div onclick="$('#imgupload').trigger('click'); return false;">
         @if( auth()->guard('users_bookmap')->user()->image =="" )
-        <img id="image_profile" src="img/bookmap/default_img.png?refresh=<?php echo rand(1,999); ?>" alt="Admin" class="rounded-circle" width="150" height="150">
+        <img id="image_profile" src="bookmap_repo/default_img.png?refresh=<?php echo rand(1,999); ?>" alt="Admin" class="rounded-circle" width="150" height="150">
         @else
-        <img id="image_profile" src="img/bookmap/img_profile/{{ auth()->guard('users_bookmap')->user()->image}}?refresh=<?php echo rand(1,999); ?>" alt="Admin" class="rounded-circle" width="150" height="150">
+        <img id="image_profile" src="bookmap_repo/img_profile/{{ auth()->guard('users_bookmap')->user()->image}}?refresh=<?php echo rand(1,999); ?>" alt="Admin" class="rounded-circle" width="150" height="150">
         @endif
       </div>
     </div>
@@ -1593,7 +1593,7 @@ cursor:pointer;
             <div class="coupon_area">
               <div class="coupon_content" style="background: linear-gradient(-45deg, #92DCE5 50%, rgba(255, 255, 255, 0.5) 50%);text-align: center;width: 193px;">
                 <div>
-                  <img id="image_last_prod" src="img/bookmap/img_user/28/128/1.jpg?refresh=123" alt="Admin" class="rounded-circle" width="250" height="250">
+                  <img id="image_last_prod" src="bookmap_repo/img_user/28/128/1.jpg?refresh=123" alt="Admin" class="rounded-circle" width="250" height="250">
                 </div>
                 <div id="price_last_prod" style="color:#b5b5b5;font-size: 17pt;margin:5px 0px 7px;text-align: center;font-weight: lighter; font-size: 60px; text-align:center; line-height: 60px;">€19.90
                 </div>
@@ -1630,11 +1630,11 @@ cursor:pointer;
               <div class="coupon_content coupon_content_video" style="line-height: 0;">
                 @if( session()->get('locale')=="en" )
                 <video  autoplay muted controls style="width: 100%;height: auto;" id="myVideo" >
-                  <source src="img/bookmap/video_en.mp4" type="video/mp4">
+                  <source src="bookmap_repo/video_en.mp4" type="video/mp4">
                 </video>
                 @else
                 <video  autoplay muted controls style="width: 100%;height: auto;" id="myVideo" >
-                  <source src="img/bookmap/video_it.mp4" type="video/mp4">
+                  <source src="bookmap_repo/video_it.mp4" type="video/mp4">
                 </video>
                 @endif
                 <!-- <div style="display: none;" id="myNews">
@@ -1758,7 +1758,7 @@ function show_modal_last_prod(){
       var res=jQuery.parseJSON(data);
 
       $("#offModal_prod").show();
-      $("#image_last_prod").attr("src","img/bookmap/img_user/"+res[0].id_vendor+"/"+res[0].id+"/"+res[0].name_img.split(",")[0]+"?refresh=<?php echo rand(1,999); ?>");
+      $("#image_last_prod").attr("src","bookmap_repo/img_user/"+res[0].id_vendor+"/"+res[0].id+"/"+res[0].name_img.split(",")[0]+"?refresh=<?php echo rand(1,999); ?>");
       $("#price_last_prod").text(res[0].price+ "€");
       $("#title_last_prod").text(res[0].name_prod);
       $("#place_last_prod").text(res[0].place);
@@ -2135,7 +2135,7 @@ function search_main(pc_or_mobile){
         content_info_window+=
         '<div class="carousel-item active" style="height:200px;">'+
 
-        '<img src="img/bookmap/default_img.png?refresh=<?php echo rand(1,999); ?>" class="card-img img-fluid" alt="" style="width: 200px; height: 100% !important; object-fit: cover;">'+
+        '<img src="bookmap_repo/default_img.png?refresh=<?php echo rand(1,999); ?>" class="card-img img-fluid" alt="" style="width: 200px; height: 100% !important; object-fit: cover;">'+
   
         '</div>';
 
@@ -2154,7 +2154,7 @@ function search_main(pc_or_mobile){
           content_info_window+=
           '<div class="carousel-item '+active+'" style="height:200px;">'+
       
-          '<img src="img/bookmap/img_user/'+this.product_seller+'/'+this.product_id+'/'+this.product_image.split(",")[i-1]+'?refresh=<?php echo rand(1,999); ?>" class="card-img img-fluid" alt="" style="width: 200px; height: 100% !important; object-fit: cover;">'+
+          '<img src="bookmap_repo/img_user/'+this.product_seller+'/'+this.product_id+'/'+this.product_image.split(",")[i-1]+'?refresh=<?php echo rand(1,999); ?>" class="card-img img-fluid" alt="" style="width: 200px; height: 100% !important; object-fit: cover;">'+
    
           '</div>';
 
@@ -2299,7 +2299,7 @@ function show_result_page(type){
   collection_2[i] = new google.maps.LatLng(array_product_page[numb][i].lat, array_product_page[numb][i].lng); 
 
   // var icon = {
-  //   url: "img/bookmap/img_profile/28.jpg", // url
+  //   url: "bookmap_repo/img_profile/28.jpg", // url
   //   scaledSize: new google.maps.Size(50, 50), // scaled size
   //   origin: new google.maps.Point(0,0), // origin
   //   anchor: new google.maps.Point(0, 0) // anchor
@@ -2385,7 +2385,7 @@ function show_result_page(type){
         content_info_window+=
         '<div class="carousel-item active" style="height:200px;">'+
 
-        '<img src="img/bookmap/default_img.png?refresh=<?php echo rand(1,999); ?>" class="card-img img-fluid" alt="" style="width: 200px; height: 100% !important; object-fit: cover;">'+
+        '<img src="bookmap_repo/default_img.png?refresh=<?php echo rand(1,999); ?>" class="card-img img-fluid" alt="" style="width: 200px; height: 100% !important; object-fit: cover;">'+
   
         '</div>';
 
@@ -2404,7 +2404,7 @@ function show_result_page(type){
           content_info_window+=
           '<div class="carousel-item '+active+'" style="height:200px;">'+
       
-          '<img src="img/bookmap/img_user/'+this.product_seller+'/'+this.product_id+'/'+this.product_image.split(",")[i-1]+'?refresh=<?php echo rand(1,999); ?>" class="card-img img-fluid" alt="" style="width: 200px;; height: 100% !important; object-fit: cover;">'+
+          '<img src="bookmap_repo/img_user/'+this.product_seller+'/'+this.product_id+'/'+this.product_image.split(",")[i-1]+'?refresh=<?php echo rand(1,999); ?>" class="card-img img-fluid" alt="" style="width: 200px;; height: 100% !important; object-fit: cover;">'+
    
           '</div>';
 
@@ -2663,13 +2663,13 @@ function detect_device(){
 
       if (split_image.length==1) {
 
-        $(".gallery").append('<img src="img/bookmap/default_img.png?refresh=<?php echo rand(1,999); ?>" class="append_image_clear" style="width: 100%; height: 200px; object-fit: cover;margin-bottom: 3px;">');
+        $(".gallery").append('<img src="bookmap_repo/default_img.png?refresh=<?php echo rand(1,999); ?>" class="append_image_clear" style="width: 100%; height: 200px; object-fit: cover;margin-bottom: 3px;">');
 
       } else{
 
         for (var i = 1; i < split_image.length; i++) {        
 
-        $(".gallery").append('<img src="img/bookmap/img_user/'+id_vendor+'/'+id_prod+'/'+split_image[i-1]+'?refresh=<?php echo rand(1,999); ?>" class="append_image_clear" style="width: 100%; height: 200px; object-fit: cover;margin-bottom: 3px;">');
+        $(".gallery").append('<img src="bookmap_repo/img_user/'+id_vendor+'/'+id_prod+'/'+split_image[i-1]+'?refresh=<?php echo rand(1,999); ?>" class="append_image_clear" style="width: 100%; height: 200px; object-fit: cover;margin-bottom: 3px;">');
       }
 
       }
@@ -2994,7 +2994,7 @@ function detect_device(){
                   formData.append('id_prod', id_prod);
                   setTimeout(function(){
                     $.ajax({
-                      url : "bookmap/add_product.php",
+                      url : "bookmap_repo/add_product.php",
                       type: 'POST',
                       data : formData,
                       processData: false, 
@@ -3127,7 +3127,7 @@ function previewFile() {
 
               setTimeout(function(){
                 $.ajax({
-                  url : "bookmap/upload_img_profile_bookmap.php",
+                  url : "bookmap_repo/upload_img_profile_bookmap.php",
                   type: 'POST',
                   data : formData,
                   processData: false, 
@@ -3254,7 +3254,7 @@ paypal.Buttons({
 
             $.ajax({
 
-              url: 'bookmap/send_email_order_bookmap.php',     
+              url: 'bookmap_repo/send_email_order_bookmap.php',     
               dataType: 'text',        
               cache       : false,
               contentType: false,

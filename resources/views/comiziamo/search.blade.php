@@ -76,7 +76,7 @@
         <a href="#">
           <img src="https://picsum.photos/700/550" class="card-img-top" alt="Product">
         </a>
-        <div class="d-flex flex-column align-items-center text-center hero" style=""><img src="uploads/img_user/98.jpg?refresh=992" alt="Admin" class="rounded-circle" width="150" height="150" onclick="change_vis('user_98')" style="border-style: inset;z-index: 99;"></div>
+        <div class="d-flex flex-column align-items-center text-center hero" style=""><img src="comiziamo_repo/img_user/98.jpg?refresh=992" alt="Admin" class="rounded-circle" width="150" height="150" onclick="change_vis('user_98')" style="border-style: inset;z-index: 99;"></div>
         <div class="card-body px-2 pb-2 pt-1">
           <div class="d-flex justify-content-between">
             <div>
@@ -263,11 +263,11 @@
 
               if (res[i].img=="") {
 
-                src="uploads/default_img.png?refresh=<?php echo rand(1,999); ?>"
+                src="comiziamo_repo/default_img.png?refresh=<?php echo rand(1,999); ?>"
 
               }else{
 
-                src="uploads/img_user/"+res[i].img+"?refresh=<?php echo rand(1,999); ?>"
+                src="comiziamo_repo/img_user/"+res[i].img+"?refresh=<?php echo rand(1,999); ?>"
 
               }
 

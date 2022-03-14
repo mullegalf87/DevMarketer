@@ -385,9 +385,9 @@ top: 0px;
           $("#argument_vote").text(res[0].argument);
 
           if (res[0].img_arg=="") {
-            $("#image_arg_vote").attr("src","uploads/default_img.png?refresh=<?php echo rand(1,999); ?>");
+            $("#image_arg_vote").attr("src","comiziamo_repo/default_img.png?refresh=<?php echo rand(1,999); ?>");
           }else{
-            $("#image_arg_vote").attr("src","uploads/img_argument/"+res[0].img_arg);
+            $("#image_arg_vote").attr("src","comiziamo_repo/img_argument/"+res[0].img_arg);
           }
           // $("#argument_title_vote").text(res[0].title_argument);
           get_partecipant_rally(res_id);
@@ -416,12 +416,12 @@ top: 0px;
 
             if (res[i].img_party=="") {
 
-              src="uploads/default_img.png?refresh=<?php echo rand(1,999); ?>";
+              src="comiziamo_repo/default_img.png?refresh=<?php echo rand(1,999); ?>";
 
             }else{
 
-              src="uploads/img_party/"+res[i].img_party+"?refresh=<?php echo rand(1,999); ?>";
-              $("#img_profile_vote").attr("src","uploads/img_party/"+res[i].img_party+"?refresh=<?php echo rand(1,999); ?>");
+              src="comiziamo_repo/img_party/"+res[i].img_party+"?refresh=<?php echo rand(1,999); ?>";
+              $("#img_profile_vote").attr("src","comiziamo_repo/img_party/"+res[i].img_party+"?refresh=<?php echo rand(1,999); ?>");
               
             }
 
@@ -432,12 +432,12 @@ top: 0px;
 
             if (res[i].img_profile=="") {
 
-              src="uploads/default_img.png?refresh=<?php echo rand(1,999); ?>";
+              src="comiziamo_repo/default_img.png?refresh=<?php echo rand(1,999); ?>";
 
             }else{
 
-              src="uploads/img_user/"+res[i].img_profile+"?refresh=<?php echo rand(1,999); ?>";
-              $("#img_profile_vote").attr("src","uploads/img_user/"+res[i].img_profile+"?refresh=<?php echo rand(1,999); ?>");
+              src="comiziamo_repo/img_user/"+res[i].img_profile+"?refresh=<?php echo rand(1,999); ?>";
+              $("#img_profile_vote").attr("src","comiziamo_repo/img_user/"+res[i].img_profile+"?refresh=<?php echo rand(1,999); ?>");
               
             }
             
@@ -492,9 +492,9 @@ top: 0px;
       if (type_user_party==1) {
 
         if (img_party=="") {
-          $("#img_profile_vote").attr("src","uploads/default_img.png?refresh=<?php echo rand(1,999); ?>");
+          $("#img_profile_vote").attr("src","comiziamo_repo/default_img.png?refresh=<?php echo rand(1,999); ?>");
         }else{
-          $("#img_profile_vote").attr("src","uploads/img_party/"+img_party+"?refresh=<?php echo rand(1,999); ?>");
+          $("#img_profile_vote").attr("src","comiziamo_repo/img_party/"+img_party+"?refresh=<?php echo rand(1,999); ?>");
         }
 
         if (id_user_profile!=id_user) {
@@ -509,9 +509,9 @@ top: 0px;
       }else{
 
         if (img_profile=="") {
-          $("#img_profile_vote").attr("src","uploads/default_img.png?refresh=<?php echo rand(1,999); ?>");
+          $("#img_profile_vote").attr("src","comiziamo_repo/default_img.png?refresh=<?php echo rand(1,999); ?>");
         }else{
-          $("#img_profile_vote").attr("src","uploads/img_user/"+img_profile+"?refresh=<?php echo rand(1,999); ?>");
+          $("#img_profile_vote").attr("src","comiziamo_repo/img_user/"+img_profile+"?refresh=<?php echo rand(1,999); ?>");
         }
 
 
@@ -533,9 +533,9 @@ top: 0px;
       if (type_user_party==1) {
 
         if (img_party=="") {
-          $("#img_profile_vote").attr("src","uploads/default_img.png?refresh=<?php echo rand(1,999); ?>");
+          $("#img_profile_vote").attr("src","comiziamo_repo/default_img.png?refresh=<?php echo rand(1,999); ?>");
         }else{
-          $("#img_profile_vote").attr("src","uploads/img_party/"+img_party+"?refresh=<?php echo rand(1,999); ?>");
+          $("#img_profile_vote").attr("src","comiziamo_repo/img_party/"+img_party+"?refresh=<?php echo rand(1,999); ?>");
         }
 
         if (id_user_profile!=id_user) {
@@ -548,9 +548,9 @@ top: 0px;
       }else{
 
         if (img_profile=="") {
-          $("#img_profile_vote").attr("src","uploads/default_img.png?refresh=<?php echo rand(1,999); ?>");
+          $("#img_profile_vote").attr("src","comiziamo_repo/default_img.png?refresh=<?php echo rand(1,999); ?>");
         }else{
-          $("#img_profile_vote").attr("src","uploads/img_user/"+img_profile+"?refresh=<?php echo rand(1,999); ?>");
+          $("#img_profile_vote").attr("src","comiziamo_repo/img_user/"+img_profile+"?refresh=<?php echo rand(1,999); ?>");
         }
 
 

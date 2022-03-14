@@ -60,6 +60,11 @@ return [
             'driver' => 'session',
             'provider' => 'users_comiziamos',
         ],
+
+        'users_promotion' => [
+            'driver' => 'session',
+            'provider' => 'users_promotions',
+        ],
     ],
 
     /*
@@ -98,6 +103,11 @@ return [
         'users_comiziamos' => [
             'driver' => 'eloquent',
             'model' => App\Users_comiziamo::class,
+        ],
+
+        'users_promotions' => [
+            'driver' => 'eloquent',
+            'model' => App\Users_promotion::class,
         ],
 
         // 'users' => [
@@ -142,6 +152,12 @@ return [
 
         'users_comiziamos' => [
             'provider' => 'users_comiziamos',
+            'table' => 'password_resets',
+            'expire' => 60,
+        ],
+
+        'users_promotions' => [
+            'provider' => 'users_promotions',
             'table' => 'password_resets',
             'expire' => 60,
         ],

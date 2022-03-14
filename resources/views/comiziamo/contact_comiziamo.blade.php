@@ -23,7 +23,7 @@
                     <!-- <tr>
                         <td style="text-align:center;">
                           <a href="http://comiziamo.tk/co?page=home" title="logo" target="_blank">
-                            <img width="60" src="uploads/logo/favicon_small.png" title="logo" alt="logo">
+                            <img width="60" src="comiziamo_repo/logo/favicon_small.png" title="logo" alt="logo">
                           </a>
                         </td>
                     </tr> -->

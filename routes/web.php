@@ -35,7 +35,7 @@ Route::get('/test', function () {
 
 Route::get('/tt', 'TestsController@go_to_page');
 
-Route::get('tt/lang', 'TestsController@lang_change')->name('PmLangChange');
+Route::get('tt/lang', 'TestsController@lang_change')->name('TtLangChange');
 
 Route::post('register_test', 'TestsController@store');
 
@@ -45,20 +45,19 @@ Route::get('logout_test', 'TestsController@logout_test');
 
 Route::post('reset_password_without_token_test', 'TestsController@validatePasswordRequest');
 
-Route::get("/add_prod_test","HomeController@add_prod_test");
+Route::get("/add_prod_test","TestsController@add_prod_test");
 
-Route::get("/get_prod_test","HomeController@get_prod_test");
+Route::get("/get_prod_test","TestsController@get_prod_test");
 
-Route::get("/update_prod_test","HomeController@update_prod_test");
+Route::get("/update_prod_test","TestsController@update_prod_test");
 
-Route::get("/delete_prod_test","HomeController@delete_prod_test");
+Route::get("/delete_prod_test","TestsController@delete_prod_test");
 
 
 //COMIZIAMO PROJECT
 
 Route::get('/comiziamo', function () {
   return redirect('/co?page=home');
-    // return view('welcome');
 });
 
 Route::get('co/lang', 'ComiziamosController@lang_change')->name('CoLangChange');
@@ -71,13 +70,7 @@ Route::post('login_comiziamo', 'ComiziamosController@check_login');
 
 Route::get('logout_comiziamo', 'ComiziamosController@logout_comiziamo');
 
-// Route::get('/auth/facebook', 'ComiziamosController@redirectToProvider')->name('facebook.login');
-
-// Route::get('/auth/facebook/callback', 'ComiziamosController@handleProviderCallback');
-
 Route::post('reset_password_without_token_comiziamo', 'ComiziamosController@validatePasswordRequest');
-
-// Route::post('reset_password_with_token', 'ComiziamosController@resetPassword');
 
 Route::get('random_token_comiziamo', 'ComiziamosController@random_token_comiziamo');
 
@@ -263,3 +256,92 @@ Route::get('get_search_bookmap', 'BookmapController@get_search_bookmap');
 Route::get('/get_discount_code_bookmap', 'BookmapController@get_discount_code_bookmap');
 
 Route::get('/get_last_prod_bookmap', 'BookmapController@get_last_prod_bookmap');
+
+
+// PROMOTION PROJECT
+Route::get('/promotion', function () {
+  return redirect('pm?page=home');
+});
+
+Route::get('/pm', 'PromotionsController@go_to_page');
+
+Route::get('pm/lang', 'PromotionsController@lang_change')->name('PmLangChange');
+
+//Login
+Route::post('register_promotion', 'PromotionsController@store');
+
+Route::post('login_promotion', 'PromotionsController@check_login');
+
+Route::get('logout_promotion', 'PromotionsController@logout_promotion');
+
+Route::post('reset_password_without_token_promotion', 'PromotionsController@validatePasswordRequest');
+
+// Analysis
+Route::get('insert_data_analyse_promotion','PromotionsController@insert_data_analyse_promotion');
+
+Route::get('update_data_analyse_promotion','PromotionsController@update_data_analyse_promotion');
+
+Route::get('get_data_analyse_promotion','PromotionsController@get_data_analyse_promotion');
+
+Route::get('delete_data_analyse_detail_promotion','PromotionsController@delete_data_analyse_detail_promotion');
+
+Route::get('delete_data_analyse_promotion','PromotionsController@delete_data_analyse_promotion');
+
+Route::get('reset_mask_promotion','PromotionsController@reset_mask_promotion');
+
+// Promo
+Route::get('get_data_layout_promotion','PromotionsController@get_data_layout_promotion');
+
+Route::get('create_element_promotion','PromotionsController@create_element_promotion');
+
+Route::get('edit_element_promotion','PromotionsController@edit_element_promotion');
+
+Route::get('get_token_layout_for_image_promotion','PromotionsController@get_token_layout_for_image_promotion');
+
+Route::get('edit_image_promotion','PromotionsController@edit_image_promotion');
+
+Route::get('get_edited_element_promotion','PromotionsController@get_edited_element_promotion');
+
+Route::get('save_setting_promotion','PromotionsController@save_setting_promotion');
+
+Route::get('get_token_layout_promotion','PromotionsController@get_token_layout_promotion');
+
+Route::get('register_user_promotion','PromotionsController@register_user_promotion');
+
+Route::get('get_layout_send_promotion','PromotionsController@get_layout_send_promotion');
+
+Route::get('get_client_send_promotion','PromotionsController@get_client_send_promotion');
+
+Route::get('add_client_send_promotion','PromotionsController@add_client_send_promotion');
+
+Route::get('delete_client_send_promotion','PromotionsController@delete_client_send_promotion');
+
+Route::get('reset_layout_promotion','PromotionsController@reset_layout_promotion');
+
+Route::get('get_type_message_promotion','PromotionsController@get_type_message_promotion');
+
+// Report
+Route::get('get_choose_campaign_promotion','PromotionsController@get_choose_campaign_promotion');
+
+Route::get('get_report_linearchart_promotion','PromotionsController@get_report_linearchart_promotion');
+
+Route::get('get_report_barchart_promotion','PromotionsController@get_report_barchart_promotion');
+
+Route::get('get_report_piechart_promotion','PromotionsController@get_report_piechart_promotion');
+
+Route::get('get_report_datatabel_promotion','PromotionsController@get_report_datatabel_promotion');
+
+Route::get('report_expiration_campaign_promotion','PromotionsController@report_expiration_campaign_promotion');
+
+// Profile
+Route::get('buy_now_promotion','PromotionsController@buy_now_promotion');
+
+Route::get('get_data_type_message_promotion','PromotionsController@get_data_type_message_promotion');
+
+Route::get('/layout_{id_category}_{id_layout}', function ($id_category,$id_layout) {
+  return View::make('promotion.layout.category_'.$id_category.'.layout_'.$id_layout.'');
+});
+
+Route::get('/404', function () {
+  return view('promotion.404');
+});

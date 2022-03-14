@@ -6,7 +6,7 @@
 
         <div style="display:flex">
           <div class="" style="padding: 0;margin: 10px 0px;position: relative">
-            <img alt="Avatar 1" src="/uploads/logo/logo_small.png" style="height: 50px;" />
+            <img alt="Avatar 1" src="/comiziamo_repo/logo/logo_small.png" style="height: 50px;" />
           </div>
         </div>
         <p class="lead">@lang('comiziamo/lang.title_comiziamo')</p>

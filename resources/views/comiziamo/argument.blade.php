@@ -494,7 +494,7 @@ $(document).ready(function() {
       <div class="col-sm-9 mb-3">
         <input type="file" name="image-file" id="argument_upload" onchange="previewFile_argument(event)" style="opacity: 0;display: none">
         <div onclick="$('#argument_upload').trigger('click'); return false;">
-          <img id="image_argument" src="uploads/default_img.png?refresh=<?php echo rand(1,999); ?>" alt="Admin" class="" width="" height="200" style="width: 100%; object-fit: cover;">
+          <img id="image_argument" src="comiziamo_repo/default_img.png?refresh=<?php echo rand(1,999); ?>" alt="Admin" class="" width="" height="200" style="width: 100%; object-fit: cover;">
         </div>
       </div>
     </div>
@@ -755,7 +755,7 @@ function action_arrow(from){
       $("#form_add_argument").find('input').val("");
       $("#form_add_argument").find('textarea').val("");
       $("#category_argument").val("1");
-      $("#image_argument").attr("src","uploads/default_img.png?refresh=<?php echo rand(1,999); ?>");
+      $("#image_argument").attr("src","comiziamo_repo/default_img.png?refresh=<?php echo rand(1,999); ?>");
 
     }
 };
@@ -830,7 +830,7 @@ function send_add_argument(){
 
      setTimeout(function(){
       $.ajax({
-        url : "comiziamo/upload_img_argument.php",
+        url : "comiziamo_repo/upload_img_argument.php",
         type: 'POST',
         data : formData,
         processData: false, 
@@ -877,9 +877,9 @@ function show_edit_arg(id_arg){
         $("#initial_argument").val(res[i].initial_argument);
         $("#title_argument").val(res[i].title_argument);
         if (res[i].img_arg=="") {
-          $("#image_argument").attr("src","uploads/default_img.png?refresh=<?php echo rand(1,999); ?>");
+          $("#image_argument").attr("src","comiziamo_repo/default_img.png?refresh=<?php echo rand(1,999); ?>");
         }else{
-          $("#image_argument").attr("src","uploads/img_argument/"+res[i].img_arg);
+          $("#image_argument").attr("src","comiziamo_repo/img_argument/"+res[i].img_arg);
         }
         $("#description_argument").val(res[i].argument);
         $("#date_rally").val(res[i].timer_start_rally);
@@ -914,7 +914,7 @@ function edit_add_argument(id_arg){
 
       setTimeout(function(){
         $.ajax({
-          url : "upload_img_argument.php",
+          url : "comiziamo_repo/upload_img_argument.php",
           type: 'POST',
           data : formData,
           processData: false, 

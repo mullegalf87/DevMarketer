@@ -924,7 +924,7 @@ function get_argument_rally_no_user(res_id){
     var res=jQuery.parseJSON(data);
 
     $("#append_switch").html('<div class="col-sm-12" style="text-align: center;padding-bottom: 15px">'+ 
-      '<a> <img  class="rounded-circle" src="uploads/default_img.png?refresh=<?php echo rand(1,999); ?>" alt="Rick" style="width: 150px; height: 150px;"></a>'+
+      '<a> <img  class="rounded-circle" src="comiziamo_repo/default_img.png?refresh=<?php echo rand(1,999); ?>" alt="Rick" style="width: 150px; height: 150px;"></a>'+
       '<div class="button-email">'+
       '<div class="teacher-name">'+
       '<div class="row">'+
@@ -949,9 +949,9 @@ function get_argument_rally_no_user(res_id){
     $("#argument_rally").text(res.get_argument_rally[0].argument);
 
     if (res.get_argument_rally[0].img_arg=="") {
-      $("#image_arg_rally").attr("src","uploads/default_img.png?refresh=<?php echo rand(1,999); ?>");
+      $("#image_arg_rally").attr("src","comiziamo_repo/default_img.png?refresh=<?php echo rand(1,999); ?>");
     }else{
-      $("#image_arg_rally").attr("src","uploads/img_argument/"+res.get_argument_rally[0].img_arg);
+      $("#image_arg_rally").attr("src","comiziamo_repo/img_argument/"+res.get_argument_rally[0].img_arg);
     }
     
   });
@@ -990,11 +990,11 @@ function get_argument_rally(res_id){
 
         if (res.get_user_party[0].img=="" || res.get_user_party[0].img==null) {
 
-          src_user="uploads/default_img.png?refresh=<?php echo rand(1,999); ?>";
+          src_user="comiziamo_repo/default_img.png?refresh=<?php echo rand(1,999); ?>";
 
         }else{
 
-          src_user="uploads/img_user/"+res.get_user_party[0].img;
+          src_user="comiziamo_repo/img_user/"+res.get_user_party[0].img;
 
         }
 
@@ -1002,12 +1002,12 @@ function get_argument_rally(res_id){
 
         if (res.get_user_party[0].img_party=="" || res.get_user_party[0].img_party==null) {
 
-          src_party="uploads/default_img.png?refresh=<?php echo rand(1,999); ?>";
+          src_party="comiziamo_repo/default_img.png?refresh=<?php echo rand(1,999); ?>";
 
 
         }else{
 
-          src_party="uploads/img_party/"+res.get_user_party[0].img_party;
+          src_party="comiziamo_repo/img_party/"+res.get_user_party[0].img_party;
 
         }
 
@@ -1077,9 +1077,9 @@ function get_argument_rally(res_id){
         $("#argument_rally").text(res.get_argument_rally[0].argument);
 
         if (res.get_argument_rally[0].img_arg=="") {
-          $("#image_arg_rally").attr("src","uploads/default_img.png?refresh=<?php echo rand(1,999); ?>");
+          $("#image_arg_rally").attr("src","comiziamo_repo/default_img.png?refresh=<?php echo rand(1,999); ?>");
         }else{
-          $("#image_arg_rally").attr("src","uploads/img_argument/"+res.get_argument_rally[0].img_arg);
+          $("#image_arg_rally").attr("src","comiziamo_repo/img_argument/"+res.get_argument_rally[0].img_arg);
         }
 
         if (res.get_partecipant_vote_rally.length==0) {

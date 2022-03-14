@@ -20,11 +20,14 @@ use Illuminate\Filesystem\Filesystem;
 use Mail;
 use App;
 use Socialite;
+use LaraFlash;
 
 
 
 class ComiziamosController extends Controller
 {
+
+
 
   // accedi alla pagina
   public function go_to_page(){
@@ -165,7 +168,7 @@ class ComiziamosController extends Controller
         } 
 
         //You can add validation login here
-        $user_exist = DB::connection('mysql_dynamic')->table('users_comiziamos')
+        $user_exist = $this->universal_db()->table('users_comiziamos')
         ->where('email', '=', $user->getEmail())
         ->get();
 
@@ -202,7 +205,7 @@ class ComiziamosController extends Controller
  
 
     //You can add validation login here
-    $user = DB::connection('mysql_dynamic')->table('users_comiziamos')
+    $user = $this->universal_db()->table('users_comiziamos')
     ->where('nickname', '=', $nickname)
     ->get();
 
@@ -213,7 +216,7 @@ class ComiziamosController extends Controller
 
 
     //Retrieve the user from the database
-    $user = DB::connection('mysql_dynamic')->table('users_comiziamos')
+    $user = $this->universal_db()->table('users_comiziamos')
     ->where('nickname', '=' ,$nickname)
     ->where('email', '=' ,$email)
     ->first();    
@@ -255,8 +258,14 @@ class ComiziamosController extends Controller
 
   }
 
+  public function universal_db(){
 
- 
+    Config::set('database.connections.mysql_dynamic.database','comiziamo');
+    $universal=DB::connection('mysql_dynamic');
+
+    return $universal;
+
+  }
 
   public function get_argument(){
 
@@ -265,12 +274,12 @@ class ComiziamosController extends Controller
     if ($lang=="") {
       $lang="it";
     }
-    //Config::set('database.connections.mysql_dynamic.database',env('DB_DATABASE', 'comiziamo'));
-    $get_argument=DB::connection('mysql_dynamic')->table('argument_comiziamo')
+
+    $get_argument=$this->universal_db()->table('argument_comiziamo')
     ->where('lang', '=' ,$lang)
     ->get();
 
-    $get_argument_partecipant_user=DB::connection('mysql_dynamic')->table('argument_comiziamo')
+    $get_argument_partecipant_user=$this->universal_db()->table('argument_comiziamo')
       ->select(DB::raw('distinct argument_comiziamo.*, argument_partecipant_comiziamo.*'))
       ->leftJoin('argument_partecipant_comiziamo', 'argument_partecipant_comiziamo.id_arg', '=', 'argument_comiziamo.id')
       ->where('lang', '=' ,$lang)
@@ -288,7 +297,7 @@ class ComiziamosController extends Controller
 
     $split_id=Request::get('split_id');
     //Config::set('database.connections.mysql_dynamic.database',env('DB_DATABASE', 'comiziamo'));
-    $get_timer_rally=DB::connection('mysql_dynamic')->table('argument_comiziamo')
+    $get_timer_rally=$this->universal_db()->table('argument_comiziamo')
     ->where('id', '=',$split_id)
     ->where("timer_start_rally", "LIKE", "%0000-00-00%")
     ->get();
@@ -296,7 +305,7 @@ class ComiziamosController extends Controller
     if (count($get_timer_rally) === 0) {
 
       //resetta il tempo a zero e chiude l'argomento
-      DB::connection('mysql_dynamic')->table('argument_comiziamo')  
+      $this->universal_db()->table('argument_comiziamo')  
       ->where('id', '=',$split_id)
       ->update(
         array(
@@ -304,14 +313,14 @@ class ComiziamosController extends Controller
        ));
 
       //non ha funzionato la cancellazione di argomenti senza voto, forse è il leftjoin
-      $get_delete=DB::connection('mysql_dynamic')->table('argument_comiziamo')
+      $get_delete=$this->universal_db()->table('argument_comiziamo')
       ->where('id', '=',$split_id)
       ->where('total_vote', '=',0)
       ->get();
       
       if ($get_delete) {
 
-       $get_data=DB::connection('mysql_dynamic')->table('argument_partecipant_comiziamo')
+       $get_data=$this->universal_db()->table('argument_partecipant_comiziamo')
         ->where('id_arg', '=',$get_delete[0]->id)
         ->get();
 
@@ -320,18 +329,18 @@ class ComiziamosController extends Controller
 
         for ($i=0; $i < count($get_data); $i++) { 
 
-          $target_dir = "../public/uploads/rally/".$get_data[$i]->id_user."_".$get_data[$i]->id_arg."_".$get_data[$i]->type."/";
+          $target_dir = "../public/comiziamo_repo/rally/".$get_data[$i]->id_user."_".$get_data[$i]->id_arg."_".$get_data[$i]->type."/";
 
         $file->deleteDirectory($target_dir);
 
         }
 
-        DB::connection('mysql_dynamic')->table('argument_comiziamo')
+        $this->universal_db()->table('argument_comiziamo')
         ->where('id', '=',$get_delete[0]->id)
         ->where('total_vote', '=',0)
         ->delete();  
 
-        DB::connection('mysql_dynamic')->table('argument_partecipant_comiziamo')
+        $this->universal_db()->table('argument_partecipant_comiziamo')
         ->where('id_arg', '=',$get_delete[0]->id)
         ->delete(); 
 
@@ -351,7 +360,7 @@ class ComiziamosController extends Controller
         if ($get_id_user_win[$i]->type_user_party==1) {
 
           //ottieni tutti i membri del partito
-          $get_member_party=DB::connection('mysql_dynamic')->table('detail_party_comiziamo')  
+          $get_member_party=$this->universal_db()->table('detail_party_comiziamo')  
           ->where('id_party', '=',$get_id_user_win[$i]->id_party)
           ->get();
 
@@ -359,7 +368,7 @@ class ComiziamosController extends Controller
           for ($y=0 ; $y < count($get_member_party) ; $y++ ) { 
 
             //ottieni il livello dei membri del partito
-            $get_level_user=DB::connection('mysql_dynamic')->table('users_comiziamos')
+            $get_level_user=$this->universal_db()->table('users_comiziamos')
             ->where('users_comiziamos.id', '=',$get_member_party[$y]->id_user)
             ->get();
 
@@ -374,7 +383,7 @@ class ComiziamosController extends Controller
         }else{
 
           //ottieni il livello di ogni vincitore
-          $get_level_user=DB::connection('mysql_dynamic')->table('users_comiziamos')
+          $get_level_user=$this->universal_db()->table('users_comiziamos')
           ->where('users_comiziamos.id', '=',$get_id_user_win[$i]->id_user)
           ->get();
 
@@ -392,7 +401,7 @@ class ComiziamosController extends Controller
       for ($i=0; $i < count($values_get_level_user) ; $i++) { 
 
         if ($values_get_level_user[$i][0]->level<10) {
-          DB::connection('mysql_dynamic')->table('users_comiziamos')
+          $this->universal_db()->table('users_comiziamos')
           ->where('id','=',$values_get_level_user[$i][0]->id)
           ->update(
             array(
@@ -406,7 +415,7 @@ class ComiziamosController extends Controller
           $lang="it";
         }
 
-        $get_level_current=DB::connection('mysql_dynamic')->table('users_comiziamos')
+        $get_level_current=$this->universal_db()->table('users_comiziamos')
         ->select(DB::raw('users_comiziamos.id as id, users_comiziamos.level as level, users_comiziamos.nickname as nickname, level_comiziamo_'.$lang.'.level as level_char')) 
         ->join('level_comiziamo_'.$lang, 'level_comiziamo_'.$lang.'.id_level', '=', 'users_comiziamos.level')  
         ->where('users_comiziamos.id', '=',$values_get_level_user[$i][0]->id)
@@ -420,7 +429,7 @@ class ComiziamosController extends Controller
       //aggiorno i livelli degli utenti vincitori
       for ($i=0; $i < count($values_get_level_current) ; $i++) { 
 
-          DB::connection('mysql_dynamic')->table('users_comiziamos')
+          $this->universal_db()->table('users_comiziamos')
           ->where('id','=',$values_get_level_current[$i][0]->id)
           ->update(
             array(
@@ -435,7 +444,7 @@ class ComiziamosController extends Controller
       $winner = str_replace('"','',$winner);
 
       //inserisco i vincitori tra gli argomenti e chiudo lo stato dell'argomento
-      DB::connection('mysql_dynamic')->table('argument_comiziamo')
+      $this->universal_db()->table('argument_comiziamo')
       ->where('id','=',$split_id)
       ->update(
         array(
@@ -446,12 +455,12 @@ class ComiziamosController extends Controller
     }
 
     //ottengo gli argomenti
-    $get_argument=DB::connection('mysql_dynamic')->table('argument_comiziamo')  
+    $get_argument=$this->universal_db()->table('argument_comiziamo')  
     ->where('id', '=',$split_id)
     ->get();
 
     //ottengo i partecipanti agli argomenti
-    $get_argument_partecipant_user=DB::connection('mysql_dynamic')->table('argument_comiziamo')
+    $get_argument_partecipant_user=$this->universal_db()->table('argument_comiziamo')
     ->select(DB::raw('distinct argument_comiziamo.*, argument_partecipant_comiziamo.*'))
     ->leftJoin('argument_partecipant_comiziamo', 'argument_partecipant_comiziamo.id_arg', '=', 'argument_comiziamo.id')
     ->where('argument_comiziamo.id', '=',$split_id)
@@ -470,7 +479,7 @@ class ComiziamosController extends Controller
 
     $res_id=Request::get('res_id');
     // Config::set('database.connections.mysql_dynamic.database',env('DB_DATABASE', 'comiziamo'));
-    $get_argument_rally=DB::connection('mysql_dynamic')->table('argument_comiziamo')
+    $get_argument_rally=$this->universal_db()->table('argument_comiziamo')
     ->where('id', '=',$res_id)
     ->get();
 
@@ -485,18 +494,18 @@ class ComiziamosController extends Controller
     $id_user=auth()->guard('users_comiziamo')->user()->id;
     $res_id=Request::get('res_id');
     // Config::set('database.connections.mysql_dynamic.database',env('DB_DATABASE', 'comiziamo'));
-    $get_argument_rally=DB::connection('mysql_dynamic')->table('argument_comiziamo')
+    $get_argument_rally=$this->universal_db()->table('argument_comiziamo')
     ->where('id', '=',$res_id)
     ->get();
 
-    $get_partecipant_vote_rally=DB::connection('mysql_dynamic')->table('argument_comiziamo')
+    $get_partecipant_vote_rally=$this->universal_db()->table('argument_comiziamo')
       ->join('argument_partecipant_comiziamo', 'argument_partecipant_comiziamo.id_arg', '=', 'argument_comiziamo.id')
       ->where('argument_partecipant_comiziamo.id_arg', '=',$res_id)
       ->where('argument_partecipant_comiziamo.id_user', '=',$id_user)
       ->get();
 
 
-    $get_user_party=DB::connection('mysql_dynamic')->table('users_comiziamos')
+    $get_user_party=$this->universal_db()->table('users_comiziamos')
       ->select(DB::raw('users_comiziamos.id as id_user, users_comiziamos.nickname as nickname, users_comiziamos.bio as bio, users_comiziamos.quote as quote, users_comiziamos.level as level, users_comiziamos.level_char as level_char, users_comiziamos.img as img, users_comiziamos.follower as follower, party_comiziamo.*'))
       ->leftJoin('party_comiziamo', 'party_comiziamo.creator_party', '=', 'users_comiziamos.id')
       ->where("users_comiziamos.id", "=", $id_user)
@@ -517,7 +526,7 @@ class ComiziamosController extends Controller
 
     $input = 'kartik-input-705';
 
-    $target_dir = "../public/uploads/rally/".$id_user."_".$id_arg."_".$type."/";
+    $target_dir = "../public/comiziamo_repo/rally/".$id_user."_".$id_arg."_".$type."/";
 
     
 
@@ -551,9 +560,9 @@ class ComiziamosController extends Controller
 
     $file = new Filesystem;
 
-    $file->deleteDirectory('../public/uploads/rally/'.$id_user."_".$id_arg."_".$type_arg."/");
+    $file->deleteDirectory('../public/comiziamo_repo/rally/'.$id_user."_".$id_arg."_".$type_arg."/");
 
-    DB::connection('mysql_dynamic')->table('argument_partecipant_comiziamo')
+    $this->universal_db()->table('argument_partecipant_comiziamo')
       ->where('id_arg', '=',$id_arg)
       ->where('id_user', '=',$id_user)
       // ->where('type', '=',$type_arg)
@@ -572,7 +581,7 @@ class ComiziamosController extends Controller
 
     $id_user=auth()->guard('users_comiziamo')->user()->id;
 
-    $target_dir = "../public/uploads/rally/".$id_user."_".$id_arg."_".$type_arg."/";
+    $target_dir = "../public/comiziamo_repo/rally/".$id_user."_".$id_arg."_".$type_arg."/";
 
     if( is_dir($target_dir) === false )
     {
@@ -606,7 +615,7 @@ class ComiziamosController extends Controller
     $id_party=Request::get('id_party');
     $comment_text_area=Request::get('comment_text_area');
 
-    $id_format=DB::connection('mysql_dynamic')->table('argument_partecipant_comiziamo')
+    $id_format=$this->universal_db()->table('argument_partecipant_comiziamo')
       ->where('id_user','=',$id_user)
       ->where('id_arg','=',$id_arg)
       ->get();
@@ -620,7 +629,7 @@ class ComiziamosController extends Controller
       if ($id_format) {
         $risp="esiste";
 
-        DB::connection('mysql_dynamic')->table('argument_partecipant_comiziamo')
+        $this->universal_db()->table('argument_partecipant_comiziamo')
         ->where('id_user','=',$id_user)
         ->where('id_arg','=',$id_arg)
         ->update(
@@ -637,7 +646,7 @@ class ComiziamosController extends Controller
       }else{
         $risp="non esiste";
         
-        DB::connection('mysql_dynamic')->table('argument_partecipant_comiziamo')
+        $this->universal_db()->table('argument_partecipant_comiziamo')
         ->insertGetId(array( 
          'id_arg'=>$id_arg,
          'id_user'=>$id_user,
@@ -663,7 +672,7 @@ class ComiziamosController extends Controller
     }
     $id_level=auth()->guard('users_comiziamo')->user()->level;
     $type_arg=Request::get('type_arg');
-    $get_info_level=DB::connection('mysql_dynamic')->table('level_comiziamo_'.$lang)
+    $get_info_level=$this->universal_db()->table('level_comiziamo_'.$lang)
       ->where('id_level','<=',$id_level)
       ->where('type','=',$type_arg)
       ->orderBy('id', 'desc')
@@ -676,13 +685,13 @@ class ComiziamosController extends Controller
     $id_user=auth()->guard('users_comiziamo')->user()->id;
     $id_arg=Request::get('res_id');
 
-    $get_count_partecipant=DB::connection('mysql_dynamic')->table('argument_partecipant_comiziamo')
+    $get_count_partecipant=$this->universal_db()->table('argument_partecipant_comiziamo')
       ->select(DB::raw('count(id) as partecipant'))
       ->where('id_arg','=',$id_arg)
       // ->where('id_user','=',$id_user)
       ->first();
 
-    DB::connection('mysql_dynamic')->table('argument_comiziamo')
+    $this->universal_db()->table('argument_comiziamo')
       ->where('id','=',$id_arg)
       ->update(
         array(
@@ -698,7 +707,7 @@ class ComiziamosController extends Controller
     $id_arg=Request::get('res_id');
     // $id_user=Request::get('id_user_party');
 
-    $preview_rally=DB::connection('mysql_dynamic')->table('argument_partecipant_comiziamo')
+    $preview_rally=$this->universal_db()->table('argument_partecipant_comiziamo')
       ->where('id_user','=',$id_user)
       ->where('id_arg','=',$id_arg)
       ->get();
@@ -709,7 +718,7 @@ class ComiziamosController extends Controller
 
       }else{
 
-        $target_dir = "../public/uploads/rally/".$preview_rally[0]->path."/";
+        $target_dir = "../public/comiziamo_repo/rally/".$preview_rally[0]->path."/";
         $pieces_dir = explode("../public/", $target_dir)[1];
 
         $file_name=array_slice(scandir($target_dir), 2);
@@ -738,7 +747,7 @@ class ComiziamosController extends Controller
 
     }
 
-    $result=DB::connection('mysql_dynamic')->table('argument_partecipant_comiziamo')
+    $result=$this->universal_db()->table('argument_partecipant_comiziamo')
       ->join('argument_comiziamo', 'argument_comiziamo.id', '=', 'argument_partecipant_comiziamo.id_arg')
       ->where('argument_partecipant_comiziamo.id_user','=',$id_user)
       ->get();
@@ -752,7 +761,7 @@ class ComiziamosController extends Controller
     //Config::set('database.connections.mysql_dynamic.database',env('DB_DATABASE', 'comiziamo'));
     $id_user=auth()->guard('users_comiziamo')->user()->id;
     $file_name=Request::get('file_name');
-    DB::connection('mysql_dynamic')->table('users_comiziamos')
+    $this->universal_db()->table('users_comiziamos')
       ->where('id','=',$id_user)
       ->update(
         array(
@@ -766,13 +775,13 @@ class ComiziamosController extends Controller
     $id_user=auth()->guard('users_comiziamo')->user()->id;
     $file_name=Request::get('file_name');
 
-    $party_exist=DB::connection('mysql_dynamic')->table('party_comiziamo')
+    $party_exist=$this->universal_db()->table('party_comiziamo')
       ->where('creator_party','=',$id_user)
       ->first();
 
     if ($party_exist) {
 
-      DB::connection('mysql_dynamic')->table('party_comiziamo')
+      $this->universal_db()->table('party_comiziamo')
       ->where('creator_party','=',$id_user)
       ->update(
         array(
@@ -781,7 +790,7 @@ class ComiziamosController extends Controller
 
     }else{
 
-      DB::connection('mysql_dynamic')->table('party_comiziamo')
+      $this->universal_db()->table('party_comiziamo')
       ->insertGetId(array( 
         'img_party'=>$file_name,
         'creator_party'=>$id_user,
@@ -803,7 +812,7 @@ class ComiziamosController extends Controller
     $id_user=Request::get('id_user');
   }
 
-  $get_comment_profile= DB::connection('mysql_dynamic')->table('comment_comiziamo')
+  $get_comment_profile= $this->universal_db()->table('comment_comiziamo')
     ->select(DB::raw('comment_comiziamo.comment, users_comiziamos.nickname as nickname, users_comiziamos.img as img, users_comiziamos.level_char as level_char, users_comiziamos.id as id_user' ))
     ->join('argument_partecipant_comiziamo', 'argument_partecipant_comiziamo.id', '=', 'comment_comiziamo.id_arg_partecipant')
     ->join('users_comiziamos', 'users_comiziamos.id', '=', 'comment_comiziamo.id_user') 
@@ -822,7 +831,7 @@ class ComiziamosController extends Controller
     $bio=Request::get('bio');
     $quote=Request::get('quote');
 
-    DB::connection('mysql_dynamic')->table('users_comiziamos')
+    $this->universal_db()->table('users_comiziamos')
       ->where('id','=',$id_user)
       ->update(
         array(
@@ -843,17 +852,17 @@ class ComiziamosController extends Controller
     $desc_party=Request::get('desc_party');
 
 
-    $exist_party_with_user=DB::connection('mysql_dynamic')->table('party_comiziamo')
+    $exist_party_with_user=$this->universal_db()->table('party_comiziamo')
       ->where('creator_party','=',$id_user)
       ->first();
 
-    $exist_party_with_name=DB::connection('mysql_dynamic')->table('party_comiziamo')
+    $exist_party_with_name=$this->universal_db()->table('party_comiziamo')
       ->where('name_party','LIKE','%'.$name_party.'%')
       ->first();  
 
     if ($exist_party_with_user) {
         $result="update";
-        DB::connection('mysql_dynamic')->table('party_comiziamo')
+        $this->universal_db()->table('party_comiziamo')
       ->where('creator_party','=',$id_user)
       ->update(
         array(
@@ -865,7 +874,7 @@ class ComiziamosController extends Controller
         $result="exist";
       }else{
         $result="create";
-        $id_party=DB::connection('mysql_dynamic')->table('party_comiziamo')
+        $id_party=$this->universal_db()->table('party_comiziamo')
           ->insertGetId(array( 
         'name_party'=>$name_party,
         'direction_party'=>$direction_party,
@@ -874,7 +883,7 @@ class ComiziamosController extends Controller
         ));
         
       //alla creazione inserire l'utente all'interno del detail_party_comiziamo e poi fai il count su quanti membri
-      $get_followers_party = DB::connection('mysql_dynamic')->table('detail_party_comiziamo')
+      $get_followers_party = $this->universal_db()->table('detail_party_comiziamo')
         ->where("id_party", "=", $id_party)
         ->where('id_user','=',$id_user)
         ->first();
@@ -885,7 +894,7 @@ class ComiziamosController extends Controller
 
         } else {
 
-          DB::connection('mysql_dynamic')->table('detail_party_comiziamo')
+          $this->universal_db()->table('detail_party_comiziamo')
           ->insertGetId(array( 
             'id_party'=>$id_party,
             'id_user'=>$id_user,
@@ -895,19 +904,19 @@ class ComiziamosController extends Controller
 
         } 
 
-        $get_count_followes_party = DB::connection('mysql_dynamic')->table('detail_party_comiziamo')
+        $get_count_followes_party = $this->universal_db()->table('detail_party_comiziamo')
           ->select(DB::raw('count(id_party) as count_followers_party'))
           ->where("id_party", "=", $id_party)
           ->get();
 
-        DB::connection('mysql_dynamic')->table('party_comiziamo')
+        $this->universal_db()->table('party_comiziamo')
           ->where('id','=',$id_party)
           ->update(
             array(
            'count_allied'=>$get_count_followes_party[0]->count_followers_party,
            )); 
 
-        DB::connection('mysql_dynamic')->table('users_comiziamos')
+        $this->universal_db()->table('users_comiziamos')
           ->where('id','=',$id_user)
           ->update(
             array(
@@ -926,7 +935,7 @@ class ComiziamosController extends Controller
   public function get_data_party(){
     $id_user=auth()->guard('users_comiziamo')->user()->id;
 
-    $get_data_party=DB::connection('mysql_dynamic')->table('party_comiziamo')
+    $get_data_party=$this->universal_db()->table('party_comiziamo')
       ->where('creator_party','=',$id_user)
       ->get();
 
@@ -940,7 +949,7 @@ class ComiziamosController extends Controller
       $lang="it";
     }
     //Config::set('database.connections.mysql_dynamic.database',env('DB_DATABASE', 'comiziamo'));
-    $get_level_legend=DB::connection('mysql_dynamic')->table('level_comiziamo_'.$lang)
+    $get_level_legend=$this->universal_db()->table('level_comiziamo_'.$lang)
     ->get();
 
 
@@ -960,7 +969,7 @@ class ComiziamosController extends Controller
 
   public function get_abuse(){
     //Config::set('database.connections.mysql_dynamic.database',env('DB_DATABASE', 'comiziamo'));
-    $get_abuse=DB::connection('mysql_dynamic')->table('abuse_comiziamo')
+    $get_abuse=$this->universal_db()->table('abuse_comiziamo')
       ->get();
 
     return View::make('query')->with("result",json_encode($get_abuse));   
@@ -969,7 +978,7 @@ class ComiziamosController extends Controller
 
   public function get_user(){
     //Config::set('database.connections.mysql_dynamic.database',env('DB_DATABASE', 'comiziamo'));
-    $get_user=DB::connection('mysql_dynamic')->table('users_comiziamos')
+    $get_user=$this->universal_db()->table('users_comiziamos')
       ->select(DB::raw('users_comiziamos.id as id, users_comiziamos.nickname as nickname, users_comiziamos.created_at as created_at'))
       ->get();
 
@@ -981,7 +990,7 @@ class ComiziamosController extends Controller
   public function get_list_allies(){
     $id_user=auth()->guard('users_comiziamo')->user()->id;
     //Config::set('database.connections.mysql_dynamic.database',env('DB_DATABASE', 'comiziamo'));
-    // $exist_allies=DB::connection('mysql_dynamic')->table('follow_party_comiziamo')
+    // $exist_allies=$this->universal_db()->table('follow_party_comiziamo')
     // ->select(DB::raw('users_comiziamos.id as id_user, users_comiziamos.nickname as nickname, users_comiziamos.img as img, follow_party_comiziamo.id_room as id_room, follow_party_comiziamo.count_message as count_message'))
     // ->join('users_comiziamos', 'users_comiziamos.id', '=', 'follow_party_comiziamo.who_follows')
     // ->where('follow_party_comiziamo.who_is_followed','=',$id_user)
@@ -989,7 +998,7 @@ class ComiziamosController extends Controller
 
     // if ($exist_allies) {
 
-    //   $get_list_allies=DB::connection('mysql_dynamic')->table('follow_party_comiziamo')
+    //   $get_list_allies=$this->universal_db()->table('follow_party_comiziamo')
     //   ->select(DB::raw('users_comiziamos.id as id_user, users_comiziamos.nickname as nickname, users_comiziamos.img as img, follow_party_comiziamo.id_room as id_room, follow_party_comiziamo.count_message as count_message'))
     //   ->join('users_comiziamos', 'users_comiziamos.id', '=', 'follow_party_comiziamo.who_follows')
     //   ->where('follow_party_comiziamo.who_is_followed','=',$id_user)
@@ -998,7 +1007,7 @@ class ComiziamosController extends Controller
 
     // }else{
 
-    //   $get_list_allies=DB::connection('mysql_dynamic')->table('follow_party_comiziamo')
+    //   $get_list_allies=$this->universal_db()->table('follow_party_comiziamo')
     //   ->select(DB::raw('users_comiziamos.id as id_user, users_comiziamos.nickname as nickname, users_comiziamos.img as img, follow_party_comiziamo.id_room as id_room, follow_party_comiziamo.count_message as count_message'))
     //   ->join('users_comiziamos', 'users_comiziamos.id', '=', 'follow_party_comiziamo.who_is_followed')
     //   ->where('follow_party_comiziamo.who_follows','=',$id_user) 
@@ -1006,7 +1015,7 @@ class ComiziamosController extends Controller
 
     // }
 
-    $get_list_allies=DB::connection('mysql_dynamic')->table('follow_party_comiziamo')
+    $get_list_allies=$this->universal_db()->table('follow_party_comiziamo')
       ->select(DB::raw('users_comiziamos.id as id_user, users_comiziamos.nickname as nickname, users_comiziamos.img as img, follow_party_comiziamo.id_room as id_room, follow_party_comiziamo.count_message as count_message, follow_party_comiziamo.delete_allied as delete_allied'))
       ->join('users_comiziamos', 'users_comiziamos.id', '=', 'follow_party_comiziamo.who_follows')
       ->where('follow_party_comiziamo.who_is_followed','=',$id_user)
@@ -1026,7 +1035,7 @@ class ComiziamosController extends Controller
 
 
 
-    $orders_with_id_room = DB::connection('mysql_dynamic')->table('follow_party_comiziamo')
+    $orders_with_id_room = $this->universal_db()->table('follow_party_comiziamo')
     ->where("id_room", "=", $id_room)
     ->get();
 
@@ -1051,7 +1060,7 @@ class ComiziamosController extends Controller
     $message=Request::get('message');
 
 
-      DB::connection('mysql_dynamic')->table('chat_comiziamo')
+      $this->universal_db()->table('chat_comiziamo')
         ->insertGetId(array( 
          'id_room'=>$id_room,
          'sender'=>$sender,
@@ -1061,7 +1070,7 @@ class ComiziamosController extends Controller
 
        ));
 
-      $count_message = DB::connection('mysql_dynamic')->table('chat_comiziamo')
+      $count_message = $this->universal_db()->table('chat_comiziamo')
         ->select(DB::raw('count(id) as count_message'))
         ->where("id_room", "=", $id_room)
         ->where("receiver", "=", $receiver)
@@ -1069,7 +1078,7 @@ class ComiziamosController extends Controller
         ->first();
 
 
-       DB::connection('mysql_dynamic')->table('follow_party_comiziamo')
+       $this->universal_db()->table('follow_party_comiziamo')
        ->where("id_room", "=", $id_room)
        ->where('who_is_followed','=',$receiver)
        ->update(
@@ -1089,7 +1098,7 @@ class ComiziamosController extends Controller
     $id_party=Request::get('id_party');
     $message=Request::get('message');
 
-      $get_member_party = DB::connection('mysql_dynamic')->table('detail_party_comiziamo')
+      $get_member_party = $this->universal_db()->table('detail_party_comiziamo')
         ->where("id_party", "=", $id_party)
         ->get();
 
@@ -1097,7 +1106,7 @@ class ComiziamosController extends Controller
 
         if ($get_member_party[$i]->id_user!=$sender) {
 
-          DB::connection('mysql_dynamic')->table('chat_congress_comiziamo')
+          $this->universal_db()->table('chat_congress_comiziamo')
           ->insertGetId(array( 
            'id_room'=>$id_party,
            'sender'=>$sender,
@@ -1107,7 +1116,7 @@ class ComiziamosController extends Controller
 
          ));
 
-          $count_message = DB::connection('mysql_dynamic')->table('chat_congress_comiziamo')
+          $count_message = $this->universal_db()->table('chat_congress_comiziamo')
           ->select(DB::raw('count(id) as count_message'))
           ->where("id_room", "=", $id_party)
           ->where("receiver", "=", $get_member_party[$i]->id_user)
@@ -1115,7 +1124,7 @@ class ComiziamosController extends Controller
           ->first();
 
           // print_r($count_message->count_message);
-           DB::connection('mysql_dynamic')->table('detail_party_comiziamo')
+           $this->universal_db()->table('detail_party_comiziamo')
            ->where("id_party", "=", $id_party)
            ->where('id_user','=',$get_member_party[$i]->id_user)
            ->update(
@@ -1139,7 +1148,7 @@ class ComiziamosController extends Controller
     
     // $get_chat_message = DB::select('SELECT * FROM chat_comiziamo as ch, users_comiziamos as us where ch.sender=us.id or ch.receiver=us.id and ch.sender='.$sender.' and ch.receiver='.$receiver.' or ch.sender='.$receiver.' and ch.receiver='.$sender.'');
 
-    $get_chat_message = DB::connection('mysql_dynamic')->table('chat_comiziamo')
+    $get_chat_message = $this->universal_db()->table('chat_comiziamo')
         ->join('users_comiziamos', 'users_comiziamos.id', '=', 'chat_comiziamo.sender')
         ->where("chat_comiziamo.sender", "=", $sender)
         ->where("chat_comiziamo.receiver", "=", $receiver)
@@ -1148,7 +1157,7 @@ class ComiziamosController extends Controller
         ->get();
 
 
-     DB::connection('mysql_dynamic')->table('chat_comiziamo')
+     $this->universal_db()->table('chat_comiziamo')
         ->where("id_room", "=", $id_room)
         ->where("receiver", "=", $sender)
         ->update( 
@@ -1156,7 +1165,7 @@ class ComiziamosController extends Controller
          'readen'=>1,
        ));
 
-    $count_message = DB::connection('mysql_dynamic')->table('chat_comiziamo')
+    $count_message = $this->universal_db()->table('chat_comiziamo')
         ->select(DB::raw('count(id) as count_message'))
         ->where("id_room", "=", $id_room)
         ->where("receiver", "=", $sender)
@@ -1164,7 +1173,7 @@ class ComiziamosController extends Controller
         ->first();
 
 
-     DB::connection('mysql_dynamic')->table('follow_party_comiziamo')
+     $this->universal_db()->table('follow_party_comiziamo')
        ->where("id_room", "=", $id_room)
        ->where('who_is_followed','=',$sender)
        ->update(
@@ -1188,7 +1197,7 @@ class ComiziamosController extends Controller
 
     //SELECT DISTINCT ch.sender as sender, ch.message as message, us.img FROM `chat_congress_comiziamo` as ch LEFT JOIN `users_comiziamos` as us ON ch.sender = us.id where ch.id_room=5 and ch.sender=102 or ch.receiver=102
 
-    $get_chat_message = DB::connection('mysql_dynamic')->table('chat_congress_comiziamo')
+    $get_chat_message = $this->universal_db()->table('chat_congress_comiziamo')
         ->select(DB::raw('distinct(chat_congress_comiziamo.sender) as sender, chat_congress_comiziamo.message as message, users_comiziamos.img as img '))
         ->join('users_comiziamos', 'users_comiziamos.id', '=', 'chat_congress_comiziamo.sender')
         ->where("chat_congress_comiziamo.id_room", "=", $id_party)
@@ -1197,7 +1206,7 @@ class ComiziamosController extends Controller
         ->get();
 
 
-     DB::connection('mysql_dynamic')->table('chat_congress_comiziamo')
+     $this->universal_db()->table('chat_congress_comiziamo')
         ->where("id_room", "=", $id_party)
         ->where("receiver", "=", $sender)
         ->update( 
@@ -1205,7 +1214,7 @@ class ComiziamosController extends Controller
          'readen'=>1,
        ));
 
-    $count_message = DB::connection('mysql_dynamic')->table('chat_congress_comiziamo')
+    $count_message = $this->universal_db()->table('chat_congress_comiziamo')
         ->select(DB::raw('count(id) as count_message'))
         ->where("id_room", "=", $id_party)
         ->where("receiver", "=", $sender)
@@ -1213,7 +1222,7 @@ class ComiziamosController extends Controller
         ->first();
 
 
-     DB::connection('mysql_dynamic')->table('detail_party_comiziamo')
+     $this->universal_db()->table('detail_party_comiziamo')
        ->where("id_party", "=", $id_party)
        ->where('id_user','=',$sender)
        ->update(
@@ -1230,7 +1239,7 @@ class ComiziamosController extends Controller
   public function get_list_congress(){
     $id_user=auth()->guard('users_comiziamo')->user()->id;
     //Config::set('database.connections.mysql_dynamic.database',env('DB_DATABASE', 'comiziamo'));
-    $get_list_congress=DB::connection('mysql_dynamic')->table('detail_party_comiziamo')
+    $get_list_congress=$this->universal_db()->table('detail_party_comiziamo')
     ->select(DB::raw('party_comiziamo.*,detail_party_comiziamo.count_message as count_message, detail_party_comiziamo.delete_allied as delete_allied'))
       ->join('party_comiziamo', 'party_comiziamo.id', '=', 'detail_party_comiziamo.id_party')
       ->where('detail_party_comiziamo.id_user','=',$id_user) 
@@ -1256,7 +1265,7 @@ class ComiziamosController extends Controller
     $date_rally=Request::get('date_rally');
     // $date_vote=Request::get('date_vote');
 
-  $id_arg=DB::connection('mysql_dynamic')->table('argument_comiziamo')
+  $id_arg=$this->universal_db()->table('argument_comiziamo')
   ->insertGetId(array( 
     'lang'=>$lang,
     'category_argument'=>$category_argument,
@@ -1278,7 +1287,7 @@ class ComiziamosController extends Controller
   public function show_edit_arg(){  
     //Config::set('database.connections.mysql_dynamic.database',env('DB_DATABASE', 'comiziamo'));
     $id_arg=Request::get('id_arg');
-    $get_argument_edit=DB::connection('mysql_dynamic')->table('argument_comiziamo')
+    $get_argument_edit=$this->universal_db()->table('argument_comiziamo')
     ->where('id', '=',$id_arg)
     ->get();
 
@@ -1297,7 +1306,7 @@ class ComiziamosController extends Controller
     $date_rally=Request::get('date_rally');
     // $date_vote=Request::get('date_vote');
 
-    DB::connection('mysql_dynamic')->table('argument_comiziamo')
+    $this->universal_db()->table('argument_comiziamo')
     ->where('id','=',$id_arg)
     ->update(
       array(
@@ -1320,7 +1329,7 @@ class ComiziamosController extends Controller
     $id_arg=Request::get('id_arg');
     $file_name=Request::get('file_name');
 
-      DB::connection('mysql_dynamic')->table('argument_comiziamo')
+      $this->universal_db()->table('argument_comiziamo')
       ->where('id','=',$id_arg)
       ->update(
         array(
@@ -1333,11 +1342,11 @@ class ComiziamosController extends Controller
     //Config::set('database.connections.mysql_dynamic.database',env('DB_DATABASE', 'comiziamo'));
     $id_arg=Request::get('id_arg');
     $img_arg=Request::get('img_arg');
-    DB::connection('mysql_dynamic')->table('argument_comiziamo')
+    $this->universal_db()->table('argument_comiziamo')
     ->where('id', '=',$id_arg)
     ->delete(); 
 
-    $file = '../public/uploads/img_argument/'.$img_arg;
+    $file = '../public/comiziamo_repo/img_argument/'.$img_arg;
 
     unlink($file);
 
@@ -1346,7 +1355,7 @@ class ComiziamosController extends Controller
   public function get_argument_vote(){
     //Config::set('database.connections.mysql_dynamic.database',env('DB_DATABASE', 'comiziamo'));
     $res_id=Request::get('res_id');
-    $get_argument_vote=DB::connection('mysql_dynamic')->table('argument_comiziamo')
+    $get_argument_vote=$this->universal_db()->table('argument_comiziamo')
     ->where('id', '=',$res_id)
     ->get();
 
@@ -1359,7 +1368,7 @@ class ComiziamosController extends Controller
     //Config::set('database.connections.mysql_dynamic.database',env('DB_DATABASE', 'comiziamo'));
     $id_arg=Request::get('res_id');
 
-    $get_partecipant_rally=DB::connection('mysql_dynamic')->table('argument_partecipant_comiziamo')
+    $get_partecipant_rally=$this->universal_db()->table('argument_partecipant_comiziamo')
       ->select(DB::raw('argument_partecipant_comiziamo.*, users_comiziamos.img as img_profile, users_comiziamos.nickname as nickname_profile, users_comiziamos.level_char as level_char_profile, users_comiziamos.id as id_user'))
       ->join('users_comiziamos', 'users_comiziamos.id', '=', 'argument_partecipant_comiziamo.id_user') 
       ->where('id_arg','=',$id_arg)
@@ -1374,7 +1383,7 @@ class ComiziamosController extends Controller
     $id_user=Request::get('id_user');
     $id_arg=Request::get('res_id');
 
-    $preview_rally=DB::connection('mysql_dynamic')->table('argument_partecipant_comiziamo')
+    $preview_rally=$this->universal_db()->table('argument_partecipant_comiziamo')
       ->where('id_user','=',$id_user)
       ->where('id_arg','=',$id_arg)
       ->get();
@@ -1385,7 +1394,7 @@ class ComiziamosController extends Controller
 
       }else{
 
-        $target_dir = "../public/uploads/rally/".$preview_rally[0]->path."/";
+        $target_dir = "../public/comiziamo_repo/rally/".$preview_rally[0]->path."/";
         $pieces_dir = explode("../public/", $target_dir)[1];
 
         $file_name=array_slice(scandir($target_dir), 2);
@@ -1416,25 +1425,25 @@ class ComiziamosController extends Controller
       $result="otherself";
 
       //elimina tutti i commenti
-      $delete_comment_vote=DB::connection('mysql_dynamic')->table('comment_comiziamo')
+      $delete_comment_vote=$this->universal_db()->table('comment_comiziamo')
         ->where('id_user','=',$id_user_comment)
         ->where('id_arg','=',$id_arg)
         ->delete();
 
       //svuota i voti del singolo argomento
-      DB::connection('mysql_dynamic')->table('argument_partecipant_comiziamo')
+      $this->universal_db()->table('argument_partecipant_comiziamo')
         ->where('id_arg','=',$id_arg)
         ->update(
           array(
          'vote'=>0,
          ));  
 
-      $get_data_arg_partecipant=DB::connection('mysql_dynamic')->table('argument_partecipant_comiziamo')
+      $get_data_arg_partecipant=$this->universal_db()->table('argument_partecipant_comiziamo')
         ->where('id_user','=',$id_user)
         ->where('id_arg','=',$id_arg)
         ->first();
 
-      DB::connection('mysql_dynamic')->table('comment_comiziamo')
+      $this->universal_db()->table('comment_comiziamo')
       ->insertGetId(array( 
       'id_arg_partecipant'=>$get_data_arg_partecipant->id,
       'id_arg'=>$id_arg,
@@ -1442,7 +1451,7 @@ class ComiziamosController extends Controller
       'comment'=>$comment,
       ));
 
-      $id_get_partecipant=DB::connection('mysql_dynamic')->table('argument_partecipant_comiziamo')
+      $id_get_partecipant=$this->universal_db()->table('argument_partecipant_comiziamo')
       ->where('id_arg','=',$id_arg)
       ->get();
       
@@ -1450,14 +1459,14 @@ class ComiziamosController extends Controller
 
       for ($i=0; $i < count($id_get_partecipant); $i++) { 
 
-        $count_vote= DB::connection('mysql_dynamic')->table('comment_comiziamo')
+        $count_vote= $this->universal_db()->table('comment_comiziamo')
         ->select(DB::raw('count(id) as count_vote'))
         ->where('id_arg_partecipant','=', $id_get_partecipant[$i]->id)
         ->get();
 
         $values[] =$count_vote;   
 
-        DB::connection('mysql_dynamic')->table('argument_partecipant_comiziamo')
+        $this->universal_db()->table('argument_partecipant_comiziamo')
         ->where('id','=',$id_get_partecipant[$i]->id)
         ->update(
           array(
@@ -1466,12 +1475,12 @@ class ComiziamosController extends Controller
 
       }
 
-      $get_count_vote=DB::connection('mysql_dynamic')->table('argument_partecipant_comiziamo')
+      $get_count_vote=$this->universal_db()->table('argument_partecipant_comiziamo')
       ->select(DB::raw('sum(vote) as count_vote'))
       ->where('id_arg','=',$id_arg)
       ->get();
 
-      DB::connection('mysql_dynamic')->table('argument_comiziamo')  
+      $this->universal_db()->table('argument_comiziamo')  
         ->where('id', '=',$id_arg)
         ->update(
           array(
@@ -1497,7 +1506,7 @@ class ComiziamosController extends Controller
 
     }else{
 
-      DB::connection('mysql_dynamic')->table('abuse_comiziamo')
+      $this->universal_db()->table('abuse_comiziamo')
       ->insertGetId(array( 
       'id_arg'=>$id_arg,
       'id_user'=>$id_user,
@@ -1516,7 +1525,7 @@ class ComiziamosController extends Controller
 
     //Config::set('database.connections.mysql_dynamic.database',env('DB_DATABASE', 'comiziamo'));
     $res_id=Request::get('res_id');
-    $get_argument_chart=DB::connection('mysql_dynamic')->table('argument_comiziamo')
+    $get_argument_chart=$this->universal_db()->table('argument_comiziamo')
     ->where('id', '=',$res_id)
     ->get();
 
@@ -1528,7 +1537,7 @@ class ComiziamosController extends Controller
   //Config::set('database.connections.mysql_dynamic.database',env('DB_DATABASE', 'comiziamo'));
   $id_arg=Request::get('res_id');
 
-  $get_chart= DB::connection('mysql_dynamic')->table('argument_partecipant_comiziamo')
+  $get_chart= $this->universal_db()->table('argument_partecipant_comiziamo')
     ->select(DB::raw('users_comiziamos.nickname as nickname, argument_partecipant_comiziamo.*'))
     ->join('users_comiziamos', 'users_comiziamos.id', '=', 'argument_partecipant_comiziamo.id_user') 
     ->where('id_arg','=', $id_arg)
@@ -1543,7 +1552,7 @@ class ComiziamosController extends Controller
   $id_user=Request::get('id_user');
   $id_arg=Request::get('res_id');
 
-  $get_comment_chart= DB::connection('mysql_dynamic')->table('comment_comiziamo')
+  $get_comment_chart= $this->universal_db()->table('comment_comiziamo')
     ->select(DB::raw('comment_comiziamo.comment, users_comiziamos.nickname as nickname, users_comiziamos.img as img, users_comiziamos.level_char as level_char, users_comiziamos.id as id_user' ))
     ->join('argument_partecipant_comiziamo', 'argument_partecipant_comiziamo.id', '=', 'comment_comiziamo.id_arg_partecipant')
     ->join('users_comiziamos', 'users_comiziamos.id', '=', 'comment_comiziamo.id_user') 
@@ -1560,7 +1569,7 @@ class ComiziamosController extends Controller
     $id_user=Request::get('id_user');
     $id_arg=Request::get('res_id');
 
-    $preview_rally=DB::connection('mysql_dynamic')->table('argument_partecipant_comiziamo')
+    $preview_rally=$this->universal_db()->table('argument_partecipant_comiziamo')
       ->where('id_user','=',$id_user)
       ->where('id_arg','=',$id_arg)
       ->get();
@@ -1571,7 +1580,7 @@ class ComiziamosController extends Controller
 
       }else{
 
-        $target_dir = "../public/uploads/rally/".$preview_rally[0]->path."/";
+        $target_dir = "../public/comiziamo_repo/rally/".$preview_rally[0]->path."/";
         $pieces_dir = explode("../public/", $target_dir)[1];
 
         $file_name=array_slice(scandir($target_dir), 2);
@@ -1588,7 +1597,7 @@ class ComiziamosController extends Controller
     //Config::set('database.connections.mysql_dynamic.database',env('DB_DATABASE', 'comiziamo'));
     $id_arg=Request::get('res_id');
 
-    $get_winner=DB::connection('mysql_dynamic')->table('argument_comiziamo')
+    $get_winner=$this->universal_db()->table('argument_comiziamo')
       ->where('id','=',$id_arg)
       ->first();
   
@@ -1602,14 +1611,14 @@ class ComiziamosController extends Controller
     //Config::set('database.connections.mysql_dynamic.database',env('DB_DATABASE', 'comiziamo'));
     $ip_address=Request::get('ip_address');
 
-    $orders_with_token = DB::connection('mysql_dynamic')->table('cookie_comiziamo')
+    $orders_with_token = $this->universal_db()->table('cookie_comiziamo')
     ->select(DB::raw('max(numb_access) as max_numb_access'))
     ->where("ip_address", "=", $ip_address)
     ->get();
 
     if ($orders_with_token[0]->max_numb_access!=null) {
 
-      DB::connection('mysql_dynamic')->table('cookie_comiziamo')  
+      $this->universal_db()->table('cookie_comiziamo')  
       ->where('ip_address', '=',$ip_address)
       ->update(
         array(
@@ -1618,7 +1627,7 @@ class ComiziamosController extends Controller
       
     }else{
 
-      DB::connection('mysql_dynamic')->table('cookie_comiziamo')
+      $this->universal_db()->table('cookie_comiziamo')
       ->insertGetId(array( 
        'ip_address'=>$ip_address,
        'numb_access'=>1,
@@ -1657,14 +1666,14 @@ class ComiziamosController extends Controller
     //Config::set('database.connections.mysql_dynamic.database',env('DB_DATABASE', 'comiziamo'));
     $ip_address=Request::get('ip_address');
 
-    $max_numb = DB::connection('mysql_dynamic')->table('cookie_comiziamo')
+    $max_numb = $this->universal_db()->table('cookie_comiziamo')
     ->select(DB::raw('max(numb_access) as max_numb_access'))
     ->where("ip_address", "=", $ip_address)
     ->get();
 
     if ($max_numb[0]->max_numb_access!=null) {
 
-      DB::connection('mysql_dynamic')->table('cookie_comiziamo')  
+      $this->universal_db()->table('cookie_comiziamo')  
       ->where('ip_address', '=',$ip_address)
       ->update(
         array(
@@ -1673,7 +1682,7 @@ class ComiziamosController extends Controller
 
     }else{
 
-      DB::connection('mysql_dynamic')->table('cookie_comiziamo')
+      $this->universal_db()->table('cookie_comiziamo')
       ->insertGetId(array( 
        'ip_address'=>$ip_address,
        'numb_access'=>1,
@@ -1697,7 +1706,7 @@ class ComiziamosController extends Controller
       $result="myself";
     } else {
 
-    $exists_follow=DB::connection('mysql_dynamic')->table('follow_party_comiziamo')
+    $exists_follow=$this->universal_db()->table('follow_party_comiziamo')
     ->where("who_follows", "=", $id_user)
     ->where("who_is_followed", "=", $who_is_followed)
     ->first();
@@ -1706,7 +1715,7 @@ class ComiziamosController extends Controller
 
         $result="update";
 
-        DB::connection('mysql_dynamic')->table('follow_party_comiziamo')
+        $this->universal_db()->table('follow_party_comiziamo')
         ->where("who_follows", "=", $id_user)
         ->where("who_is_followed", "=", $who_is_followed)
         ->update(
@@ -1726,7 +1735,7 @@ class ComiziamosController extends Controller
 
           if ($get_id_room) {
 
-            DB::connection('mysql_dynamic')->table('follow_party_comiziamo')
+            $this->universal_db()->table('follow_party_comiziamo')
             ->insertGetId(array( 
              'who_is_followed'=>$who_is_followed,
              'who_follows'=>$id_user,
@@ -1735,7 +1744,7 @@ class ComiziamosController extends Controller
 
           } else{
 
-            DB::connection('mysql_dynamic')->table('follow_party_comiziamo')
+            $this->universal_db()->table('follow_party_comiziamo')
             ->insertGetId(array( 
              'who_is_followed'=>$who_is_followed,
              'who_follows'=>$id_user,
@@ -1747,21 +1756,21 @@ class ComiziamosController extends Controller
         
       }
 
-      $follower=DB::connection('mysql_dynamic')->table('follow_party_comiziamo')
+      $follower=$this->universal_db()->table('follow_party_comiziamo')
       ->select(DB::raw('count(id) as count_follower'))
       ->where("who_is_followed", "=", $who_is_followed)
       ->where("delete_allied", "=", 0)
       ->first();
 
 
-      DB::connection('mysql_dynamic')->table('users_comiziamos')
+      $this->universal_db()->table('users_comiziamos')
         ->where("id", "=", $who_is_followed)
         ->update(
           array(
            'follower'=>$follower->count_follower,
          ));
 
-      // DB::connection('mysql_dynamic')->table('chat_comiziamo')
+      // $this->universal_db()->table('chat_comiziamo')
       //       ->insertGetId(array( 
       //        'who_is_followed'=>$who_is_followed,
       //        'who_follows'=>$id_user,
@@ -1778,7 +1787,7 @@ class ComiziamosController extends Controller
 
   public function read_button_follow(){
     $id_user=auth()->guard('users_comiziamo')->user()->id;
-    $get_followers=DB::connection('mysql_dynamic')->table('follow_party_comiziamo')
+    $get_followers=$this->universal_db()->table('follow_party_comiziamo')
     ->where("who_follows", "=", $id_user)
     ->where("delete_allied", "=", 0)
     ->get();
@@ -1794,11 +1803,11 @@ class ComiziamosController extends Controller
     $who_is_followed=Request::get('who_is_followed');
 
 
-    // DB::connection('mysql_dynamic')->table('follow_party_comiziamo')
+    // $this->universal_db()->table('follow_party_comiziamo')
     // ->where("who_follows", "=", $id_user)
     // ->where("who_is_followed", "=", $who_is_followed)
     // ->delete();
-    DB::connection('mysql_dynamic')->table('follow_party_comiziamo')
+    $this->universal_db()->table('follow_party_comiziamo')
     ->where("who_follows", "=", $id_user)
     ->where("who_is_followed", "=", $who_is_followed)
     ->update(
@@ -1808,14 +1817,14 @@ class ComiziamosController extends Controller
     
 
 
-    $follower=DB::connection('mysql_dynamic')->table('follow_party_comiziamo')
+    $follower=$this->universal_db()->table('follow_party_comiziamo')
       ->select(DB::raw('count(id) as count_follower'))
       ->where("who_is_followed", "=", $who_is_followed)
       ->where("delete_allied", "=", 0)
       ->first();
 
 
-      DB::connection('mysql_dynamic')->table('users_comiziamos')
+      $this->universal_db()->table('users_comiziamos')
         ->where("id", "=", $who_is_followed)
         ->update(
           array(
@@ -1831,7 +1840,7 @@ class ComiziamosController extends Controller
     $id_user=auth()->guard('users_comiziamo')->user()->id;
     $id_party=Request::get('id_party');
 
-    $get_followers_party = DB::connection('mysql_dynamic')->table('detail_party_comiziamo')
+    $get_followers_party = $this->universal_db()->table('detail_party_comiziamo')
       ->where("id_party", "=", $id_party)
       ->where('id_user','=',$id_user)
       ->first();
@@ -1840,7 +1849,7 @@ class ComiziamosController extends Controller
 
       $result="exist";
 
-      DB::connection('mysql_dynamic')->table('detail_party_comiziamo')
+      $this->universal_db()->table('detail_party_comiziamo')
         ->where("id_party", "=", $id_party)
         ->where("id_user", "=", $id_user)
         ->update(
@@ -1852,26 +1861,26 @@ class ComiziamosController extends Controller
 
       } else {
 
-        DB::connection('mysql_dynamic')->table('detail_party_comiziamo')
+        $this->universal_db()->table('detail_party_comiziamo')
         ->insertGetId(array( 
           'id_party'=>$id_party,
           'id_user'=>$id_user,
         ));
 
-        DB::connection('mysql_dynamic')->table('users_comiziamos')
+        $this->universal_db()->table('users_comiziamos')
           ->where('id','=',$id_user)
           ->update(
             array(
            'creation_party'=>1,
            )); 
 
-      $get_count_followes_party = DB::connection('mysql_dynamic')->table('detail_party_comiziamo')
+      $get_count_followes_party = $this->universal_db()->table('detail_party_comiziamo')
           ->select(DB::raw('count(id_party) as count_followers_party'))
           ->where("id_party", "=", $id_party)
           ->where("delete_allied", "=", 0)
           ->get();
 
-        DB::connection('mysql_dynamic')->table('party_comiziamo')
+        $this->universal_db()->table('party_comiziamo')
           ->where('id','=',$id_party)
           ->update(
             array(
@@ -1890,7 +1899,7 @@ class ComiziamosController extends Controller
   public function read_button_follow_party(){
     $id_user=auth()->guard('users_comiziamo')->user()->id;
     $id_party=Request::get('id_party');
-    $get_followers_party=DB::connection('mysql_dynamic')->table('detail_party_comiziamo')
+    $get_followers_party=$this->universal_db()->table('detail_party_comiziamo')
     ->where("id_user", "=", $id_user)
     ->where("id_party", "=", $id_party)
     ->where("delete_allied", "=", 0)
@@ -1906,7 +1915,7 @@ class ComiziamosController extends Controller
     $id_user=auth()->guard('users_comiziamo')->user()->id;
     $id_party=Request::get('id_party');
 
-    DB::connection('mysql_dynamic')->table('detail_party_comiziamo')
+    $this->universal_db()->table('detail_party_comiziamo')
     ->where("id_user", "=", $id_user)
     ->where("id_party", "=", $id_party)
     ->update(
@@ -1914,14 +1923,14 @@ class ComiziamosController extends Controller
            'delete_allied'=>1,
          ));
     
-    $follower=DB::connection('mysql_dynamic')->table('detail_party_comiziamo')
+    $follower=$this->universal_db()->table('detail_party_comiziamo')
       ->select(DB::raw('count(id) as count_follower'))
       ->where("id_party", "=", $id_party)
       ->where("delete_allied", "=", 0)
       ->first();
 
 
-      DB::connection('mysql_dynamic')->table('party_comiziamo')
+      $this->universal_db()->table('party_comiziamo')
         ->where("id", "=", $id_party)
         ->update(
           array(
@@ -1939,7 +1948,7 @@ class ComiziamosController extends Controller
         $lang="it";
       }
 
-    $get_newspaper=DB::connection('mysql_dynamic')->table('argument_comiziamo')
+    $get_newspaper=$this->universal_db()->table('argument_comiziamo')
       ->where("lang","=",$lang)
       ->where("img_arg","!=","")
       ->orderBy("id","DESC")
@@ -1954,7 +1963,7 @@ class ComiziamosController extends Controller
 
     $id_user=Request::get('id_user');
 
-      $exist_party=DB::connection('mysql_dynamic')->table('users_comiziamos')
+      $exist_party=$this->universal_db()->table('users_comiziamos')
         ->select(DB::raw('users_comiziamos.id as id_user, users_comiziamos.nickname as nickname, users_comiziamos.bio as bio, users_comiziamos.quote as quote, users_comiziamos.level as level, users_comiziamos.level_char as level_char, users_comiziamos.img as img, users_comiziamos.follower as follower, party_comiziamo.*'))
         ->join('party_comiziamo', 'party_comiziamo.creator_party', '=', 'users_comiziamos.id')
         ->where("users_comiziamos.id", "=", $id_user)
@@ -1962,13 +1971,13 @@ class ComiziamosController extends Controller
 
       if ($exist_party) {
 
-        $get_data_user=DB::connection('mysql_dynamic')->table('users_comiziamos')
+        $get_data_user=$this->universal_db()->table('users_comiziamos')
         ->select(DB::raw('users_comiziamos.id as id_user, users_comiziamos.nickname as nickname, users_comiziamos.bio as bio, users_comiziamos.quote as quote, users_comiziamos.level as level, users_comiziamos.level_char as level_char, users_comiziamos.img as img, users_comiziamos.follower as follower, party_comiziamo.*'))
         ->join('party_comiziamo', 'party_comiziamo.creator_party', '=', 'users_comiziamos.id')
         ->where("users_comiziamos.id", "=", $id_user)
         ->get();
 
-        $get_data_user_party=DB::connection('mysql_dynamic')->table('detail_party_comiziamo')
+        $get_data_user_party=$this->universal_db()->table('detail_party_comiziamo')
         ->join('party_comiziamo', 'party_comiziamo.id', '=', 'detail_party_comiziamo.id_party')
         ->where("detail_party_comiziamo.id_user", "=", $id_user)
         ->where("detail_party_comiziamo.delete_allied", "=", 0)
@@ -1977,7 +1986,7 @@ class ComiziamosController extends Controller
 
       }else{
 
-        $get_data_user=DB::connection('mysql_dynamic')->table('users_comiziamos')
+        $get_data_user=$this->universal_db()->table('users_comiziamos')
         ->select(DB::raw('users_comiziamos.id as id_user, users_comiziamos.nickname as nickname, users_comiziamos.bio as bio, users_comiziamos.quote as quote, users_comiziamos.level as level, users_comiziamos.level_char as level_char, users_comiziamos.img as img, users_comiziamos.follower as follower'))
         ->where("users_comiziamos.id", "=", $id_user)
         ->get();
@@ -1987,7 +1996,7 @@ class ComiziamosController extends Controller
       }
 
 
-    $get_argument_partecipant_user=DB::connection('mysql_dynamic')->table('argument_comiziamo')
+    $get_argument_partecipant_user=$this->universal_db()->table('argument_comiziamo')
       ->select(DB::raw('argument_comiziamo.*, argument_partecipant_comiziamo.*'))
       ->join('argument_partecipant_comiziamo', 'argument_partecipant_comiziamo.id_arg', '=', 'argument_comiziamo.id')
       ->where("argument_partecipant_comiziamo.id_user", "=", $id_user)
@@ -2004,12 +2013,12 @@ class ComiziamosController extends Controller
 
     $search_user=Request::get('search_user');
 
-    $get_user=DB::connection('mysql_dynamic')->table('users_comiziamos')
+    $get_user=$this->universal_db()->table('users_comiziamos')
       ->select(DB::raw('users_comiziamos.id as id_user, users_comiziamos.nickname as nickname, users_comiziamos.bio as bio, users_comiziamos.quote as quote, users_comiziamos.level as level, users_comiziamos.level_char as level_char, users_comiziamos.img as img, users_comiziamos.follower as follower'))
       ->where("users_comiziamos.nickname", "LIKE", "%".$search_user."%")
       ->get();
 
-    // $get_argument_partecipant_user=DB::connection('mysql_dynamic')->table('argument_comiziamo')
+    // $get_argument_partecipant_user=$this->universal_db()->table('argument_comiziamo')
     //   ->select(DB::raw('argument_comiziamo.*, argument_partecipant.*'))
     //   ->join('argument_partecipant', 'argument_partecipant.id_arg', '=', 'argument_comiziamo.id')
     //   ->where("argument_partecipant.id_user", "=", $id_user)

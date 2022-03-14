@@ -257,9 +257,9 @@ top: 0px;
           $("#argument_chart").text(res[0].argument);
           $("#argument_title_chart").text(res[0].title_argument);
           if (res[0].img_arg=="") {
-            $("#image_arg_chart").attr("src","uploads/default_img.png?refresh=<?php echo rand(1,999); ?>");
+            $("#image_arg_chart").attr("src","comiziamo_repo/default_img.png?refresh=<?php echo rand(1,999); ?>");
           }else{
-            $("#image_arg_chart").attr("src","uploads/img_argument/"+res[0].img_arg);
+            $("#image_arg_chart").attr("src","comiziamo_repo/img_argument/"+res[0].img_arg);
           }
         }
 
@@ -366,11 +366,11 @@ top: 0px;
 
                           if (array_comment_page[i][y].img=="") {
 
-                            var src="uploads/default_img.png?refresh=<?php echo rand(1,999); ?>";
+                            var src="comiziamo_repo/default_img.png?refresh=<?php echo rand(1,999); ?>";
 
                           }else{
 
-                            var src="uploads/img_user/"+array_comment_page[i][y].img+"?refresh=<?php echo rand(1,999); ?>"
+                            var src="comiziamo_repo/img_user/"+array_comment_page[i][y].img+"?refresh=<?php echo rand(1,999); ?>"
                           }
 
                           if (id_user_profile!=array_comment_page[i][y].id_user) {

@@ -325,9 +325,9 @@ td {
               <div class="d-flex flex-column align-items-center text-center">
                 <div onclick="$('#imgupload').trigger('click'); return false;">
                   @if( auth()->guard('users_comiziamo')->user()->img =="" )
-                  <img id="image_profile" src="uploads/default_img.png?refresh=<?php echo rand(1,999); ?>" alt="Admin" class="rounded-circle" width="150" height="150">
+                  <img id="image_profile" src="comiziamo_repo/default_img.png?refresh=<?php echo rand(1,999); ?>" alt="Admin" class="rounded-circle" width="150" height="150">
                   @else
-                  <img id="image_profile" src="uploads/img_user/{{ auth()->guard('users_comiziamo')->user()->img}}?refresh=<?php echo rand(1,999); ?>" alt="Admin" class="rounded-circle" width="150" height="150">
+                  <img id="image_profile" src="comiziamo_repo/img_user/{{ auth()->guard('users_comiziamo')->user()->img}}?refresh=<?php echo rand(1,999); ?>" alt="Admin" class="rounded-circle" width="150" height="150">
                   @endif
                 </div>
                 <div class="mt-3">
@@ -688,7 +688,7 @@ function previewFile() {
 
               setTimeout(function(){
                 $.ajax({
-                  url : "upload_img_profile.php",
+                  url : "comiziamo_repo/upload_img_profile.php",
                   type: 'POST',
                   data : formData,
                   processData: false, 
@@ -752,7 +752,7 @@ function previewFile_party() {
 
               setTimeout(function(){
                 $.ajax({
-                  url : "upload_img_party.php",
+                  url : "comiziamo_repo/upload_img_party.php",
                   type: 'POST',
                   data : formData,
                   processData: false, 
@@ -890,11 +890,11 @@ function get_comment_profile(res_id, from, id_user){
 
         if (array_comment_page[i][y].img=="") {
 
-          var src="uploads/default_img.png?refresh=<?php echo rand(1,999); ?>";
+          var src="comiziamo_repo/default_img.png?refresh=<?php echo rand(1,999); ?>";
 
         }else{
 
-          var src="uploads/img_user/"+array_comment_page[i][y].img+"?refresh=<?php echo rand(1,999); ?>"
+          var src="comiziamo_repo/img_user/"+array_comment_page[i][y].img+"?refresh=<?php echo rand(1,999); ?>"
         }
 
        
@@ -971,18 +971,18 @@ function get_data_party(){
 
       if (res.length==0) {
 
-        $("#img_party_append").append('<img id="image_party" src="uploads/default_img.png?refresh=<?php echo rand(1,999); ?>" alt="Admin" class="rounded-circle" width="150" height="150">');
+        $("#img_party_append").append('<img id="image_party" src="comiziamo_repo/default_img.png?refresh=<?php echo rand(1,999); ?>" alt="Admin" class="rounded-circle" width="150" height="150">');
 
       }else{
 
         if (res[0].img_party=="") {
 
 
-          $("#img_party_append").append('<img id="image_party" src="uploads/default_img.png?refresh=<?php echo rand(1,999); ?>" alt="Admin" class="rounded-circle" width="150" height="150">');
+          $("#img_party_append").append('<img id="image_party" src="comiziamo_repo/default_img.png?refresh=<?php echo rand(1,999); ?>" alt="Admin" class="rounded-circle" width="150" height="150">');
 
         }else{
 
-          $("#img_party_append").append('<img id="image_party" src="uploads/img_party/'+res[0].img_party+'?refresh=<?php echo rand(1,999); ?>" alt="Admin" class="rounded-circle" width="150" height="150">');
+          $("#img_party_append").append('<img id="image_party" src="comiziamo_repo/img_party/'+res[0].img_party+'?refresh=<?php echo rand(1,999); ?>" alt="Admin" class="rounded-circle" width="150" height="150">');
 
         }
         
@@ -1162,11 +1162,11 @@ function get_list_allies(){
 
         if (res[i].img=="") {
 
-          src="uploads/default_img.png?refresh=<?php echo rand(1,999); ?>"
+          src="comiziamo_repo/default_img.png?refresh=<?php echo rand(1,999); ?>"
 
         }else{
 
-          src="uploads/img_user/"+res[i].img+"?refresh=<?php echo rand(1,999); ?>"
+          src="comiziamo_repo/img_user/"+res[i].img+"?refresh=<?php echo rand(1,999); ?>"
 
         }
 
@@ -1214,11 +1214,11 @@ function get_list_allies(){
 
       if (res[0].img=="") {
 
-        src_0="uploads/default_img.png?refresh=<?php echo rand(1,999); ?>"
+        src_0="comiziamo_repo/default_img.png?refresh=<?php echo rand(1,999); ?>"
 
       }else{
 
-        src_0="uploads/img_user/"+res[0].img+"?refresh=<?php echo rand(1,999); ?>"
+        src_0="comiziamo_repo/img_user/"+res[0].img+"?refresh=<?php echo rand(1,999); ?>"
 
       }
 
@@ -1288,11 +1288,11 @@ function get_list_congress(){
 
         if (res[i].img_party=="") {
 
-          src="uploads/default_img.png?refresh=<?php echo rand(1,999); ?>"
+          src="comiziamo_repo/default_img.png?refresh=<?php echo rand(1,999); ?>"
 
         }else{
 
-          src="uploads/img_party/"+res[i].img_party+"?refresh=<?php echo rand(1,999); ?>"
+          src="comiziamo_repo/img_party/"+res[i].img_party+"?refresh=<?php echo rand(1,999); ?>"
 
         }
 
@@ -1339,11 +1339,11 @@ function get_list_congress(){
 
       if (res[0].img_party=="") {
 
-        src_0="uploads/default_img.png?refresh=<?php echo rand(1,999); ?>"
+        src_0="comiziamo_repo/default_img.png?refresh=<?php echo rand(1,999); ?>"
 
       }else{
 
-        src_0="uploads/img_party/"+res[0].img_party+"?refresh=<?php echo rand(1,999); ?>"
+        src_0="comiziamo_repo/img_party/"+res[0].img_party+"?refresh=<?php echo rand(1,999); ?>"
 
       }
     
@@ -1457,9 +1457,9 @@ function send_chat_message(receiver, id_room){
 
   var src='@if( auth()->guard("users_comiziamo")->check() )'+
   '@if( auth()->guard("users_comiziamo")->user()->img =="" )'+
-  'uploads/default_img.png?refresh=<?php echo rand(1,999); ?>'+
+  'comiziamo_repo/default_img.png?refresh=<?php echo rand(1,999); ?>'+
   '@else'+
-  'uploads/img_user/{{ auth()->guard("users_comiziamo")->user()->img}}?refresh=<?php echo rand(1,999); ?>'+
+  'comiziamo_repo/img_user/{{ auth()->guard("users_comiziamo")->user()->img}}?refresh=<?php echo rand(1,999); ?>'+
   '@endif'+
   '@endif';
 
@@ -1504,9 +1504,9 @@ function send_chat_message_congress(receiver, id_party){
 
   var src='@if( auth()->guard("users_comiziamo")->check() )'+
   '@if( auth()->guard("users_comiziamo")->user()->img =="" )'+
-  'uploads/default_img.png?refresh=<?php echo rand(1,999); ?>'+
+  'comiziamo_repo/default_img.png?refresh=<?php echo rand(1,999); ?>'+
   '@else'+
-  'uploads/img_user/{{ auth()->guard("users_comiziamo")->user()->img}}?refresh=<?php echo rand(1,999); ?>'+
+  'comiziamo_repo/img_user/{{ auth()->guard("users_comiziamo")->user()->img}}?refresh=<?php echo rand(1,999); ?>'+
   '@endif'+
   '@endif';
 
@@ -1547,9 +1547,9 @@ function send_chat_message_congress(receiver, id_party){
 function send_request_party(receiver, id_room, id_party, img_party){
   var src;
   if (img_party=="") {
-    src="uploads/default_img.png?refresh=<?php echo rand(1,999); ?>";
+    src="comiziamo_repo/default_img.png?refresh=<?php echo rand(1,999); ?>";
   }else{
-    src="uploads/img_party/"+img_party;
+    src="comiziamo_repo/img_party/"+img_party;
   }
   var message=
   '<div style="display:flex;flex-wrap:nowrap">'+
@@ -1567,9 +1567,9 @@ function send_request_party(receiver, id_room, id_party, img_party){
 
   var src='@if( auth()->guard("users_comiziamo")->check() )'+
   '@if( auth()->guard("users_comiziamo")->user()->img =="" )'+
-  'uploads/default_img.png?refresh=<?php echo rand(1,999); ?>'+
+  'comiziamo_repo/default_img.png?refresh=<?php echo rand(1,999); ?>'+
   '@else'+
-  'uploads/img_user/{{ auth()->guard("users_comiziamo")->user()->img}}?refresh=<?php echo rand(1,999); ?>'+
+  'comiziamo_repo/img_user/{{ auth()->guard("users_comiziamo")->user()->img}}?refresh=<?php echo rand(1,999); ?>'+
   '@endif'+
   '@endif';
 
@@ -1618,11 +1618,11 @@ function get_message_chat(receiver, id_room){
           
           if (res[i].img=="") {
 
-            src="uploads/default_img.png?refresh=<?php echo rand(1,999); ?>"
+            src="comiziamo_repo/default_img.png?refresh=<?php echo rand(1,999); ?>"
 
           }else{
 
-            src="uploads/img_user/"+res[i].img+"?refresh=<?php echo rand(1,999); ?>"
+            src="comiziamo_repo/img_user/"+res[i].img+"?refresh=<?php echo rand(1,999); ?>"
 
           }
 
@@ -1704,11 +1704,11 @@ function get_message_chat_congress(receiver, id_party, numb){
           
           if (res[i].img=="") {
 
-            src="uploads/default_img.png?refresh=<?php echo rand(1,999); ?>"
+            src="comiziamo_repo/default_img.png?refresh=<?php echo rand(1,999); ?>"
 
           }else{
 
-            src="uploads/img_user/"+res[i].img+"?refresh=<?php echo rand(1,999); ?>"
+            src="comiziamo_repo/img_user/"+res[i].img+"?refresh=<?php echo rand(1,999); ?>"
 
           }
 
