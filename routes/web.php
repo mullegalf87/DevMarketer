@@ -345,3 +345,88 @@ Route::get('/layout_{id_category}_{id_layout}', function ($id_category,$id_layou
 Route::get('/404', function () {
   return view('promotion.404');
 });
+
+
+// AGENDA PROJECT
+
+Route::get('/salon_ticket/{token}', 'TicketController@salon_ticket');
+
+Route::get('/get_ticket_s', 'TicketController@get_ticket_s');
+
+Route::get('/send_request', 'TicketController@send_request');
+
+Route::get('/send_chat_ticket_salon_from_request', 'TicketController@send_chat_ticket_salon_from_request');
+
+Route::get('/send_chat_ticket_salon', 'TicketController@send_chat_ticket_salon');
+
+Route::get('/show_chat_ticket_salon', 'TicketController@show_chat_ticket_salon');
+
+Route::get('/read_message_salon', 'TicketController@read_message_salon');
+
+Route::get('/read_number_image', 'TicketController@read_number_image');
+
+Route::get('/read_name_agent', 'TicketController@read_name_agent');
+
+Route::get('/login_operator', 'TicketController@login_operator');
+
+Route::get('/logouts', 'TicketController@logouts');
+
+Route::get('/operator_ticket', 'TicketController@operator_ticket');
+
+Route::get('/get_name_operator_filter', 'TicketController@get_name_operator_filter');
+
+Route::get('/get_ticket_o', 'TicketController@get_ticket_o');
+
+Route::get('/send_chat_ticket_operator', 'TicketController@send_chat_ticket_operator');
+
+Route::get('/show_chat_ticket_operator', 'TicketController@show_chat_ticket_operator');
+
+Route::get('/read_message_operator', 'TicketController@read_message_operator');
+
+Route::get('/read_name_operator/{circuito_op}', 'TicketController@read_name_operator');
+
+Route::get('/edit_request', 'TicketController@edit_request');
+
+Route::get('/get_name_operator', 'TicketController@get_name_operator');
+
+Route::get('/ticket_agenda', 'TicketController@ticket_agenda');
+
+Route::get('/insert_ticket_agenda', 'TicketController@insert_ticket_agenda');
+
+Route::get('/edit_ticket_agenda_drop', 'TicketController@edit_ticket_agenda_drop');
+
+Route::get('/edit_ticket_agenda_resize', 'TicketController@edit_ticket_agenda_resize');
+
+Route::get('/get_ticket_agenda', 'TicketController@get_ticket_agenda');
+
+Route::get('/edit_event_agenda', 'TicketController@edit_event_agenda');
+
+Route::get('/delete_event_agenda', 'TicketController@delete_event_agenda');
+
+Route::get('/get_appointments_robi', 'TicketController@get_appointments_robi');
+
+Route::get('/insert_robi_agenda', 'TicketController@insert_robi_agenda');
+
+Route::get('/get_app_agenda', 'TicketController@get_app_agenda');
+
+Route::get('/insert_app_agenda', 'TicketController@insert_app_agenda');
+
+Route::get('/postpone_agenda', 'TicketController@postpone_agenda');
+
+Route::get('/get_data_appointments', 'TicketController@get_data_appointments');
+
+Route::get('/get_report_agenda', 'TicketController@get_report_agenda');
+
+Route::get("paste_appointment_ticket","TicketController@paste_appointment_ticket");
+
+Route::get('/copia_salon_ticket', 'TicketController@copia_salon_ticket');
+
+Route::get('/get_cookie_random', 'TicketController@get_cookie_random');
+
+Route::get('/copia_send_request', 'TicketController@copia_send_request');
+
+Route::get('/copia_get_ticket_s', 'TicketController@copia_get_ticket_s');
+
+Route::get('/get_value_form_ticket', 'TicketController@get_value_form_ticket');
+
+Route::get('/send_feed_ticket', 'TicketController@send_feed_ticket');

@@ -1,0 +1,1 @@
+<div id="report_chart" class="d-none"></div>
