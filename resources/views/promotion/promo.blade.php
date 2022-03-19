@@ -534,7 +534,7 @@ select.list-dt:focus {
   </div>
 
 <script type="text/javascript">
-
+  //1)mettere phpmailar solo con le mail e provare inviare a 100 persone, sicuramente uno alla volta
   // funzione per andare avanti
   $(document).ready(function(){
 

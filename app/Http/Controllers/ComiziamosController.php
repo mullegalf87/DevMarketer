@@ -168,7 +168,7 @@ class ComiziamosController extends Controller
         } 
 
         //You can add validation login here
-        $user_exist = $this->universal_db()->table('users_comiziamos')
+        $user_exist = $this->universal_user_db()->table('users_comiziamos')
         ->where('email', '=', $user->getEmail())
         ->get();
 
@@ -205,7 +205,7 @@ class ComiziamosController extends Controller
  
 
     //You can add validation login here
-    $user = $this->universal_db()->table('users_comiziamos')
+    $user = $this->universal_user_db()->table('users_comiziamos')
     ->where('nickname', '=', $nickname)
     ->get();
 
@@ -216,7 +216,7 @@ class ComiziamosController extends Controller
 
 
     //Retrieve the user from the database
-    $user = $this->universal_db()->table('users_comiziamos')
+    $user = $this->universal_user_db()->table('users_comiziamos')
     ->where('nickname', '=' ,$nickname)
     ->where('email', '=' ,$email)
     ->first();    
@@ -261,6 +261,15 @@ class ComiziamosController extends Controller
   public function universal_db(){
 
     Config::set('database.connections.mysql_dynamic.database','comiziamo');
+    $universal=DB::connection('mysql_dynamic');
+
+    return $universal;
+
+  }
+
+  public function universal_user_db(){
+
+    Config::set('database.connections.mysql_dynamic.database','test');
     $universal=DB::connection('mysql_dynamic');
 
     return $universal;
@@ -368,7 +377,7 @@ class ComiziamosController extends Controller
           for ($y=0 ; $y < count($get_member_party) ; $y++ ) { 
 
             //ottieni il livello dei membri del partito
-            $get_level_user=$this->universal_db()->table('users_comiziamos')
+            $get_level_user=$this->universal_user_db()->table('users_comiziamos')
             ->where('users_comiziamos.id', '=',$get_member_party[$y]->id_user)
             ->get();
 
@@ -383,7 +392,7 @@ class ComiziamosController extends Controller
         }else{
 
           //ottieni il livello di ogni vincitore
-          $get_level_user=$this->universal_db()->table('users_comiziamos')
+          $get_level_user=$this->universal_user_db()->table('users_comiziamos')
           ->where('users_comiziamos.id', '=',$get_id_user_win[$i]->id_user)
           ->get();
 
@@ -401,7 +410,7 @@ class ComiziamosController extends Controller
       for ($i=0; $i < count($values_get_level_user) ; $i++) { 
 
         if ($values_get_level_user[$i][0]->level<10) {
-          $this->universal_db()->table('users_comiziamos')
+          $this->universal_user_db()->table('users_comiziamos')
           ->where('id','=',$values_get_level_user[$i][0]->id)
           ->update(
             array(
@@ -415,7 +424,7 @@ class ComiziamosController extends Controller
           $lang="it";
         }
 
-        $get_level_current=$this->universal_db()->table('users_comiziamos')
+        $get_level_current=$this->universal_user_db()->table('users_comiziamos')
         ->select(DB::raw('users_comiziamos.id as id, users_comiziamos.level as level, users_comiziamos.nickname as nickname, level_comiziamo_'.$lang.'.level as level_char')) 
         ->join('level_comiziamo_'.$lang, 'level_comiziamo_'.$lang.'.id_level', '=', 'users_comiziamos.level')  
         ->where('users_comiziamos.id', '=',$values_get_level_user[$i][0]->id)
@@ -429,7 +438,7 @@ class ComiziamosController extends Controller
       //aggiorno i livelli degli utenti vincitori
       for ($i=0; $i < count($values_get_level_current) ; $i++) { 
 
-          $this->universal_db()->table('users_comiziamos')
+          $this->universal_user_db()->table('users_comiziamos')
           ->where('id','=',$values_get_level_current[$i][0]->id)
           ->update(
             array(
@@ -504,12 +513,16 @@ class ComiziamosController extends Controller
       ->where('argument_partecipant_comiziamo.id_user', '=',$id_user)
       ->get();
 
+      $get_user_party=$this->universal_db()->table('party_comiziamo')->get()
+      ->union(
+        $this->universal_user_db()->table('users_comiziamos')->get()
+      );
 
-    $get_user_party=$this->universal_db()->table('users_comiziamos')
-      ->select(DB::raw('users_comiziamos.id as id_user, users_comiziamos.nickname as nickname, users_comiziamos.bio as bio, users_comiziamos.quote as quote, users_comiziamos.level as level, users_comiziamos.level_char as level_char, users_comiziamos.img as img, users_comiziamos.follower as follower, party_comiziamo.*'))
-      ->leftJoin('party_comiziamo', 'party_comiziamo.creator_party', '=', 'users_comiziamos.id')
-      ->where("users_comiziamos.id", "=", $id_user)
-      ->get();
+    // $get_user_party=$this->universal_user_db()->table('users_comiziamos')
+    //   ->select(DB::raw('users_comiziamos.id as id_user, users_comiziamos.nickname as nickname, users_comiziamos.bio as bio, users_comiziamos.quote as quote, users_comiziamos.level as level, users_comiziamos.level_char as level_char, users_comiziamos.img as img, users_comiziamos.follower as follower, party_comiziamo.*'))
+    //   ->leftJoin('party_comiziamo', 'party_comiziamo.creator_party', '=', 'users_comiziamos.id')
+    //   ->where("users_comiziamos.id", "=", $id_user)
+    //   ->get();
 
 
       $result=["get_argument_rally" => $get_argument_rally, "get_partecipant_vote_rally" => $get_partecipant_vote_rally, "get_user_party" => $get_user_party];   
@@ -761,7 +774,7 @@ class ComiziamosController extends Controller
     //Config::set('database.connections.mysql_dynamic.database',env('DB_DATABASE', 'comiziamo'));
     $id_user=auth()->guard('users_comiziamo')->user()->id;
     $file_name=Request::get('file_name');
-    $this->universal_db()->table('users_comiziamos')
+    $this->universal_user_db()->table('users_comiziamos')
       ->where('id','=',$id_user)
       ->update(
         array(
@@ -831,7 +844,7 @@ class ComiziamosController extends Controller
     $bio=Request::get('bio');
     $quote=Request::get('quote');
 
-    $this->universal_db()->table('users_comiziamos')
+    $this->universal_user_db()->table('users_comiziamos')
       ->where('id','=',$id_user)
       ->update(
         array(
@@ -916,7 +929,7 @@ class ComiziamosController extends Controller
            'count_allied'=>$get_count_followes_party[0]->count_followers_party,
            )); 
 
-        $this->universal_db()->table('users_comiziamos')
+        $this->universal_user_db()->table('users_comiziamos')
           ->where('id','=',$id_user)
           ->update(
             array(
@@ -978,7 +991,7 @@ class ComiziamosController extends Controller
 
   public function get_user(){
     //Config::set('database.connections.mysql_dynamic.database',env('DB_DATABASE', 'comiziamo'));
-    $get_user=$this->universal_db()->table('users_comiziamos')
+    $get_user=$this->universal_user_db()->table('users_comiziamos')
       ->select(DB::raw('users_comiziamos.id as id, users_comiziamos.nickname as nickname, users_comiziamos.created_at as created_at'))
       ->get();
 
@@ -1763,7 +1776,7 @@ class ComiziamosController extends Controller
       ->first();
 
 
-      $this->universal_db()->table('users_comiziamos')
+      $this->universal_user_db()->table('users_comiziamos')
         ->where("id", "=", $who_is_followed)
         ->update(
           array(
@@ -1824,7 +1837,7 @@ class ComiziamosController extends Controller
       ->first();
 
 
-      $this->universal_db()->table('users_comiziamos')
+      $this->universal_user_db()->table('users_comiziamos')
         ->where("id", "=", $who_is_followed)
         ->update(
           array(
@@ -1867,7 +1880,7 @@ class ComiziamosController extends Controller
           'id_user'=>$id_user,
         ));
 
-        $this->universal_db()->table('users_comiziamos')
+        $this->universal_user_db()->table('users_comiziamos')
           ->where('id','=',$id_user)
           ->update(
             array(
@@ -1963,7 +1976,7 @@ class ComiziamosController extends Controller
 
     $id_user=Request::get('id_user');
 
-      $exist_party=$this->universal_db()->table('users_comiziamos')
+      $exist_party=$this->universal_user_db()->table('users_comiziamos')
         ->select(DB::raw('users_comiziamos.id as id_user, users_comiziamos.nickname as nickname, users_comiziamos.bio as bio, users_comiziamos.quote as quote, users_comiziamos.level as level, users_comiziamos.level_char as level_char, users_comiziamos.img as img, users_comiziamos.follower as follower, party_comiziamo.*'))
         ->join('party_comiziamo', 'party_comiziamo.creator_party', '=', 'users_comiziamos.id')
         ->where("users_comiziamos.id", "=", $id_user)
@@ -1971,7 +1984,7 @@ class ComiziamosController extends Controller
 
       if ($exist_party) {
 
-        $get_data_user=$this->universal_db()->table('users_comiziamos')
+        $get_data_user=$this->universal_user_db()->table('users_comiziamos')
         ->select(DB::raw('users_comiziamos.id as id_user, users_comiziamos.nickname as nickname, users_comiziamos.bio as bio, users_comiziamos.quote as quote, users_comiziamos.level as level, users_comiziamos.level_char as level_char, users_comiziamos.img as img, users_comiziamos.follower as follower, party_comiziamo.*'))
         ->join('party_comiziamo', 'party_comiziamo.creator_party', '=', 'users_comiziamos.id')
         ->where("users_comiziamos.id", "=", $id_user)
@@ -1986,7 +1999,7 @@ class ComiziamosController extends Controller
 
       }else{
 
-        $get_data_user=$this->universal_db()->table('users_comiziamos')
+        $get_data_user=$this->universal_user_db()->table('users_comiziamos')
         ->select(DB::raw('users_comiziamos.id as id_user, users_comiziamos.nickname as nickname, users_comiziamos.bio as bio, users_comiziamos.quote as quote, users_comiziamos.level as level, users_comiziamos.level_char as level_char, users_comiziamos.img as img, users_comiziamos.follower as follower'))
         ->where("users_comiziamos.id", "=", $id_user)
         ->get();
@@ -2013,7 +2026,7 @@ class ComiziamosController extends Controller
 
     $search_user=Request::get('search_user');
 
-    $get_user=$this->universal_db()->table('users_comiziamos')
+    $get_user=$this->universal_user_db()->table('users_comiziamos')
       ->select(DB::raw('users_comiziamos.id as id_user, users_comiziamos.nickname as nickname, users_comiziamos.bio as bio, users_comiziamos.quote as quote, users_comiziamos.level as level, users_comiziamos.level_char as level_char, users_comiziamos.img as img, users_comiziamos.follower as follower'))
       ->where("users_comiziamos.nickname", "LIKE", "%".$search_user."%")
       ->get();

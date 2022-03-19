@@ -8,6 +8,8 @@
         <!-- bootstrap 4.5 bootstrap-->
         <link rel='stylesheet' href='https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css'>
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+        <!-- konva -->
+        <script src="test_repo/js/konva.js"></script>
         <style>
 
         </style>
@@ -21,6 +23,9 @@
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="navbar-nav ml-auto">
                     @if( auth()->guard('users_test')->check() )
+                    <li class="nav-item">
+                        <a class="nav-link" onclick="change_vis('landnft')">Landnft</a>
+                    </li>
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Ciao {{ auth()->guard('users_test')->user()->name }}
                         </a>
@@ -42,6 +47,9 @@
         </div>
         <div id="action" class="page" style="display: none;">
             @include("test.action")
+        </div>
+        <div id="landnft" class="page w-100" style="display: none;">
+            @include("test.landnft")
         </div>
         <script>
 

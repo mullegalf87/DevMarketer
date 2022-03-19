@@ -98,8 +98,6 @@
 
     $('#cover-spin').show(0);
 
-    alert("ciao");
-
   }
 
   function remove_edit_element_token_user(carousel){
