@@ -430,3 +430,21 @@ Route::get('/copia_get_ticket_s', 'TicketController@copia_get_ticket_s');
 Route::get('/get_value_form_ticket', 'TicketController@get_value_form_ticket');
 
 Route::get('/send_feed_ticket', 'TicketController@send_feed_ticket');
+
+// ILENIAZITODESIGN PROJECT
+Route::get('/ileniazitodesign', function () {
+  return redirect('iz?page=home');
+});
+
+Route::get('/iz', 'IleniazitodesignsController@go_to_page');
+
+Route::get('iz/lang', 'IleniazitodesignsController@lang_change')->name('IzLangChange');
+
+//Login
+Route::post('register_ileniazitodesign', 'IleniazitodesignsController@store');
+
+Route::post('login_ileniazitodesign', 'IleniazitodesignsController@check_login');
+
+Route::get('logout_ileniazitodesign', 'IleniazitodesignsController@logout_ileniazitodesign');
+
+Route::post('reset_password_without_token_ileniazitodesign', 'IleniazitodesignsController@validatePasswordRequest');

@@ -65,6 +65,11 @@ return [
             'driver' => 'session',
             'provider' => 'users_promotions',
         ],
+
+        'users_ileniazitodesign' => [
+            'driver' => 'session',
+            'provider' => 'users_ileniazitodesigns',
+        ],
     ],
 
     /*
@@ -106,6 +111,11 @@ return [
         ],
 
         'users_promotions' => [
+            'driver' => 'eloquent',
+            'model' => App\Users_promotion::class,
+        ],
+
+        'users_ileniazitodesigns' => [
             'driver' => 'eloquent',
             'model' => App\Users_promotion::class,
         ],
@@ -158,6 +168,12 @@ return [
 
         'users_promotions' => [
             'provider' => 'users_promotions',
+            'table' => 'password_resets',
+            'expire' => 60,
+        ],
+
+        'users_ileniazitodesigns' => [
+            'provider' => 'users_ileniazitodesigns',
             'table' => 'password_resets',
             'expire' => 60,
         ],
