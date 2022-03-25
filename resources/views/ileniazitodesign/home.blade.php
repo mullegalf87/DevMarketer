@@ -42,6 +42,14 @@
                 font-family: 'Futura PT', sans-serif;
                 font-size: 15px!important;
             }
+            .form-control {
+                
+                border-left: none !important; /* if you want to remove borders at all*/
+                border-top: none !important; /* if you want to remove borders at all*/
+                border-right: none !important; /* if you want to remove borders at all*/
+                outline: none !important;
+                box-shadow: none !important;
+            }  
             li:hover {
                 background-color: transparent!important;
                 text-decoration: underline;
@@ -60,7 +68,7 @@
             }
             .img-corner {
                 display: block;
-                width: 80%;
+                width: 70%;
                 height: auto;
                 border-radius:999em 999em 40px 40px;
             }
@@ -76,10 +84,6 @@
             h1{
                 font-family: 'Silk Serif', sans-serif;
                 font-size: 70px!important;
-                white-space: nowrap;
-            }
-            h4{
-                font-family: 'Silk Serif', sans-serif;
                 white-space: nowrap;
             }
             label{
@@ -354,30 +358,30 @@
             }
             
             .emblem {
-                position: absolute;
-                left: 70px;
-                right: 0;
-                top: -60px;
-                margin: 0 auto;
-                width: 100px;
                 height: 100px;
                 border-radius: 50%;
-                animation: spinZ 20s linear infinite;
+                /* animation: spinZ 20s linear infinite; */
                 text-align: center;
                 color: #000;
             }
+
             .emblem span {
                 font-family: 'Futura PT', sans-serif;
                 font-size: 12px!important;
                 position: absolute;
                 display: inline-block;
-                left: 0;
-                right: 0;
+                right: 34%;
+                
                 top: 0;
                 bottom: 0;
                 text-transform: uppercase;
                 font-size: 5vh;
                 transition: all .5s cubic-bezier(0,0,0,1);
+            }
+
+            .emblem_footer span{
+                margin: auto;
+                width: 0;
             }
             
             @keyframes spinZ {
@@ -392,7 +396,6 @@
         </style>
     </head>
     <body>
- 
         <nav id="navbar_1" class="navbar navbar-expand-lg navbar-light" style="background-color: #dbd3d3;padding: 1rem 1rem;">
             <a class="navbar-brand d-lg-none" href="#"><img src="https://codingyaar.com/wp-content/uploads/logo.png"></a>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#myNavbarToggler7"
@@ -412,7 +415,8 @@
                     </li>
                     <div class="d-none d-lg-block w-100 text-center" style="padding-top: 8px;">
                         <!-- <img src="https://codingyaar.com/wp-content/uploads/logo.png"> -->
-                        <h4 class="m-0" style="vertical-align: middle;text-align: center;padding-top: 8px;">ILENIA ZITO</h4>
+                        <h4 class="m-0" style="vertical-align: middle;text-align: center;padding-top: 8px;font-family: 'Silk Serif', sans-serif;
+                        white-space: nowrap;">ILENIA ZITO</h4>
                     </div>
                     <li class="nav-item text-center pr-3 pl-3">
                         <a class="nav-link" href="#">Ship to</a>
@@ -460,7 +464,7 @@
                         </div>
                     </div>
                     <div class="col-md-1 p-0" style="z-index:1;margin: auto;display: block;">
-                        <div class="emblem">Ileniazitodesign-Ileniazitodesign-</div>
+                        <div class="emblem" style="position: absolute; left: 70px; right: 0; top: -60px;margin: 0 auto;width: 100px;">Ileniazitodesign-Ileniazitodesign-</div>
                         <img src="ileniazitodesign_repo/2.jpeg" style="width: 190px; object-fit: contain; pointer-events: none;">
                     </div>
                     <div class="col-md-4 p-0 z-index-0" style="z-index:0">
@@ -490,14 +494,14 @@
                         <div style="position: absolute;top: 100px;right:100px;">
                             <img class="img-corner m-auto" src="ileniazitodesign_repo/2.jpeg">
                         </div>
-                        <div class="emblem" style="left: 0!important;right: 0!important;bottom: 110px!important; top:auto!important; margin:0">Ileniazitodesign-Ileniazitodesign-</div>
+                        <div class="emblem" style="left: 0!important;right: 0!important;bottom: 110px!important; top:auto!important; margin:0;width: 100px;position: absolute;">Ileniazitodesign-Ileniazitodesign-</div>
                     </div>
                 </div>
             </section>
             <section id="section4" class="container-fluid p-0 h-100">
                 <div class="d-flex flex-nowrap">
                     <div class="col-md-6" style="z-index: 1;">
-                        <div style="top: 0; position: absolute; right: 0;padding-top: 25%; bottom: 0;">
+                        <div style="top: 0; position: absolute; right: 0;padding-top: 15%; bottom: 0;">
                             <div style="margin-left: 25%;">
                                 <img class="" style="border-radius: 0;width: 40%;float:right;margin-right: 25px;" src="ileniazitodesign_repo/1.jpeg">
                                 <div style="float:right;margin-right: 25px;">
@@ -510,14 +514,85 @@
                         </div>
                     </div>
                     <div class="col-md-6" style="z-index: 0;">
-                        <img class="img-corner" style="top: 0; border-radius: 0; position: absolute; left: 0;padding-top: 25%; bottom: 0; padding-bottom: 25%;width: 50%;" src="ileniazitodesign_repo/2.jpeg">
-                        <!-- <div class="emblem" style="left: 0!important;right: 0!important;bottom: 110px!important; top:auto!important; margin:0">Ileniazitodesign-Ileniazitodesign-</div> -->
+                        <div>
+                            <div class="emblem" style="margin: auto;top: 125px; position: absolute;z-index: 1;">Ileniazitodesign-Ileniazitodesign-</div>
+                            <img class="img-corner" style="top: 0; border-radius: 0; position: absolute; left: 0;padding-top: 15%; bottom: 0; width: 45%;" src="ileniazitodesign_repo/2.jpeg">
+                        </div>
+                    </div>
+                </div>
+            </section>
+            <section id="section5" class="container-fluid p-0 h-100" style="background-color: #dbd3d3;">
+                <div class="d-flex flex-nowrap" >
+                    <div class="col-md-4">
+                    </div>
+                    <div class="col-md-4">
+                        <h4 class="text-center" style="font-family: 'Futura PT', sans-serif;font-size: 20px!important;padding-top:10%">NEWSLETTER</h4>
+                        <img style="width: 50%!important;" class="img-corner m-auto" src="ileniazitodesign_repo/1.jpeg">
+                        <h1 class="text-center" style="font-size: 40px!important;white-space: normal!important;padding:10%">Subscribe to see the latest updates</h1>
+                    </div>
+                    <div class="col-md-4">
+                    </div>
+                </div>
+                <div class="d-flex flex-nowrap">
+                    <div class="col-md-6">
+                        <input class="form-control" placeholder="Email" style="width: 60%;float: right;height:60px;background: transparent; border-radius: 0; width: 60%; float: right; height: 60px; border-bottom: 1px solid;font-family: 'Futura PT', sans-serif;font-size: 15px!important;">
+                    </div>
+                    <div class="col-md-6">
+                        <button class="btn btn-primary text-left">SUBSCRIBE  </button>
                     </div>
                 </div>
             </section>
         </div>
+        <div id="shopmyart" class="page d-none">
+            @include("ileniazitodesign.shopmyart")
+        </div>
+        <footer style="background-color:#CDB4B4">
+            <div class="">
+                <h1 class="text-center" style="font-size:25px!important;padding: 5%;">CECILIE BAHANSEN</h1>
+            </div>
+            <div class="d-flex flex-nowrap">
+                <div class="col-md-2 text-left" style="padding-left: 60px;">
+                    <p style="margin-bottom: 0.5rem!important;">Navigate</p>
+                    <label style="font-family: 'Futura PT', sans-serif; font-size: 12px!important;margin-bottom: 0">Shop</label><br>
+                    <label style="font-family: 'Futura PT', sans-serif; font-size: 12px!important;margin-bottom: 0">Collection</label><br>
+                    <label style="font-family: 'Futura PT', sans-serif; font-size: 12px!important;margin-bottom: 0">About</label><br>
+                    <label style="font-family: 'Futura PT', sans-serif; font-size: 12px!important;margin-bottom: 0">Account</label><br>
+                    <label style="font-family: 'Futura PT', sans-serif; font-size: 12px!important;margin-bottom: 0">Contact</label><br>
+                </div>
+                <div class="col-md-2 text-left" style="padding-left: 60px;">
+                    <p style="margin-bottom: 0.5rem!important;">Assistance</p>
+                    <label style="font-family: 'Futura PT', sans-serif; font-size: 12px!important;margin-bottom: 0">Shipping & returns</label><br>
+                    <label style="font-family: 'Futura PT', sans-serif; font-size: 12px!important;margin-bottom: 0">Privacy police</label><br>
+                    <label style="font-family: 'Futura PT', sans-serif; font-size: 12px!important;margin-bottom: 0">FAQ</label><br>
+                </div>
+                <div class="col-md-2 text-left" style="padding-left: 60px;">
+                    <p style="margin-bottom: 0.5rem!important;">Social</p>
+                    <label style="font-family: 'Futura PT', sans-serif; font-size: 12px!important;margin-bottom: 0">Facebook</label><br>
+                    <label style="font-family: 'Futura PT', sans-serif; font-size: 12px!important;margin-bottom: 0">Instagram</label><br>
+                    <label style="font-family: 'Futura PT', sans-serif; font-size: 12px!important;margin-bottom: 0">Pinterest</label><br>
+                </div>
+                <div class="col-md-6 text-center">
+                    <div class="emblem emblem_footer">Ileniazitodesign-Ileniazitodesign-</div>
+                </div>
+            </div>
+            <div class="d-flex flex-nowrap" style="font-size:25px!important;padding-top: 5%;padding-bottom:2%;">
+                <div class="col-md-4 text-left" style="padding-left: 60px;">
+                    <p>All right reserved - 2020 CECILIE BAHANSEN</p>
+                </div>
+                <div class="col-md-4 text-left" style="padding-left: 60px;">
+                    <p>Terms & Condition</p>
+                </div>
+                <div class="col-md-4 text-center">
+                    <p>Site by Dario Rosciglione</p>
+                </div>
+            </div>
+        </footer>
         <script>
-            // distinguere accesso per desktop o per mobile diviso per cartella
+            //sistemare timbri
+            //sistemare title lettering nella section_1
+            //mettere funzioni cambio pagina
+            //distinguere accesso per desktop o per mobile diviso per cartella
+            //fare pagina login
             $.fn.lettering = function(name) {
                 var t = this.text(),
                 tl = t.length,
