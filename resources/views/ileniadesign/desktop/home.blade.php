@@ -75,7 +75,7 @@
             }
             .centered_text_on_image {
                 position: absolute;
-                bottom: 90px;
+                bottom: 25%;
                 left: 50%;
                 transform: translate(-50%, -50%);
                 font-family: 'Silk Serif', sans-serif;
@@ -105,7 +105,6 @@
             #curved2 {
                 top: 10px;
                 left: 0;
-                width: 100%;
                 width: 100%;
                 height: 100%;
                 font-family: 'Silk Serif', sans-serif;
@@ -149,7 +148,7 @@
         </style>
     </head>
     <body>
-        <nav id="navbar_1" class="navbar navbar-expand-lg navbar-light" style="background-color: #dbd3d3;padding: 1rem 1rem;">
+        <nav id="navbar_1" class="navbar navbar-expand-lg navbar-light fixed-top" style="background-color: #dbd3d3;padding: 1rem 1rem;">
             <a class="navbar-brand d-lg-none" href="#"><img src="https://codingyaar.com/wp-content/uploads/logo.png"></a>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#myNavbarToggler7"
                 aria-controls="myNavbarToggler7" aria-expanded="false" aria-label="Toggle navigation">
@@ -175,7 +174,7 @@
                         <a class="nav-link" href="#">Ship to</a>
                     </li>
                     <li class="nav-item text-center pr-3 pl-3">
-                        <a class="nav-link" href="#">Account</a>
+                        <a class="nav-link" onclick="change_vis('login')">Account</a>
                     </li>
                     <li class="nav-item text-center pr-3 pl-3" style="padding: 8px;">
                         <div class="circle_cart">2</div>
@@ -184,120 +183,131 @@
             </div>
         </nav>
         <div id="home" class="page" style="display: none">
-            <section id="section1" class="container-fluid h-100" style="background-color: #dbd3d3;">
-                <!-- <div class="d-flex flex-nowrap" style="position: absolute; top: 30%; right: 0;justify-content: center;"> -->
-                <div class="d-flex flex-nowrap h-100">
-                    <div class="col-md-4 h-100">
-                        <p class="" style="position: absolute; bottom:0; right: 0;margin-bottom: 7rem!important;width:30%;">Intersection of couture and ready to wear</p>
-                    </div>
-                    <div class="col-md-4 p-0">
-                        <div class="" style="display: block;position: absolute; bottom:0;right: 0; left: 0;margin-bottom: 7rem!important;">
-                            <div id="curved2">ILENIAZITODESIGN</div>
-                            <img style="" class="img-corner m-auto" src="ileniadesign_repo/1.jpeg">
+            <div class="container_page" style="flex: 1; position: absolute; right: 0; bottom: 0; left: 0;">
+                <section id="section1" class="container-fluid h-100" style="background-color: #dbd3d3;">
+                    <div class="d-flex flex-nowrap h-100">
+                        <div class="col-md-4 h-100">
+                            <p class="" style="position: absolute; bottom:0; right: 0;margin-bottom: 7rem!important;width:30%;">Intersection of couture and ready to wear</p>
+                        </div>
+                        <div class="col-md-4 p-0">
+                            <div class="" style="display: block;position: absolute; bottom:0;right: 0; left: 0;margin-bottom: 7rem!important;">
+                                <div id="curved2">ILENIAZITODESIGN</div>
+                                <img class="img-corner m-auto" src="ileniadesign_repo/1.jpeg">
+                            </div>
+                        </div>
+                        <div class="centered_text_on_image">- Embrace your feminity</div>
+                        <div class="col-md-4 h-100">
+                            <p style="position: absolute; bottom:0; left: 0;margin-bottom: 7rem!important;width:30%;">Intersection of couture and ready to wear</p>
                         </div>
                     </div>
-                    <div class="centered_text_on_image">- Embrace your feminity</div>
-                    <div class="col-md-4 h-100">
-                        <p style="position: absolute; bottom:0; left: 0;margin-bottom: 7rem!important;width:30%;">Intersection of couture and ready to wear</p>
+                </section>
+                <section id="section2" class="container-fluid p-0">
+                    <div class="d-flex flex-nowrap">
+                        <div class="col-md-7 p-0">
+                            <div style="position: relative; top: 50%; transform: translateY(-50%); display: flex; justify-content: center;">
+                                <div>
+                                    <p style="margin-left: 10%;">SPRING SUMMER 2021</p>
+                                    <h1>- New Collection</h1>
+                                    <p style="margin-left: 10%;">Text around circle. Very, very, very long text for testing. prova di tigno con s</p>
+                                    <button style="margin-left: 10%;" class="btn btn-primary text-left">COLLECTION  </button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-1 p-0" style="z-index:1;margin: auto;display: block;">
+                            <div class="emblem" style="position: absolute;right: 0;top: -50px;">Ileniazitodesign-Ileniazitodesign-</div>
+                            <img src="ileniadesign_repo/2.jpeg" style="width: 190px; object-fit: contain; pointer-events: none;">
+                        </div>
+                        <div class="col-md-4 p-0 z-index-0" style="z-index:0">
+                            <img src="ileniadesign_repo/3.jpeg" style="width: 100%; object-fit: contain; pointer-events: none;">
+                        </div>
                     </div>
-                </div>
-            </section>
-            <section id="section2" class="container-fluid p-0">
-                <div class="d-flex flex-nowrap">
-                    <div class="col-md-7 p-0">
-                        <div style="position: relative; top: 50%; transform: translateY(-50%); display: flex; justify-content: center;">
-                            <div>
-                                <p style="margin-left: 10%;">SPRING SUMMER 2021</p>
-                                <h1>- New Collection</h1>
-                                <p style="margin-left: 10%;">Text around circle. Very, very, very long text for testing. prova di tigno con s</p>
-                                <button style="margin-left: 10%;" class="btn btn-primary text-left">COLLECTION  </button>
+                </section>
+                <section id="section3" class="container-fluid p-0 h-100" style="background-color: #dbd3d3;">
+                    <div class="d-flex flex-nowrap h-100">
+                        <div class="col-md-4">
+                            <div style="position: absolute;bottom: 100px;left:100px;">
+                                <img class="img-corner m-auto" src="ileniadesign_repo/1.jpeg">
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="text-center" style="position: absolute;bottom:100px;left: 0; margin: auto;right: 0">
+                                <p class="text-center">CATEGORIES</p><br>
+                                <h1 class="text-center" style="font-size: 50px!important;margin-left: -5%;">- Dresses</h1>
+                                <h1 class="text-center" style="font-size: 50px!important;">Skirts</h1>
+                                <h1 class="text-center" style="font-size: 50px!important;">Blouses</h1>
+                                <h1 class="text-center" style="font-size: 50px!important;">Knitwear</h1>
+                                <h1 class="text-center" style="font-size: 50px!important;">Jackets</h1><br>
+                                <button class="btn btn-primary text-left">VIEW ALL  </button>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div style="position: absolute;top: 100px;right:100px;z-index:1;margin: auto;display: block;">
+                                <div class="emblem" style="position: absolute;bottom: -50px;left:50px;">Ileniazitodesign-Ileniazitodesign-</div>
+                                <img class="img-corner m-auto" src="ileniadesign_repo/2.jpeg">
                             </div>
                         </div>
                     </div>
-                    <div class="col-md-1 p-0" style="z-index:1;margin: auto;display: block;">
-                        <div class="emblem" style="position: absolute;right: 0;top: -50px;">Ileniazitodesign-Ileniazitodesign-</div>
-                        <img src="ileniadesign_repo/2.jpeg" style="width: 190px; object-fit: contain; pointer-events: none;">
-                    </div>
-                    <div class="col-md-4 p-0 z-index-0" style="z-index:0">
-                        <img src="ileniadesign_repo/3.jpeg" style="width: 100%; object-fit: contain; pointer-events: none;">
-                    </div>
-                </div>
-            </section>
-            <section id="section3" class="container-fluid p-0 h-100" style="background-color: #dbd3d3;">
-                <div class="d-flex flex-nowrap h-100">
-                    <div class="col-md-4">
-                        <div style="position: absolute;bottom: 100px;left:100px;">
-                            <img class="img-corner m-auto" src="ileniadesign_repo/1.jpeg">
+                </section>
+                <section id="section4" class="container-fluid p-0">
+                    <div class="d-flex flex-nowrap">
+                        <div class="col-md-3">
                         </div>
-                    </div>
-                    <div class="col-md-4">
-                        <div class="text-center" style="position: absolute;bottom:100px;left: 0; margin: auto;right: 0">
-                            <p class="text-center">CATEGORIES</p><br>
-                            <h1 class="text-center" style="font-size: 50px!important;margin-left: -5%;">- Dresses</h1>
-                            <h1 class="text-center" style="font-size: 50px!important;">Skirts</h1>
-                            <h1 class="text-center" style="font-size: 50px!important;">Blouses</h1>
-                            <h1 class="text-center" style="font-size: 50px!important;">Knitwear</h1>
-                            <h1 class="text-center" style="font-size: 50px!important;">Jackets</h1><br>
-                            <button class="btn btn-primary text-left">VIEW ALL  </button>
-                        </div>
-                    </div>
-                    <div class="col-md-4">
-                        <div style="position: absolute;top: 100px;right:100px;z-index:1;margin: auto;display: block;">
-                            <div class="emblem" style="position: absolute;bottom: -50px;left:50px;">Ileniazitodesign-Ileniazitodesign-</div>
-                            <img class="img-corner m-auto" src="ileniadesign_repo/2.jpeg">
-                        </div>
-                    </div>
-                </div>
-            </section>
-            <section id="section4" class="container-fluid p-0">
-                <div class="d-flex flex-nowrap">
-                    <div class="col-md-3">
-                    </div>
-                    <div class="col-md-3" style="z-index: 1;margin-top: 10%;margin-bottom: 10%;">
-                        <div class="" style="display:block;margin-top: 20%;margin-bottom: 20%;">
-                            <img class="img-corner" style="border-radius: 0;width: 70%;float: right;" src="ileniadesign_repo/1.jpeg">
-                            <div style="float:right;margin-right: 25px;">
-                                <h1 style="font-size: 40px!important;margin-left: 25%;background-color: white;display: inline-block;height: 55px;padding: 9px;">ILENIA ZITO DESIGN</h1>
+                        <div class="col-md-3" style="z-index: 1;margin-top: 10%;margin-bottom: 10%;">
+                            <div class="" style="display:block;margin-top: 20%;margin-bottom: 20%;">
+                                <img class="img-corner" style="border-radius: 0;width: 70%;float: right;" src="ileniadesign_repo/1.jpeg">
+                                <div style="float:right;margin-right: 25px;">
+                                    <h1 style="font-size: 40px!important;margin-left: 25%;background-color: white;display: inline-block;height: 55px;padding: 9px;">ILENIA ZITO DESIGN</h1>
+                                </div>
+                                <label style="float: right;width: 70%;">is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s</label>
                             </div>
-                            <label style="float: right;width: 70%;">is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s</label>
+                        </div>
+                        <div class="col-md-3" style="z-index: 0;margin-top: 10%;margin-bottom: 10%;">
+                            <div class="" style="display:block;margin-top: 20%;margin-bottom: 20%;">
+                                <div class="emblem" style="top: 0; right: 0; position: absolute;">Ileniazitodesign-Ileniazitodesign-</div>
+                                <img class="img-corner" style="border-radius: 0; width: 100%;" src="ileniadesign_repo/2.jpeg">
+                            </div>
+                        </div>
+                        <div class="col-md-3">
                         </div>
                     </div>
-                    <div class="col-md-3" style="z-index: 0;margin-top: 10%;margin-bottom: 10%;">
-                        <div class="" style="display:block;margin-top: 20%;margin-bottom: 20%;">
-                            <div class="emblem" style="top: 0; right: 0; position: absolute;">Ileniazitodesign-Ileniazitodesign-</div>
-                            <img class="img-corner" style="border-radius: 0; width: 100%;" src="ileniadesign_repo/2.jpeg">
+                </section>
+                <section id="section5" class="container-fluid p-0 h-100" style="background-color: #dbd3d3;">
+                    <div class="d-flex flex-wrap" >
+                        <div class="col-md-4">
+                        </div>
+                        <div class="col-md-4">
+                            <h4 class="text-center" style="font-family: 'Futura PT', sans-serif;font-size: 15px!important;padding-top:10%">NEWSLETTER</h4>
+                            <img style="width: 40%!important;" class="img-corner m-auto" src="ileniadesign_repo/1.jpeg">
+                            <h1 class="text-center" style="font-size: 25px!important;white-space: normal!important;padding:10%">Subscribe to see the latest updates</h1>
+                        </div>
+                        <div class="col-md-4">
+                        </div>
+                        <div class="d-flex flex-nowrap w-100">
+                            <div class="col-md-6">
+                                <input class="form-control" placeholder="Email" style="width: 60%;float: right;height:60px;background: transparent; border-radius: 0; width: 60%; float: right; height: 60px; border-bottom: 1px solid;font-family: 'Futura PT', sans-serif;font-size: 15px!important;">
+                            </div>
+                            <div class="col-md-6">
+                                <button class="btn btn-primary text-left">SUBSCRIBE  </button>
+                            </div>
                         </div>
                     </div>
-                    <div class="col-md-3">
-                    </div>
-                </div>
-            </section>
-            <section id="section5" class="container-fluid p-0 h-100" style="background-color: #dbd3d3;">
-                <div class="d-flex flex-nowrap" >
-                    <div class="col-md-4">
-                    </div>
-                    <div class="col-md-4">
-                        <h4 class="text-center" style="font-family: 'Futura PT', sans-serif;font-size: 20px!important;padding-top:10%">NEWSLETTER</h4>
-                        <img style="width: 50%!important;" class="img-corner m-auto" src="ileniadesign_repo/1.jpeg">
-                        <h1 class="text-center" style="font-size: 40px!important;white-space: normal!important;padding:10%">Subscribe to see the latest updates</h1>
-                    </div>
-                    <div class="col-md-4">
-                    </div>
-                </div>
-                <div class="d-flex flex-nowrap">
-                    <div class="col-md-6">
-                        <input class="form-control" placeholder="Email" style="width: 60%;float: right;height:60px;background: transparent; border-radius: 0; width: 60%; float: right; height: 60px; border-bottom: 1px solid;font-family: 'Futura PT', sans-serif;font-size: 15px!important;">
-                    </div>
-                    <div class="col-md-6">
-                        <button class="btn btn-primary text-left">SUBSCRIBE  </button>
-                    </div>
-                </div>
-            </section>
+                </section>
+                <div class="footer"></div>
+            </div>
+        </div>
+        <div id="login" class="page" style="display: none;">
+            <div class="container_page" style="flex: 1; position: absolute; right: 0; bottom: 0; left: 0;">
+                @include("ileniadesign.desktop.login")
+                <div class="footer"></div>
+            </div>
         </div>
         <div id="shopmyart" class="page" style="display: none;">
-            @include("ileniadesign.desktop.shopmyart")
+            <div class="container_page" style="flex: 1; position: absolute; right: 0; bottom: 0; left: 0;">
+                @include("ileniadesign.desktop.shopmyart")
+                <div class="footer"></div>
+            </div>
         </div>
-        <footer style="background-color:#CDB4B4;">
+        <footer id="footer" style="background-color:#CDB4B4;">
             <div class="">
                 <h1 class="text-center" style="font-size:25px!important;padding: 5%;">CECILIE BAHANSEN</h1>
             </div>
@@ -339,18 +349,22 @@
             </div>
         </footer>
         <script>
-            //sistemare timbri
-            //sistemare title lettering nella section_1
+            //desktop
             //fare pagina login
+            //fare shopmyart
+            //fare shopdetail
+            //fare cart
+
+            //mobile
 
             //importantissimo funzioni per cambiare pagina in laravel da chrome  
             var myhistory = [];
             var data = {!! $data !!};
             page_to_go = data["page"];
             change_vis(page_to_go);
+    
 
             function change_vis(page_name, history){
-                console.log(page_name)
                 var num_image=page_name.split("_")[1];
                 page_name=page_name.split("_")[0];
                     
@@ -443,165 +457,169 @@
                 break;
                 default:
                 }
-
+                var footer_show=$("#footer").detach();
+                $("#"+page_name+ " .footer").html(footer_show);
+                start_function_home();
             }
 
-            /*
-            * CircleType 0.34
-            * Peter Hrynkow
-            * Copyright 2013, Licensed GPL & MIT
-            *
-            */
-
-            $.fn.circleType = function (options) {
-            var settings = {
-                dir: 1,
-                position: "relative"
-            };
-            if (typeof $.fn.lettering !== "function") {
-                console.log("Lettering.js is required");
-                return;
+            function start_function_home(){
+                $(".container_page").css("height", "calc(100% - 82px)");
+                set_lettering_circle_title();
             }
-            return this.each(function () {
-                if (options) {
-                $.extend(settings, options);
-                }
-                var elem = this,
-                delta = 180 / Math.PI,
-                ch = parseInt($(elem).css("line-height"), 10),
-                fs = parseInt($(elem).css("font-size"), 10),
-                txt = elem.innerHTML.replace(/^\s+|\s+$/g, "").replace(/\s/g, "&nbsp;"),
-                letters,
-                center;
 
-                elem.innerHTML = txt;
-                $(elem).lettering();
-
-                elem.style.position = settings.position;
-
-                letters = elem.getElementsByTagName("span");
-                center = Math.floor(letters.length / 2);
-
-                var layout = function () {
-                var tw = 0,
-                    i,
-                    offset = 0,
-                    minRadius,
-                    origin,
-                    innerRadius,
-                    l,
-                    style,
-                    r,
-                    transform;
-
-                for (i = 0; i < letters.length; i++) {
-                    tw += letters[i].offsetWidth;
-                }
-                minRadius = tw / Math.PI / 2 + ch;
-
-                if (settings.fluid && !settings.fitText) {
-                    settings.radius = Math.max(elem.offsetWidth / 2, minRadius);
-                } else if (!settings.radius) {
-                    settings.radius = minRadius;
-                }
-
-                if (settings.dir === -1) {
-                    origin = "center " + (-settings.radius + ch) / fs + "em";
-                } else {
-                    origin = "center " + settings.radius / fs + "em";
-                }
-
-                innerRadius = settings.radius - ch;
-
-                for (i = 0; i < letters.length; i++) {
-                    l = letters[i];
-                    offset += (l.offsetWidth / 2 / innerRadius) * delta;
-                    l.rot = offset;
-                    offset += (l.offsetWidth / 2 / innerRadius) * delta;
-                }
-                for (i = 0; i < letters.length; i++) {
-                    l = letters[i];
-                    style = l.style;
-                    r = (-offset * settings.dir) / 2 + l.rot * settings.dir;
-                    transform = "rotate(" + r + "deg)";
-
-                    style.position = "absolute";
-                    style.left = "50%";
-                    style.marginLeft = -(l.offsetWidth / 2) / fs + "em";
-
-                    style.webkitTransform = transform;
-                    style.MozTransform = transform;
-                    style.OTransform = transform;
-                    style.msTransform = transform;
-                    style.transform = transform;
-
-                    style.webkitTransformOrigin = origin;
-                    style.MozTransformOrigin = origin;
-                    style.OTransformOrigin = origin;
-                    style.msTransformOrigin = origin;
-                    style.transformOrigin = origin;
-                    if (settings.dir === -1) {
-                    style.bottom = 0;
+            function set_lettering_circle_title(){
+                
+                $.fn.circleType = function (options) {
+                    console.log(options)
+                    var settings = {
+                        dir: 1,
+                        position: "relative"
+                    };
+                    if (typeof $.fn.lettering !== "function") {
+                        console.log("Lettering.js is required");
+                        return;
                     }
-                }
-
-                if (settings.fitText) {
-                    if (typeof $.fn.fitText !== "function") {
-                    console.log("FitText.js is required when using the fitText option");
-                    } else {
-                    $(elem).fitText();
-                    $(window).resize(function () {
-                        updateHeight();
+                    return this.each(function () {
+                        if (options) {
+                            $.extend(settings, options);
+                        }
+                        var elem = this,
+                        delta = 180 / Math.PI,
+                        ch = parseInt($(elem).css("line-height"), 10),
+                        fs = parseInt($(elem).css("font-size"), 10),
+                        txt = elem.innerHTML.replace(/^\s+|\s+$/g, "").replace(/\s/g, "&nbsp;"),
+                        letters,
+                        center;
+                        
+                        elem.innerHTML = txt;
+                        $(elem).lettering();
+                        
+                        elem.style.position = settings.position;
+                        
+                        letters = elem.getElementsByTagName("span");
+                        center = Math.floor(letters.length / 2);
+                        
+                        var layout = function () {
+                            var tw = 0,
+                            i,
+                            offset = 0,
+                            minRadius,
+                            origin,
+                            innerRadius,
+                            l,
+                            style,
+                            r,
+                            transform;
+                            
+                            for (i = 0; i < letters.length; i++) {
+                                tw += letters[i].offsetWidth;
+                            }
+                            minRadius = tw / Math.PI / 2 + ch;
+                            
+                            if (settings.fluid && !settings.fitText) {
+                                settings.radius = Math.max(elem.offsetWidth / 2, minRadius);
+                            } else if (!settings.radius) {
+                                settings.radius = minRadius;
+                            }
+                            
+                            if (settings.dir === -1) {
+                                origin = "center " + (-settings.radius + ch) / fs + "em";
+                            } else {
+                                origin = "center " + settings.radius / fs + "em";
+                            }
+                            
+                            innerRadius = settings.radius - ch;
+                            
+                            for (i = 0; i < letters.length; i++) {
+                                l = letters[i];
+                                offset += (l.offsetWidth / 2 / innerRadius) * delta;
+                                l.rot = offset;
+                                offset += (l.offsetWidth / 2 / innerRadius) * delta;
+                            }
+                            for (i = 0; i < letters.length; i++) {
+                                l = letters[i];
+                                style = l.style;
+                                r = (-offset * settings.dir) / 2 + l.rot * settings.dir;
+                                transform = "rotate(" + r + "deg)";
+                                
+                                style.position = "absolute";
+                                style.left = "50%";
+                                style.marginLeft = -(l.offsetWidth / 2) / fs + "em";
+                                
+                                style.webkitTransform = transform;
+                                style.MozTransform = transform;
+                                style.OTransform = transform;
+                                style.msTransform = transform;
+                                style.transform = transform;
+                                
+                                style.webkitTransformOrigin = origin;
+                                style.MozTransformOrigin = origin;
+                                style.OTransformOrigin = origin;
+                                style.msTransformOrigin = origin;
+                                style.transformOrigin = origin;
+                                if (settings.dir === -1) {
+                                    style.bottom = 0;
+                                }
+                            }
+                            
+                            if (settings.fitText) {
+                                if (typeof $.fn.fitText !== "function") {
+                                    console.log("FitText.js is required when using the fitText option");
+                                } else {
+                                    $(elem).fitText();
+                                    $(window).resize(function () {
+                                        updateHeight();
+                                    });
+                                }
+                            }
+                            updateHeight();
+                        };
+                        
+                        var getBounds = function (elem) {
+                            var docElem = document.documentElement,
+                            box = elem.getBoundingClientRect();
+                            return {
+                                top: box.top + window.pageYOffset - docElem.clientTop,
+                                left: box.left + window.pageXOffset - docElem.clientLeft,
+                                height: box.height
+                            };
+                        };
+                        
+                        var updateHeight = function () {
+                            var mid = getBounds(letters[center]),
+                            first = getBounds(letters[0]),
+                            h;
+                            if (mid.top < first.top) {
+                                h = first.top - mid.top + first.height;
+                            } else {
+                                h = mid.top - first.top + first.height;
+                            }
+                            elem.style.height = h + "px";
+                        };
+                        
+                        if (settings.fluid && !settings.fitText) {
+                            $(window).resize(function () {
+                                layout();
+                            });
+                        }
+                        
+                        if (document.readyState !== "complete") {
+                            elem.style.visibility = "hidden";
+                            
+                            $(window).on('load', function(){
+                                elem.style.visibility = "visible";
+                                layout();
+                            });
+                        } else {
+                            layout();
+                        }
                     });
-                    }
-                }
-                updateHeight();
                 };
+                
+                $("#curved2").circleType({ dir: 1, radius: 200 });
+                
+            }
 
-                var getBounds = function (elem) {
-                var docElem = document.documentElement,
-                    box = elem.getBoundingClientRect();
-                return {
-                    top: box.top + window.pageYOffset - docElem.clientTop,
-                    left: box.left + window.pageXOffset - docElem.clientLeft,
-                    height: box.height
-                };
-                };
-
-                var updateHeight = function () {
-                var mid = getBounds(letters[center]),
-                    first = getBounds(letters[0]),
-                    h;
-                if (mid.top < first.top) {
-                    h = first.top - mid.top + first.height;
-                } else {
-                    h = mid.top - first.top + first.height;
-                }
-                elem.style.height = h + "px";
-                };
-
-                if (settings.fluid && !settings.fitText) {
-                $(window).resize(function () {
-                    layout();
-                });
-                }
-
-                if (document.readyState !== "complete") {
-                elem.style.visibility = "hidden";
-                 
-                $(window).on('load', function(){
-                    elem.style.visibility = "visible";
-                    layout();
-                });
-                } else {
-                layout();
-                }
-            });
-            };
-
-            $("#curved2").circleType({ dir: 1, radius: 200 });
-
-            
             $('.emblem').each(function(){
                 var text=$(this).text();
                 $(this).empty();
