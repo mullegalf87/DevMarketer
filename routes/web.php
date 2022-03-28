@@ -431,20 +431,20 @@ Route::get('/get_value_form_ticket', 'TicketController@get_value_form_ticket');
 
 Route::get('/send_feed_ticket', 'TicketController@send_feed_ticket');
 
-// ILENIAZITODESIGN PROJECT
-Route::get('/ileniazitodesign', function () {
-  return redirect('iz?page=home');
+// ILENIADESIGN PROJECT
+Route::get('/ileniadesign', function () {
+  return redirect('id?page=home');
 });
 
-Route::get('/iz', 'IleniazitodesignsController@go_to_page');
+Route::get('/id', 'IleniadesignsController@go_to_page');
 
-Route::get('iz/lang', 'IleniazitodesignsController@lang_change')->name('IzLangChange');
+Route::get('id/lang', 'IleniadesignsController@lang_change')->name('idLangChange');
 
 //Login
-Route::post('register_ileniazitodesign', 'IleniazitodesignsController@store');
+Route::post('register_ileniadesign', 'IleniadesignsController@store');
 
-Route::post('login_ileniazitodesign', 'IleniazitodesignsController@check_login');
+Route::post('login_ileniadesign', 'IleniadesignsController@check_login');
 
-Route::get('logout_ileniazitodesign', 'IleniazitodesignsController@logout_ileniazitodesign');
+Route::get('logout_ileniadesign', 'IleniadesignsController@logout_ileniadesign');
 
-Route::post('reset_password_without_token_ileniazitodesign', 'IleniazitodesignsController@validatePasswordRequest');
+Route::post('reset_password_without_token_ileniadesign', 'IleniadesignsController@validatePasswordRequest');

@@ -10,7 +10,7 @@ use Config;
 use Session;
 use Auth;
 use Carbon\Carbon;
-use App\Users_ileniazitodesign;
+use App\Users_ileniadesign;
 use DateTime;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Input;
@@ -20,16 +20,24 @@ use Mail;
 use App;
 use Socialite;
 use File;
+use Jenssegers\Agent\Agent;
 
 
-class IleniazitodesignsController extends Controller
+class IleniadesignsController extends Controller
 {
 
   // HOME
   public function go_to_page(){
     $data = [];
     $data["page"] = Request::get('page');
-    return view('ileniazitodesign.home')->with("data",json_encode($data));
+    $agent = new Agent();
+    $result;
+     if ($agent->isMobile()) {
+      $result="mobile";
+     }elseif ($agent->isDesktop()) {
+      $result="desktop";
+     }
+    return view('ileniadesign.'.$result.'.home')->with("data",json_encode($data));
   }
 
   public function lang_change()
@@ -53,7 +61,7 @@ class IleniazitodesignsController extends Controller
     ];
 
     $validator = Validator::make(Request::all(), [
-      'nickname' => 'required|max:255|unique:users_ileniazitodesigns',
+      'nickname' => 'required|max:255|unique:users_ileniadesigns',
       'password' => 'required|min:6|confirmed'
     ], $messages);
 
@@ -63,7 +71,7 @@ class IleniazitodesignsController extends Controller
 
     } else {
 
-      $user = Users_ileniazitodesign::create([
+      $user = Users_ileniadesign::create([
         'nickname' =>Request::get('nickname'),
         'password' => bcrypt(Request::get('password')),
         'password_decript' => Request::get('password'),
@@ -71,14 +79,14 @@ class IleniazitodesignsController extends Controller
         'level' => 0,
       ]);
 
-      $this->universal_db()->table("user_setting_ileniazitodesign")
+      $this->universal_db()->table("user_setting_ileniadesign")
       ->insertGetId(array(
         "id_user"=>$user->id,
         "qnt_sms"=>0,
         "qnt_email"=>0,
       ));  
 
-      auth()->guard('users_ileniazitodesign')->login($user);
+      auth()->guard('users_ileniadesign')->login($user);
 
       return redirect()->to('pm?page=home');
 
@@ -99,7 +107,7 @@ class IleniazitodesignsController extends Controller
 
 
     $validator = Validator::make(Request::all(), [
-      'nickname' => 'required|max:255|exists:users_ileniazitodesigns,nickname',
+      'nickname' => 'required|max:255|exists:users_ileniadesigns,nickname',
       'password' => 'required|min:6|'
     ], $messages);
 
@@ -112,7 +120,7 @@ class IleniazitodesignsController extends Controller
       $nickname=Request::get('nickname');
       $password=Request::get('password');
 
-      if(auth()->guard('users_ileniazitodesign')->attempt(['nickname' => $nickname, 'password' => $password])) {
+      if(auth()->guard('users_ileniadesign')->attempt(['nickname' => $nickname, 'password' => $password])) {
 
         return redirect()->to('pm?page=home');
 
@@ -126,9 +134,9 @@ class IleniazitodesignsController extends Controller
     }
   }
 
-  public function logout_ileniazitodesign(){
+  public function logout_ileniadesign(){
 
-    auth()->guard('users_ileniazitodesign')->logout();
+    auth()->guard('users_ileniadesign')->logout();
 
     return redirect()->to('pm?page=home');
 
@@ -156,7 +164,7 @@ class IleniazitodesignsController extends Controller
         } 
 
         //You can add validation login here
-        $user_exist = DB::connection('mysql_dynamic')->table('users_ileniazitodesigns')
+        $user_exist = DB::connection('mysql_dynamic')->table('users_ileniadesigns')
         ->where('email', '=', $user->getEmail())
         ->get();
 
@@ -167,7 +175,7 @@ class IleniazitodesignsController extends Controller
 
         }else{
 
-          $users = Users_ileniazitodesign::create([
+          $users = Users_ileniadesign::create([
           'nickname' =>$user->getEmail(),
           'password' => bcrypt($pass),
           'password_decript' => $pass,
@@ -176,9 +184,9 @@ class IleniazitodesignsController extends Controller
           'level_char' => $level_char,
           ]);
 
-          auth()->guard('users_ileniazitodesign')->login($users);
+          auth()->guard('users_ileniadesign')->login($users);
 
-          return redirect()->to('/ileniazitodesign');
+          return redirect()->to('/ileniadesign');
 
         }
 
@@ -193,7 +201,7 @@ class IleniazitodesignsController extends Controller
  
 
     //You can add validation login here
-    $user = DB::connection('mysql_dynamic')->table('users_ileniazitodesigns')
+    $user = DB::connection('mysql_dynamic')->table('users_ileniadesigns')
     ->where('nickname', '=', $nickname)
     ->get();
 
@@ -204,7 +212,7 @@ class IleniazitodesignsController extends Controller
 
 
     //Retrieve the user from the database
-    $user = DB::connection('mysql_dynamic')->table('users_ileniazitodesigns')
+    $user = DB::connection('mysql_dynamic')->table('users_ileniadesigns')
     ->where('nickname', '=' ,$nickname)
     ->where('email', '=' ,$email)
     ->first();    
@@ -220,11 +228,11 @@ class IleniazitodesignsController extends Controller
       if ($lang=="it") {
         $object="Recupero password";
         $recovery_password="Hai richiesto il recupero delle credenziali:";
-        $return="Torna su ileniazitodesign!";
+        $return="Torna su ileniadesign!";
       }else{
         $object="Recovery password";
         $recovery_password="Recovery password:";
-        $return="Return to ileniazitodesign!";
+        $return="Return to ileniadesign!";
       }
 
       $data = array('nickname'=>$nickname, 'email'=>$email, 'password_decript'=>$user->password_decript, 'recovery_password'=>$recovery_password, 'return'=>$return);
@@ -232,10 +240,10 @@ class IleniazitodesignsController extends Controller
       Mail::send('mail', $data, function($message) use ($data) {
          $message->to($data['email'], $data['nickname'])->subject
             ('Password');
-         $message->from('infoileniazitodesign@gmail.com','ileniazitodesign');
+         $message->from('infoileniadesign@gmail.com','ileniadesign');
       });
 
-      return redirect()->to('/ileniazitodesign');  
+      return redirect()->to('/ileniadesign');  
 
     }else{
 
@@ -247,7 +255,7 @@ class IleniazitodesignsController extends Controller
 
   public function universal_db(){
 
-    Config::set('database.connections.mysql_dynamic.database','ileniazitodesign');
+    Config::set('database.connections.mysql_dynamic.database','ileniadesign');
     $universal=DB::connection('mysql_dynamic');
 
     return $universal;

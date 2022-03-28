@@ -11,6 +11,7 @@
         <link href="http://fonts.cdnfonts.com/css/silk-serif?styles=108358" rel="stylesheet"> 
         <link href="http://fonts.cdnfonts.com/css/futura-pt?styles=117667" rel="stylesheet">
         <!-- lettering -->
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/prefixfree/1.0.7/prefixfree.min.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/lettering.js/0.6.1/jquery.lettering.min.js"></script>
         <style>
             @import url('http://fonts.cdnfonts.com/css/silk-serif?styles=108358');
@@ -74,7 +75,7 @@
             }
             .centered_text_on_image {
                 position: absolute;
-                bottom: 50;
+                bottom: 90px;
                 left: 50%;
                 transform: translate(-50%, -50%);
                 font-family: 'Silk Serif', sans-serif;
@@ -100,263 +101,17 @@
                 border-color: black!important;
                 width: 60%;
             }
-            /* round text */
-            .circle {
-                transform: rotate(-23deg);
-                position: absolute;
-                font-family: 'Futura PT', sans-serif;
-                font-size: 20px!important;
-                height: 53%;
-                margin: auto;
-                width: 61%;
-                right: 0;
-            }
-            .circle > .text [class*=char] {
-                height: 75%;
-                position: absolute;
-                transform-origin: center bottom;
-            }
-            .circle > .text .char-1 {
-                transform: rotate(4.5deg);
-            }
-            .circle > .text .char-2 {
-                transform: rotate(9deg);
-            }
-            .circle > .text .char-3 {
-                transform: rotate(13.5deg);
-            }
-            .circle > .text .char-4 {
-                transform: rotate(18deg);
-            }
-            .circle > .text .char-5 {
-                transform: rotate(22.5deg);
-            }
-            .circle > .text .char-6 {
-                transform: rotate(27deg);
-            }
-            .circle > .text .char-7 {
-                transform: rotate(31.5deg);
-            }
-            .circle > .text .char-8 {
-                transform: rotate(36deg);
-            }
-            .circle > .text .char-9 {
-                transform: rotate(40.5deg);
-            }
-            .circle > .text .char-10 {
-                transform: rotate(45deg);
-            }
-            .circle > .text .char-11 {
-                transform: rotate(49.5deg);
-            }
-            .circle > .text .char-12 {
-                transform: rotate(54deg);
-            }
-            .circle > .text .char-13 {
-                transform: rotate(58.5deg);
-            }
-            .circle > .text .char-14 {
-                transform: rotate(63deg);
-            }
-            .circle > .text .char-15 {
-                transform: rotate(67.5deg);
-            }
-            .circle > .text .char-16 {
-                transform: rotate(72deg);
-            }
-            .circle > .text .char-17 {
-                transform: rotate(76.5deg);
-            }
-            .circle > .text .char-18 {
-                transform: rotate(81deg);
-            }
-            .circle > .text .char-19 {
-                transform: rotate(85.5deg);
-            }
-            .circle > .text .char-20 {
-                transform: rotate(90deg);
-            }
-            .circle > .text .char-21 {
-                transform: rotate(94.5deg);
-            }
-            .circle > .text .char-22 {
-                transform: rotate(99deg);
-            }
-            .circle > .text .char-23 {
-                transform: rotate(103.5deg);
-            }
-            .circle > .text .char-24 {
-                transform: rotate(108deg);
-            }
-            .circle > .text .char-25 {
-                transform: rotate(112.5deg);
-            }
-            .circle > .text .char-26 {
-                transform: rotate(117deg);
-            }
-            .circle > .text .char-27 {
-                transform: rotate(121.5deg);
-            }
-            .circle > .text .char-28 {
-                transform: rotate(126deg);
-            }
-            .circle > .text .char-29 {
-                transform: rotate(130.5deg);
-            }
-            .circle > .text .char-30 {
-                transform: rotate(135deg);
-            }
-            .circle > .text .char-31 {
-                transform: rotate(139.5deg);
-            }
-            .circle > .text .char-32 {
-                transform: rotate(144deg);
-            }
-            .circle > .text .char-33 {
-                transform: rotate(148.5deg);
-            }
-            .circle > .text .char-34 {
-                transform: rotate(153deg);
-            }
-            .circle > .text .char-35 {
-                transform: rotate(157.5deg);
-            }
-            .circle > .text .char-36 {
-                transform: rotate(162deg);
-            }
-            .circle > .text .char-37 {
-                transform: rotate(166.5deg);
-            }
-            .circle > .text .char-38 {
-                transform: rotate(171deg);
-            }
-            .circle > .text .char-39 {
-                transform: rotate(175.5deg);
-            }
-            .circle > .text .char-40 {
-                transform: rotate(180deg);
-            }
-            .circle > .text .char-41 {
-                transform: rotate(184.5deg);
-            }
-            .circle > .text .char-42 {
-                transform: rotate(189deg);
-            }
-            .circle > .text .char-43 {
-                transform: rotate(193.5deg);
-            }
-            .circle > .text .char-44 {
-                transform: rotate(198deg);
-            }
-            .circle > .text .char-45 {
-                transform: rotate(202.5deg);
-            }
-            .circle > .text .char-46 {
-                transform: rotate(207deg);
-            }
-            .circle > .text .char-47 {
-                transform: rotate(211.5deg);
-            }
-            .circle > .text .char-48 {
-                transform: rotate(216deg);
-            }
-            .circle > .text .char-49 {
-                transform: rotate(220.5deg);
-            }
-            .circle > .text .char-50 {
-                transform: rotate(225deg);
-            }
-            .circle > .text .char-51 {
-                transform: rotate(229.5deg);
-            }
-            .circle > .text .char-52 {
-                transform: rotate(234deg);
-            }
-            .circle > .text .char-53 {
-                transform: rotate(238.5deg);
-            }
-            .circle > .text .char-54 {
-                transform: rotate(243deg);
-            }
-            .circle > .text .char-55 {
-                transform: rotate(247.5deg);
-            }
-            .circle > .text .char-56 {
-                transform: rotate(252deg);
-            }
-            .circle > .text .char-57 {
-                transform: rotate(256.5deg);
-            }
-            .circle > .text .char-58 {
-                transform: rotate(261deg);
-            }
-            .circle > .text .char-59 {
-                transform: rotate(265.5deg);
-            }
-            .circle > .text .char-60 {
-                transform: rotate(270deg);
-            }
-            .circle > .text .char-61 {
-                transform: rotate(274.5deg);
-            }
-            .circle > .text .char-62 {
-                transform: rotate(279deg);
-            }
-            .circle > .text .char-63 {
-                transform: rotate(283.5deg);
-            }
-            .circle > .text .char-64 {
-                transform: rotate(288deg);
-            }
-            .circle > .text .char-65 {
-                transform: rotate(292.5deg);
-            }
-            .circle > .text .char-66 {
-                transform: rotate(297deg);
-            }
-            .circle > .text .char-67 {
-                transform: rotate(301.5deg);
-            }
-            .circle > .text .char-68 {
-                transform: rotate(306deg);
-            }
-            .circle > .text .char-69 {
-                transform: rotate(310.5deg);
-            }
-            .circle > .text .char-70 {
-                transform: rotate(315deg);
-            }
-            .circle > .text .char-71 {
-                transform: rotate(319.5deg);
-            }
-            .circle > .text .char-72 {
-                transform: rotate(324deg);
-            }
-            .circle > .text .char-73 {
-                transform: rotate(328.5deg);
-            }
-            .circle > .text .char-74 {
-                transform: rotate(333deg);
-            }
-            .circle > .text .char-75 {
-                transform: rotate(337.5deg);
-            }
-            .circle > .text .char-76 {
-                transform: rotate(342deg);
-            }
-            .circle > .text .char-77 {
-                transform: rotate(346.5deg);
-            }
-            .circle > .text .char-78 {
-                transform: rotate(351deg);
-            }
-            .circle > .text .char-79 {
-                transform: rotate(355.5deg);
-            }
-            .circle > .text .char-80 {
-                transform: rotate(360deg);
-            }
-            
+            /* lettering testo mezza luna top image */
+            #curved2 {
+                top: 10px;
+                left: 0;
+                width: 100%;
+                width: 100%;
+                height: 100%;
+                font-family: 'Silk Serif', sans-serif;
+                letter-spacing: 0;
+            }
+            /* timbro ileniazitodesign */
             .emblem {
                 height: 100px;
                 border-radius: 50%;
@@ -382,8 +137,7 @@
             .emblem_footer span{
                 margin: auto;
                 width: 0;
-            }
-            
+            }            
             @keyframes spinZ {
                 0% {
                     transform: rotateZ(360deg);
@@ -392,7 +146,6 @@
                     transform: rotateZ(0deg);
                 }
             }
-        
         </style>
     </head>
     <body>
@@ -405,7 +158,7 @@
             <div class="collapse navbar-collapse" id="myNavbarToggler7" style="justify-content: center;">
                 <ul class="navbar-nav w-100">
                     <li class="nav-item text-center pr-3 pl-3">
-                        <a class="nav-link" href="#" >Store</a>
+                        <a class="nav-link" onclick="change_vis('shopmyart_0')" >Store</a>
                     </li>
                     <li class="nav-item text-center pr-3 pl-3">
                         <a class="nav-link" href="#">Collection</a>
@@ -416,7 +169,7 @@
                     <div class="d-none d-lg-block w-100 text-center" style="padding-top: 8px;">
                         <!-- <img src="https://codingyaar.com/wp-content/uploads/logo.png"> -->
                         <h4 class="m-0" style="vertical-align: middle;text-align: center;padding-top: 8px;font-family: 'Silk Serif', sans-serif;
-                        white-space: nowrap;">ILENIA ZITO</h4>
+                        white-space: nowrap;" onclick="change_vis('home')">ILENIA ZITO DESIGN</h4>
                     </div>
                     <li class="nav-item text-center pr-3 pl-3">
                         <a class="nav-link" href="#">Ship to</a>
@@ -430,24 +183,22 @@
                 </ul>
             </div>
         </nav>
-        <div id="home" class="page">
+        <div id="home" class="page" style="display: none">
             <section id="section1" class="container-fluid h-100" style="background-color: #dbd3d3;">
                 <!-- <div class="d-flex flex-nowrap" style="position: absolute; top: 30%; right: 0;justify-content: center;"> -->
                 <div class="d-flex flex-nowrap h-100">
                     <div class="col-md-4 h-100">
-                        <p class="" style="position: absolute; bottom:0; right: 0;margin-bottom: 3rem!important;">Intersection of couture and ready to wear</p>
+                        <p class="" style="position: absolute; bottom:0; right: 0;margin-bottom: 7rem!important;width:30%;">Intersection of couture and ready to wear</p>
                     </div>
-                    <div class="col-md-4 h-100 p-0">
-                        <div class="w-100">
-                            <div class="circle append_span_circle">
-                                <span class="text">HANDCRAFTED</span>
-                            </div>
+                    <div class="col-md-4 p-0">
+                        <div class="" style="display: block;position: absolute; bottom:0;right: 0; left: 0;margin-bottom: 7rem!important;">
+                            <div id="curved2">ILENIAZITODESIGN</div>
+                            <img style="" class="img-corner m-auto" src="ileniadesign_repo/1.jpeg">
                         </div>
-                        <img style="position: absolute; bottom:0;right: 0; left: 0;margin-bottom: 3rem!important;" class="img-corner m-auto" src="ileniazitodesign_repo/1.jpeg">
                     </div>
                     <div class="centered_text_on_image">- Embrace your feminity</div>
                     <div class="col-md-4 h-100">
-                        <p style="position: absolute; bottom:0; left: 0;margin-bottom: 3rem!important;">Intersection of couture and ready to wear</p>
+                        <p style="position: absolute; bottom:0; left: 0;margin-bottom: 7rem!important;width:30%;">Intersection of couture and ready to wear</p>
                     </div>
                 </div>
             </section>
@@ -464,11 +215,11 @@
                         </div>
                     </div>
                     <div class="col-md-1 p-0" style="z-index:1;margin: auto;display: block;">
-                        <div class="emblem" style="position: absolute; left: 70px; right: 0; top: -60px;margin: 0 auto;width: 100px;">Ileniazitodesign-Ileniazitodesign-</div>
-                        <img src="ileniazitodesign_repo/2.jpeg" style="width: 190px; object-fit: contain; pointer-events: none;">
+                        <div class="emblem" style="position: absolute;right: 0;top: -50px;">Ileniazitodesign-Ileniazitodesign-</div>
+                        <img src="ileniadesign_repo/2.jpeg" style="width: 190px; object-fit: contain; pointer-events: none;">
                     </div>
                     <div class="col-md-4 p-0 z-index-0" style="z-index:0">
-                        <img src="ileniazitodesign_repo/3.jpeg" style="width: 100%; object-fit: contain; pointer-events: none;">
+                        <img src="ileniadesign_repo/3.jpeg" style="width: 100%; object-fit: contain; pointer-events: none;">
                     </div>
                 </div>
             </section>
@@ -476,7 +227,7 @@
                 <div class="d-flex flex-nowrap h-100">
                     <div class="col-md-4">
                         <div style="position: absolute;bottom: 100px;left:100px;">
-                            <img class="img-corner m-auto" src="ileniazitodesign_repo/1.jpeg">
+                            <img class="img-corner m-auto" src="ileniadesign_repo/1.jpeg">
                         </div>
                     </div>
                     <div class="col-md-4">
@@ -491,33 +242,33 @@
                         </div>
                     </div>
                     <div class="col-md-4">
-                        <div style="position: absolute;top: 100px;right:100px;">
-                            <img class="img-corner m-auto" src="ileniazitodesign_repo/2.jpeg">
+                        <div style="position: absolute;top: 100px;right:100px;z-index:1;margin: auto;display: block;">
+                            <div class="emblem" style="position: absolute;bottom: -50px;left:50px;">Ileniazitodesign-Ileniazitodesign-</div>
+                            <img class="img-corner m-auto" src="ileniadesign_repo/2.jpeg">
                         </div>
-                        <div class="emblem" style="left: 0!important;right: 0!important;bottom: 110px!important; top:auto!important; margin:0;width: 100px;position: absolute;">Ileniazitodesign-Ileniazitodesign-</div>
                     </div>
                 </div>
             </section>
-            <section id="section4" class="container-fluid p-0 h-100">
+            <section id="section4" class="container-fluid p-0">
                 <div class="d-flex flex-nowrap">
-                    <div class="col-md-6" style="z-index: 1;">
-                        <div style="top: 0; position: absolute; right: 0;padding-top: 15%; bottom: 0;">
-                            <div style="margin-left: 25%;">
-                                <img class="" style="border-radius: 0;width: 40%;float:right;margin-right: 25px;" src="ileniazitodesign_repo/1.jpeg">
-                                <div style="float:right;margin-right: 25px;">
-                                    <h1 style="font-size: -webkit-xxx-large!important;margin-left: 30%;background-color: white;display: inline-block;">CECILIA BAHANSEN</h1>
-                                </div>
-                                <div style="float:right;margin-right: 25px;">
-                                    <label style="float: right;width: 40%;">is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s</label>
-                                </div>
+                    <div class="col-md-3">
+                    </div>
+                    <div class="col-md-3" style="z-index: 1;margin-top: 10%;margin-bottom: 10%;">
+                        <div class="" style="display:block;margin-top: 20%;margin-bottom: 20%;">
+                            <img class="img-corner" style="border-radius: 0;width: 70%;float: right;" src="ileniadesign_repo/1.jpeg">
+                            <div style="float:right;margin-right: 25px;">
+                                <h1 style="font-size: 40px!important;margin-left: 25%;background-color: white;display: inline-block;height: 55px;padding: 9px;">ILENIA ZITO DESIGN</h1>
                             </div>
+                            <label style="float: right;width: 70%;">is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s</label>
                         </div>
                     </div>
-                    <div class="col-md-6" style="z-index: 0;">
-                        <div>
-                            <div class="emblem" style="margin: auto;top: 125px; position: absolute;z-index: 1;">Ileniazitodesign-Ileniazitodesign-</div>
-                            <img class="img-corner" style="top: 0; border-radius: 0; position: absolute; left: 0;padding-top: 15%; bottom: 0; width: 45%;" src="ileniazitodesign_repo/2.jpeg">
+                    <div class="col-md-3" style="z-index: 0;margin-top: 10%;margin-bottom: 10%;">
+                        <div class="" style="display:block;margin-top: 20%;margin-bottom: 20%;">
+                            <div class="emblem" style="top: 0; right: 0; position: absolute;">Ileniazitodesign-Ileniazitodesign-</div>
+                            <img class="img-corner" style="border-radius: 0; width: 100%;" src="ileniadesign_repo/2.jpeg">
                         </div>
+                    </div>
+                    <div class="col-md-3">
                     </div>
                 </div>
             </section>
@@ -527,7 +278,7 @@
                     </div>
                     <div class="col-md-4">
                         <h4 class="text-center" style="font-family: 'Futura PT', sans-serif;font-size: 20px!important;padding-top:10%">NEWSLETTER</h4>
-                        <img style="width: 50%!important;" class="img-corner m-auto" src="ileniazitodesign_repo/1.jpeg">
+                        <img style="width: 50%!important;" class="img-corner m-auto" src="ileniadesign_repo/1.jpeg">
                         <h1 class="text-center" style="font-size: 40px!important;white-space: normal!important;padding:10%">Subscribe to see the latest updates</h1>
                     </div>
                     <div class="col-md-4">
@@ -543,10 +294,10 @@
                 </div>
             </section>
         </div>
-        <div id="shopmyart" class="page d-none">
-            @include("ileniazitodesign.shopmyart")
+        <div id="shopmyart" class="page" style="display: none;">
+            @include("ileniadesign.desktop.shopmyart")
         </div>
-        <footer style="background-color:#CDB4B4">
+        <footer style="background-color:#CDB4B4;">
             <div class="">
                 <h1 class="text-center" style="font-size:25px!important;padding: 5%;">CECILIE BAHANSEN</h1>
             </div>
@@ -590,34 +341,266 @@
         <script>
             //sistemare timbri
             //sistemare title lettering nella section_1
-            //mettere funzioni cambio pagina
-            //distinguere accesso per desktop o per mobile diviso per cartella
             //fare pagina login
-            $.fn.lettering = function(name) {
-                var t = this.text(),
-                tl = t.length,
-                r = '';
-                for(var i = 0; i < tl; i++) {
-                    r += '<span class="' + name + '-' + i + '">' + t[i] + '</span>';
+
+            //importantissimo funzioni per cambiare pagina in laravel da chrome  
+            var myhistory = [];
+            var data = {!! $data !!};
+            page_to_go = data["page"];
+            change_vis(page_to_go);
+
+            function change_vis(page_name, history){
+                console.log(page_name)
+                var num_image=page_name.split("_")[1];
+                page_name=page_name.split("_")[0];
+                    
+                var old_page=window.location.href.split("=")[1];
+
+                if (old_page.indexOf('shopdetail') == 0) {
+                
+                $("#shopdetail").hide();
+
+                } else if(old_page.indexOf('shopmyart')==0) {
+
+                $("#shopmyart").hide();
+
+                }else{
+                
+                $("#"+old_page).hide();
+
                 }
-                this.html(r);
+
+                if(history != 0){
+                    
+                myhistory.push(old_page);
+                
+                }
+
+                old_page=page_name;
+
+                $("#"+page_name).show();
+
+                button_back(page_name, num_image);
+
+                case_page(page_name, num_image);
+
+            }
+
+            function button_back(page_name, num_image){
+
+                console.log(page_name)
+                
+                history.pushState(null, null, history.pushState(null, null, window.location.href.substr(0, window.location.href.indexOf(page_name))));
+
+                if (page_name=="shopdetail" || page_name=="shopmyart") {
+
+                history.pushState(null, null, window.history.replaceState(null, null, "/id?page="+page_name+"_"+num_image));
+
+                } else{
+
+                history.pushState(null, null, window.history.replaceState(null, null, "/id?page="+page_name));
+
+                }
+
+                window.onpopstate = function () {
+
+                if (myhistory.length==1) {
+
+                    history.pushState(null, null, location.href);
+                    window.onpopstate = function () {
+                    history.go(1);
+                    };
+                    return "http://localhost:8000/ileniadesign";
+                    
+                } else {
+
+                change_vis(myhistory.pop(), 0); 
+
+                }
+
             };
-            $.fn.rotate = function(children) {
-                this.css({
-                    transform: 'rotate(-' + parseInt((360 / 80) * ((children.text().length - 1) / 2)) + 'deg)'
+
+            }  
+
+            function case_page(page_name, num_image){
+
+                switch(page_name) {
+                case "home":
+                break;
+                case "shopmyart":
+                break;
+                case "shopdetail":
+                break;
+                case "requests":
+                break;
+                case "whoiam":
+                break;
+                case "discovermyart":
+                break;
+                case "cart":
+                break;
+                case "login":
+                break;
+                default:
+                }
+
+            }
+
+            /*
+            * CircleType 0.34
+            * Peter Hrynkow
+            * Copyright 2013, Licensed GPL & MIT
+            *
+            */
+
+            $.fn.circleType = function (options) {
+            var settings = {
+                dir: 1,
+                position: "relative"
+            };
+            if (typeof $.fn.lettering !== "function") {
+                console.log("Lettering.js is required");
+                return;
+            }
+            return this.each(function () {
+                if (options) {
+                $.extend(settings, options);
+                }
+                var elem = this,
+                delta = 180 / Math.PI,
+                ch = parseInt($(elem).css("line-height"), 10),
+                fs = parseInt($(elem).css("font-size"), 10),
+                txt = elem.innerHTML.replace(/^\s+|\s+$/g, "").replace(/\s/g, "&nbsp;"),
+                letters,
+                center;
+
+                elem.innerHTML = txt;
+                $(elem).lettering();
+
+                elem.style.position = settings.position;
+
+                letters = elem.getElementsByTagName("span");
+                center = Math.floor(letters.length / 2);
+
+                var layout = function () {
+                var tw = 0,
+                    i,
+                    offset = 0,
+                    minRadius,
+                    origin,
+                    innerRadius,
+                    l,
+                    style,
+                    r,
+                    transform;
+
+                for (i = 0; i < letters.length; i++) {
+                    tw += letters[i].offsetWidth;
+                }
+                minRadius = tw / Math.PI / 2 + ch;
+
+                if (settings.fluid && !settings.fitText) {
+                    settings.radius = Math.max(elem.offsetWidth / 2, minRadius);
+                } else if (!settings.radius) {
+                    settings.radius = minRadius;
+                }
+
+                if (settings.dir === -1) {
+                    origin = "center " + (-settings.radius + ch) / fs + "em";
+                } else {
+                    origin = "center " + settings.radius / fs + "em";
+                }
+
+                innerRadius = settings.radius - ch;
+
+                for (i = 0; i < letters.length; i++) {
+                    l = letters[i];
+                    offset += (l.offsetWidth / 2 / innerRadius) * delta;
+                    l.rot = offset;
+                    offset += (l.offsetWidth / 2 / innerRadius) * delta;
+                }
+                for (i = 0; i < letters.length; i++) {
+                    l = letters[i];
+                    style = l.style;
+                    r = (-offset * settings.dir) / 2 + l.rot * settings.dir;
+                    transform = "rotate(" + r + "deg)";
+
+                    style.position = "absolute";
+                    style.left = "50%";
+                    style.marginLeft = -(l.offsetWidth / 2) / fs + "em";
+
+                    style.webkitTransform = transform;
+                    style.MozTransform = transform;
+                    style.OTransform = transform;
+                    style.msTransform = transform;
+                    style.transform = transform;
+
+                    style.webkitTransformOrigin = origin;
+                    style.MozTransformOrigin = origin;
+                    style.OTransformOrigin = origin;
+                    style.msTransformOrigin = origin;
+                    style.transformOrigin = origin;
+                    if (settings.dir === -1) {
+                    style.bottom = 0;
+                    }
+                }
+
+                if (settings.fitText) {
+                    if (typeof $.fn.fitText !== "function") {
+                    console.log("FitText.js is required when using the fitText option");
+                    } else {
+                    $(elem).fitText();
+                    $(window).resize(function () {
+                        updateHeight();
+                    });
+                    }
+                }
+                updateHeight();
+                };
+
+                var getBounds = function (elem) {
+                var docElem = document.documentElement,
+                    box = elem.getBoundingClientRect();
+                return {
+                    top: box.top + window.pageYOffset - docElem.clientTop,
+                    left: box.left + window.pageXOffset - docElem.clientLeft,
+                    height: box.height
+                };
+                };
+
+                var updateHeight = function () {
+                var mid = getBounds(letters[center]),
+                    first = getBounds(letters[0]),
+                    h;
+                if (mid.top < first.top) {
+                    h = first.top - mid.top + first.height;
+                } else {
+                    h = mid.top - first.top + first.height;
+                }
+                elem.style.height = h + "px";
+                };
+
+                if (settings.fluid && !settings.fitText) {
+                $(window).resize(function () {
+                    layout();
                 });
+                }
+
+                if (document.readyState !== "complete") {
+                elem.style.visibility = "hidden";
+                 
+                $(window).on('load', function(){
+                    elem.style.visibility = "visible";
+                    layout();
+                });
+                } else {
+                layout();
+                }
+            });
             };
 
-            $('.append_span_circle').each(function(){
+            $("#curved2").circleType({ dir: 1, radius: 200 });
 
-            var parent = $(this);
-            var children = parent.children('.text');
-            
-            
-            parent.rotate(children);
-            children.lettering('char');
-
-            });
             
             $('.emblem').each(function(){
                 var text=$(this).text();
