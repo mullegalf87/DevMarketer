@@ -184,7 +184,7 @@
         </nav>
         <div id="home" class="page" style="display: none">
             <div class="container_page" style="flex: 1; position: absolute; right: 0; bottom: 0; left: 0;">
-                <section id="section1" class="container-fluid h-100" style="background-color: #dbd3d3;">
+                <section class="container-fluid h-100" style="background-color: #dbd3d3;">
                     <div class="d-flex flex-nowrap h-100">
                         <div class="col-md-4 h-100">
                             <p class="" style="position: absolute; bottom:0; right: 0;margin-bottom: 7rem!important;width:30%;">Intersection of couture and ready to wear</p>
@@ -201,7 +201,7 @@
                         </div>
                     </div>
                 </section>
-                <section id="section2" class="container-fluid p-0">
+                <section class="container-fluid p-0">
                     <div class="d-flex flex-nowrap">
                         <div class="col-md-7 p-0">
                             <div style="position: relative; top: 50%; transform: translateY(-50%); display: flex; justify-content: center;">
@@ -222,7 +222,7 @@
                         </div>
                     </div>
                 </section>
-                <section id="section3" class="container-fluid p-0 h-100" style="background-color: #dbd3d3;">
+                <section class="container-fluid p-0 h-100" style="background-color: #dbd3d3;">
                     <div class="d-flex flex-nowrap h-100">
                         <div class="col-md-4">
                             <div style="position: absolute;bottom: 100px;left:100px;">
@@ -248,7 +248,7 @@
                         </div>
                     </div>
                 </section>
-                <section id="section4" class="container-fluid p-0">
+                <section class="container-fluid p-0">
                     <div class="d-flex flex-nowrap">
                         <div class="col-md-3">
                         </div>
@@ -271,7 +271,7 @@
                         </div>
                     </div>
                 </section>
-                <section id="section5" class="container-fluid p-0 h-100" style="background-color: #dbd3d3;">
+                <section class="container-fluid p-0 h-100" style="background-color: #dbd3d3;">
                     <div class="d-flex flex-wrap" >
                         <div class="col-md-4">
                         </div>
