@@ -102,7 +102,7 @@
                 width: 60%;
             }
             /* lettering testo mezza luna top image */
-            #curved2 {
+            .curved2 {
                 top: 10px;
                 left: 0;
                 width: 100%;
@@ -191,7 +191,7 @@
                         </div>
                         <div class="col-md-4 p-0">
                             <div class="" style="display: block;position: absolute; bottom:0;right: 0; left: 0;margin-bottom: 7rem!important;">
-                                <div id="curved2">ILENIAZITODESIGN</div>
+                                <div class="curved2">ILENIAZITODESIGN</div>
                                 <img class="img-corner m-auto" src="ileniadesign_repo/1.jpeg">
                             </div>
                         </div>
@@ -616,7 +616,7 @@
                     });
                 };
                 
-                $("#curved2").circleType({ dir: 1, radius: 200 });
+                $(".curved2").circleType({ dir: 1, radius: 200 });
                 
             }
 
