@@ -174,7 +174,11 @@
                         <a class="nav-link" href="#">Ship to</a>
                     </li>
                     <li class="nav-item text-center pr-3 pl-3">
-                        <a class="nav-link" onclick="change_vis('login')">Account</a>
+                        @if( auth()->guard('users_ileniadesign')->check() )
+                        <a class="nav-link" onclick="change_vis('login')">{{ auth()->guard('users_ileniadesign')->user()->name }} </a>
+                        @else
+                        <a class="nav-link" onclick="change_vis('login')">Account </a>
+                        @endif
                     </li>
                     <li class="nav-item text-center pr-3 pl-3" style="padding: 8px;">
                         <div class="circle_cart">2</div>

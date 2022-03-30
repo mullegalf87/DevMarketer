@@ -66,9 +66,9 @@ return [
             'provider' => 'users_promotions',
         ],
 
-        'users_ileniazitodesign' => [
+        'users_ileniadesign' => [
             'driver' => 'session',
-            'provider' => 'users_ileniazitodesigns',
+            'provider' => 'users_ileniadesigns',
         ],
     ],
 
@@ -115,7 +115,7 @@ return [
             'model' => App\Users_promotion::class,
         ],
 
-        'users_ileniazitodesigns' => [
+        'users_ileniadesigns' => [
             'driver' => 'eloquent',
             'model' => App\Users_promotion::class,
         ],
@@ -172,8 +172,8 @@ return [
             'expire' => 60,
         ],
 
-        'users_ileniazitodesigns' => [
-            'provider' => 'users_ileniazitodesigns',
+        'users_ileniadesigns' => [
+            'provider' => 'users_ileniadesigns',
             'table' => 'password_resets',
             'expire' => 60,
         ],
