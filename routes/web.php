@@ -436,15 +436,15 @@ Route::get('/ileniadesign', function () {
   return redirect('id?page=home');
 });
 
-Route::get('/id', 'IleniadesignsController@go_to_page');
+Route::get('/id', 'IleniadesignController@go_to_page');
 
-Route::get('id/lang', 'IleniadesignsController@lang_change')->name('idLangChange');
+Route::get('id/lang', 'IleniadesignController@lang_change')->name('idLangChange');
 
 //Login
-Route::post('register_ileniadesign', 'IleniadesignsController@store');
+Route::post('register_ileniadesign/{numb}/{cookie}', 'IleniadesignController@store');
 
-Route::post('login_ileniadesign', 'IleniadesignsController@check_login');
+Route::post('login_ileniadesign/{numb}/{cookie}', 'IleniadesignController@check_login');
 
-Route::get('logout_ileniadesign', 'IleniadesignsController@logout_ileniadesign');
+Route::get('logout_ileniadesign', 'IleniadesignController@logout_ileniadesign');
 
-Route::post('reset_password_without_token_ileniadesign', 'IleniadesignsController@validatePasswordRequest');
+Route::post('recovery_ileniadesign', 'IleniadesignController@recovery_ileniadesign');

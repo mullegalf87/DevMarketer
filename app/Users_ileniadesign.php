@@ -5,7 +5,7 @@ namespace App;
 
 use Illuminate\Foundation\Auth\User as Authenticatable;
  
-class Users_ileniazitodesign extends Authenticatable
+class Users_ileniadesign extends Authenticatable
 {
     
     
@@ -15,7 +15,7 @@ class Users_ileniazitodesign extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'nickname', 'password', 'password_decript','email', 'level',
+        'name', 'lastname', 'email', 'password', 'password_decript', 'cookie', 'token_user',
     ];
     
     /**

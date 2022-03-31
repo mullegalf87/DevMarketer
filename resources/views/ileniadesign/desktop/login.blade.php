@@ -16,7 +16,7 @@
                 {{ csrf_field() }}
                 <div class="col-md-12{{ $errors->has('email') ? ' has-error' : '' }}">
                     <h4 class="flex-grow-1" style="font-family: 'Futura PT', sans-serif;font-size: 15px!important;" onclick="switch_account('register_account')">REGISTER</h4>
-                    <input type="text" class="form-control p-0" name="email" placeholder="Email" value="{{ old('email') }}" style="width: 60%;height:60px;background: transparent; border-radius: 0; border-bottom: 1px solid;font-family: 'Futura PT', sans-serif;font-size: 15px!important;" required>
+                    <input type="text" class="form-control p-0" name="email" placeholder="Email"  style="width: 60%;height:60px;background: transparent; border-radius: 0; border-bottom: 1px solid;font-family: 'Futura PT', sans-serif;font-size: 15px!important;" required>
                     @if ($errors->has('email'))
                     <span class="help-block">
                         <strong>{{ $errors->first('email') }}</strong>
