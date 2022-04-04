@@ -363,6 +363,15 @@ class IleniadesignController extends Controller
 
   }
 
+  public function get_image_shopmyart_ileniadesign(){
+    $type_img=Request::get("type_img");
+    $get_image = $this->universal_db()->table('image_shopmyart_ileniadesign')
+    ->where("type_img","=",$type_img)
+    ->orderBy('position', 'DESC')
+    ->get();
+    return View::make('query')->with("result",json_encode($get_image)); 
+   }
+
   
 
 }

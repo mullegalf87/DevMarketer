@@ -7,6 +7,8 @@
     <!-- bootstrap 4.5 bootstrap-->
     <link rel='stylesheet' href='https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css'>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <!-- lazyload -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.lazyload/1.9.1/jquery.lazyload.js"></script>
     <!-- fontawsome -->
     <script src="https://use.fontawesome.com/releases/v5.0.1/js/all.js"></script>
     <!-- font -->
@@ -153,6 +155,9 @@
             input:-webkit-autofill:focus, 
             input:-webkit-autofill:active{
             -webkit-box-shadow: 0 0 0 30px #dbd3d3 inset !important;
+        }
+        [onClick] {
+            cursor:pointer;
         }
     </style>
 </head>
@@ -455,6 +460,7 @@
             case "home":
             break;
             case "shopmyart":
+                start_function_shopmyart(num_image);
             break;
             case "shopdetail":
             break;

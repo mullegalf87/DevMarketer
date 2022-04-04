@@ -448,3 +448,6 @@ Route::post('login_ileniadesign/{numb}/{cookie}', 'IleniadesignController@check_
 Route::get('logout_ileniadesign', 'IleniadesignController@logout_ileniadesign');
 
 Route::post('recovery_ileniadesign', 'IleniadesignController@recovery_ileniadesign');
+
+//funzioni
+Route::get("get_image_shopmyart_ileniadesign","IleniadesignController@get_image_shopmyart_ileniadesign");
