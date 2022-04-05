@@ -1,5 +1,9 @@
 <style>
-    
+    ::placeholder {
+        color: #CDB4B4;
+        opacity: 1; /* Firefox */
+        text-align: center;
+    }
 </style>
 <section class="container-fluid p-0" style="background-color: #dbd3d3;">
     <div class="d-flex flex-wrap">
@@ -13,8 +17,8 @@
             align-items: center;justify-content: center;">STAMPE</h4>
             <h4 class="text-center flex-grow-1 cat subcat_postcard cat_1" style="font-family: 'Futura PT', sans-serif;font-size: 13px!important;display: flex;
             align-items: center;justify-content: center;">CARTOLINE</h4>
-            <div class="text-center flex-grow-1 cat subcat_search">
-                <button class="btn btn-primary text-center w-100" style="color:#CDB4B4!important;border-color: #CDB4B4!important;">SEARCH  </button>
+            <div class="text-center flex-grow-1">
+                <input id="search_all" type="search" class="text-left" placeholder="Search" style="color: #CDB4B4!important;border-color: #CDB4B4!important;width: 100%;float: right;height:60px;background: transparent;border-radius: 0;height: 60px;border: 1px solid black;font-family: 'Futura PT', sans-serif;font-size: 15px!important;">
             </div>
             <h4 class="text-center flex-grow-1" style="font-family: 'Futura PT', sans-serif;font-size: 13px!important;display: flex;
             align-items: center;justify-content: center;">FILTERS</h4>
@@ -46,11 +50,6 @@
             align-items: center;justify-content: center;" onclick="filter_subcategory('postcard',1,5)">Motivazione</h4>
             <h4 class="text-center flex-grow-1 subcat subcat_postcard_6" style="font-family: 'Futura PT', sans-serif;font-size: 13px!important;display: flex;
             align-items: center;justify-content: center;" onclick="filter_subcategory('postcard',1,6)">Gratitudine</h4>
-        </div>
-    </div>
-    <div id="subcat_search" class="div_subcat" style="display: none;">
-        <div class="d-flex flex-nowrap w-100 mt-3" style="height: 60px;justify-content: center;">
-            <input id="search_all" type="search" class="form-control text-left" placeholder="Search..." style="width: 60%;float: right;height:60px;background: transparent; border-radius: 0; width: 31%; float: right; height: 60px; border-bottom: 1px solid;font-family: 'Futura PT', sans-serif;font-size: 15px!important;">
         </div>
     </div>
     @if( auth()->guard('users_ileniadesign')->check() )

@@ -370,7 +370,7 @@
 </footer>
 <script>
     //desktop
-    //fare shopmyart
+    //fare shopmyart, mettere carosello tra le categorie
     //fare shopdetail
     //fare cart
     //fare ordini profilo cliente
