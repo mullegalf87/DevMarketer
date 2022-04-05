@@ -370,7 +370,7 @@
 </footer>
 <script>
     //desktop
-    //fare shopmyart, risolvere problema login, prende iduser di un altra tabella
+    //fare shopmyart
     //fare shopdetail
     //fare cart
     //fare ordini profilo cliente

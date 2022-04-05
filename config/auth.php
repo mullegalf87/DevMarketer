@@ -117,7 +117,7 @@ return [
 
         'users_ileniadesigns' => [
             'driver' => 'eloquent',
-            'model' => App\Users_promotion::class,
+            'model' => App\Users_ileniadesign::class,
         ],
 
         // 'users' => [

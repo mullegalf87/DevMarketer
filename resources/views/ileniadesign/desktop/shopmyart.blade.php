@@ -61,6 +61,9 @@
     <div class="d-flex flex-wrap" style="padding: 10!important;" id="append_image_shopmyart">
     </div>
     @endif
+    @else
+    <div class="d-flex flex-wrap" style="padding: 10!important;" id="append_image_shopmyart">
+    </div>
     @endif
 </section>
 <script>
@@ -76,9 +79,6 @@
     var old_array_position=[];
     function get_image(type_img){
         $("#append_image_shopmyart").empty();
-
-        var id_user="@if( auth()->guard('users_ileniadesign')->check() ){{ auth()->guard('users_ileniadesign')->user()->id}}@endif";
-                console.log(id_user)
         
         $.get("/get_image_shopmyart_ileniadesign",{},
         function(data){
@@ -117,6 +117,8 @@
                 '@else'+
                 '<img onclick="change_vis(\'shopdetail_'+res[i].id+'\')" data-original="ileniadesign_repo/shopmyart/'+res[i].id+'/'+res[i].image_file.split(",")[0]+'" alt="'+res[i].name_image+'" class="lazy" style="width: 100%!important;" >'+
                 '@endif'+
+                '@else'+
+                '<img onclick="change_vis(\'shopdetail_'+res[i].id+'\')" data-original="ileniadesign_repo/shopmyart/'+res[i].id+'/'+res[i].image_file.split(",")[0]+'" alt="'+res[i].name_image+'" class="lazy" style="width: 100%!important;" >'+
                 '@endif'+
                 '<div class="d-flex flex-nowrap mt-1 mb-1">'+
                 '<label style="font-family: Futura PT, sans-serif; font-size: 15px!important;margin-bottom: 0;flex-grow:1">'+res[i].name_image.toLowerCase()+'</label>'+
@@ -128,10 +130,14 @@
             }
             
             jQuery(document).ready(function ($) {
-                $("img.lazy").lazyload(
-                { data_attribute: "original",
-                effect : "fadeIn"
+
+                $("img.lazy").lazyload({ 
+
+                    data_attribute: "original",
+                    effect : "fadeIn"
+
                 });
+
             });
     
         });
@@ -260,7 +266,7 @@
 
     function update_position_image(ultimate_array_position){
 
-    var type_page="shopmyart";
+        var type_page="shopmyart";
 
         $.get("/update_position_image_ileniadesign",{ultimate_array_position:ultimate_array_position.toString(), type_page:type_page},
         function(data){
