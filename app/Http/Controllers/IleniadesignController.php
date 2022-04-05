@@ -101,45 +101,45 @@ class IleniadesignController extends Controller
       
       auth()->guard('users_ileniadesign')->login($user);
 
-      DB::table('cart_ileniadesign')
-        ->where('id_user','=',$cookie)
-        ->update(
-          array(
+      // DB::table('cart_ileniadesign')
+      //   ->where('id_user','=',$cookie)
+      //   ->update(
+      //     array(
 
-           'id_user'=>auth()->guard('users_ileniadesign')->user()->id,
+      //      'id_user'=>auth()->guard('users_ileniadesign')->user()->id,
 
-         ));
+      //    ));
 
-      $email=auth()->guard('users_ileniadesign')->user()->email;
-      $password=auth()->guard('users_ileniadesign')->user()->password_decript;
-      $token_user=auth()->guard('users_ileniadesign')->user()->token_user;
+    //   $email=auth()->guard('users_ileniadesign')->user()->email;
+    //   $password=auth()->guard('users_ileniadesign')->user()->password_decript;
+    //   $token_user=auth()->guard('users_ileniadesign')->user()->token_user;
 
-      $object="Summary account";
-      $recovery_password="Welcome to Ileniazitodesign!";
-      $return="Return to login";
+    //   $object="Summary account";
+    //   $recovery_password="Welcome to Ileniazitodesign!";
+    //   $return="Return to login";
 
-      $data = array('email'=>$email, 'password_decript'=>$password, 'recovery_password'=>$recovery_password, 'token_user'=>$token_user, 'return'=>$return);
+    //   $data = array('email'=>$email, 'password_decript'=>$password, 'recovery_password'=>$recovery_password, 'token_user'=>$token_user, 'return'=>$return);
 
-      Mail::send('mail', $data, function($message) use ($data) {
-       $message->to($data['email'])->subject
-       ('Welcome to Ileniazitodesign');
-       $message->from('no-reply@ileniazitodesign.com','Ileniazitodesign');
-     });
+    //   Mail::send('mail', $data, function($message) use ($data) {
+    //    $message->to($data['email'])->subject
+    //    ('Welcome to Ileniazitodesign');
+    //    $message->from('no-reply@ileniazitodesign.com','Ileniazitodesign');
+    //  });
 
-      DB::table('newsletter_ileniadesign')
-      ->insertGetId(array( 
+    //   DB::table('newsletter_ileniadesign')
+    //   ->insertGetId(array( 
        
-       'id_user'=>auth()->guard('users_ileniadesign')->user()->id,
-       'email'=>$email,
+    //    'id_user'=>auth()->guard('users_ileniadesign')->user()->id,
+    //    'email'=>$email,
 
 
-     ));
+    //  ));
 
-      if ($numb==1) {
-        return redirect()->to('/');
-      }else{
-        return redirect()->to('/id?page=cart');
-      }
+      // if ($numb==1) {
+      //   return redirect()->to('/');
+      // }else{
+      //   return redirect()->to('/id?page=cart');
+      // }
 
       }
 
@@ -366,11 +366,30 @@ class IleniadesignController extends Controller
   public function get_image_shopmyart_ileniadesign(){
     $type_img=Request::get("type_img");
     $get_image = $this->universal_db()->table('image_shopmyart_ileniadesign')
-    ->where("type_img","=",$type_img)
     ->orderBy('position', 'DESC')
     ->get();
     return View::make('query')->with("result",json_encode($get_image)); 
    }
+
+  
+  public function update_position_image_ileniadesign(){
+  
+  $ultimate_array_position=Request::get('ultimate_array_position');
+
+  $array=explode(",", $ultimate_array_position);
+
+  for ($i=0; $i < count($array); $i++) { 
+    $this->universal_db()->table('image_shopmyart_ileniadesign')
+    ->where('id', '=',explode("_", $array[$i])[0])
+    ->update(
+      array(
+        'position'=>explode("_", $array[$i])[1],
+      ));
+  }
+
+  return View::make('query')->with("result",json_encode("edited!")); 
+
+  }
 
   
 

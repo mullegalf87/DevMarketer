@@ -9,6 +9,8 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
     <!-- lazyload -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.lazyload/1.9.1/jquery.lazyload.js"></script>
+    <!-- drug and drop image -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.11.2/jquery-ui.min.js"></script>
     <!-- fontawsome -->
     <script src="https://use.fontawesome.com/releases/v5.0.1/js/all.js"></script>
     <!-- font -->
@@ -368,7 +370,7 @@
 </footer>
 <script>
     //desktop
-    //fare shopmyart
+    //fare shopmyart, risolvere problema login, prende iduser di un altra tabella
     //fare shopdetail
     //fare cart
     //fare ordini profilo cliente
@@ -391,10 +393,6 @@
         if (old_page.indexOf('shopdetail') == 0) {
             
             $("#shopdetail").hide();
-            
-        } else if(old_page.indexOf('shopmyart')==0) {
-            
-            $("#shopmyart").hide();
             
         }else{
             
@@ -420,11 +418,9 @@
     
     function button_back(page_name, num_image){
         
-        console.log(page_name)
-        
         history.pushState(null, null, history.pushState(null, null, window.location.href.substr(0, window.location.href.indexOf(page_name))));
         
-        if (page_name=="shopdetail" || page_name=="shopmyart") {
+        if (page_name=="shopdetail") {
             
             history.pushState(null, null, window.history.replaceState(null, null, "/id?page="+page_name+"_"+num_image));
             
@@ -460,7 +456,7 @@
             case "home":
             break;
             case "shopmyart":
-                start_function_shopmyart(num_image);
+                start_function_shopmyart();
             break;
             case "shopdetail":
             break;
@@ -495,13 +491,11 @@
     function set_lettering_circle_title(){
         
         $.fn.circleType = function (options) {
-            console.log(options)
             var settings = {
                 dir: 1,
                 position: "relative"
             };
             if (typeof $.fn.lettering !== "function") {
-                console.log("Lettering.js is required");
                 return;
             }
             return this.each(function () {
@@ -589,7 +583,7 @@
                     
                     if (settings.fitText) {
                         if (typeof $.fn.fitText !== "function") {
-                            console.log("FitText.js is required when using the fitText option");
+
                         } else {
                             $(elem).fitText();
                             $(window).resize(function () {
