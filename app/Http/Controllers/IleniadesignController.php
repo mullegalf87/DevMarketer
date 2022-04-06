@@ -391,6 +391,16 @@ class IleniadesignController extends Controller
 
   }
 
+  public function get_subcat_ileniadesign(){
   
+    $id_cat=Request::get('id_cat');
+
+    $get_subcat=$this->universal_db()->table('subcategory_image_ileniadesign')
+      ->where('id_cat', '=',$id_cat)
+      ->get();
+  
+    return View::make('query')->with("result",json_encode($get_subcat)); 
+  
+    }
 
 }

@@ -13,43 +13,42 @@
         <div class="d-flex flex-nowrap w-100">
             <h4 class="text-center flex-grow-1 cat subcat_all" style="font-family: 'Futura PT', sans-serif;font-size: 13px!important;display: flex;
             align-items: center;justify-content: center;">ALL</h4>
-            <h4 class="text-center flex-grow-1 cat subcat_print cat_0" style="font-family: 'Futura PT', sans-serif;font-size: 13px!important;display: flex;
-            align-items: center;justify-content: center;">STAMPE</h4>
-            <h4 class="text-center flex-grow-1 cat subcat_postcard cat_1" style="font-family: 'Futura PT', sans-serif;font-size: 13px!important;display: flex;
-            align-items: center;justify-content: center;">CARTOLINE</h4>
+            <h4 class="text-center flex-grow-1 cat cat_0" style="font-family: 'Futura PT', sans-serif;font-size: 13px!important;display: flex;align-items: center;justify-content: center;">STAMPE</h4>
+            <h4 class="text-center flex-grow-1 cat cat_1" style="font-family: 'Futura PT', sans-serif;font-size: 13px!important;display: flex;align-items: center;justify-content: center;">CARTOLINE</h4>
             <div class="text-center flex-grow-1">
-                <input id="search_all" type="search" class="text-left" placeholder="Search" style="color: #CDB4B4!important;border-color: #CDB4B4!important;width: 100%;float: right;height:60px;background: transparent;border-radius: 0;height: 60px;border: 1px solid black;font-family: 'Futura PT', sans-serif;font-size: 15px!important;">
+                <input id="search_all" type="search" class="text-center" placeholder="Search" style="border-color: #CDB4B4!important;width: 100%;float: right;height:60px;background: transparent;border-radius: 0;height: 60px;border: 1px solid black;font-family: 'Futura PT', sans-serif;font-size: 15px!important;" autocomplete="off">
             </div>
-            <h4 class="text-center flex-grow-1" style="font-family: 'Futura PT', sans-serif;font-size: 13px!important;display: flex;
-            align-items: center;justify-content: center;">FILTERS</h4>
-            <h4 class="text-center flex-grow-1" style="font-family: 'Futura PT', sans-serif;font-size: 13px!important;display: flex;
-            align-items: center;justify-content: center;">FILTERS</h4>
-            <h4 class="text-center flex-grow-1" style="font-family: 'Futura PT', sans-serif;font-size: 13px!important;display: flex;
-            align-items: center;justify-content: center;">FILTERS</h4>
+            <h4 class="text-center flex-grow-1 cat cat_2" style="font-family: 'Futura PT', sans-serif;font-size: 13px!important;display: flex;
+            align-items: center;justify-content: center;">FORMATO</h4>
+            <h4 class="text-center flex-grow-1 cat cat_3" style="font-family: 'Futura PT', sans-serif;font-size: 13px!important;display: flex;
+            align-items: center;justify-content: center;">PREZZO</h4>
+            <h4 class="text-center flex-grow-1 cat cat_4" style="font-family: 'Futura PT', sans-serif;font-size: 13px!important;display: flex;
+            align-items: center;justify-content: center;">DATA</h4>
         </div>
     </div>
-    <div id="subcat_print" class="div_subcat" style="display: none;">
-        <div class="d-flex flex-nowrap w-100 mt-3" style="height: 60px;">
-            <h4 class="text-center flex-grow-1 subcat subcat_print_0" style="font-family: 'Futura PT', sans-serif;font-size: 13px!important;display: flex;
-            align-items: center;justify-content: center;" onclick="filter_subcategory('print',0,0)">Illustrazioni</h4>
-            <h4 class="text-center flex-grow-1 subcat subcat_print_1" style="font-family: 'Futura PT', sans-serif;font-size: 13px!important;display: flex;
-            align-items: center;justify-content: center;" onclick="filter_subcategory('print',0,1)">Pupine</h4>
+    <div id="append_subcat">
+    </div>
+    <div id="cat_2" class="div_subcat" style="display: none;">
+        <div class="d-flex" style="height: 60px;width:100%;overflow:auto;justify-content: center;">
+            <h4 class="text-center otherparameter otherparameter_0_1" style="font-family: 'Futura PT', sans-serif;font-size: 13px!important;flex: 0 0 10%;transform: translate(0, 50%);" onclick="filter_other_parameter(0,1)">A4 (297x210)</h4>
+            <h4 class="text-center otherparameter otherparameter_0_2" style="font-family: 'Futura PT', sans-serif;font-size: 13px!important;flex: 0 0 10%;transform: translate(0, 50%);" onclick="filter_other_parameter(0,2)">A3 (297x420)</h4>
+            <h4 class="text-center otherparameter otherparameter_0_3" style="font-family: 'Futura PT', sans-serif;font-size: 13px!important;flex: 0 0 10%;transform: translate(0, 50%);" onclick="filter_other_parameter(0,3)">A5 (148x210)</h4>
         </div>
     </div>
-    <div id="subcat_postcard" class="div_subcat" style="display: none;">
-        <div class="d-flex flex-nowrap w-100 mt-3" style="height: 60px;">
-            <h4 class="text-center flex-grow-1 subcat subcat_postcard_1" style="font-family: 'Futura PT', sans-serif;font-size: 13px!important;display: flex;
-            align-items: center;justify-content: center;" onclick="filter_subcategory('postcard',1,1)">Amore</h4>
-            <h4 class="text-center flex-grow-1 subcat subcat_postcard_2" style="font-family: 'Futura PT', sans-serif;font-size: 13px!important;display: flex;
-            align-items: center;justify-content: center;" onclick="filter_subcategory('postcard',1,2)">Self-love</h4>
-            <h4 class="text-center flex-grow-1 subcat subcat_postcard_3" style="font-family: 'Futura PT', sans-serif;font-size: 13px!important;display: flex;
-            align-items: center;justify-content: center;" onclick="filter_subcategory('postcard',1,3)">Compleanno</h4>
-            <h4 class="text-center flex-grow-1 subcat subcat_postcard_4" style="font-family: 'Futura PT', sans-serif;font-size: 13px!important;display: flex;
-            align-items: center;justify-content: center;" onclick="filter_subcategory('postcard',1,4)">Amicizia</h4>
-            <h4 class="text-center flex-grow-1 subcat subcat_postcard_5" style="font-family: 'Futura PT', sans-serif;font-size: 13px!important;display: flex;
-            align-items: center;justify-content: center;" onclick="filter_subcategory('postcard',1,5)">Motivazione</h4>
-            <h4 class="text-center flex-grow-1 subcat subcat_postcard_6" style="font-family: 'Futura PT', sans-serif;font-size: 13px!important;display: flex;
-            align-items: center;justify-content: center;" onclick="filter_subcategory('postcard',1,6)">Gratitudine</h4>
+    <div id="cat_3" class="div_subcat" style="display: none;">
+        <div class="d-flex" style="height: 60px;width:100%;overflow:auto;justify-content: center;">
+            <h4 class="text-center otherparameter otherparameter_1_1" style="font-family: 'Futura PT', sans-serif;font-size: 13px!important;flex: 0 0 10%;transform: translate(0, 50%);" onclick="filter_other_parameter(1,1)">da 6 €</h4>
+            <h4 class="text-center otherparameter otherparameter_1_2" style="font-family: 'Futura PT', sans-serif;font-size: 13px!important;flex: 0 0 10%;transform: translate(0, 50%);" onclick="filter_other_parameter(1,2)">da 16 €</h4>
+            <h4 class="text-center otherparameter otherparameter_1_3" style="font-family: 'Futura PT', sans-serif;font-size: 13px!important;flex: 0 0 10%;transform: translate(0, 50%);" onclick="filter_other_parameter(1,3)">da 22 €</h4>
+            <h4 class="text-center otherparameter otherparameter_1_4" style="font-family: 'Futura PT', sans-serif;font-size: 13px!important;flex: 0 0 10%;transform: translate(0, 50%);" onclick="filter_other_parameter(1,4)">da 24 €</h4>
+            <h4 class="text-center otherparameter otherparameter_1_5" style="font-family: 'Futura PT', sans-serif;font-size: 13px!important;flex: 0 0 10%;transform: translate(0, 50%);" onclick="filter_other_parameter(1,5)">da 30 €</h4>
+            <h4 class="text-center otherparameter otherparameter_1_6" style="font-family: 'Futura PT', sans-serif;font-size: 13px!important;flex: 0 0 10%;transform: translate(0, 50%);" onclick="filter_other_parameter(1,6)">da 50 €</h4>
+        </div>
+    </div>
+    <div id="cat_4" class="div_subcat" style="display: none;">
+        <div class="d-flex" style="height: 60px;width:100%;overflow:auto;justify-content: center;">
+            <h4 class="text-center otherparameter otherparameter_2_1" style="font-family: 'Futura PT', sans-serif;font-size: 13px!important;flex: 0 0 10%;transform: translate(0, 50%);" onclick="filter_other_parameter(2,1)">Ultimi arrivi</h4>
+            <h4 class="text-center otherparameter otherparameter_2_2" style="font-family: 'Futura PT', sans-serif;font-size: 13px!important;flex: 0 0 10%;transform: translate(0, 50%);" onclick="filter_other_parameter(2,2)">Dal piu' vecchio</h4>
         </div>
     </div>
     @if( auth()->guard('users_ileniadesign')->check() )
@@ -73,6 +72,27 @@
 
         $(".subcat_all").css({"text-underline-offset": "5px","text-decoration": "underline"});
 
+    }
+
+    function get_subcat(id_cat){
+        $.get("get_subcat_ileniadesign",{id_cat:id_cat},
+        function(data){
+            var res=jQuery.parseJSON(data);
+
+            if (res.length!=0) {
+
+                var append_subcat='<div id="cat_'+id_cat+'" class="div_subcat">'+
+                '<div class="d-flex" style="height: 60px;width:100%;overflow-x:auto;overflow-y:hidden;justify-content: center;">';
+                for (let i = 0; i < res.length; i++) {
+                append_subcat+='<h4 class="text-center subcat subcat_'+res[i].id_cat+'_'+res[i].id+'" style="font-family: Futura PT, sans-serif;font-size: 13px!important;flex: 0 0 10%;transform: translate(0, 50%);" onclick="filter_subcategory('+res[i].id_cat+','+res[i].id+')">'+res[i].name+'</h4>';
+                }
+                append_subcat+='</div>'+
+                '</div>';
+                $("#append_subcat").html(append_subcat);
+                
+            }
+
+        });
     }
     
     var old_array_position=[];
@@ -104,7 +124,7 @@
                 
                 old_array_position.push(res[i].id+"_"+numb_position);
                 
-                $("#append_image_shopmyart").append('<div class="col-md-4 p-0 position_image utility_subcat cat_subcat category_'+res[i].type_img+' subcategory_'+res[i].subtype_image+'" id="id_image_shopmyart_'+res[i].id+'" position="'+numb_position+'" id_image="'+res[i].id+'" style="padding: 10!important;">'+
+                $("#append_image_shopmyart").append('<div class="col-md-4 p-0 position_image utility_subcat cat_subcat category_'+res[i].type_img+' subcategory_'+res[i].subtype_image+' format_'+res[i].id+'" id="id_image_shopmyart_'+res[i].id+'" position="'+numb_position+'" id_image="'+res[i].id+'" style="padding: 10!important;">'+
                 '@if( auth()->guard("users_ileniadesign")->check() )'+
                 '@if( auth()->guard("users_ileniadesign")->user()->id==13 )'+
                 '<div class="image-css" style="position: relative;display: inline-block;">'+
@@ -148,9 +168,7 @@
         $(".cat").css("text-decoration", "none");
         
         $(".div_subcat").css("display", "none");
-
-        $('#'+$(this)[0].classList[3]).show();
-
+      
         $(this).css({"text-underline-offset": "5px","text-decoration": "underline"});
 
         if($(this)[0].classList[3]=="subcat_all"){
@@ -161,22 +179,37 @@
 
             $(".cat_subcat").hide();
 
+            get_subcat($(this)[0].classList[3].split("_")[1]);
+
+            $("#"+$(this)[0].classList[3]).show();
+
         }
 
-        $(".cat_subcat.category_"+$(this)[0].classList[4].split("_")[1]).show();
-
+        $(".cat_subcat.category_"+$(this)[0].classList[3].split("_")[1]).show();
 
     });
 
-    function filter_subcategory(type_subcat, cat, subcat){
+    function filter_subcategory(cat, subcat){
 
         $(".subcat").css("text-decoration", "none");
 
-        $(".subcat_"+type_subcat+"_"+subcat).css({"text-underline-offset": "5px","text-decoration": "underline"});
+        $(".subcat_"+cat+"_"+subcat).css({"text-underline-offset": "5px","text-decoration": "underline"});
 
         $(".cat_subcat").hide();
 
         $(".cat_subcat.category_"+cat+".subcategory_"+subcat).show();
+        
+    }
+
+    function filter_other_parameter(type, subtype){
+        
+        $(".otherparameter").css("text-decoration", "none");
+        
+        $(".otherparameter_"+type+"_"+subtype).css({"text-underline-offset": "5px","text-decoration": "underline"});
+        
+        $(".cat_subcat").hide();
+        
+        // $(".cat_subcat.category_"+cat+".subcategory_"+subcat).show();
         
     }
 
@@ -189,6 +222,8 @@
             if($(this).val().length == 0){
 
                 $(".cat_subcat").show();
+
+                $("#search_all").blur(); 
 
             }
 

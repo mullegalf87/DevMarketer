@@ -453,3 +453,5 @@ Route::post('recovery_ileniadesign', 'IleniadesignController@recovery_ileniadesi
 Route::get("get_image_shopmyart_ileniadesign","IleniadesignController@get_image_shopmyart_ileniadesign");
 
 Route::get('/update_position_image_ileniadesign', 'IleniadesignController@update_position_image_ileniadesign');
+
+Route::get('/get_subcat_ileniadesign', 'IleniadesignController@get_subcat_ileniadesign');
