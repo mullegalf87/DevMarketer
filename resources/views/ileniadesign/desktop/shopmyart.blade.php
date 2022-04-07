@@ -37,12 +37,12 @@
     </div>
     <div id="cat_3" class="div_subcat" style="display: none;">
         <div class="d-flex" style="height: 60px;width:100%;overflow:auto;justify-content: center;">
-            <h4 class="text-center otherparameter otherparameter_1_1" style="font-family: 'Futura PT', sans-serif;font-size: 13px!important;flex: 0 0 10%;transform: translate(0, 50%);" onclick="filter_other_parameter(1,1)">da 6 €</h4>
-            <h4 class="text-center otherparameter otherparameter_1_2" style="font-family: 'Futura PT', sans-serif;font-size: 13px!important;flex: 0 0 10%;transform: translate(0, 50%);" onclick="filter_other_parameter(1,2)">da 16 €</h4>
-            <h4 class="text-center otherparameter otherparameter_1_3" style="font-family: 'Futura PT', sans-serif;font-size: 13px!important;flex: 0 0 10%;transform: translate(0, 50%);" onclick="filter_other_parameter(1,3)">da 22 €</h4>
-            <h4 class="text-center otherparameter otherparameter_1_4" style="font-family: 'Futura PT', sans-serif;font-size: 13px!important;flex: 0 0 10%;transform: translate(0, 50%);" onclick="filter_other_parameter(1,4)">da 24 €</h4>
-            <h4 class="text-center otherparameter otherparameter_1_5" style="font-family: 'Futura PT', sans-serif;font-size: 13px!important;flex: 0 0 10%;transform: translate(0, 50%);" onclick="filter_other_parameter(1,5)">da 30 €</h4>
-            <h4 class="text-center otherparameter otherparameter_1_6" style="font-family: 'Futura PT', sans-serif;font-size: 13px!important;flex: 0 0 10%;transform: translate(0, 50%);" onclick="filter_other_parameter(1,6)">da 50 €</h4>
+            <h4 class="text-center otherparameter otherparameter_1_1" style="font-family: 'Futura PT', sans-serif;font-size: 13px!important;flex: 0 0 10%;transform: translate(0, 50%);" onclick="filter_other_parameter(1,1)">< 6 €</h4>
+            <h4 class="text-center otherparameter otherparameter_1_2" style="font-family: 'Futura PT', sans-serif;font-size: 13px!important;flex: 0 0 10%;transform: translate(0, 50%);" onclick="filter_other_parameter(1,2)">< 16 €</h4>
+            <h4 class="text-center otherparameter otherparameter_1_3" style="font-family: 'Futura PT', sans-serif;font-size: 13px!important;flex: 0 0 10%;transform: translate(0, 50%);" onclick="filter_other_parameter(1,3)">< 22 €</h4>
+            <h4 class="text-center otherparameter otherparameter_1_4" style="font-family: 'Futura PT', sans-serif;font-size: 13px!important;flex: 0 0 10%;transform: translate(0, 50%);" onclick="filter_other_parameter(1,4)">< 24 €</h4>
+            <h4 class="text-center otherparameter otherparameter_1_5" style="font-family: 'Futura PT', sans-serif;font-size: 13px!important;flex: 0 0 10%;transform: translate(0, 50%);" onclick="filter_other_parameter(1,5)">< 30 €</h4>
+            <h4 class="text-center otherparameter otherparameter_1_6" style="font-family: 'Futura PT', sans-serif;font-size: 13px!important;flex: 0 0 10%;transform: translate(0, 50%);" onclick="filter_other_parameter(1,6)">< 50 €</h4>
         </div>
     </div>
     <div id="cat_4" class="div_subcat" style="display: none;">
@@ -103,6 +103,7 @@
         function(data){
             var res=jQuery.parseJSON(data);
             var price_from;
+            var format;
             
             for (var i = 0; i < res.length; i++) {
                 
@@ -111,20 +112,23 @@
                 if (res[i].type_img==0 && res[i].id!=142) {
                     
                     price_from=res[i].price_a4;
+                    format=1;
                     
                 }else if(res[i].type_img==1){
                     
                     price_from=res[i].price_a5;
+                    format=3;
                     
                 }else{
                     
                     price_from=res[i].price_a3;
+                    format=2;
                     
                 }
                 
                 old_array_position.push(res[i].id+"_"+numb_position);
                 
-                $("#append_image_shopmyart").append('<div class="col-md-4 p-0 position_image utility_subcat cat_subcat category_'+res[i].type_img+' subcategory_'+res[i].subtype_image+' format_'+res[i].id+'" id="id_image_shopmyart_'+res[i].id+'" position="'+numb_position+'" id_image="'+res[i].id+'" style="padding: 10!important;">'+
+                $("#append_image_shopmyart").append('<div class="col-md-4 p-0 position_image utility_subcat cat_subcat category_'+res[i].type_img+' subcategory_'+res[i].subtype_image+' format_0_'+format+'" id="id_image_shopmyart_'+res[i].id+'" position="'+numb_position+'" id_image="'+res[i].id+'" style="padding: 10!important;">'+
                 '@if( auth()->guard("users_ileniadesign")->check() )'+
                 '@if( auth()->guard("users_ileniadesign")->user()->id==13 )'+
                 '<div class="image-css" style="position: relative;display: inline-block;">'+
@@ -208,8 +212,12 @@
         $(".otherparameter_"+type+"_"+subtype).css({"text-underline-offset": "5px","text-decoration": "underline"});
         
         $(".cat_subcat").hide();
+
+        console.log(type, subtype)
+
         
-        // $(".cat_subcat.category_"+cat+".subcategory_"+subcat).show();
+        
+        $(".format_"+type+"_"+subtype).show();
         
     }
 
