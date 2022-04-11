@@ -402,4 +402,16 @@ class IleniadesignController extends Controller
   
     }
 
+    public function get_image_detail_ileniadesign(){
+
+      $id_image=Request::get('id_image');
+      $type_page=Request::get('type_page');
+  
+      $get_image = $this->universal_db()->table('image_shopmyart_ileniadesign')
+      ->where('id', '=',$id_image)
+      ->get();
+      return View::make('query')->with("result",json_encode($get_image)); 
+  
+    }
+
 }

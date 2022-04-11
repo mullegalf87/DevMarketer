@@ -13,6 +13,8 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.11.2/jquery-ui.min.js"></script>
     <!-- fontawsome -->
     <script src="https://use.fontawesome.com/releases/v5.0.1/js/all.js"></script>
+    <!-- boxicons -->
+    <link rel='stylesheet' href='https://cdn.jsdelivr.net/npm/boxicons@2.0.2/css/boxicons.min.css'>
     <!-- font -->
     <link href="http://fonts.cdnfonts.com/css/silk-serif?styles=108358" rel="stylesheet"> 
     <link href="http://fonts.cdnfonts.com/css/futura-pt?styles=117667" rel="stylesheet">
@@ -344,6 +346,13 @@
         <div class="footer"></div>
     </div>
 </div>
+<div id="shopdetail" class="page" style="display: none;">
+    <div class="container_page" style="flex: 1; position: absolute; right: 0; bottom: 0; left: 0;">
+        @include("ileniadesign.desktop.shopdetail")
+        <div class="footer"></div>
+    </div>
+</div>
+
 <footer id="footer" style="background-color:#CDB4B4;">
     <div class="">
         <h1 class="text-center" style="font-size:25px!important;padding: 5%;">CECILIE BAHANSEN</h1>
@@ -387,7 +396,6 @@
 </footer>
 <script>
     //desktop
-    //fare shopmyart, mettere carosello tra le categorie
     //fare shopdetail
     //fare cart
     //fare ordini profilo cliente
@@ -471,11 +479,15 @@
         
         switch(page_name) {
             case "home":
+                $("#navbar_1").css("background-color","#dbd3d3");
             break;
             case "shopmyart":
                 start_function_shopmyart();
+                $("#navbar_1").css("background-color","#dbd3d3");
             break;
             case "shopdetail":
+                start_function_shopdetail(num_image);
+                $("#navbar_1").css("background-color","transparent");
             break;
             case "requests":
             break;
@@ -488,6 +500,7 @@
             case "login":
             break;
             default:
+    
         }
         var footer_show=$("#footer").detach();
         $("#"+page_name+ " .footer").html(footer_show);

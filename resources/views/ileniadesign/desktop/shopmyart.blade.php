@@ -150,7 +150,7 @@
                 '@endif'+
                 '<div class="d-flex flex-nowrap mt-1 mb-1">'+
                 '<label style="font-family: Futura PT, sans-serif; font-size: 15px!important;margin-bottom: 0;flex-grow:1">'+res[i].name_image.toLowerCase()+'</label>'+
-                '<i class="fas fa-shopping-bag"></i>'+
+                '<i class="bx bx-shopping-bag"></i>'+
                 '</div>'+
                 '<label style="font-family: Futura PT, sans-serif; font-size: 12px!important;margin-bottom: 0"> Da € '+price_from.toLowerCase()+'</label><br>'+
                 '</div>');

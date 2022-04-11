@@ -455,3 +455,6 @@ Route::get("get_image_shopmyart_ileniadesign","IleniadesignController@get_image_
 Route::get('/update_position_image_ileniadesign', 'IleniadesignController@update_position_image_ileniadesign');
 
 Route::get('/get_subcat_ileniadesign', 'IleniadesignController@get_subcat_ileniadesign');
+
+//funzioni shopdetail
+Route::get('/get_image_detail_ileniadesign', 'IleniadesignController@get_image_detail_ileniadesign');
