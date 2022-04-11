@@ -20,8 +20,25 @@
                 <span class="bx bx-heart" style="position: absolute;bottom: 15;right: 15;font-size:x-large"></span>
             </div>
         </div>
-        <div class="col-md-6 p-0">
-            
+        <div class="col-md-6" style="padding-top: 20%; padding-left: 10%; padding-bottom:10%; padding-right: 20%;">
+            <h4>Katerine dress</h4>
+            <p>in Dress</p>
+            <div class="d-flex flex-nowrap">
+                <p class="flex-grow-1">Size</p>
+                <p>Size guide</p>
+            </div>
+            <p> A4 &nbsp; A3 &nbsp; A5</p>
+            <button style="" class="btn btn-primary text-left w-100">
+                <div class="d-flex flex-nowrap">
+                    <p class="flex-grow-1 m-0">€ 24,00</p>
+                    <p class="m-0"><i class="bx bx-shopping-bag"></i> ADD</p>
+                </div>
+            </button>
+            <div class="d-flex flex-nowrap text-center">
+                <p class="flex-grow-1 text-left">Detail</p>
+                <p class="flex-grow-1">Delivery</p>
+                <p class="flex-grow-1 text-right">Service</p>
+            </div>
         </div>
     </div>
 </section>
