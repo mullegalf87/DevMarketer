@@ -78,31 +78,37 @@
         </div>
     </div>
 </section>
-<!-- <section class="container-fluid p-0">
-    <div class="d-flex flex-wrap h-100">
-        <div class="col-md-12 p-0">
-            <div id="carousel_image_advice_control" class="carousel slide" data-ride="carousel">
-                <div class="carousel-inner" id="carousel_image_advice">
-   
-                </div>
-                <a class="carousel-control-prev" href="#carousel_image_advice_control" role="button" data-slide="prev">
-                  <span class="carousel-control-prev-icon" aria-hidden="true" style="position: absolute;margin: auto;top: 0;bottom: 0;right: 0;left: 0;"></span>
-                  <span class="sr-only">Previous</span>
-                </a>
-                <a class="carousel-control-next" href="#carousel_image_advice_control" role="button" data-slide="next">
-                  <span class="carousel-control-next-icon" aria-hidden="true" style="position: absolute;margin: auto;top: 0;bottom: 0;right: 0;left: 0;"></span>
-                  <span class="sr-only">Next</span>
-                </a>
+
+  
+<section class="container-fluid p-0 h-100" style="background-color: #dbd3d3;">
+    <div class="d-flex flex-nowrap h-100">
+        <div class="col-md-6 p-0">
+            <div class="" style="display: block;position: absolute; bottom:0;right: 0; left: 0;margin: 5rem!important;">
+                <img class="m-auto" src="ileniadesign_repo/1.jpeg" style="width: 60%;float:right">
+                <img class="img-corner" src="ileniadesign_repo/2.jpeg" style="width: 190px; object-fit: contain; pointer-events: none;position: absolute; bottom:-50px;left: 100px;">
             </div>
+            <div class="emblem" style="position: absolute;left: 180px;bottom: 0;">Ileniazitodesign-Ileniazitodesign-</div>
+        </div>
+        
+        <div class="col-md-6 p-0">
+            
         </div>
     </div>
-</section> -->
-<script>
+</section>
 
+
+<section class="container-fluid p-0">
+        <h3 style="font-family: 'Silk Serif', sans-serif; white-space: nowrap;" class="text-center">YOU MAY LIKE THIS ITEMS TO</h3>
+        <div class="d-flex flex-wrap slides h-100" style="padding: 10!important;" id="append_advice_shopping">
+        </div>
+</section>
+<script>
+    // mettere una immagine singola random per la seconda section con tutte le descrizione come da sito vero
+    //mettere tre immagini random per la terza section
     function start_function_shopdetail(num_image){
 
         id_article(num_image);
-
+        advice_shopping();
     }
 
     function id_article(num_image){
@@ -146,7 +152,74 @@
 
     }
 
+    function advice_shopping(){
+        $("#append_advice_shopping").empty();
+        $.get("/get_image_shopmyart_ileniadesign",{},
+        function(data){
+            var res=jQuery.parseJSON(data);
+            var price_from;
+            var format;
+            
+            for (var i = 0; i < 3; i++) {
+            
+                var numb_position=res.length-i;
+                
+                if (res[i].type_img==0 && res[i].id!=142) {
+                    
+                    price_from=res[i].price_a4;
     
+                }else if(res[i].type_img==1){
+                    
+                    price_from=res[i].price_a5;
+                    
+                }else {
+                    
+                    price_from=res[i].price_a3;
+     
+                }
+                
+                old_array_position.push(res[i].id+"_"+numb_position);
+                
+                $("#append_advice_shopping").append('<div class="col-md-4 p-0 position_image utility_subcat cat_subcat category_'+res[i].type_img+' subcategory_'+res[i].subtype_image+' parameter_a4_'+res[i].price_a4+' parameter_a3_'+res[i].price_a3+' parameter_a5_'+res[i].price_a5+'" id="id_image_shopmyart_'+res[i].id+'" position="'+numb_position+'" id_image="'+res[i].id+'" style="padding: 10!important;">'+
+                '@if( auth()->guard("users_ileniadesign")->check() )'+
+                '@if( auth()->guard("users_ileniadesign")->user()->id==13 )'+
+                '<div class="image-css" style="position: relative;display: inline-block;">'+
+                '<img class="close" style="position: absolute;top: 5px;left: 5px;width:150px; height:150px;" src="public/img/ilenia_design/default_img.png">'+
+                '<img onclick="change_vis(\'shopdetail_'+res[i].id+'\')" data-original="ileniadesign_repo/shopmyart/'+res[i].id+'/'+res[i].image_file.split(",")[0]+'" alt="'+res[i].name_image+'" class="lazy" style="width: 100%!important;" >'+
+                '<a class="close" style="position: absolute;top: 5px;right: 5px;" onclick="delete_image(\''+res[i].id+'\',shopmyart)">x</a>'+
+                '<i class="" aria-hidden="true"></i>'+
+                '</div>'+
+                '@else'+
+                '<img onclick="change_vis(\'shopdetail_'+res[i].id+'\')" data-original="ileniadesign_repo/shopmyart/'+res[i].id+'/'+res[i].image_file.split(",")[0]+'" alt="'+res[i].name_image+'" class="lazy" style="width: 100%!important;" >'+
+                '@endif'+
+                '@else'+
+                '<img onclick="change_vis(\'shopdetail_'+res[i].id+'\')" data-original="ileniadesign_repo/shopmyart/'+res[i].id+'/'+res[i].image_file.split(",")[0]+'" alt="'+res[i].name_image+'" class="lazy" style="width: 100%!important;" >'+
+                '@endif'+
+                '<div class="d-flex flex-nowrap mt-1 mb-1">'+
+                '<label style="font-family: Futura PT, sans-serif; font-size: 15px!important;margin-bottom: 0;flex-grow:1">'+res[i].name_image.toLowerCase()+'</label>'+
+                '<i class="bx bx-shopping-bag"></i>'+
+                '</div>'+
+                '<label style="font-family: Futura PT, sans-serif; font-size: 12px!important;margin-bottom: 0"> Da € '+price_from.toLowerCase()+'</label><br>'+
+                '</div>');
+
+            }
+            
+            jQuery(document).ready(function ($) {
+
+                $("img.lazy").lazyload({ 
+
+                    data_attribute: "original",
+                    effect : "fadeIn",
+                    // placeholder: "data:image/gif;base64,R0lGODlhEALAPQAPzl5uLr9Nrl8e7...",
+                    
+
+                });
+
+            });
+    
+        });
+
+    }
 
     function open_info_detail(num){
     

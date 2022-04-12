@@ -498,6 +498,7 @@
                 case "cart":
                 break;
                 case "login":
+                    $("#navbar_1").css("background-color","#dbd3d3");
                 break;
                 default:
         
