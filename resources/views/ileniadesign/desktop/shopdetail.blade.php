@@ -114,7 +114,10 @@
         </div>
 </section>
 <script>
-    // mettere una immagine singola random per la seconda section con tutte le descrizione come da sito vero
+    // sistemare il cerchio sotto il single advice 
+    // ogni volta che clicchi negli advice sale al top page
+    // ripulire il colore carrello quando si rientra su shopdetail
+    // appena scrolli e passi la prima section mettere il colore alla navbar
     function start_function_shopdetail(num_image){
 
         id_article(num_image);
