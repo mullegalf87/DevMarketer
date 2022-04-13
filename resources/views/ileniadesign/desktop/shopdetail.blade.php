@@ -78,37 +78,48 @@
         </div>
     </div>
 </section>
-
   
 <section class="container-fluid p-0 h-100" style="background-color: #dbd3d3;">
     <div class="d-flex flex-nowrap h-100">
         <div class="col-md-6 p-0">
-            <div class="" style="display: block;position: absolute; bottom:0;right: 0; left: 0;margin: 5rem!important;">
-                <img class="m-auto" src="ileniadesign_repo/1.jpeg" style="width: 60%;float:right">
-                <img class="img-corner" src="ileniadesign_repo/2.jpeg" style="width: 190px; object-fit: contain; pointer-events: none;position: absolute; bottom:-50px;left: 100px;">
+            <div>
+                <img class="m-auto" src="" style="width: 60%;position: absolute;top: 0;bottom: 0;right: 0;" id="single_advice_shopping_img">
+                <!-- <div class="d-flex flex-nowrap mt-1 mb-1" style="">
+                    <label style="font-family: Futura PT, sans-serif; font-size: 15px!important;margin-bottom: 0;flex-grow:1">'+res[i].name_image.toLowerCase()+'</label>
+                    <i class="bx bx-shopping-bag"></i>
+                </div>
+                <label style="font-family: Futura PT, sans-serif; font-size: 12px!important;margin-bottom: 0"> Da € '+price_from.toLowerCase()+'</label><br> -->
+                <img class="img-corner" src="ileniadesign_repo/2.jpeg" style="width: 190px; object-fit: contain; pointer-events: none;position: absolute;bottom: 10%;right: 50%;">
+                <div class="emblem" style="position: absolute;right: 85%;bottom: 5%;">Ileniazitodesign-Ileniazitodesign-</div>
             </div>
-            <div class="emblem" style="position: absolute;left: 180px;bottom: 0;">Ileniazitodesign-Ileniazitodesign-</div>
         </div>
-        
         <div class="col-md-6 p-0">
-            
+            <div style="position: absolute;left: 50%;top: 50%;transform: translate(-50%,-50%);width: 60%;padding-right:20%">
+                <h2 class="mb-5" style="font-family: 'Silk Serif', sans-serif;" id="single_advice_shopping_title"></h2>
+                <p class="mb-5" style="text-align: justify;" id="single_advice_shopping_desc">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.</p>
+                <button id="single_advice_shopping_button" class="btn btn-primary text-left w-100">
+                    <div class="d-flex flex-nowrap">
+                        <p class="flex-grow-1 m-0">SHOP THE LOOK</p>
+                        <p class="m-0"><i class="bx bx-shopping-bag"></i></p>
+                    </div>
+                </button>
+            </div>
         </div>
     </div>
 </section>
 
-
 <section class="container-fluid p-0">
-        <h3 style="font-family: 'Silk Serif', sans-serif; white-space: nowrap;" class="text-center">YOU MAY LIKE THIS ITEMS TO</h3>
-        <div class="d-flex flex-wrap slides h-100" style="padding: 10!important;" id="append_advice_shopping">
+        <h3 style="font-family: 'Silk Serif', sans-serif; white-space: nowrap;padding-top: 10%;" class="text-center m-0">YOU MAY LIKE THIS ITEMS TO</h3>
+        <div class="d-flex flex-wrap slides" style="padding: 5% 5% 15% 5%" id="append_advice_shopping">
         </div>
 </section>
 <script>
     // mettere una immagine singola random per la seconda section con tutte le descrizione come da sito vero
-    //mettere tre immagini random per la terza section
     function start_function_shopdetail(num_image){
 
         id_article(num_image);
         advice_shopping();
+
     }
 
     function id_article(num_image){
@@ -158,45 +169,59 @@
         function(data){
             var res=jQuery.parseJSON(data);
             var price_from;
-            var format;
+            var format;    
+
+            var keys = Object.keys(res);
+
+            var random_key = keys[Math.floor(Math.random() * keys.length)];
+
+            console.log(res[random_key])
+
+            $("#single_advice_shopping_img").attr("src","ileniadesign_repo/shopmyart/"+res[random_key].id+"/"+res[random_key].image_file.split(',')[0]);
+            $("#single_advice_shopping_title").text(res[random_key].name_image);
+            $("#single_advice_shopping_button").attr("onclick","change_vis('shopdetail_"+res[random_key].id+"')");
             
-            for (var i = 0; i < 3; i++) {
-            
+            for (var i = 0; i < 3; i++) {   
+                
+                var keys = Object.keys(res);
+
+                var random_key = keys[Math.floor(Math.random() * keys.length)];
+
                 var numb_position=res.length-i;
                 
-                if (res[i].type_img==0 && res[i].id!=142) {
+                if (res[random_key].type_img==0 && res[random_key].id!=142) {
                     
-                    price_from=res[i].price_a4;
+                    price_from=res[random_key].price_a4;
     
-                }else if(res[i].type_img==1){
+                }else if(res[random_key].type_img==1){
                     
-                    price_from=res[i].price_a5;
+                    price_from=res[random_key].price_a5;
                     
                 }else {
                     
-                    price_from=res[i].price_a3;
+                    price_from=res[random_key].price_a3;
      
                 }
                 
-                old_array_position.push(res[i].id+"_"+numb_position);
+                old_array_position.push(res[random_key].id+"_"+numb_position);
                 
-                $("#append_advice_shopping").append('<div class="col-md-4 p-0 position_image utility_subcat cat_subcat category_'+res[i].type_img+' subcategory_'+res[i].subtype_image+' parameter_a4_'+res[i].price_a4+' parameter_a3_'+res[i].price_a3+' parameter_a5_'+res[i].price_a5+'" id="id_image_shopmyart_'+res[i].id+'" position="'+numb_position+'" id_image="'+res[i].id+'" style="padding: 10!important;">'+
+                $("#append_advice_shopping").append('<div class="col-md-4 p-0 position_image utility_subcat cat_subcat category_'+res[random_key].type_img+' subcategory_'+res[random_key].subtype_image+' parameter_a4_'+res[random_key].price_a4+' parameter_a3_'+res[random_key].price_a3+' parameter_a5_'+res[random_key].price_a5+'" id="id_image_shopmyart_'+res[random_key].id+'" position="'+numb_position+'" id_image="'+res[random_key].id+'" style="padding: 10!important;">'+
                 '@if( auth()->guard("users_ileniadesign")->check() )'+
                 '@if( auth()->guard("users_ileniadesign")->user()->id==13 )'+
                 '<div class="image-css" style="position: relative;display: inline-block;">'+
                 '<img class="close" style="position: absolute;top: 5px;left: 5px;width:150px; height:150px;" src="public/img/ilenia_design/default_img.png">'+
-                '<img onclick="change_vis(\'shopdetail_'+res[i].id+'\')" data-original="ileniadesign_repo/shopmyart/'+res[i].id+'/'+res[i].image_file.split(",")[0]+'" alt="'+res[i].name_image+'" class="lazy" style="width: 100%!important;" >'+
-                '<a class="close" style="position: absolute;top: 5px;right: 5px;" onclick="delete_image(\''+res[i].id+'\',shopmyart)">x</a>'+
+                '<img onclick="change_vis(\'shopdetail_'+res[random_key].id+'\')" data-original="ileniadesign_repo/shopmyart/'+res[random_key].id+'/'+res[random_key].image_file.split(",")[0]+'" alt="'+res[random_key].name_image+'" class="lazy" style="width: 100%!important;" >'+
+                '<a class="close" style="position: absolute;top: 5px;right: 5px;" onclick="delete_image(\''+res[random_key].id+'\',shopmyart)">x</a>'+
                 '<i class="" aria-hidden="true"></i>'+
                 '</div>'+
                 '@else'+
-                '<img onclick="change_vis(\'shopdetail_'+res[i].id+'\')" data-original="ileniadesign_repo/shopmyart/'+res[i].id+'/'+res[i].image_file.split(",")[0]+'" alt="'+res[i].name_image+'" class="lazy" style="width: 100%!important;" >'+
+                '<img onclick="change_vis(\'shopdetail_'+res[random_key].id+'\')" data-original="ileniadesign_repo/shopmyart/'+res[random_key].id+'/'+res[random_key].image_file.split(",")[0]+'" alt="'+res[random_key].name_image+'" class="lazy" style="width: 100%!important;" >'+
                 '@endif'+
                 '@else'+
-                '<img onclick="change_vis(\'shopdetail_'+res[i].id+'\')" data-original="ileniadesign_repo/shopmyart/'+res[i].id+'/'+res[i].image_file.split(",")[0]+'" alt="'+res[i].name_image+'" class="lazy" style="width: 100%!important;" >'+
+                '<img onclick="change_vis(\'shopdetail_'+res[random_key].id+'\')" data-original="ileniadesign_repo/shopmyart/'+res[random_key].id+'/'+res[random_key].image_file.split(",")[0]+'" alt="'+res[random_key].name_image+'" class="lazy" style="width: 100%!important;" >'+
                 '@endif'+
                 '<div class="d-flex flex-nowrap mt-1 mb-1">'+
-                '<label style="font-family: Futura PT, sans-serif; font-size: 15px!important;margin-bottom: 0;flex-grow:1">'+res[i].name_image.toLowerCase()+'</label>'+
+                '<label style="font-family: Futura PT, sans-serif; font-size: 15px!important;margin-bottom: 0;flex-grow:1">'+res[random_key].name_image.toLowerCase()+'</label>'+
                 '<i class="bx bx-shopping-bag"></i>'+
                 '</div>'+
                 '<label style="font-family: Futura PT, sans-serif; font-size: 12px!important;margin-bottom: 0"> Da € '+price_from.toLowerCase()+'</label><br>'+
@@ -250,5 +275,6 @@
         $(".group_add_button").html("<p class='text-center m-0'>"+name_size+" size added to cart</p>");
 
     }
+    
 
 </script>
