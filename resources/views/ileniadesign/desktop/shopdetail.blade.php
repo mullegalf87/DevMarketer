@@ -132,7 +132,7 @@
         function(data){
             var res=jQuery.parseJSON(data);
             var active;
-            var format;
+            var format='';
             
             for (let i = 1; i < res[0].image_file.split(",").length; i++) {
                 
@@ -146,65 +146,25 @@
                 $("#carousel_image_detail").append('<div class="carousel-item '+active+'"><img src="ileniadesign_repo/shopmyart/'+num_image+'/'+res[0].image_file.split(",")[i-1]+'" class="d-block w-100"></div>');
 
             }
+            
+            //mostra solo i formati diversi da zero
+            if (res[0].price_a4!=0) {
 
-            //se il prezzo è zero non mostrare formato
-            // if (res[0].price_a4!=0 && res[0].price_a3!=0 && res[0].price_a5!=0) {
+                format+='<p class="info_detail" id_image="'+res[0].id+'" name_image="'+res[0].name_image+'" name_size="A4" num_size="1" price="'+res[0].price_a4+'">A4</p>&nbsp;&nbsp;&nbsp;';
 
-            //     console.log("a4,a3,a5")
-            //     format+='<p class="info_detail" id_image="'+res[0].id+'" name_image="'+res[0].name_image+'" name_size="A4" num_size="1" price="'+res[0].price_a4+'">A4</p>&nbsp;&nbsp;&nbsp;';
-            //     format+='<p class="info_detail" id_image="'+res[0].id+'" name_image="'+res[0].name_image+'" name_size="A3" num_size="2" price="'+res[0].price_a3+'">A3</p>&nbsp;&nbsp;&nbsp;';
-            //     format+='<p class="info_detail" id_image="'+res[0].id+'" name_image="'+res[0].name_image+'" name_size="A5" num_size="3" price="'+res[0].price_a5+'">A5</p>';
-                
-            // } else if(res[0].price_a4!=0 && res[0].price_a3!=0 && res[0].price_a5==0) {
+            }
 
-            //     console.log("a4,a3")
-            //     format+='<p class="info_detail" id_image="'+res[0].id+'" name_image="'+res[0].name_image+'" name_size="A4" num_size="1" price="'+res[0].price_a4+'">A4</p>&nbsp;&nbsp;&nbsp;';
-            //     format+='<p class="info_detail" id_image="'+res[0].id+'" name_image="'+res[0].name_image+'" name_size="A3" num_size="2" price="'+res[0].price_a3+'">A3</p>&nbsp;&nbsp;&nbsp;';
-                
-            // } else if(res[0].price_a4!=0 && res[0].price_a3==0 && res[0].price_a5!=0){
+            if(res[0].price_a3!=0){
 
-            //     console.log("a4,a5")
-            //     format+='<p class="info_detail" id_image="'+res[0].id+'" name_image="'+res[0].name_image+'" name_size="A4" num_size="1" price="'+res[0].price_a4+'">A4</p>&nbsp;&nbsp;&nbsp;';
-            //     format+='<p class="info_detail" id_image="'+res[0].id+'" name_image="'+res[0].name_image+'" name_size="A5" num_size="3" price="'+res[0].price_a5+'">A5</p>';
+                format+='<p class="info_detail" id_image="'+res[0].id+'" name_image="'+res[0].name_image+'" name_size="A3" num_size="2" price="'+res[0].price_a3+'">A3</p>&nbsp;&nbsp;&nbsp;';
 
-            // }else if(res[0].price_a4==0 && res[0].price_a3!=0 && res[0].price_a5!=0){
+            }
 
-            //     console.log("a3,a5")
-            //     format+='<p class="info_detail" id_image="'+res[0].id+'" name_image="'+res[0].name_image+'" name_size="A3" num_size="2" price="'+res[0].price_a3+'">A3</p>&nbsp;&nbsp;&nbsp;';
-            //     format+='<p class="info_detail" id_image="'+res[0].id+'" name_image="'+res[0].name_image+'" name_size="A5" num_size="3" price="'+res[0].price_a5+'">A5</p>';
+            if(res[0].price_a5!=0){
 
-            // }else if(res[0].price_a4!=0 && res[0].price_a3==0 && res[0].price_a5==0){
+                format+='<p class="info_detail" id_image="'+res[0].id+'" name_image="'+res[0].name_image+'" name_size="A5" num_size="3" price="'+res[0].price_a5+'">A5</p>';
 
-            //     console.log("a4")
-            //     format+='<p class="info_detail" id_image="'+res[0].id+'" name_image="'+res[0].name_image+'" name_size="A4" num_size="1" price="'+res[0].price_a4+'">A4</p>&nbsp;&nbsp;&nbsp;';
-
-            // }else if(res[0].price_a4==0 && res[0].price_a3!=0 && res[0].price_a5==0){
-
-            //     console.log("a3")
-
-            //     format+='<p class="info_detail" id_image="'+res[0].id+'" name_image="'+res[0].name_image+'" name_size="A3" num_size="2" price="'+res[0].price_a3+'">A3</p>&nbsp;&nbsp;&nbsp;';
-                
-            // }else if(res[0].price_a4==0 && res[0].price_a3==0 && res[0].price_a5==0){
-
-            //     console.log("a5")
-            //     format+='<p class="info_detail" id_image="'+res[0].id+'" name_image="'+res[0].name_image+'" name_size="A5" num_size="3" price="'+res[0].price_a5+'">A5</p>';
-
-            // }
-                    
-                if (res[0].price_a4!=0) {
-
-                console.log("a4")
-
-                }else if(res[0].price_a3!=0){
-
-                console.log("a3")
-
-                }else{
-
-                console.log("a5")
-
-                }
-                    
+            }    
             
             $(".group_info_image").html(format);
 
