@@ -18,6 +18,7 @@
     <!-- font -->
     <link href="http://fonts.cdnfonts.com/css/silk-serif?styles=108358" rel="stylesheet"> 
     <link href="http://fonts.cdnfonts.com/css/futura-pt?styles=117667" rel="stylesheet">
+    
     <!-- lettering -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/prefixfree/1.0.7/prefixfree.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/lettering.js/0.6.1/jquery.lettering.min.js"></script>
@@ -217,7 +218,7 @@
                     @endif
                 </li>
                 <li class="nav-item text-center pr-3 pl-3" style="padding: 8px;">
-                    <div class="circle_cart">2</div>
+                    <div class="circle_cart" onclick="change_vis('cart')">2</div>
                 </li>
             </ul>
         </div>
@@ -353,6 +354,12 @@
             <div class="footer"></div>
         </div>
     </div>
+    <div id="cart" class="page" style="display: none;">
+        <div class="container_page" style="flex: 1; position: absolute; right: 0; bottom: 0; left: 0;">
+            @include("ileniadesign.desktop.cart")
+            <div class="footer"></div>
+        </div>
+    </div>
     <footer id="footer" style="background-color:#CDB4B4;">
         <div class="">
             <h1 class="text-center" style="font-size:25px!important;padding: 5%;">CECILIE BAHANSEN</h1>
@@ -396,9 +403,9 @@
     </footer>
     <script>
         //desktop
-        //fare shopdetail
         //fare cart
         //fare ordini profilo cliente
+        //richieste
         
         //mobile
         
@@ -491,11 +498,9 @@
                 break;
                 case "requests":
                 break;
-                case "whoiam":
-                break;
-                case "discovermyart":
-                break;
                 case "cart":
+                    start_function_cart();
+                    $("#navbar_1").css("background-color","#dbd3d3");
                 break;
                 case "login":
                     $("#navbar_1").css("background-color","#dbd3d3");

@@ -132,6 +132,7 @@
         function(data){
             var res=jQuery.parseJSON(data);
             var active;
+      
             for (let i = 1; i < res[0].image_file.split(",").length; i++) {
                 
                 if (i==1) {
@@ -156,7 +157,7 @@
 
                     $(".group_add_button").html("<p class='flex-grow-1 m-0'>€ "+$(this).attr("price")+"</p><p class='m-0'><i class='bx bx-shopping-bag'></i> ADD</p>");
 
-                    $("#add_button").attr("onclick","add_cart(\'"+$(this).attr("id_image")+"\',\'"+$(this).attr("name_image")+"\',\'"+$(this).attr("name_size")+"\',\'"+$(this).attr("num_size")+"\',\'"+$(this).attr("price")+"\')");
+                    $("#add_button").attr("onclick","add_cart(\'"+$(this).attr("id_image")+"\',\'"+$(this).attr("name_image")+"\',1,\'"+$(this).attr("price")+"\',\'"+$(this).attr("num_size")+"\',\'"+res[0].price_a4+"\',\'"+res[0].price_a3+"\',\'"+res[0].price_a5+"\',\'"+res[0].image_file.split(",")[0].split(".")[1]+"\',\'"+$(this).attr("name_size")+"\')");
 
                 });
 
@@ -271,11 +272,16 @@
 
     }
 
-    function add_cart(id_image, name_image, name_size, num_size, price){
+    function add_cart(id_product,name_product,qnt,price,format, price_a4, price_a3, price_a5, type_image, name_size){
 
-        $(".circle_cart").css("background-color","#CDB4B4");
+        $.get("add_cart_ileniadesign",{id_product:id_product,name_product:name_product, qnt:qnt, price:price, format:format, price_a4:price_a4, price_a3:price_a3, price_a5:price_a5, /*token_user:user,*/ type_image:type_image},
+        function(data){ 
 
-        $(".group_add_button").html("<p class='text-center m-0'>"+name_size+" size added to cart</p>");
+            $(".circle_cart").css("background-color","#CDB4B4");
+
+            $(".group_add_button").html("<p class='text-center m-0'>"+name_size+" size added to cart</p>");
+
+        });
 
     }
     

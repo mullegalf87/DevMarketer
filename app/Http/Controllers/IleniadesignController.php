@@ -414,4 +414,78 @@ class IleniadesignController extends Controller
   
     }
 
+    public function add_cart_ileniadesign(){
+
+      $id_product=Request::get("id_product");
+      $name_product=Request::get("name_product");
+      $qnt=Request::get("qnt");
+      $price=Request::get("price");
+      $format=Request::get("format");
+      $price_a4=Request::get("price_a4");
+      $price_a3=Request::get("price_a3");
+      $price_a5=Request::get("price_a5");
+      $type_image=Request::get("type_image");
+      
+      if (auth()->guard('users_ileniadesign')->check()) {
+  
+        $id_user=auth()->guard('users_ileniadesign')->user()->id;
+  
+      }else{
+        
+        // $id_user=Request::get("token_user");
+  
+      }
+
+      $this->universal_db()->table('cart_ileniadesign')
+      ->insertGetId(array( 
+        'id_product'=>$id_product,
+        'name_product'=>$name_product,
+        'qnt'=>$qnt,
+        'price'=>$price,
+        'format'=>$format,
+        'id_user'=>$id_user,
+        'price_a4'=>$price_a4,
+        'price_a3'=>$price_a3,
+        'price_a5'=>$price_a5,
+        'type_img'=>$type_image,
+      ));  
+  
+    return View::make('query')->with("result",json_encode("added!"));
+  
+    }
+
+    public function get_prod_cart_ileniadesign(){
+
+      if (auth()->guard('users_ileniadesign')->check()) {
+  
+        $id_user=auth()->guard('users_ileniadesign')->user()->id;
+  
+      }else{
+  
+        // $id_user=Request::get("token_user");
+
+      }
+  
+      $get_cart=$this->universal_db()->table('cart_ileniadesign')
+      ->select(DB::raw('image_shopmyart_ileniadesign.type_img as cat_img, image_shopmyart_ileniadesign.subtype_image as subcat_img, cart_ileniadesign.*'))
+      ->join('image_shopmyart_ileniadesign', 'image_shopmyart_ileniadesign.id', '=', 'cart_ileniadesign.id_product') 
+      ->where('cart_ileniadesign.id_user', '=',$id_user)
+      ->where('cart_ileniadesign.sold', '=',null)
+      ->get();
+  
+      return View::make('query')->with("result",json_encode($get_cart));
+  
+    }
+
+    public function delete_prod_cart_ileniadesign(){
+    
+      $id_product=Request::get("id_product");
+
+      $this->universal_db()->table('cart_ileniadesign')
+      ->where('id', '=',$id_product)
+      ->delete();
+      return View::make('query')->with("result",json_encode("delete!"));
+     
+    }
+
 }
