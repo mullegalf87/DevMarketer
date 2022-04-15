@@ -20,7 +20,7 @@
             </div>
         </div>
     </div>
-    <div id="append_cart">
+    <div id="append_cart" class="mt-5">
 
     </div>
     <div class="d-flex flex-nowrap">
