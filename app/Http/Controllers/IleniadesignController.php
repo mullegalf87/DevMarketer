@@ -436,19 +436,36 @@ class IleniadesignController extends Controller
   
       }
 
-      $this->universal_db()->table('cart_ileniadesign')
-      ->insertGetId(array( 
-        'id_product'=>$id_product,
-        'name_product'=>$name_product,
-        'qnt'=>$qnt,
-        'price'=>$price,
-        'format'=>$format,
-        'id_user'=>$id_user,
-        'price_a4'=>$price_a4,
-        'price_a3'=>$price_a3,
-        'price_a5'=>$price_a5,
-        'type_img'=>$type_image,
-      ));  
+      $exist_product=$this->universal_db()->table('cart_ileniadesign')
+      ->where('id_product','=',$id_product)
+      ->where('format','=',$format)
+      ->first();
+
+      if ($exist_product) {
+
+        $this->universal_db()->table('cart_ileniadesign')
+        ->where('id_product','=',$id_product)
+        ->update(array( 
+          'qnt'=>$exist_product->qnt+1,
+        ));
+
+      }else{
+
+        $this->universal_db()->table('cart_ileniadesign')
+        ->insertGetId(array( 
+          'id_product'=>$id_product,
+          'name_product'=>$name_product,
+          'qnt'=>$qnt,
+          'price'=>$price,
+          'format'=>$format,
+          'id_user'=>$id_user,
+          'price_a4'=>$price_a4,
+          'price_a3'=>$price_a3,
+          'price_a5'=>$price_a5,
+          'type_img'=>$type_image,
+        ));  
+
+      }
   
     return View::make('query')->with("result",json_encode("added!"));
   
@@ -474,6 +491,38 @@ class IleniadesignController extends Controller
       ->get();
   
       return View::make('query')->with("result",json_encode($get_cart));
+  
+    }
+
+    public function update_prod_cart_ileniadesign(){
+
+      $id_cart=Request::get("id_cart");
+      $format=Request::get("format");
+      $qnt=Request::get("qnt");
+      $price=Request::get("price");
+      
+      if (auth()->guard('users_ileniadesign')->check()) {
+  
+        $id_user=auth()->guard('users_ileniadesign')->user()->id;
+  
+      }else{
+  
+        // $id_user=Request::get("token_user");
+      }
+  
+      $this->universal_db()->table('cart_ileniadesign')
+      ->where('id', '=',$id_cart)
+      ->where('id_user', '=',$id_user)
+      ->update(
+        array(
+  
+         'format'=>$format,
+         'qnt'=>$qnt,
+         'price'=>$price,
+  
+       ));
+  
+      return View::make('query')->with("result",json_encode("aggiornato"));
   
     }
 
