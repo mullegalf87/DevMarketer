@@ -114,6 +114,7 @@
         </div>
 </section>
 <script>
+    //
     // sistemare il cerchio sotto il single advice 
     // ogni volta che clicchi negli advice sale al top page
     // ripulire il colore carrello quando si rientra su shopdetail
