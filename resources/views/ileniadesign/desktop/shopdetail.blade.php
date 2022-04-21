@@ -84,11 +84,6 @@
         <div class="col-md-6 p-0">
             <div>
                 <img class="m-auto" src="" style="width: 60%;position: absolute;top: 0;bottom: 0;right: 0;" id="single_advice_shopping_img">
-                <!-- <div class="d-flex flex-nowrap mt-1 mb-1" style="">
-                    <label style="font-family: Futura PT, sans-serif; font-size: 15px!important;margin-bottom: 0;flex-grow:1">'+res[i].name_image.toLowerCase()+'</label>
-                    <i class="bx bx-shopping-bag"></i>
-                </div>
-                <label style="font-family: Futura PT, sans-serif; font-size: 12px!important;margin-bottom: 0"> Da € '+price_from.toLowerCase()+'</label><br> -->
                 <img class="img-corner" src="ileniadesign_repo/2.jpeg" style="width: 190px; object-fit: contain; pointer-events: none;position: absolute;bottom: 10%;right: 50%;">
                 <div class="emblem" style="position: absolute;right: 85%;bottom: 5%;">Ileniazitodesign-Ileniazitodesign-</div>
             </div>
@@ -114,16 +109,21 @@
         </div>
 </section>
 <script>
-    //
+    // mettere il numero nel carrello corretto count_cart
     // sistemare il cerchio sotto il single advice 
-    // ogni volta che clicchi negli advice sale al top page
     // ripulire il colore carrello quando si rientra su shopdetail
     // appena scrolli e passi la prima section mettere il colore alla navbar
     function start_function_shopdetail(num_image){
 
         id_article(num_image);
         advice_shopping();
-
+        //ripristina il bottone dell'add_cart
+        $(".group_add_button").html("<p class='flex-grow-1 m-0'>Select size</p><p class='m-0'><i class='bx bx-shopping-bag'></i></p>");
+        $("#add_button").removeClass("add_button_pink");
+        $("#add_button").removeAttr("onclick");
+        //ogni volta che entra sale in cima
+        $("html, body").animate({ scrollTop: 0 }, "slow");
+                
     }
     
     function id_article(num_image){
@@ -230,20 +230,7 @@
                 old_array_position.push(res[random_key].id+"_"+numb_position);
                 
                 $("#append_advice_shopping").append('<div class="col-md-4 p-0 position_image utility_subcat cat_subcat category_'+res[random_key].type_img+' subcategory_'+res[random_key].subtype_image+' parameter_a4_'+res[random_key].price_a4+' parameter_a3_'+res[random_key].price_a3+' parameter_a5_'+res[random_key].price_a5+'" id="id_image_shopmyart_'+res[random_key].id+'" position="'+numb_position+'" id_image="'+res[random_key].id+'" style="padding: 10!important;">'+
-                '@if( auth()->guard("users_ileniadesign")->check() )'+
-                '@if( auth()->guard("users_ileniadesign")->user()->id==13 )'+
-                '<div class="image-css" style="position: relative;display: inline-block;">'+
-                '<img class="close" style="position: absolute;top: 5px;left: 5px;width:150px; height:150px;" src="public/img/ilenia_design/default_img.png">'+
                 '<img onclick="change_vis(\'shopdetail_'+res[random_key].id+'\')" data-original="ileniadesign_repo/shopmyart/'+res[random_key].id+'/'+res[random_key].image_file.split(",")[0]+'" alt="'+res[random_key].name_image+'" class="lazy" style="width: 100%!important;" >'+
-                '<a class="close" style="position: absolute;top: 5px;right: 5px;" onclick="delete_image(\''+res[random_key].id+'\',shopmyart)">x</a>'+
-                '<i class="" aria-hidden="true"></i>'+
-                '</div>'+
-                '@else'+
-                '<img onclick="change_vis(\'shopdetail_'+res[random_key].id+'\')" data-original="ileniadesign_repo/shopmyart/'+res[random_key].id+'/'+res[random_key].image_file.split(",")[0]+'" alt="'+res[random_key].name_image+'" class="lazy" style="width: 100%!important;" >'+
-                '@endif'+
-                '@else'+
-                '<img onclick="change_vis(\'shopdetail_'+res[random_key].id+'\')" data-original="ileniadesign_repo/shopmyart/'+res[random_key].id+'/'+res[random_key].image_file.split(",")[0]+'" alt="'+res[random_key].name_image+'" class="lazy" style="width: 100%!important;" >'+
-                '@endif'+
                 '<div class="d-flex flex-nowrap mt-1 mb-1">'+
                 '<label style="font-family: Futura PT, sans-serif; font-size: 15px!important;margin-bottom: 0;flex-grow:1">'+res[random_key].name_image.toLowerCase()+'</label>'+
                 '<i class="bx bx-shopping-bag"></i>'+
@@ -301,6 +288,12 @@
 
             $(".group_add_button").html("<p class='text-center m-0'>"+name_size+" size added to cart</p>");
 
+            setTimeout(() => {
+
+                $(".group_add_button").html("<p class='flex-grow-1 m-0'>€ "+price+"</p><p class='m-0'><i class='bx bx-shopping-bag'></i> ADD</p>");
+
+            }, 3000);
+            
         });
 
     }

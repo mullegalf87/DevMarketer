@@ -360,6 +360,12 @@
             <div class="footer"></div>
         </div>
     </div>
+    <div id="summary" class="page" style="display: none;">
+        <div class="container_page" style="flex: 1; position: absolute; right: 0; bottom: 0; left: 0;">
+            @include("ileniadesign.desktop.summary")
+            <div class="footer"></div>
+        </div>
+    </div>
     <footer id="footer" style="background-color:#CDB4B4;">
         <div class="">
             <h1 class="text-center" style="font-size:25px!important;padding: 5%;">CECILIE BAHANSEN</h1>
@@ -501,6 +507,9 @@
                 case "cart":
                     start_function_cart();
                     $("#navbar_1").css("background-color","#dbd3d3");
+                break;
+                case "summary":
+                    start_function_summary();
                 break;
                 case "login":
                     $("#navbar_1").css("background-color","#dbd3d3");

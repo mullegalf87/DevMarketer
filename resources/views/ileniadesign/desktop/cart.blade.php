@@ -2,50 +2,49 @@
 
 </style>
 <section class="container-fluid" style="padding: 7%;">
-<h3 class="pb-5" style="font-family: 'Silk Serif', sans-serif;">Shopping Cart</h3>
-<div class="d-flex">
-<div class="d-flex" style="width:20%">
-</div>
-<div class="ml-5 d-flex flex-nowrap w-100">
-<div class="flex-grow-1 m-auto" style="width:20%">
-<h5 style="font-family: 'Futura PT', sans-serif;font-size: 15px!important;white-space: nowrap;">Size</h5>
-</div>
-<div class="flex-grow-1 m-auto" style="width:20%">
-<h5 style="font-family: 'Futura PT', sans-serif;font-size: 15px!important;white-space: nowrap;">Quantity</h5>
-</div>
-<div class="flex-grow-1 m-auto" style="width:20%">
-</div>
-<div class="flex-grow-2 m-auto" >
-<h5 style="font-family: 'Futura PT', sans-serif;font-size: 15px!important;white-space: nowrap;">Price</h5>
-</div>
-</div>
-</div>
-<div id="append_cart" class="mt-5">
-
-</div>
-<div class="d-flex flex-nowrap">
-<div class="col-md-6 p-0"></div>
-<div class="col-md-6 p-0">
-<div class="d-flex flex-nolwrap">
-<p class="flex-grow-1">Total</p>
-<p id="total_cart">€ 0,00</p>
-</div>
-<div class="d-flex flex-nolwrap">
-<button id="" class="btn btn-primary text-left w-100 mr-3" onclick="change_vis('shopmyart')">
-<div class="d-flex flex-nowrap">
-<p class="flex-grow-1 m-0">Continue shopping</p>
-<p class="m-0"><i class="bx bx-shopping-bag"></i></p>
-</div>
-</button>
-<button class="btn btn-primary text-left w-100" style="background-color:#CDB4B4!important">
-<div class="d-flex flex-nowrap">
-<p class="flex-grow-1 m-0">Checkout</p>
-<p class="m-0"><i class="bx bx-shopping-bag"></i></p>
-</div>
-</button>
-</div>
-</div>
-</div>
+    <h3 class="pb-5" style="font-family: 'Silk Serif', sans-serif;">Shopping Cart</h3>
+    <div class="d-flex">
+        <div class="d-flex" style="width:20%">
+        </div>
+        <div class="ml-5 d-flex flex-nowrap w-100">
+            <div class="flex-grow-1 m-auto" style="width:20%">
+            <h5 style="font-family: 'Futura PT', sans-serif;font-size: 15px!important;white-space: nowrap;">Size</h5>
+            </div>
+            <div class="flex-grow-1 m-auto" style="width:20%">
+            <h5 style="font-family: 'Futura PT', sans-serif;font-size: 15px!important;white-space: nowrap;">Quantity</h5>
+            </div>
+            <div class="flex-grow-1 m-auto" style="width:20%">
+            </div>
+            <div class="flex-grow-2 m-auto" >
+            <h5 style="font-family: 'Futura PT', sans-serif;font-size: 15px!important;white-space: nowrap;">Price</h5>
+            </div>
+        </div>
+    </div>
+    <div id="append_cart" class="mt-5">
+    </div>
+    <div class="d-flex flex-nowrap">
+        <div class="col-md-6 p-0"></div>
+        <div class="col-md-6 p-0">
+            <div class="d-flex flex-nolwrap">
+                <p class="flex-grow-1">Total</p>
+                <p id="total_cart">€ 0,00</p>
+            </div>
+            <div class="d-flex flex-nowrap">
+                <button id="" class="btn btn-primary text-left w-100 mr-3" onclick="change_vis('shopmyart')">
+                    <div class="d-flex flex-nowrap">
+                        <p class="flex-grow-1 m-0">Continue shopping</p>
+                        <p class="m-0"><i class="bx bx-shopping-bag"></i></p>
+                    </div>
+                </button>
+                <button onclick="change_vis('summary')" class="btn btn-primary text-left w-100" style="background-color:#CDB4B4!important">
+                    <div class="d-flex flex-nowrap">
+                        <p class="flex-grow-1 m-0">Checkout</p>
+                        <p class="m-0"><i class="bx bx-shopping-bag"></i></p>
+                    </div>
+                </button>
+            </div>
+        </div>
+    </div>
 </section>
 <script>
 
@@ -64,20 +63,39 @@ function get_cart(){
         
         var res=jQuery.parseJSON(data);
         var select_format;
+        var format;
         
         for (let i = 0; i < res.length; i++) {
+
+            if (res[i].price_a4==0) {
+
+                format='d-none';
+
+            } else if(res[i].price_a3==0){
+
+                format='d-none';
+
+            } else if(res[i].price_a5==0){
+
+                format='d-none';
+
+            } else {
+
+                format='';
+
+            } 
             
             $("#append_cart").append('<div class="d-flex mb-4" id="tr_'+res[i].id+'">'+
             '<div class="d-flex" style="width:20%">'+
-            '<img style="width: 35%!important;" class="img-corner mr-4" src="ileniadesign_repo/shopmyart/'+res[i].id_product+'/1.'+res[i].type_img+'">'+
+            '<img onclick="change_vis(\'shopdetail_'+res[i].id_product+'\')" style="width: 35%!important;" class="img-corner mr-4" src="ileniadesign_repo/shopmyart/'+res[i].id_product+'/1.'+res[i].type_img+'">'+
             '<h6 class="m-auto" style="font-family: Silk Serif, sans-serif;">'+res[i].name_product+'<p class="m-0 p-0" style="font-family: Silk Serif, sans-serif;">In dress</p></h6>'+
             '</div>'+
             '<div class="ml-5 d-flex flex-nowrap w-100" style="border-bottom: 2px #dbd3d3 solid;">'+
             '<div class="flex-grow-1 m-auto" style="width:20%">'+
             '<select class="styled-select" style="border: transparent;font-family: Futura PT, sans-serif;font-size: 12px!important;white-space: nowrap;" id="select_format_'+res[i].id+'">'+
-            '<option price="'+res[i].price_a4+'" value="1">A4</option>'+
-            '<option price="'+res[i].price_a3+'" value="2">A3</option>'+
-            '<option price="'+res[i].price_a5+'" value="3">A5</option>'+
+            '<option price="'+res[i].price_a4+'" value="1" class="'+format+'">A4</option>'+
+            '<option price="'+res[i].price_a3+'" value="2" class="'+format+'">A3</option>'+
+            '<option price="'+res[i].price_a5+'" value="3" class="'+format+'">A5</option>'+
             '</select>'+
             '</div>'+
             '<div class="flex-grow-1 m-auto" style="width:20%">'+
@@ -92,6 +110,16 @@ function get_cart(){
             '<option value="8">8</option>'+
             '<option value="9">9</option>'+
             '<option value="10">10</option>'+
+            '<option value="11">11</option>'+
+            '<option value="12">12</option>'+
+            '<option value="13">13</option>'+
+            '<option value="14">14</option>'+
+            '<option value="15">15</option>'+
+            '<option value="16">16</option>'+
+            '<option value="17">17</option>'+
+            '<option value="18">18</option>'+
+            '<option value="19">19</option>'+
+            '<option value="20">20</option>'+
             '</select>'+
             '</div>'+
             '<div class="flex-grow-1 m-auto" style="width:20%">'+
@@ -116,22 +144,22 @@ function get_cart(){
         $(".styled-select").on("change",function(index){
             
             var id_cart=$(this).attr("id").split("_")[2];
-
+            
             var price=$("#select_format_"+id_cart+" :selected").attr("price");
-
+            
             var format=$("#select_format_"+id_cart+" :selected").val();
-
+            
             var qnt=$("#select_qnt_"+id_cart+" :selected").val();
-
+            
             $("#single_sum_cart_"+id_cart).text("€ "+parseFloat(price*qnt).toFixed(2));
-
+            
             sum_cart();
-
+            
             $.get("/update_prod_cart_ileniadesign",{id_cart:id_cart, price:price, format:format, qnt:qnt},
             function(data){
-
+                
                 console.log(data);
-
+                
             });
             
         });
