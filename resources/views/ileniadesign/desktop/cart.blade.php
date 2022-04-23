@@ -6,7 +6,7 @@
     <div class="d-flex">
         <div class="d-flex" style="width:20%">
         </div>
-        <div class="ml-5 d-flex flex-nowrap w-100">
+        <div class="ml-3 d-flex flex-nowrap w-100">
             <div class="flex-grow-1 m-auto" style="width:20%">
             <h5 style="font-family: 'Futura PT', sans-serif;font-size: 15px!important;white-space: nowrap;">Size</h5>
             </div>
@@ -87,10 +87,10 @@ function get_cart(){
             
             $("#append_cart").append('<div class="d-flex mb-4" id="tr_'+res[i].id+'">'+
             '<div class="d-flex" style="width:20%">'+
-            '<img onclick="change_vis(\'shopdetail_'+res[i].id_product+'\')" style="width: 35%!important;" class="img-corner mr-4" src="ileniadesign_repo/shopmyart/'+res[i].id_product+'/1.'+res[i].type_img+'">'+
-            '<h6 class="m-auto" style="font-family: Silk Serif, sans-serif;">'+res[i].name_product+'<p class="m-0 p-0" style="font-family: Silk Serif, sans-serif;">In dress</p></h6>'+
+            '<img onclick="change_vis(\'shopdetail_'+res[i].id_product+'\')" style="width: 55px!important;" class="img-corner mr-4" src="ileniadesign_repo/shopmyart/'+res[i].id_product+'/1.'+res[i].type_img+'">'+
+            '<h6 class="ellipsis" style="font-family: Silk Serif, sans-serif; white-space: nowrap; margin: auto 0 auto 0;width: 75px;">'+res[i].name_product+'<p class="m-0 p-0" style="font-family: Silk Serif, sans-serif;">In dress</p></h6>'+
             '</div>'+
-            '<div class="ml-5 d-flex flex-nowrap w-100" style="border-bottom: 2px #dbd3d3 solid;">'+
+            '<div class="ml-3 d-flex flex-nowrap w-100" style="border-bottom: 2px #dbd3d3 solid;">'+
             '<div class="flex-grow-1 m-auto" style="width:20%">'+
             '<select class="styled-select" style="border: transparent;font-family: Futura PT, sans-serif;font-size: 12px!important;white-space: nowrap;" id="select_format_'+res[i].id+'">'+
             '<option price="'+res[i].price_a4+'" value="1" class="'+format+'">A4</option>'+
@@ -159,6 +159,8 @@ function get_cart(){
             function(data){
                 
                 console.log(data);
+
+                get_count_cart();
                 
             });
             
@@ -190,6 +192,8 @@ function delete_cart(id_product){
         $("#tr_"+id_product).remove();
         
         sum_cart();
+
+        get_count_cart();
         
     });
 }

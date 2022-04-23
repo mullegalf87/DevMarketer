@@ -181,6 +181,10 @@
             -webkit-appearance:none;
             box-shadow: none !important;
         }
+        .ellipsis{
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
     </style>
 </head>
 <body>
@@ -218,7 +222,7 @@
                     @endif
                 </li>
                 <li class="nav-item text-center pr-3 pl-3" style="padding: 8px;">
-                    <div class="circle_cart" onclick="change_vis('cart')">2</div>
+                    <div class="circle_cart" onclick="change_vis('cart')">0</div>
                 </li>
             </ul>
         </div>
@@ -325,7 +329,7 @@
                     </div>
                     <div class="d-flex flex-nowrap w-100">
                         <div class="col-md-6">
-                            <input class="form-control" placeholder="Email" style="width: 60%;float: right;height:60px;background: transparent; border-radius: 0; width: 60%; float: right; height: 60px; border-bottom: 1px solid;font-family: 'Futura PT', sans-serif;font-size: 15px!important;">
+                            <input class="form-control" placeholder="Email" style="width: 60%;float: right;height:60px;background: transparent; border-radius: 0; border-bottom: 1px solid;font-family: 'Futura PT', sans-serif;font-size: 15px!important;">
                         </div>
                         <div class="col-md-6">
                             <button class="btn btn-primary text-left">SUBSCRIBE  </button>
@@ -409,7 +413,7 @@
     </footer>
     <script>
         //desktop
-        //fare cart
+        //fare form per acquisto step
         //fare ordini profilo cliente
         //richieste
         
@@ -525,6 +529,7 @@
         function start_function_home(){
             $(".container_page").css("height", "calc(100% - 82px)");
             set_lettering_circle_title();
+            get_count_cart();
         }
         
         function logout(){
@@ -701,6 +706,13 @@
             }
             
         });
+
+        function get_count_cart(){
+            $.get("get_count_prod_cart_ileniadesign",{/*token_user:user*/},
+            function(data){
+                $(".circle_cart").text(data);
+            });
+        }
         
     </script>
 </body>

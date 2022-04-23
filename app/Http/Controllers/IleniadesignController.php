@@ -471,6 +471,28 @@ class IleniadesignController extends Controller
   
     }
 
+    public function get_count_prod_cart_ileniadesign(){
+
+      if (auth()->guard('users_ileniadesign')->check()) {
+  
+        $id_user=auth()->guard('users_ileniadesign')->user()->id;
+  
+      }else{
+  
+        // $id_user=Request::get("token_user");
+
+      }
+  
+      $get_cart=$this->universal_db()->table('cart_ileniadesign')
+      ->select(DB::raw('sum(qnt) as sum_qnt_cart'))
+      ->where('id_user', '=',$id_user)
+      ->where('sold', '=',null)
+      ->first();
+  
+      return View::make('query')->with("result",$get_cart->sum_qnt_cart);
+  
+    }
+
     public function get_prod_cart_ileniadesign(){
 
       if (auth()->guard('users_ileniadesign')->check()) {

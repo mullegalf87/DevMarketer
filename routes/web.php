@@ -461,9 +461,12 @@ Route::get('/get_image_detail_ileniadesign', 'IleniadesignController@get_image_d
 
 Route::get('/add_cart_ileniadesign', 'IleniadesignController@add_cart_ileniadesign');
 
+Route::get('/get_count_prod_cart_ileniadesign', 'IleniadesignController@get_count_prod_cart_ileniadesign');
+
 //funzioni cart
 Route::get('/get_prod_cart_ileniadesign', 'IleniadesignController@get_prod_cart_ileniadesign');
 
 Route::get('/update_prod_cart_ileniadesign', 'IleniadesignController@update_prod_cart_ileniadesign');
 
 Route::get('/delete_prod_cart_ileniadesign', 'IleniadesignController@delete_prod_cart_ileniadesign');
+

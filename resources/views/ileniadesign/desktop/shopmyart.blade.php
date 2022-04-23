@@ -1,5 +1,5 @@
 <style>
-    ::placeholder {
+    #shopmyart ::placeholder {
         color: #CDB4B4;
         opacity: 1; /* Firefox */
         text-align: center;

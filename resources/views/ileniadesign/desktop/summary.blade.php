@@ -1,12 +1,10 @@
-<style>
+<style>    
     
-    #msform {
-        text-align: center;
-        position: relative;
-        margin-top: 20px
+    #summary ::-webkit-input-placeholder {
+        text-align: left;
     }
-    
-    #msform fieldset .form-card {
+
+    #summary fieldset .form-card {
         background: white;
         border: 0 none;
         border-radius: 0px;
@@ -18,7 +16,7 @@
         position: relative
     }
     
-    #msform fieldset {
+    #summary fieldset {
         background: white;
         border: 0 none;
         border-radius: 0;
@@ -29,17 +27,16 @@
         position: relative
     }
     
-    #msform fieldset:not(:first-of-type) {
+    #summary fieldset:not(:first-of-type) {
         display: none
     }
     
-    #msform fieldset .form-card {
+    #summary fieldset .form-card {
         text-align: left;
         color: #9E9E9E
     }
     
-    #msform input,
-    #msform textarea {
+    #summary .input {
         padding: 0px 8px 4px 8px;
         border: none;
         border-bottom: 1px solid #ccc;
@@ -54,8 +51,8 @@
         letter-spacing: 1px
     }
     
-    #msform input:focus,
-    #msform textarea:focus {
+    #summary input:focus,
+     textarea:focus {
         -moz-box-shadow: none !important;
         -webkit-box-shadow: none !important;
         box-shadow: none !important;
@@ -65,7 +62,7 @@
         outline-width: 0
     }
     
-    select.list-dt {
+    #summary select.list-dt {
         border: none;
         outline: 0;
         border-bottom: 1px solid #ccc;
@@ -73,18 +70,18 @@
         margin: 2px
     }
     
-    select.list-dt:focus {
+    #summary select.list-dt:focus {
         border-bottom: 2px solid #CDB4B4
     }
     
-    .card {
+    #summary .card {
         z-index: 0;
         border: none;
         border-radius: 0;
         position: relative
     }
     
-    .fs-title {
+    #summary .fs-title {
         font-size: 25px;
         color: #2C3E50;
         margin-bottom: 10px;
@@ -92,18 +89,18 @@
         text-align: left
     }
     
-    #progressbar {
+    #summary #progressbar {
         margin-bottom: 30px;
         overflow: hidden;
         color: lightgrey;
         padding: 0;
     }
     
-    #progressbar .active {
+    #summary #progressbar .active {
         color: #000000
     }
     
-    #progressbar li {
+    #summary #progressbar li {
         list-style-type: none;
         font-size: 12px;
         width: 25%;
@@ -111,22 +108,22 @@
         position: relative
     }
     
-    #progressbar #personal_detail:before {
+    #summary #progressbar #personal_detail:before {
         font-family: 'Futura PT', sans-serif;font-size: 15px!important;white-space: nowrap;
         content: "1"
     }
     
-    #progressbar #shipping_detail:before {
+    #summary #progressbar #shipping_detail:before {
         font-family: 'Futura PT', sans-serif;font-size: 15px!important;white-space: nowrap;
         content: "2"
     }
     
-    #progressbar #delivery_method:before {
+    #summary #progressbar #delivery_method:before {
         font-family: 'Futura PT', sans-serif;font-size: 15px!important;white-space: nowrap;
         content: "3"
     }
       
-    #progressbar li:before {
+    #summary #progressbar li:before {
         width: 50px;
         height: 50px;
         line-height: 45px;
@@ -139,7 +136,7 @@
         padding: 2px
     }
     
-    #progressbar li:after {
+    #summary #progressbar li:after {
         content: '';
         width: 100%;
         height: 2px;
@@ -150,17 +147,17 @@
         z-index: -1
     }
     
-    #progressbar li.active:before,
-    #progressbar li.active:after {
+    #summary #progressbar li.active:before,
+    #summary #progressbar li.active:after {
         background: #CDB4B4
     }
     
-    .radio-group {
+    #summary .radio-group {
         position: relative;
         margin-bottom: 25px
     }
     
-    .radio {
+    #summary .radio {
         display: inline-block;
         width: 204;
         height: 104;
@@ -172,26 +169,27 @@
         margin: 8px 2px
     }
     
-    .radio:hover {
+    #summary .radio:hover {
         box-shadow: 2px 2px 2px 2px rgba(0, 0, 0, 0.3)
     }
     
-    .radio.selected {
+    #summary .radio.selected {
         box-shadow: 1px 1px 2px 2px rgba(0, 0, 0, 0.1)
     }
     
-    .fit-image {
+    #summary .fit-image {
         width: 100%;
         object-fit: cover
     }
     
-    #promo .card{
+    #summary #promo .card{
       border-radius: 0;
     }
     
-    [contenteditable]:focus {
+    #summary [contenteditable]:focus {
         outline: 0px solid transparent;
       }
+
 </style>
 <section class="container-fluid" style="padding: 7%;">
     <h3 class="pb-5" style="font-family: 'Silk Serif', sans-serif;">Summary order</h3>
@@ -205,6 +203,17 @@
             </div>
 
             <fieldset class="pb-0">
+                <div class="d-flex flex-wrap">
+                    <div class="col-md-6 pl-0" style="margin: 10% 0 10% 0;">
+                        <input class="m-0 input" placeholder="First name*" style="height:60px;background: transparent; border-radius: 0; border-bottom: 1px solid #dbd3d3;;font-family: 'Futura PT', sans-serif;font-size: 15px!important;">
+                    </div>
+                    <div class="col-md-6 pr-0" style="margin: 10% 0 10% 0;">
+                        <input class="m-0 input" placeholder="Last name*" style="height:60px;background: transparent; border-radius: 0; border-bottom: 1px solid #dbd3d3;;font-family: 'Futura PT', sans-serif;font-size: 15px!important;">
+                    </div>
+                    <div class="col-md-12 p-0" style="margin: 0 0 10% 0;">
+                        <input class="m-0 input" placeholder="Email*" style="height:60px;background: transparent; border-radius: 0; border-bottom: 1px solid #dbd3d3;;font-family: 'Futura PT', sans-serif;font-size: 15px!important;">
+                    </div>
+                </div>
                 <div class="d-flex flex-nowrap">
                     <button type="button" name="next" class="next action-button btn btn-primary text-left w-100" value="Next Step">
                         <div class="d-flex flex-nowrap">
@@ -216,6 +225,26 @@
             </fieldset>
 
             <fieldset>
+                <div class="d-flex flex-wrap">
+                    <div class="col-md-6 pl-0" style="margin: 10% 0 10% 0;">
+                        <input class="m-0 input" placeholder="Country*" style="height:60px;background: transparent; border-radius: 0; border-bottom: 1px solid #dbd3d3;;font-family: 'Futura PT', sans-serif;font-size: 15px!important;">
+                    </div>
+                    <div class="col-md-6 pr-0" style="margin: 10% 0 10% 0;">
+                        <input class="m-0 input" placeholder="Region*" style="height:60px;background: transparent; border-radius: 0; border-bottom: 1px solid #dbd3d3;;font-family: 'Futura PT', sans-serif;font-size: 15px!important;">
+                    </div>
+                    <div class="col-md-6 pl-0" style="margin: 0 0 10% 0;">
+                        <input class="m-0 input" placeholder="City*" style="height:60px;background: transparent; border-radius: 0; border-bottom: 1px solid #dbd3d3;;font-family: 'Futura PT', sans-serif;font-size: 15px!important;">
+                    </div>
+                    <div class="col-md-6 pr-0" style="margin: 0 0 10% 0;">
+                        <input class="m-0 input" placeholder="Address*" style="height:60px;background: transparent; border-radius: 0; border-bottom: 1px solid #dbd3d3;;font-family: 'Futura PT', sans-serif;font-size: 15px!important;">
+                    </div>
+                    <div class="col-md-6 pl-0" style="margin: 0 0 10% 0;">
+                        <input class="m-0 input" placeholder="Zip code*" style="height:60px;background: transparent; border-radius: 0; border-bottom: 1px solid #dbd3d3;;font-family: 'Futura PT', sans-serif;font-size: 15px!important;">
+                    </div>
+                    <div class="col-md-6 pr-0" style="margin: 0 0 10% 0;">
+                        <input class="m-0 input" placeholder="Phone*" style="height:60px;background: transparent; border-radius: 0; border-bottom: 1px solid #dbd3d3;;font-family: 'Futura PT', sans-serif;font-size: 15px!important;">
+                    </div>
+                </div>
                 <div class="d-flex flex-nowrap">
                     <button type="button" name="previous" class="previous action-button-previous btn btn-primary text-left w-100 mr-3" value="Previous Step">
                         <div class="d-flex flex-nowrap">
@@ -233,6 +262,17 @@
             </fieldset>
 
             <fieldset>
+                <div class="d-flex flex-wrap">
+                    <div class="col-md-12 p-0" style="margin: 10% 0 10% 0;border: 1px solid #CDB4B4;height: 150px;">
+                        <div class="form-check">
+                            <input name="gruppo1" type="radio" id="radio1" checked>
+                            <label for="radio1">Radio di esempio 1</label>
+                        </div>
+                    </div>
+                    <div class="col-md-12 p-0" style="margin: 0 0 10% 0;border: 1px solid #CDB4B4;height: 150px;">
+                        
+                    </div>
+                </div>
                 <div class="d-flex flex-nowrap">
                     <button type="button" name="previous" class="previous action-button-previous btn btn-primary text-left w-100 mr-3" value="Previous Step">
                         <div class="d-flex flex-nowrap">

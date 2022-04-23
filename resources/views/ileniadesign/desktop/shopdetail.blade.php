@@ -109,7 +109,7 @@
         </div>
 </section>
 <script>
-    // mettere il numero nel carrello corretto count_cart
+    // mettere il numero nel carrello corretto count_cart con cookie
     // sistemare il cerchio sotto il single advice 
     // ripulire il colore carrello quando si rientra su shopdetail
     // appena scrolli e passi la prima section mettere il colore alla navbar
@@ -286,7 +286,9 @@
 
             $(".circle_cart").css("background-color","#CDB4B4");
 
-            $(".group_add_button").html("<p class='text-center m-0'>"+name_size+" size added to cart</p>");
+            $(".group_add_button").html("<p class='text-center m-0'>"+name_size+" size added to cart</p>"); 
+
+            get_count_cart();
 
             setTimeout(() => {
 
