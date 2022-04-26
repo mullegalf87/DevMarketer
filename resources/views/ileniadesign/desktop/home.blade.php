@@ -178,7 +178,7 @@
         .btn.active
         {
             outline:0px !important;
-            -webkit-appearance:none;
+            /* -webkit-appearance:none; */
             box-shadow: none !important;
         }
         .ellipsis{

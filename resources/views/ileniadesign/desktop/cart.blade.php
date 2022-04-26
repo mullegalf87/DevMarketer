@@ -1,5 +1,7 @@
 <style>
-
+    #cart .styled-select{
+        background-color: transparent;
+    }
 </style>
 <section class="container-fluid" style="padding: 7%;">
     <h3 class="pb-5" style="font-family: 'Silk Serif', sans-serif;">Shopping Cart</h3>
@@ -20,17 +22,17 @@
             </div>
         </div>
     </div>
-    <div id="append_cart" class="mt-5">
+    <div class="mt-5 append_cart append_cart_cart">
     </div>
     <div class="d-flex flex-nowrap">
         <div class="col-md-6 p-0"></div>
         <div class="col-md-6 p-0">
-            <div class="d-flex flex-nolwrap">
+            <div class="d-flex flex-nowrap">
                 <p class="flex-grow-1">Total</p>
-                <p id="total_cart">€ 0,00</p>
+                <p class="total_cart">€ 0,00</p>
             </div>
             <div class="d-flex flex-nowrap">
-                <button id="" class="btn btn-primary text-left w-100 mr-3" onclick="change_vis('shopmyart')">
+                <button class="btn btn-primary text-left w-100 mr-3" onclick="change_vis('shopmyart')">
                     <div class="d-flex flex-nowrap">
                         <p class="flex-grow-1 m-0">Continue shopping</p>
                         <p class="m-0"><i class="bx bx-shopping-bag"></i></p>
@@ -50,13 +52,13 @@
 
 function start_function_cart(){
     
-    get_cart();
+    get_cart("cart");
     
 }
 
-function get_cart(){
+function get_cart(page){
     
-    $("#append_cart").empty();
+    $(".append_cart").empty();
     
     $.get("get_prod_cart_ileniadesign",{},
     function(data){
@@ -64,6 +66,8 @@ function get_cart(){
         var res=jQuery.parseJSON(data);
         var select_format;
         var format;
+        var color_remove;
+        var title_image;
         
         for (let i = 0; i < res.length; i++) {
 
@@ -84,11 +88,23 @@ function get_cart(){
                 format='';
 
             } 
+
+            if (page=="cart") {
+                
+                color_remove="#dbd3d3";
+                title_image='<h6 class="ellipsis" style="font-family: Silk Serif, sans-serif; white-space: nowrap; margin: auto 0 auto 0;width: 75px;">'+res[i].name_product+'<p class="m-0 p-0" style="font-family: Silk Serif, sans-serif;">In dress</p></h6>';
+                
+            }else{
+                
+                color_remove="";
+                title_image="";
+                
+            }
             
-            $("#append_cart").append('<div class="d-flex mb-4" id="tr_'+res[i].id+'">'+
+            $(".append_cart_"+page).append('<div class="d-flex mb-4" id="tr_'+res[i].id+'">'+
             '<div class="d-flex" style="width:20%">'+
             '<img onclick="change_vis(\'shopdetail_'+res[i].id_product+'\')" style="width: 55px!important;" class="img-corner mr-4" src="ileniadesign_repo/shopmyart/'+res[i].id_product+'/1.'+res[i].type_img+'">'+
-            '<h6 class="ellipsis" style="font-family: Silk Serif, sans-serif; white-space: nowrap; margin: auto 0 auto 0;width: 75px;">'+res[i].name_product+'<p class="m-0 p-0" style="font-family: Silk Serif, sans-serif;">In dress</p></h6>'+
+            title_image+
             '</div>'+
             '<div class="ml-3 d-flex flex-nowrap w-100" style="border-bottom: 2px #dbd3d3 solid;">'+
             '<div class="flex-grow-1 m-auto" style="width:20%">'+
@@ -123,7 +139,7 @@ function get_cart(){
             '</select>'+
             '</div>'+
             '<div class="flex-grow-1 m-auto" style="width:20%">'+
-            '<p class="p-0 m-0" style="text-decoration: underline;text-underline-offset: 1px;color:#dbd3d3" onclick="delete_cart('+res[i].id+')">Remove</p>'+
+            '<p class="p-0 m-0" style="text-decoration: underline;text-underline-offset: 1px;color:'+color_remove+'" onclick="delete_cart('+res[i].id+')">Remove</p>'+
             '</div>'+
             '<div class="flex-grow-2 m-auto">'+
             '<p class="p-0 m-0 sum_cart" id="single_sum_cart_'+res[i].id+'">€ '+parseFloat(res[i].price*res[i].qnt).toFixed(2)+'</p>'+
@@ -154,7 +170,10 @@ function get_cart(){
             $("#single_sum_cart_"+id_cart).text("€ "+parseFloat(price*qnt).toFixed(2));
             
             sum_cart();
-            
+        
+            console.log("qnt");
+            console.log(qnt);
+
             $.get("/update_prod_cart_ileniadesign",{id_cart:id_cart, price:price, format:format, qnt:qnt},
             function(data){
                 
@@ -173,6 +192,7 @@ function get_cart(){
 function sum_cart(){
     
     var sum_cart=0;
+    var total_delivery=0;
     
     $(".sum_cart").each(function(data){
         
@@ -180,7 +200,11 @@ function sum_cart(){
         
     });
     
-    $("#total_cart").text("€ "+sum_cart.toFixed(2));
+    $(".total_cart").text("€ "+sum_cart.toFixed(2));
+    total_delivery=parseFloat($(".total_delivery").text().split("€ ")[1]);
+    total_definitive=sum_cart+total_delivery;
+
+    $(".total_definitive").text("€ "+total_definitive.toFixed(2));
     
 }
 
