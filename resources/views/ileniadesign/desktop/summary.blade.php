@@ -416,6 +416,7 @@
 
         $.get("apply_discount_ileniadesign",{name_discount:name_discount},
         function(data){
+            console.log(data)
             total_discount=parseFloat($(".total_cart").text().split("€ ")[1])/100*data;
             $(".total_discount").text("- € "+total_discount.toFixed(2));
             total_definitive_cart();

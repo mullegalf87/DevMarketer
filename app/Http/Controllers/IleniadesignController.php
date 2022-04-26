@@ -567,7 +567,14 @@ class IleniadesignController extends Controller
       ->where('name_discount', '=', $name_discount)
       ->first();
 
-      return View::make('query')->with("result",$verify_code->off_discount);
+      if ($verify_code) {
+        $code_verified=$verify_code->off_discount;
+      }else{
+        $code_verified=0;
+      }
+      
+
+      return View::make('query')->with("result",$code_verified);
      
     }
 
