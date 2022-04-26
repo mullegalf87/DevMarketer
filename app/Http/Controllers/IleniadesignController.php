@@ -564,7 +564,7 @@ class IleniadesignController extends Controller
       $name_discount=Request::get("name_discount");
 
       $verify_code=$this->universal_db()->table('discount_code_ileniadesign')
-      ->where('name_discount', 'LIKE', '%'.$name_discount.'%')
+      ->where('name_discount', '=', $name_discount)
       ->first();
 
       return View::make('query')->with("result",$verify_code->off_discount);
