@@ -202,23 +202,30 @@
                     <a class="nav-link" onclick="change_vis('shopmyart_0')" >Store</a>
                 </li>
                 <li class="nav-item text-center pr-3 pl-3">
-                    <a class="nav-link" href="#">Collection</a>
+                    <a class="nav-link" onclick="change_vis('request')">Request</a>
                 </li>
                 <li class="nav-item text-center pr-3 pl-3">
-                    <a class="nav-link" href="#">About</a>
+                    <a class="nav-link" onclick="change_vis('about')">About</a>
                 </li>
                 <div class="d-none d-lg-block w-100 text-center" style="padding-top: 8px;">
                     <!-- <img src="https://codingyaar.com/wp-content/uploads/logo.png"> -->
                     <h4 class="m-0" style="vertical-align: middle;text-align: center;padding-top: 8px;font-family: 'Silk Serif', sans-serif; white-space: nowrap;" onclick="change_vis('home')">ILENIA ZITO DESIGN</h4>
                 </div>
                 <li class="nav-item text-center pr-3 pl-3">
-                    <a class="nav-link" href="#">Ship to</a>
+                    @if( auth()->guard('users_ileniadesign')->check() )
+                    <a class="nav-link" onclick="logout()">Logout</a>
+                    @else
+                    @endif
                 </li>
                 <li class="nav-item text-center pr-3 pl-3">
                     @if( auth()->guard('users_ileniadesign')->check() )
-                    <a class="nav-link" onclick="logout()">{{ auth()->guard('users_ileniadesign')->user()->email }} </a>
+                    @if( auth()->guard("users_ileniadesign")->user()->id==13 )
+                    <a class="nav-link" onclick="change_vis('setting')">My setting </a>
                     @else
-                    <a class="nav-link" onclick="change_vis('login')">Account </a>
+                    <a class="nav-link" onclick="change_vis('order')">My order </a>
+                    @endif
+                    @else
+                    <a class="nav-link" onclick="change_vis('login')">Login/Register </a>
                     @endif
                 </li>
                 <li class="nav-item text-center pr-3 pl-3" style="padding: 8px;">
@@ -370,6 +377,25 @@
             <div class="footer"></div>
         </div>
     </div>
+    
+    @if( auth()->guard('users_ileniadesign')->check() )
+    @if( auth()->guard("users_ileniadesign")->user()->id==13 )
+    <div id="setting" class="page" style="display: none;">
+        <div class="container_page" style="flex: 1; position: absolute; right: 0; bottom: 0; left: 0;">
+            @include("ileniadesign.desktop.setting")
+            <div class="footer"></div>
+        </div>
+    </div>
+    @else
+    <div id="order" class="page" style="display: none;">
+        <div class="container_page" style="flex: 1; position: absolute; right: 0; bottom: 0; left: 0;">
+            @include("ileniadesign.desktop.order")
+            <div class="footer"></div>
+        </div>
+    </div>
+    @endif
+    @endif
+
     <footer id="footer" style="background-color:#CDB4B4;">
         <div class="">
             <h1 class="text-center" style="font-size:25px!important;padding: 5%;">CECILIE BAHANSEN</h1>
@@ -515,6 +541,12 @@
                 case "summary":
                     start_function_summary();
                 break;
+                case "setting":
+                    start_function_setting();
+                break;
+                case "order":
+                    start_function_order();
+                break;
                 case "login":
                     $("#navbar_1").css("background-color","#dbd3d3");
                 break;
@@ -534,7 +566,7 @@
         
         function logout(){
             $.get("/logout_ileniadesign",{},function(){
-                window.location.replace("");
+                window.location.replace("/ileniadesign");
             });
         }
         

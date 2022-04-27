@@ -473,3 +473,8 @@ Route::get('/delete_prod_cart_ileniadesign', 'IleniadesignController@delete_prod
 //funzioni summary
 Route::get('/apply_discount_ileniadesign', 'IleniadesignController@apply_discount_ileniadesign');
 
+//funzioni setting
+Route::get("/get_all_image_ileniadesign","IleniadesignController@get_all_image_ileniadesign");
+
+Route::get("/get_discount_code_ileniadesign","IleniadesignController@get_discount_code_ileniadesign");
+

@@ -101,6 +101,8 @@ class IleniadesignController extends Controller
       
       auth()->guard('users_ileniadesign')->login($user);
 
+      return redirect()->to('/ileniadesign');
+
       // DB::table('cart_ileniadesign')
       //   ->where('id_user','=',$cookie)
       //   ->update(
@@ -576,6 +578,28 @@ class IleniadesignController extends Controller
 
       return View::make('query')->with("result",$code_verified);
      
+    }
+
+    public function get_all_image_ileniadesign(){
+
+      $get_all_image=$this->universal_db()->table('image_shopmyart_ileniadesign')
+      ->select($this->universal_db()->raw('image_shopmyart_ileniadesign.*, category_image_ileniadesign.id as id_cat, category_image_ileniadesign.name as name_cat, subcategory_image_ileniadesign.id as id_subcat, subcategory_image_ileniadesign.name as name_subcat'))
+      ->join('category_image_ileniadesign', 'category_image_ileniadesign.id', '=', 'image_shopmyart_ileniadesign.type_img')
+      ->join('subcategory_image_ileniadesign', 'subcategory_image_ileniadesign.id', '=', 'image_shopmyart_ileniadesign.subtype_image') 
+      ->orderBy('id','DESC')
+      ->get();
+
+      return View::make('query')->with("result",json_encode($get_all_image));
+
+    }
+
+    public function get_discount_code_ileniadesign(){
+
+      $get_discount_code=$this->universal_db()->table('discount_code_ileniadesign')
+      ->get();
+
+      return View::make('query')->with("result",json_encode($get_discount_code));
+
     }
 
 }
