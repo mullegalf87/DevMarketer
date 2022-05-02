@@ -476,5 +476,9 @@ Route::get('/apply_discount_ileniadesign', 'IleniadesignController@apply_discoun
 //funzioni setting
 Route::get("/get_all_image_ileniadesign","IleniadesignController@get_all_image_ileniadesign");
 
+Route::get("/get_category_image_ileniadesign","IleniadesignController@get_category_image_ileniadesign");
+
+Route::get("/get_subcategory_image_ileniadesign","IleniadesignController@get_subcategory_image_ileniadesign");
+
 Route::get("/get_discount_code_ileniadesign","IleniadesignController@get_discount_code_ileniadesign");
 

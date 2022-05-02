@@ -593,6 +593,24 @@ class IleniadesignController extends Controller
 
     }
 
+    public function get_category_image_ileniadesign(){
+
+      $get_category=$this->universal_db()->table('category_image_ileniadesign')
+      ->get();
+
+      return View::make('query')->with("result",json_encode($get_category));
+
+    }
+
+    public function get_subcategory_image_ileniadesign(){
+
+      $get_subcategory=$this->universal_db()->table('subcategory_image_ileniadesign')
+      ->get();
+
+      return View::make('query')->with("result",json_encode($get_subcategory));
+
+    }
+
     public function get_discount_code_ileniadesign(){
 
       $get_discount_code=$this->universal_db()->table('discount_code_ileniadesign')
