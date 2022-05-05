@@ -397,7 +397,7 @@ class IleniadesignController extends Controller
   
     $id_cat=Request::get('id_cat');
 
-    $get_subcat=$this->universal_db()->table('subcategory_image_ileniadesign')
+    $get_subcat=$this->universal_db()->table('image_subcategory_ileniadesign')
       ->get();
   
     return View::make('query')->with("result",json_encode($get_subcat)); 
@@ -583,9 +583,9 @@ class IleniadesignController extends Controller
     public function get_all_image_ileniadesign(){
 
       $get_all_image=$this->universal_db()->table('image_shopmyart_ileniadesign')
-      ->select($this->universal_db()->raw('image_shopmyart_ileniadesign.*, category_image_ileniadesign.id as id_cat, category_image_ileniadesign.name as name_cat, subcategory_image_ileniadesign.id as id_subcat, subcategory_image_ileniadesign.name as name_subcat'))
-      ->join('category_image_ileniadesign', 'category_image_ileniadesign.id', '=', 'image_shopmyart_ileniadesign.type_img')
-      ->join('subcategory_image_ileniadesign', 'subcategory_image_ileniadesign.id', '=', 'image_shopmyart_ileniadesign.subtype_image') 
+      ->select($this->universal_db()->raw('image_shopmyart_ileniadesign.*, image_category_ileniadesign.id as id_cat, image_category_ileniadesign.name as name_cat, image_subcategory_ileniadesign.id as id_subcat, image_subcategory_ileniadesign.name as name_subcat'))
+      ->join('image_category_ileniadesign', 'image_category_ileniadesign.id', '=', 'image_shopmyart_ileniadesign.type_img')
+      ->join('image_subcategory_ileniadesign', 'image_subcategory_ileniadesign.id', '=', 'image_shopmyart_ileniadesign.subtype_image') 
       ->orderBy('id','DESC')
       ->get();
 
@@ -595,7 +595,8 @@ class IleniadesignController extends Controller
 
     public function get_category_image_ileniadesign(){
 
-      $get_category=$this->universal_db()->table('category_image_ileniadesign')
+      $get_category=$this->universal_db()->table('image_category_ileniadesign')
+      ->select($this->universal_db()->raw('id as id_cat, name as name_cat'))
       ->get();
 
       return View::make('query')->with("result",json_encode($get_category));
@@ -604,7 +605,8 @@ class IleniadesignController extends Controller
 
     public function get_subcategory_image_ileniadesign(){
 
-      $get_subcategory=$this->universal_db()->table('subcategory_image_ileniadesign')
+      $get_subcategory=$this->universal_db()->table('image_subcategory_ileniadesign')
+      ->select($this->universal_db()->raw('id as id_subcat, name as name_subcat, id_cat as id_cat'))
       ->get();
 
       return View::make('query')->with("result",json_encode($get_subcategory));
@@ -617,6 +619,22 @@ class IleniadesignController extends Controller
       ->get();
 
       return View::make('query')->with("result",json_encode($get_discount_code));
+
+    }
+
+    public function update_setting_image(){
+
+      $table=Request::get("table");
+      $id=Request::get("id");
+      $name=Request::get("text");
+
+      $this->universal_db()->table($table)
+      ->where("id","=",$id)
+      ->update(array(
+        "name"=>$name,
+      ));
+
+      return View::make('query')->with("result",json_encode("updated"));
 
     }
 

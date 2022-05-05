@@ -151,25 +151,25 @@
             //mostra solo i formati diversi da zero
             if (res[0].price_a4!=0) {
 
-                format+='<p class="info_detail" id_image="'+res[0].id+'" name_image="'+res[0].name_image+'" name_size="A4" num_size="1" price="'+res[0].price_a4+'">A4</p>&nbsp;&nbsp;&nbsp;';
+                format+='<p class="info_detail" id_image="'+res[0].id+'" name_image="'+res[0].name+'" name_size="A4" num_size="1" price="'+res[0].price_a4+'">A4</p>&nbsp;&nbsp;&nbsp;';
 
             }
 
             if(res[0].price_a3!=0){
 
-                format+='<p class="info_detail" id_image="'+res[0].id+'" name_image="'+res[0].name_image+'" name_size="A3" num_size="2" price="'+res[0].price_a3+'">A3</p>&nbsp;&nbsp;&nbsp;';
+                format+='<p class="info_detail" id_image="'+res[0].id+'" name_image="'+res[0].name+'" name_size="A3" num_size="2" price="'+res[0].price_a3+'">A3</p>&nbsp;&nbsp;&nbsp;';
 
             }
 
             if(res[0].price_a5!=0){
 
-                format+='<p class="info_detail" id_image="'+res[0].id+'" name_image="'+res[0].name_image+'" name_size="A5" num_size="3" price="'+res[0].price_a5+'">A5</p>';
+                format+='<p class="info_detail" id_image="'+res[0].id+'" name_image="'+res[0].name+'" name_size="A5" num_size="3" price="'+res[0].price_a5+'">A5</p>';
 
             }    
             
             $(".group_info_image").html(format);
 
-            $("#name_image").text(res[0].name_image);
+            $("#name_image").text(res[0].name);
 
             $(".info_detail").click("slow",function(){
 
@@ -202,7 +202,7 @@
             var random_key = keys[Math.floor(Math.random() * keys.length)];
 
             $("#single_advice_shopping_img").attr("src","ileniadesign_repo/shopmyart/"+res[random_key].id+"/"+res[random_key].image_file.split(',')[0]);
-            $("#single_advice_shopping_title").text(res[random_key].name_image);
+            $("#single_advice_shopping_title").text(res[random_key].name);
             $("#single_advice_shopping_button").attr("onclick","change_vis('shopdetail_"+res[random_key].id+"')");
             
             for (var i = 0; i < 3; i++) {   
@@ -230,9 +230,9 @@
                 old_array_position.push(res[random_key].id+"_"+numb_position);
                 
                 $("#append_advice_shopping").append('<div class="col-md-4 p-0 position_image utility_subcat cat_subcat category_'+res[random_key].type_img+' subcategory_'+res[random_key].subtype_image+' parameter_a4_'+res[random_key].price_a4+' parameter_a3_'+res[random_key].price_a3+' parameter_a5_'+res[random_key].price_a5+'" id="id_image_shopmyart_'+res[random_key].id+'" position="'+numb_position+'" id_image="'+res[random_key].id+'" style="padding: 10!important;">'+
-                '<img onclick="change_vis(\'shopdetail_'+res[random_key].id+'\')" data-original="ileniadesign_repo/shopmyart/'+res[random_key].id+'/'+res[random_key].image_file.split(",")[0]+'" alt="'+res[random_key].name_image+'" class="lazy" style="width: 100%!important;" >'+
+                '<img onclick="change_vis(\'shopdetail_'+res[random_key].id+'\')" data-original="ileniadesign_repo/shopmyart/'+res[random_key].id+'/'+res[random_key].image_file.split(",")[0]+'" alt="'+res[random_key].name+'" class="lazy" style="width: 100%!important;" >'+
                 '<div class="d-flex flex-nowrap mt-1 mb-1">'+
-                '<label style="font-family: Futura PT, sans-serif; font-size: 15px!important;margin-bottom: 0;flex-grow:1">'+res[random_key].name_image.toLowerCase()+'</label>'+
+                '<label style="font-family: Futura PT, sans-serif; font-size: 15px!important;margin-bottom: 0;flex-grow:1">'+res[random_key].name.toLowerCase()+'</label>'+
                 '<i class="bx bx-shopping-bag"></i>'+
                 '</div>'+
                 '<label style="font-family: Futura PT, sans-serif; font-size: 12px!important;margin-bottom: 0"> Da € '+price_from.toLowerCase()+'</label><br>'+
