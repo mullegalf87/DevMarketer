@@ -33,6 +33,7 @@ Route::get('/test', function () {
   return redirect('/tt?page=home');
 });
 
+//funzioni login
 Route::get('/tt', 'TestsController@go_to_page');
 
 Route::get('tt/lang', 'TestsController@lang_change')->name('TtLangChange');
@@ -45,17 +46,10 @@ Route::get('logout_test', 'TestsController@logout_test');
 
 Route::post('reset_password_without_token_test', 'TestsController@validatePasswordRequest');
 
-Route::get("/add_prod_test","TestsController@add_prod_test");
-
-Route::get("/get_prod_test","TestsController@get_prod_test");
-
-Route::get("/update_prod_test","TestsController@update_prod_test");
-
-Route::get("/delete_prod_test","TestsController@delete_prod_test");
+//funzioni action
 
 
 //COMIZIAMO PROJECT
-
 Route::get('/comiziamo', function () {
   return redirect('/co?page=home');
 });
@@ -483,4 +477,6 @@ Route::get("/get_subcategory_image_ileniadesign","IleniadesignController@get_sub
 Route::get("/update_setting_image","IleniadesignController@update_setting_image");
 
 Route::get("/get_discount_code_ileniadesign","IleniadesignController@get_discount_code_ileniadesign");
+
+Route::get('/add_image_ileniadesign', 'IleniadesignController@add_image_ileniadesign');
 

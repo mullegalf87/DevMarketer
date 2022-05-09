@@ -140,7 +140,6 @@
                     case "login":
                     break;
                     case "action":
-                        start_test();
                     break;
                     default:
                 }

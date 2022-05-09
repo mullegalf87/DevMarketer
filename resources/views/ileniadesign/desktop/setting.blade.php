@@ -1,13 +1,41 @@
+<style>
+    #setting input{
+        float: right;
+        height: 60px;
+        background: transparent;
+        border-radius: 0;
+        border-bottom: 1px solid;
+        font-family: 'Futura PT', sans-serif;
+        font-size: 15px!important;
+    }
+</style>
 <section class="container-fluid" style="padding: 7%;">
-    <div class="d-flex flex-nowrap">
-        <h2 class="pb-5" style="font-family: 'Silk Serif', sans-serif;">Setting image / </h2>
-        <h2 class="pb-5" style="font-family: 'Silk Serif', sans-serif;"> Setting categoria / </h2>
-        <h2 class="pb-5" style="font-family: 'Silk Serif', sans-serif;"> Setting sottocategoria / </h2>
-        <h2 class="pb-5" style="font-family: 'Silk Serif', sans-serif;"> Setting discount</h2>
+
+    <div class="d-flex flex-nowrap w-100 p-5">
+        <h4 class="text-center flex-grow-1" style="font-family: 'Futura PT', sans-serif;font-size: 13px!important;display: flex;align-items: center;justify-content: center;width: 5%;" onclick="change_vis_setting('list_image')">IMAGE</h4>
+        <h4 class="text-center flex-grow-1" style="font-family: 'Futura PT', sans-serif;font-size: 13px!important;display: flex;align-items: center;justify-content: center;width: 5%;" onclick="change_vis_setting('list_cat')">CATEGORY</h4>
+        <h4 class="text-center flex-grow-1" style="font-family: 'Futura PT', sans-serif;font-size: 13px!important;display: flex;align-items: center;justify-content: center;width: 5%;" onclick="change_vis_setting('list_subcat')">SUBCATEGORY</h4>
+        <h4 class="text-center flex-grow-1" style="font-family: 'Futura PT', sans-serif;font-size: 13px!important;display: flex;align-items: center;justify-content: center;width: 5%;" onclick="change_vis_setting('list_discount')">DISCOUNT</h4>
     </div>
 
     <table class="table" id="list_image">
+        <div class="d-flex flex-nowrap mt-3 mb-3">
+            <input class="form-control mr-3" type="text" placeholder="Titolo" id="name_image"/>
+            <input class="form-control mr-3" type="text" placeholder="Price A4" id="price_a4"/>
+            <input class="form-control mr-3" type="text" placeholder="Price A3" id="price_a3"/>
+            <input class="form-control mr-3" type="text" placeholder="Price A5" id="price_a5"/>
+            <select class="d-block w-100" id="type_img_shopmyart" required style="border: transparent;font-family: Futura PT, sans-serif;font-size: 12px!important;white-space: nowrap;">
+                <option disabled selected>Categoria</option>
+            </select>
+            <select class="d-block w-100" id="subtype_img_shopmyart" required style="border: transparent;font-family: Futura PT, sans-serif;font-size: 12px!important;white-space: nowrap;">
+                <option disabled selected>Sottocategoria</option>
+            </select>
+            <input class="form-control mr-3" accept="image/*" type="file" id="imgInp" multiple=""/>
+        </div>
+        <div class="gallery d-flex"></div>
+        <button class="btn btn-primary w-100 mb-3 save_button save_image_button" onclick="send_data_add_prod()">Aggiungi</button>
         <thead>
+            <th>Id</th>
             <th></th>
             <th>Titolo</th>
             <th>Giacenza</th>
@@ -20,7 +48,7 @@
         </tbody>
     </table>
     
-    <table class="table" id="list_cat">
+    <table class="table d-none" id="list_cat">
         <thead>
             <th>Id</th>
             <th>Nome</th>
@@ -29,7 +57,7 @@
         </tbody>
     </table>
 
-    <table class="table" id="list_subcat">
+    <table class="table d-none" id="list_subcat">
         <thead>
             <th>Id</th>
             <th>Nome</th>
@@ -45,6 +73,18 @@
 
         get_all_image();
         
+    }
+
+    var old_section="list_image";
+
+    function change_vis_setting(section){
+
+        $("#"+old_section).addClass("d-none");
+
+        old_section=section;
+
+        $("#"+section).removeClass("d-none");
+
     }
 
     $(document).ready(function(){ 
@@ -77,6 +117,7 @@
                 
             $("#append_image_setting").append(
             '<tr class="">'+
+            '<td class="flex-grow-1" style="border: transparent;font-family: Futura PT, sans-serif;font-size: 12px!important;white-space: nowrap;vertical-align: middle;">'+res[i].id+'</td>'+
             '<td class="flex-grow-1" style="">'+
             '<img style="width: 55px!important;" class="img-corner mr-4" src="ileniadesign_repo/shopmyart/'+res[i].id+'/'+res[i].image_file.split(",")[0]+'">'+
             '</td>'+
@@ -89,14 +130,14 @@
             '<td class="flex-grow-1" style="">'+
             '<input class="image_shopmyart_ileniadesign form-control input" type="text" value="'+res[i].substock+'" id="substock_setting_'+res[i].id+'">'+
             '</td>'+
-            '<td class="flex-grow-1" style="">'+
+            '<td class="flex-grow-1" style="vertical-align: middle;">'+
             '<p class="p-0 m-0" style="text-decoration: underline;text-underline-offset: 1px;color:#dbd3d3" onclick="delete_cart('+res[i].id+')">Remove</p>'+
             '</td>'+
-            '<td class="flex-grow-1">'+
+            '<td class="flex-grow-1" style="vertical-align: middle;">'+
             '<select class="styled-select append_cat_option" style="border: transparent;font-family: Futura PT, sans-serif;font-size: 12px!important;white-space: nowrap;" id="id_image_cat_'+res[i].id+'" id_cat='+res[i].id_cat+'>'+
             '</select>'+
             '</td>'+
-            '<td class="flex-grow-1">'+
+            '<td class="flex-grow-1" style="vertical-align: middle;">'+
             '<select class="styled-select append_subcat_option" style="border: transparent;font-family: Futura PT, sans-serif;font-size: 12px!important;white-space: nowrap;" id="id_image_subcat_'+res[i].id+'" id_subcat='+res[i].id_subcat+'>'+
             '</select>'+
             '</td>'+
@@ -121,7 +162,7 @@
 
             var res=jQuery.parseJSON(data);
             var select_category='';
-            var list_cat;
+            var list_cat='';
         
             for (let i = 0; i < res.length; i++) {
 
@@ -131,14 +172,17 @@
                     '<td>'+res[i].id_cat+'</td>'+
                     '<td><input class="image_category_ileniadesign form-control input" type="text" value="'+res[i].name_cat.replace(/"/g, '&quot;')+'" id="name_cat_setting_'+res[i].id_cat+'"></td>'+
                     '</tr>';
-
-                $("#append_cat_setting").append(list_cat);
                 
             }
 
             get_subcategory_image(res);
 
+            $("#append_cat_setting").append(list_cat);
+
             $(".append_cat_option").append(select_category);
+
+            $("#type_img_shopmyart").append(select_category);
+
 
             selected_attribute_cat();
             
@@ -203,6 +247,8 @@
 
             $(".append_subcat_option").append(select_subcategory);
 
+            $("#subtype_img_shopmyart").append(select_subcategory);
+
             selected_attribute_subcat();
 
         });
@@ -265,5 +311,110 @@
 
         });
     }
+
+    var file;
+
+    imgInp.onchange = evt => {
+
+        [file] = imgInp.files
+
+    }
+    
+    var prod_file=[];
+
+    $(function() {
+        // Multiple images preview in browser
+        var imagesPreview = function(input, placeToInsertImagePreview) {
+        prod_file=[];
+        $(".append_image_clear").remove();
+            if (input.files) {
+                var filesAmount = input.files.length;
+
+                for (i = 0; i < filesAmount; i++) {
+        
+                    var reader = new FileReader();
+
+                    reader.onload = function(event) {
+                    
+                        $($.parseHTML('<img class="append_image_clear mr-3 mb-3" style="object-fit: cover;margin-bottom: 3px;">')).attr('src', event.target.result).appendTo(placeToInsertImagePreview);  
+
+                    }
+
+                    reader.readAsDataURL(input.files[i]);
+
+                    prod_file.push(input.files[i]);
+
+                }
+            }
+
+        };
+
+        $('#imgInp').on('change', function() {
+            imagesPreview(this, 'div.gallery');
+            var fileName = $(this).val();
+            //replace the "Choose a file" label
+            $(this).next('.custom-file-label').html(fileName);
+            
+        });
+
+
+    });
+
+    function send_data_add_prod() {
+
+        $(".save_image_button").text("Wait...");
+
+        var name_image=$("#name_image").val();
+        var price_a4=$("#price_a4").val();
+        var price_a3=$("#price_a3").val();
+        var price_a5=$("#price_a5").val();
+        var type_img_shopmyart=$("#type_img_shopmyart").val();
+        var subtype_img_shopmyart=$("#subtype_img_shopmyart").val();
+
+        $.get("/add_image_ileniadesign",{name_image:name_image, price_a4:price_a4, price_a3:price_a3, price_a5:price_a5, type_img_shopmyart:type_img_shopmyart, subtype_img_shopmyart:subtype_img_shopmyart},
+        function(data){
+            var res=jQuery.parseJSON(data);
+            var id_prod=res;
+            var position=res;
+
+            var formData = new FormData();
+
+            for (var i = 0; i < prod_file.length; i++) {
+
+            formData.append('prod_file[]', prod_file[i]);
+
+            }
+
+            formData.append('id_prod', id_prod);
+
+            setTimeout(function(){
+            $.ajax({
+                url : "/ileniadesign_repo/other_function/add_product.php",
+                type: 'POST',
+                data : formData,
+                processData: false, 
+                contentType: false,  
+                cache:false,
+                success : function(e) {
+
+                $.get("/update_image_ileniadesign",{position:position, id_image:id_prod, type_page:type_page, image_file:e},
+                    function(data){
+
+                    window.location.replace("/id?page=login");
+
+                    });
+
+
+                },
+                error: function (data, textStatus, errorThrown) {
+
+                },
+            });
+            },2000);
+
+        });
+
+    }
+
 
 </script>

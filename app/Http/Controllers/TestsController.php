@@ -161,56 +161,10 @@ class TestsController extends Controller
         }
 
     }
-     //end function login
+    //end function login
 
- 
-    public function add_prod_test(){
-        
-        $name_prod=Request::get("name_prod");
-        $price_prod=Request::get("price_prod");
-        
-        DB::table("product_test")
-        ->insertGetId(array(
-            "name_prod"=>$name_prod,
-            "price_prod"=>$price_prod,
-        ));
-        
-        return "added!";
-    }
+    //start function action
 
-    public function get_prod_test(){
-    
-        $get_prod=DB::table("product_test")
-        ->get();
-
-        return $get_prod;
-    }
-
-    public function update_prod_test(){
-
-        $id_prod=Request::get("id");
-        $name_prod=Request::get("name_prod");
-        $price_prod=Request::get("price_prod");
-    
-        $get_prod=DB::table("product_test")
-        ->where("id","=",$id_prod)
-        ->update(array(
-            "name_prod"=>$name_prod,
-            "price_prod"=>$price_prod,
-        ));
-
-        return "updated!";
-    }
-
-    public function delete_prod_test(){
-
-        $id_prod=Request::get("id");
-
-        $get_prod=DB::table("product_test")
-        ->where("id","=",$id_prod)
-        ->delete();
-
-        return "deleted!";
-    }
+    //end function action
 
 }

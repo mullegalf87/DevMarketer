@@ -11,6 +11,8 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.lazyload/1.9.1/jquery.lazyload.js"></script>
     <!-- drug and drop image -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.11.2/jquery-ui.min.js"></script>
+    <!-- imagecompressor -->
+    <script type="text/javascript" src="/js/image-compressor.js"></script>
     <!-- fontawsome -->
     <script src="https://use.fontawesome.com/releases/v5.0.1/js/all.js"></script>
     <!-- boxicons -->
@@ -18,7 +20,6 @@
     <!-- font -->
     <link href="http://fonts.cdnfonts.com/css/silk-serif?styles=108358" rel="stylesheet"> 
     <link href="http://fonts.cdnfonts.com/css/futura-pt?styles=117667" rel="stylesheet">
-    
     <!-- lettering -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/prefixfree/1.0.7/prefixfree.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/lettering.js/0.6.1/jquery.lettering.min.js"></script>

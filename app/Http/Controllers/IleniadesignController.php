@@ -638,4 +638,48 @@ class IleniadesignController extends Controller
 
     }
 
+    public function add_image_ileniadesign(){
+
+      $name_image=Request::get('name_image');
+      $price_a4=Request::get('price_a4');
+      $price_a3=Request::get('price_a3');
+      $price_a5=Request::get('price_a5');
+      $type_img_shopmyart=Request::get('type_img_shopmyart');
+      $subtype_img_shopmyart=Request::get('subtype_img_shopmyart');
+  
+      $id_image=$this->universal_db()->table('image_shopmyart_ileniadesign')
+        ->insertGetId(array( 
+    
+         'name'=>strtoupper($name_image),
+         'price_a4'=>$price_a4,
+         'price_a3'=>$price_a3,
+         'price_a5'=>$price_a5,
+         'type_img'=>$type_img_shopmyart,
+         'subtype_image'=>$subtype_img_shopmyart,
+  
+       ));
+  
+      return View::make('query')->with("result",json_encode($id_image)); 
+  
+     }
+  
+     public function update_image_ileniadesign(){
+  
+      $id_image=Request::get('id_image');
+      $image_file=Request::get('image_file');
+      $position=Request::get('position');
+      $ext_file=Request::get('ext_file');
+  
+      $this->universal_db()->table('image_shopmyart_ileniadesign')
+        ->where('id', '=',$id_image)
+        ->update(
+            array(
+             'image_file'=>$image_file,
+             'position'=>$position,
+           ));
+
+        return View::make('query')->with("result",json_encode("updated")); 
+  
+     }
+
 }
