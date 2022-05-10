@@ -663,7 +663,7 @@ class IleniadesignController extends Controller
   
      }
   
-     public function update_image_ileniadesign(){
+    public function update_image_ileniadesign(){
   
       $id_image=Request::get('id_image');
       $image_file=Request::get('image_file');
@@ -680,6 +680,25 @@ class IleniadesignController extends Controller
 
         return View::make('query')->with("result",json_encode("updated")); 
   
-     }
+    }
+
+    public function delete_image_ileniadesign(){
+
+      $id_image=Request::get('id_image');
+      $type_page=Request::get('type_page');
+  
+      $this->universal_db()->table('image_shopmyart_ileniadesign')
+      ->where('id', '=',$id_image)
+      ->delete();
+
+      $file = new Filesystem;
+
+      $target_dir = "../shopmyart/".$id_image."/";
+
+      $file->deleteDirectory($target_dir);
+
+      return View::make('query')->with("result",json_encode("eliminato")); 
+  
+    }
 
 }

@@ -20,7 +20,7 @@
 
     <table class="table" id="list_image">
         <div class="d-flex flex-nowrap mt-3 mb-3">
-            <input class="form-control mr-3" type="text" placeholder="Titolo" id="name_image"/>
+            <input class="form-control mr-3" type="text" placeholder="Titolo" id="name"/>
             <input class="form-control mr-3" type="text" placeholder="Price A4" id="price_a4"/>
             <input class="form-control mr-3" type="text" placeholder="Price A3" id="price_a3"/>
             <input class="form-control mr-3" type="text" placeholder="Price A5" id="price_a5"/>
@@ -68,7 +68,7 @@
     </table>
 </section>
 <script>
-
+    //aggiungi add category, subcategory e sistemare discount
     function start_function_setting(){
 
         get_all_image();
@@ -116,7 +116,7 @@
             for (let i = 0; i < res.length; i++) {
                 
             $("#append_image_setting").append(
-            '<tr class="">'+
+            '<tr id="tr_'+res[i].id+'">'+
             '<td class="flex-grow-1" style="border: transparent;font-family: Futura PT, sans-serif;font-size: 12px!important;white-space: nowrap;vertical-align: middle;">'+res[i].id+'</td>'+
             '<td class="flex-grow-1" style="">'+
             '<img style="width: 55px!important;" class="img-corner mr-4" src="ileniadesign_repo/shopmyart/'+res[i].id+'/'+res[i].image_file.split(",")[0]+'">'+
@@ -131,7 +131,7 @@
             '<input class="image_shopmyart_ileniadesign form-control input" type="text" value="'+res[i].substock+'" id="substock_setting_'+res[i].id+'">'+
             '</td>'+
             '<td class="flex-grow-1" style="vertical-align: middle;">'+
-            '<p class="p-0 m-0" style="text-decoration: underline;text-underline-offset: 1px;color:#dbd3d3" onclick="delete_cart('+res[i].id+')">Remove</p>'+
+            '<p class="p-0 m-0" style="text-decoration: underline;text-underline-offset: 1px;color:#dbd3d3" onclick="delete_image(\''+res[i].id+'\',shopmyart)">Remove</p>'+
             '</td>'+
             '<td class="flex-grow-1" style="vertical-align: middle;">'+
             '<select class="styled-select append_cat_option" style="border: transparent;font-family: Futura PT, sans-serif;font-size: 12px!important;white-space: nowrap;" id="id_image_cat_'+res[i].id+'" id_cat='+res[i].id_cat+'>'+
@@ -168,8 +168,8 @@
 
                 select_category+='<option value="'+res[i].id_cat+'">'+res[i].name_cat+'</option>';
 
-                list_cat='<tr>'+
-                    '<td>'+res[i].id_cat+'</td>'+
+                list_cat+='<tr>'+
+                    '<td style="border: transparent;font-family: Futura PT, sans-serif;font-size: 12px!important;white-space: nowrap;vertical-align: middle;">'+res[i].id_cat+'</td>'+
                     '<td><input class="image_category_ileniadesign form-control input" type="text" value="'+res[i].name_cat.replace(/"/g, '&quot;')+'" id="name_cat_setting_'+res[i].id_cat+'"></td>'+
                     '</tr>';
                 
@@ -232,9 +232,9 @@
                 select_subcategory+='<option value="'+res_subcategory[i].id_subcat+'">'+res_subcategory[i].name_subcat+'</option>';
 
                 list_subcat+='<tr>'+
-                '<td>'+res_subcategory[i].id_subcat+'</td>'+
+                '<td style="border: transparent;font-family: Futura PT, sans-serif;font-size: 12px!important;white-space: nowrap;vertical-align: middle;">'+res_subcategory[i].id_subcat+'</td>'+
                 '<td><input class="image_subcategory_ileniadesign form-control input" type="text" value="'+res[i].name_subcat.replace(/"/g, '&quot;')+'" id="name_subcat_setting_'+res[i].id_subcat+'"></td>'+
-                '<td>'+
+                '<td style="vertical-align: middle;">'+
                 '<select class="styled-select append_subcat_cat_option" style="border: transparent;font-family: Futura PT, sans-serif;font-size: 12px!important;white-space: nowrap;" id="id_subcat_cat_'+res[i].id_subcat+'" id_subcat_subcat='+res[i].id_cat+'>'+
                 select_list_subcat+
                 '</select>'+
@@ -364,7 +364,7 @@
 
         $(".save_image_button").text("Wait...");
 
-        var name_image=$("#name_image").val();
+        var name_image=$("#name").val();
         var price_a4=$("#price_a4").val();
         var price_a3=$("#price_a3").val();
         var price_a5=$("#price_a5").val();
@@ -397,13 +397,12 @@
                 cache:false,
                 success : function(e) {
 
-                $.get("/update_image_ileniadesign",{position:position, id_image:id_prod, type_page:type_page, image_file:e},
+                $.get("/update_image_ileniadesign",{position:position, id_image:id_prod, image_file:e},
                     function(data){
 
-                    window.location.replace("/id?page=login");
+                        window.location.replace("/id?page=setting");
 
                     });
-
 
                 },
                 error: function (data, textStatus, errorThrown) {
@@ -411,6 +410,19 @@
                 },
             });
             },2000);
+
+        });
+
+    }
+
+    function delete_image(id_image){
+
+        $.get("/delete_image_ileniadesign",{id_image:id_image},
+        function(data){
+
+            $('#id_image_shopmyart_'+id_image).remove();
+
+            $('#tr_'+id_image).remove();
 
         });
 

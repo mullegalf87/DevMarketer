@@ -4,11 +4,11 @@
 
     $id_prod=$_POST["id_prod"];
 
-    $target_dir = "/ileniadesign_repo/shopmyart/".$id_prod."/";
+    $target_dir = "../shopmyart/".$id_prod."/";
 
     if( is_dir($target_dir) === false ){
 
-    mkdir($target_dir, 0775, true);
+    mkdir($target_dir, 0777, true);
 
     }
 

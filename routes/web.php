@@ -480,3 +480,7 @@ Route::get("/get_discount_code_ileniadesign","IleniadesignController@get_discoun
 
 Route::get('/add_image_ileniadesign', 'IleniadesignController@add_image_ileniadesign');
 
+Route::get('/update_image_ileniadesign', 'IleniadesignController@update_image_ileniadesign');
+
+Route::get('/delete_image_ileniadesign', 'IleniadesignController@delete_image_ileniadesign');
+
