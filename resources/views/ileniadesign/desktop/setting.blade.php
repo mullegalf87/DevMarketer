@@ -18,7 +18,7 @@
         <h4 class="text-center flex-grow-1" style="font-family: 'Futura PT', sans-serif;font-size: 13px!important;display: flex;align-items: center;justify-content: center;width: 5%;" onclick="change_vis_setting('list_discount')">DISCOUNT</h4>
     </div>
 
-    <table class="table" id="list_image">
+    <div id="list_image">
         <div class="d-flex flex-nowrap mt-3 mb-3">
             <input class="form-control mr-3" type="text" placeholder="Titolo" id="name"/>
             <input class="form-control mr-3" type="text" placeholder="Price A4" id="price_a4"/>
@@ -30,45 +30,63 @@
             <select class="d-block w-100" id="subtype_img_shopmyart" required style="border: transparent;font-family: Futura PT, sans-serif;font-size: 12px!important;white-space: nowrap;">
                 <option disabled selected>Sottocategoria</option>
             </select>
-            <input class="form-control mr-3" accept="image/*" type="file" id="imgInp" multiple=""/>
+            <input class="form-control" accept="image/*" type="file" id="imgInp" multiple=""/>
         </div>
         <div class="gallery d-flex"></div>
         <button class="btn btn-primary w-100 mb-3 save_button save_image_button" onclick="send_data_add_prod()">Aggiungi</button>
-        <thead>
-            <th>Id</th>
-            <th></th>
-            <th>Titolo</th>
-            <th>Giacenza</th>
-            <th>Sottoscorta</th>
-            <th>Azioni</th>
-            <th>Categoria</th>
-            <th>Sottocategoria</th>
-        </thead>
-        <tbody class="mt-5" id="append_image_setting">
-        </tbody>
-    </table>
+        <table class="table">
+            <thead>
+                <th>Id</th>
+                <th></th>
+                <th>Titolo</th>
+                <th>Giacenza</th>
+                <th>Sottoscorta</th>
+                <th>Azioni</th>
+                <th>Categoria</th>
+                <th>Sottocategoria</th>
+            </thead>
+            <tbody class="mt-5" id="append_image_setting">
+            </tbody>
+        </table>
+    </div>
     
-    <table class="table d-none" id="list_cat">
-        <thead>
-            <th>Id</th>
-            <th>Nome</th>
-        </thead>
-        <tbody class="mt-5" id="append_cat_setting">
-        </tbody>
-    </table>
+    <div id="list_cat" class="d-none">
+        <div class="d-flex flex-nowrap mt-3 mb-3">
+            <input class="form-control" type="text" placeholder="Categoria" id="name_cat"/>
+        </div>
+        <button class="btn btn-primary w-100 mb-3 save_button save_image_button" onclick="send_data_cat_prod()">Aggiungi</button> 
+        <table class="table">
+            <thead>
+                <th>Id</th>
+                <th>Nome</th>
+            </thead>
+            <tbody class="mt-5" id="append_cat_setting">
+            </tbody>
+        </table>
+    </div>
 
-    <table class="table d-none" id="list_subcat">
-        <thead>
-            <th>Id</th>
-            <th>Nome</th>
-            <th>Categoria associata</th>
-        </thead>
-        <tbody class="mt-5" id="append_subcat_setting">
-        </tbody>
-    </table>
+    <div id="list_subcat" class="d-none">
+        <div class="d-flex flex-nowrap mt-3 mb-3">
+            <input class="form-control" type="text" placeholder="Sottocategoria" id="name_subcat"/>
+            <select class="d-block w-100" id="type_cat_shopmyart" required style="border: transparent;font-family: Futura PT, sans-serif;font-size: 12px!important;white-space: nowrap;">
+                <option disabled selected>Categoria</option>
+            </select>
+        </div>
+        <button class="btn btn-primary w-100 mb-3 save_button save_image_button" onclick="send_data_subcat_prod()">Aggiungi</button>
+        <table class="table">
+            <thead>
+                <th>Id</th>
+                <th>Nome</th>
+                <th>Categoria associata</th>
+            </thead>
+            <tbody class="mt-5" id="append_subcat_setting">
+            </tbody>
+        </table>
+    </div>
+
 </section>
 <script>
-    //aggiungi add category, subcategory e sistemare discount
+    //aggiungi add category (backend), subcategory(backend) e sistemare discount
     function start_function_setting(){
 
         get_all_image();
@@ -182,6 +200,8 @@
             $(".append_cat_option").append(select_category);
 
             $("#type_img_shopmyart").append(select_category);
+
+            $("#type_cat_shopmyart").append(select_category);
 
 
             selected_attribute_cat();
