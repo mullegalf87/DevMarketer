@@ -448,5 +448,32 @@
 
     }
 
+    function send_data_cat_prod(){
+
+        var name_cat=$("#name_cat").val();
+
+        $.get("/add_data_cat_prod_ileniadesign",{name_cat:name_cat},
+        function(data){
+
+            console.log(data);
+
+        });
+
+    }
+
+    function send_data_subcat_prod(){
+
+        var name_subcat=$("#name_subcat").val();
+        var id_cat=$("#type_cat_shopmyart").val();
+
+        $.get("/add_data_subcat_prod_ileniadesign",{name_subcat:name_subcat, id_cat:id_cat},
+        function(data){
+
+            console.log(data);
+
+        });
+
+    }
+
 
 </script>

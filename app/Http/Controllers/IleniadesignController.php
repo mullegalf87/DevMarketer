@@ -701,4 +701,36 @@ class IleniadesignController extends Controller
   
     }
 
+    public function add_data_cat_prod_ileniadesign(){
+
+      $name_cat=Request::get('name_cat');
+
+      $this->universal_db()->table('image_category_ileniadesign')
+      ->insertGetId(array(
+
+        "name"=>$name_cat,
+
+      ));
+
+      return View::make('query')->with("result",json_encode("aggiornato")); 
+
+    }
+
+    public function add_data_subcat_prod_ileniadesign(){
+
+      $name_subcat=Request::get('name_subcat');
+      $id_cat=Request::get('id_cat');
+
+      $this->universal_db()->table('image_subcategory_ileniadesign')
+      ->insertGetId(array(
+
+        "name"=>$name_subcat,
+        "id_cat"=>$id_cat,
+
+      ));
+
+      return View::make('query')->with("result",json_encode("aggiornato")); 
+
+    }
+
 }
