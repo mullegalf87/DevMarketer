@@ -733,4 +733,16 @@ class IleniadesignController extends Controller
 
     }
 
+    public function delete_cat_subcat_ileniadesign(){
+
+      $id=Request::get('id');
+      $type=Request::get('type');
+      $this->universal_db()->table('image_'.$type.'_ileniadesign')
+      ->where("id","=",$id)
+      ->delete();
+
+      return View::make('query')->with("result",json_encode("eliminato")); 
+
+    }
+
 }

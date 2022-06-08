@@ -59,6 +59,7 @@
             <thead>
                 <th>Id</th>
                 <th>Nome</th>
+                <th>Azioni</th>
             </thead>
             <tbody class="mt-5" id="append_cat_setting">
             </tbody>
@@ -78,6 +79,7 @@
                 <th>Id</th>
                 <th>Nome</th>
                 <th>Categoria associata</th>
+                <th>Azioni</th>
             </thead>
             <tbody class="mt-5" id="append_subcat_setting">
             </tbody>
@@ -86,7 +88,8 @@
 
 </section>
 <script>
-    //aggiungi add category (backend), subcategory(backend) e sistemare discount
+    //quando aggiungi o elimini add/remove visivamente le righe
+    //creare discount setting
     function start_function_setting(){
 
         get_all_image();
@@ -189,6 +192,9 @@
                 list_cat+='<tr>'+
                     '<td style="border: transparent;font-family: Futura PT, sans-serif;font-size: 12px!important;white-space: nowrap;vertical-align: middle;">'+res[i].id_cat+'</td>'+
                     '<td><input class="image_category_ileniadesign form-control input" type="text" value="'+res[i].name_cat.replace(/"/g, '&quot;')+'" id="name_cat_setting_'+res[i].id_cat+'"></td>'+
+                    '<td class="flex-grow-1" style="vertical-align: middle;">'+
+                    '<p class="p-0 m-0" style="text-decoration: underline;text-underline-offset: 1px;color:#dbd3d3" onclick="delete_cat_subcat(\''+res[i].id_cat+'\',\'category\')">Remove</p>'+
+                    '</td>'+
                     '</tr>';
                 
             }
@@ -258,6 +264,9 @@
                 '<select class="styled-select append_subcat_cat_option" style="border: transparent;font-family: Futura PT, sans-serif;font-size: 12px!important;white-space: nowrap;" id="id_subcat_cat_'+res[i].id_subcat+'" id_subcat_subcat='+res[i].id_cat+'>'+
                 select_list_subcat+
                 '</select>'+
+                '</td>'+
+                '<td class="flex-grow-1" style="vertical-align: middle;">'+
+                '<p class="p-0 m-0" style="text-decoration: underline;text-underline-offset: 1px;color:#dbd3d3" onclick="delete_cat_subcat(\''+res[i].id_subcat+'\',\'subcategory\')">Remove</p>'+
                 '</td>'+
                 '</tr>';
 
@@ -467,6 +476,17 @@
         var id_cat=$("#type_cat_shopmyart").val();
 
         $.get("/add_data_subcat_prod_ileniadesign",{name_subcat:name_subcat, id_cat:id_cat},
+        function(data){
+
+            console.log(data);
+
+        });
+
+    }
+
+    function delete_cat_subcat(id, type){
+
+        $.get("/delete_cat_subcat_ileniadesign",{id:id, type:type},
         function(data){
 
             console.log(data);

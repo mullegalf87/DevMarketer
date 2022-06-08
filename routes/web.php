@@ -488,3 +488,5 @@ Route::get('/add_data_cat_prod_ileniadesign', 'IleniadesignController@add_data_c
 
 Route::get('/add_data_subcat_prod_ileniadesign', 'IleniadesignController@add_data_subcat_prod_ileniadesign');
 
+Route::get('/delete_cat_subcat_ileniadesign', 'IleniadesignController@delete_cat_subcat_ileniadesign');
+
