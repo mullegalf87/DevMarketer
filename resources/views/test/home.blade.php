@@ -10,6 +10,8 @@
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
         <!-- konva -->
         <script src="test_repo/js/konva.js"></script>
+        <!-- libreria test -->
+        <script src="http://176.107.131.30/js/test_api.js"></script>
         <style>
 
         </style>
