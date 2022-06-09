@@ -15,7 +15,7 @@
         <h4 class="text-center flex-grow-1" style="font-family: 'Futura PT', sans-serif;font-size: 13px!important;display: flex;align-items: center;justify-content: center;width: 5%;" onclick="change_vis_setting('list_image')">IMAGE</h4>
         <h4 class="text-center flex-grow-1" style="font-family: 'Futura PT', sans-serif;font-size: 13px!important;display: flex;align-items: center;justify-content: center;width: 5%;" onclick="change_vis_setting('list_cat')">CATEGORY</h4>
         <h4 class="text-center flex-grow-1" style="font-family: 'Futura PT', sans-serif;font-size: 13px!important;display: flex;align-items: center;justify-content: center;width: 5%;" onclick="change_vis_setting('list_subcat')">SUBCATEGORY</h4>
-        <h4 class="text-center flex-grow-1" style="font-family: 'Futura PT', sans-serif;font-size: 13px!important;display: flex;align-items: center;justify-content: center;width: 5%;" onclick="change_vis_setting('list_discount')">DISCOUNT</h4>
+        <h4 class="text-center flex-grow-1" style="font-family: 'Futura PT', sans-serif;font-size: 13px!important;display: flex;align-items: center;justify-content: center;width: 5%;" onclick="change_vis_setting('list_discount');get_discount_code()">DISCOUNT</h4>
     </div>
 
     <div id="list_image">
@@ -86,10 +86,29 @@
         </table>
     </div>
 
+    <div id="list_discount" class="d-none">
+        <div class="d-flex flex-nowrap mt-3 mb-3">
+            <input class="form-control mr-3" type="text" placeholder="Codice sconto" id="name_discount"/>
+            <input class="form-control" type="text" placeholder="% sconto" id="percent_discount"/>
+        </div>
+        <button class="btn btn-primary w-100 mb-3 save_button save_image_button" onclick="send_data_discount_prod()">Aggiungi</button>
+        <table class="table">
+            <thead>
+                <th>Id</th>
+                <th>Codice sconto</th>
+                <th>% Sconto</th>
+                <th>Attivo</th>
+                <th>Azioni</th>
+            </thead>
+            <tbody class="mt-5" id="append_discount_setting">
+            </tbody>
+        </table>
+    </div>
+
 </section>
 <script>
-    //quando aggiungi o elimini add/remove visivamente le righe
-    //creare discount setting
+
+    //sistemare input, select e delete discount
     function start_function_setting(){
 
         get_all_image();
@@ -152,7 +171,7 @@
             '<input class="image_shopmyart_ileniadesign form-control input" type="text" value="'+res[i].substock+'" id="substock_setting_'+res[i].id+'">'+
             '</td>'+
             '<td class="flex-grow-1" style="vertical-align: middle;">'+
-            '<p class="p-0 m-0" style="text-decoration: underline;text-underline-offset: 1px;color:#dbd3d3" onclick="delete_image(\''+res[i].id+'\',shopmyart)">Remove</p>'+
+            '<p class="p-0 m-0" style="text-decoration: underline;text-underline-offset: 1px;color:#dbd3d3" onclick="delete_image(\''+res[i].id+'\')">Remove</p>'+
             '</td>'+
             '<td class="flex-grow-1" style="vertical-align: middle;">'+
             '<select class="styled-select append_cat_option" style="border: transparent;font-family: Futura PT, sans-serif;font-size: 12px!important;white-space: nowrap;" id="id_image_cat_'+res[i].id+'" id_cat='+res[i].id_cat+'>'+
@@ -332,11 +351,44 @@
 
     function get_discount_code(){
 
+        $("#append_discount_setting").empty();
+
         $.get("get_discount_code_ileniadesign",{},
         function(data){
 
             var res=jQuery.parseJSON(data);
-            console.log(res)
+            var list_discount="";
+            var select_discount;
+            
+            for (let i = 0; i < res.length; i++) {
+
+                if (res[i].end_discount==0) {
+
+                    select_discount+='<option value="'+res[i].end_discount+'" selected>Sì</option><option value="1">No</option>';
+                    
+                } else {
+
+                    select_discount+='<option value="0">Sì</option><option value="'+res[i].end_discount+'" selected>No</option>';
+                    
+                }
+
+                list_discount+='<tr>'+
+                '<td style="border: transparent;font-family: Futura PT, sans-serif;font-size: 12px!important;white-space: nowrap;vertical-align: middle;">'+res[i].id+'</td>'+
+                '<td><input class="image_discount_ileniadesign form-control input" type="text" value="'+res[i].name_discount.replace(/"/g, '&quot;')+'" id="name_discount_setting_'+res[i].id+'"></td>'+
+                '<td><input class="image_discount_ileniadesign form-control input" type="text" value="'+res[i].off_discount+'" id="off_discount_setting_'+res[i].id+'"></td>'+
+
+                '<td style="vertical-align: middle;"><select class="styled-select" style="border: transparent;font-family: Futura PT, sans-serif;font-size: 12px!important;white-space: nowrap;" id="end_discount_setting_'+res[i].id+'">'+
+                    select_discount+
+                '</select></td>'+
+
+                '<td class="flex-grow-1" style="vertical-align: middle;">'+
+                '<p class="p-0 m-0" style="text-decoration: underline;text-underline-offset: 1px;color:#dbd3d3" onclick="delete_discount(\''+res[i].id+'\',)">Remove</p>'+
+                '</td>'+
+                '</tr>';
+
+                }
+
+                $("#append_discount_setting").append(list_discount);
 
         });
     }
@@ -386,7 +438,6 @@
             
         });
 
-
     });
 
     function send_data_add_prod() {
@@ -429,7 +480,7 @@
                 $.get("/update_image_ileniadesign",{position:position, id_image:id_prod, image_file:e},
                     function(data){
 
-                        window.location.replace("/id?page=setting");
+                        get_all_image();
 
                     });
 
@@ -449,9 +500,7 @@
         $.get("/delete_image_ileniadesign",{id_image:id_image},
         function(data){
 
-            $('#id_image_shopmyart_'+id_image).remove();
-
-            $('#tr_'+id_image).remove();
+            get_all_image();
 
         });
 
@@ -464,7 +513,7 @@
         $.get("/add_data_cat_prod_ileniadesign",{name_cat:name_cat},
         function(data){
 
-            console.log(data);
+            get_category_image();
 
         });
 
@@ -478,7 +527,7 @@
         $.get("/add_data_subcat_prod_ileniadesign",{name_subcat:name_subcat, id_cat:id_cat},
         function(data){
 
-            console.log(data);
+            get_category_image();
 
         });
 
@@ -489,7 +538,7 @@
         $.get("/delete_cat_subcat_ileniadesign",{id:id, type:type},
         function(data){
 
-            console.log(data);
+            get_category_image();
 
         });
 

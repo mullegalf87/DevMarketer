@@ -139,7 +139,7 @@
                 '<div class="image-css" style="position: relative;display: inline-block;">'+
                 '<img class="close" style="position: absolute;top: 5px;left: 5px;width:150px; height:150px;" src="public/img/ilenia_design/default_img.png">'+
                 '<img onclick="change_vis(\'shopdetail_'+res[i].id+'\')" data-original="ileniadesign_repo/shopmyart/'+res[i].id+'/'+res[i].image_file.split(",")[0]+'" alt="'+res[i].name+'" class="lazy" style="width: 100%!important;" >'+
-                '<a class="close" style="position: absolute;top: 5px;right: 5px;" onclick="delete_image(\''+res[i].id+'\',shopmyart)">x</a>'+
+                '<a class="close" style="position: absolute;top: 5px;right: 5px;" onclick="delete_image(\''+res[i].id+'\')">x</a>'+
                 '<i class="" aria-hidden="true"></i>'+
                 '</div>'+
                 '@else'+

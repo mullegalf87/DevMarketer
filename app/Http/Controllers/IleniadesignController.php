@@ -685,7 +685,6 @@ class IleniadesignController extends Controller
     public function delete_image_ileniadesign(){
 
       $id_image=Request::get('id_image');
-      $type_page=Request::get('type_page');
   
       $this->universal_db()->table('image_shopmyart_ileniadesign')
       ->where('id', '=',$id_image)
