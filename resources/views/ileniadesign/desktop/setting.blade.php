@@ -109,6 +109,7 @@
 <script>
 
     //sistemare select option di image, subcategory e discount dinamicamente
+    //.not("#discount_code") $(document).on('keyup' perchè se lo prende anche da altri input
     function start_function_setting(){
 
         get_all_image();

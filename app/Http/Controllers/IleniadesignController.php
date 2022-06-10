@@ -499,11 +499,10 @@ class IleniadesignController extends Controller{
     ->first();
 
     if ($verify_code) {
-      $code_verified=$verify_code->off_discount;
+      $code_verified=$verify_code->off;
     }else{
       $code_verified=0;
     }
-    
 
     return View::make('query')->with("result",$code_verified);
     
