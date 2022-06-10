@@ -15,7 +15,7 @@
         <h4 class="text-center flex-grow-1" style="font-family: 'Futura PT', sans-serif;font-size: 13px!important;display: flex;align-items: center;justify-content: center;width: 5%;" onclick="change_vis_setting('list_image')">IMAGE</h4>
         <h4 class="text-center flex-grow-1" style="font-family: 'Futura PT', sans-serif;font-size: 13px!important;display: flex;align-items: center;justify-content: center;width: 5%;" onclick="change_vis_setting('list_cat')">CATEGORY</h4>
         <h4 class="text-center flex-grow-1" style="font-family: 'Futura PT', sans-serif;font-size: 13px!important;display: flex;align-items: center;justify-content: center;width: 5%;" onclick="change_vis_setting('list_subcat')">SUBCATEGORY</h4>
-        <h4 class="text-center flex-grow-1" style="font-family: 'Futura PT', sans-serif;font-size: 13px!important;display: flex;align-items: center;justify-content: center;width: 5%;" onclick="change_vis_setting('list_discount');get_discount_code()">DISCOUNT</h4>
+        <h4 class="text-center flex-grow-1" style="font-family: 'Futura PT', sans-serif;font-size: 13px!important;display: flex;align-items: center;justify-content: center;width: 5%;" onclick="change_vis_setting('list_discount');">DISCOUNT</h4>
     </div>
 
     <div id="list_image">
@@ -89,7 +89,7 @@
     <div id="list_discount" class="d-none">
         <div class="d-flex flex-nowrap mt-3 mb-3">
             <input class="form-control mr-3" type="text" placeholder="Codice sconto" id="name_discount"/>
-            <input class="form-control" type="text" placeholder="% sconto" id="percent_discount"/>
+            <input class="form-control" type="text" placeholder="% sconto" id="off_discount"/>
         </div>
         <button class="btn btn-primary w-100 mb-3 save_button save_image_button" onclick="send_data_discount_prod()">Aggiungi</button>
         <table class="table">
@@ -108,7 +108,7 @@
 </section>
 <script>
 
-    //sistemare input, select e delete discount
+    //sistemare select option di image, subcategory e discount dinamicamente
     function start_function_setting(){
 
         get_all_image();
@@ -134,11 +134,11 @@
         $(document).on('keyup', '.input', function (e) {
             clearTimeout(x_timer);
             var classFrom=$(this)[0].classList[0];
+            var complete_id=$(this).attr("id");
             var id = $(this).attr("id").split("_")[3];
-            // var text=$("#"+$(this).attr("id")).val();
             var text=$("#"+$(this).attr("id"));
             x_timer = setTimeout(function(){
-                update_setting(classFrom, id, text);
+                update_setting(classFrom, complete_id, id, text);
             }, 1000);
         });
 
@@ -228,7 +228,6 @@
 
             $("#type_cat_shopmyart").append(select_category);
 
-
             selected_attribute_cat();
             
         });
@@ -299,52 +298,8 @@
 
             selected_attribute_subcat();
 
-        });
+            get_discount_code();
 
-    }
-
-    function selected_attribute_cat(){
-
-        $(".append_cat_option").each(function(data){
-
-           var id=$(this).attr("id");
-           var id_cat=$(this).attr("id_cat");
-
-           $("#"+id).val(id_cat).attr("selected");
-
-        });
-
-    }
-
-    function selected_attribute_subcat(){
-
-        $(".append_subcat_option").each(function(data){
-
-            var id=$(this).attr("id");
-            var id_subcat=$(this).attr("id_subcat");
-
-            $("#"+id).val(id_subcat).attr("selected");
-
-        });
-
-        $(".append_subcat_cat_option").each(function(data){
-
-            var id=$(this).attr("id");
-            var id_subcat_subcat=$(this).attr("id_subcat_subcat");
-
-            $("#"+id).val(id_subcat_subcat).attr("selected");
-
-        });
-
-    }
-
-    function update_setting(table, id, text){
-
-        text=text.val();
-
-        $.get("update_setting_image",{table:table, id:id, text:text},
-        function(data){
-            console.log(data);
         });
 
     }
@@ -374,15 +329,13 @@
 
                 list_discount+='<tr>'+
                 '<td style="border: transparent;font-family: Futura PT, sans-serif;font-size: 12px!important;white-space: nowrap;vertical-align: middle;">'+res[i].id+'</td>'+
-                '<td><input class="image_discount_ileniadesign form-control input" type="text" value="'+res[i].name_discount.replace(/"/g, '&quot;')+'" id="name_discount_setting_'+res[i].id+'"></td>'+
-                '<td><input class="image_discount_ileniadesign form-control input" type="text" value="'+res[i].off_discount+'" id="off_discount_setting_'+res[i].id+'"></td>'+
-
+                '<td><input class="image_discount_ileniadesign form-control input" type="text" value="'+res[i].name.replace(/"/g, '&quot;')+'" id="name_discount_setting_'+res[i].id+'"></td>'+
+                '<td><input class="image_discount_ileniadesign form-control input" type="text" value="'+res[i].off+'" id="off_discount_setting_'+res[i].id+'"></td>'+
                 '<td style="vertical-align: middle;"><select class="styled-select" style="border: transparent;font-family: Futura PT, sans-serif;font-size: 12px!important;white-space: nowrap;" id="end_discount_setting_'+res[i].id+'">'+
                     select_discount+
                 '</select></td>'+
-
                 '<td class="flex-grow-1" style="vertical-align: middle;">'+
-                '<p class="p-0 m-0" style="text-decoration: underline;text-underline-offset: 1px;color:#dbd3d3" onclick="delete_discount(\''+res[i].id+'\',)">Remove</p>'+
+                '<p class="p-0 m-0" style="text-decoration: underline;text-underline-offset: 1px;color:#dbd3d3" onclick="delete_cat_subcat(\''+res[i].id+'\',\'discount\')">Remove</p>'+
                 '</td>'+
                 '</tr>';
 
@@ -440,6 +393,54 @@
 
     });
 
+    function selected_attribute_cat(){
+        
+        $(".append_cat_option").each(function(data){
+            
+            var id=$(this).attr("id");
+            var id_cat=$(this).attr("id_cat");
+            
+            $("#"+id).val(id_cat).attr("selected");
+            
+        });
+        
+    }
+
+    function selected_attribute_subcat(){
+        
+        $(".append_subcat_option").each(function(data){
+            
+            var id=$(this).attr("id");
+            var id_subcat=$(this).attr("id_subcat");
+            
+            $("#"+id).val(id_subcat).attr("selected");
+            
+        });
+        
+        $(".append_subcat_cat_option").each(function(data){
+            
+            var id=$(this).attr("id");
+            var id_subcat_subcat=$(this).attr("id_subcat_subcat");
+            
+            $("#"+id).val(id_subcat_subcat).attr("selected");
+            
+        });
+        
+    }
+
+    function update_setting(table, complete_id, id, text){
+        
+        complete_id=complete_id.split("_")[0];
+        
+        text=text.val();
+        
+        $.get("update_setting_image",{table:table, complete_id:complete_id, id:id, text:text},
+        function(data){
+            console.log(data);
+        });
+        
+    }
+
     function send_data_add_prod() {
 
         $(".save_image_button").text("Wait...");
@@ -495,17 +496,6 @@
 
     }
 
-    function delete_image(id_image){
-
-        $.get("/delete_image_ileniadesign",{id_image:id_image},
-        function(data){
-
-            get_all_image();
-
-        });
-
-    }
-
     function send_data_cat_prod(){
 
         var name_cat=$("#name_cat").val();
@@ -533,6 +523,31 @@
 
     }
 
+    function send_data_discount_prod(){
+
+        var name_discount=$("#name_discount").val();
+        var off_discount=$("#off_discount").val();
+
+        $.get("/add_data_discount_prod_ileniadesign",{name_discount:name_discount, off_discount:off_discount},
+        function(data){
+
+            get_category_image();
+
+        });
+
+    }
+
+    function delete_image(id_image){
+
+        $.get("/delete_image_ileniadesign",{id_image:id_image},
+        function(data){
+
+            get_all_image();
+
+        });
+
+    }
+
     function delete_cat_subcat(id, type){
 
         $.get("/delete_cat_subcat_ileniadesign",{id:id, type:type},
@@ -543,6 +558,5 @@
         });
 
     }
-
 
 </script>

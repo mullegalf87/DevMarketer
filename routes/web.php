@@ -426,6 +426,7 @@ Route::get('/get_value_form_ticket', 'TicketController@get_value_form_ticket');
 Route::get('/send_feed_ticket', 'TicketController@send_feed_ticket');
 
 // ILENIADESIGN PROJECT
+//route start
 Route::get('/ileniadesign', function () {
   return redirect('id?page=home');
 });
@@ -434,7 +435,7 @@ Route::get('/id', 'IleniadesignController@go_to_page');
 
 Route::get('id/lang', 'IleniadesignController@lang_change')->name('idLangChange');
 
-//Login
+//route Login
 Route::post('register_ileniadesign/{numb}/{cookie}', 'IleniadesignController@store');
 
 Route::post('login_ileniadesign/{numb}/{cookie}', 'IleniadesignController@check_login');
@@ -443,50 +444,52 @@ Route::get('logout_ileniadesign', 'IleniadesignController@logout_ileniadesign');
 
 Route::post('recovery_ileniadesign', 'IleniadesignController@recovery_ileniadesign');
 
-//funzioni shopmyart
+//route shopmyart
 Route::get("get_image_shopmyart_ileniadesign","IleniadesignController@get_image_shopmyart_ileniadesign");
-
-Route::get('/update_position_image_ileniadesign', 'IleniadesignController@update_position_image_ileniadesign');
 
 Route::get('/get_subcat_ileniadesign', 'IleniadesignController@get_subcat_ileniadesign');
 
-//funzioni shopdetail
-Route::get('/get_image_detail_ileniadesign', 'IleniadesignController@get_image_detail_ileniadesign');
+Route::get('/update_position_image_ileniadesign', 'IleniadesignController@update_position_image_ileniadesign');
 
-Route::get('/add_cart_ileniadesign', 'IleniadesignController@add_cart_ileniadesign');
+//route shopdetail
+Route::get('/get_image_detail_ileniadesign', 'IleniadesignController@get_image_detail_ileniadesign');
 
 Route::get('/get_count_prod_cart_ileniadesign', 'IleniadesignController@get_count_prod_cart_ileniadesign');
 
-//funzioni cart
+Route::get('/add_cart_ileniadesign', 'IleniadesignController@add_cart_ileniadesign');
+
+//route cart
 Route::get('/get_prod_cart_ileniadesign', 'IleniadesignController@get_prod_cart_ileniadesign');
 
 Route::get('/update_prod_cart_ileniadesign', 'IleniadesignController@update_prod_cart_ileniadesign');
 
 Route::get('/delete_prod_cart_ileniadesign', 'IleniadesignController@delete_prod_cart_ileniadesign');
 
-//funzioni summary
+//route summary
 Route::get('/apply_discount_ileniadesign', 'IleniadesignController@apply_discount_ileniadesign');
 
-//funzioni setting
+//route setting
 Route::get("/get_all_image_ileniadesign","IleniadesignController@get_all_image_ileniadesign");
 
 Route::get("/get_category_image_ileniadesign","IleniadesignController@get_category_image_ileniadesign");
 
 Route::get("/get_subcategory_image_ileniadesign","IleniadesignController@get_subcategory_image_ileniadesign");
 
-Route::get("/update_setting_image","IleniadesignController@update_setting_image");
-
 Route::get("/get_discount_code_ileniadesign","IleniadesignController@get_discount_code_ileniadesign");
 
 Route::get('/add_image_ileniadesign', 'IleniadesignController@add_image_ileniadesign');
 
-Route::get('/update_image_ileniadesign', 'IleniadesignController@update_image_ileniadesign');
-
-Route::get('/delete_image_ileniadesign', 'IleniadesignController@delete_image_ileniadesign');
-
 Route::get('/add_data_cat_prod_ileniadesign', 'IleniadesignController@add_data_cat_prod_ileniadesign');
 
 Route::get('/add_data_subcat_prod_ileniadesign', 'IleniadesignController@add_data_subcat_prod_ileniadesign');
+
+Route::get('/add_data_discount_prod_ileniadesign', 'IleniadesignController@add_data_discount_prod_ileniadesign');
+
+Route::get('/update_image_ileniadesign', 'IleniadesignController@update_image_ileniadesign');
+
+Route::get("/update_setting_image","IleniadesignController@update_setting_image");
+
+Route::get('/delete_image_ileniadesign', 'IleniadesignController@delete_image_ileniadesign');
 
 Route::get('/delete_cat_subcat_ileniadesign', 'IleniadesignController@delete_cat_subcat_ileniadesign');
 

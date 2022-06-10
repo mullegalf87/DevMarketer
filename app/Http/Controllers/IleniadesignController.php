@@ -23,35 +23,69 @@ use File;
 use Jenssegers\Agent\Agent;
 
 
-class IleniadesignController extends Controller
-{
+class IleniadesignController extends Controller{
 
-  // HOME
+  function random_token_user_ilenia_design(){
+
+    $token;
+    do{
+      $token = $this->getRandomString(14);
+
+      $orders_with_token = DB::table('users_ileniadesigns')
+      ->where("token_user", "=", $token)
+      ->get();
+
+      $token_exists = count($orders_with_token) > 0;
+
+      return View::make('query')->with("result",$token);
+
+    }while($token_exists);
+
+  }
+
+  function getRandomString($length = 8) {
+    $characters = '0123456789';
+    $string = '';
+
+    for ($i = 0; $i < $length; $i++) {
+      $string .= $characters[mt_rand(0, strlen($characters) - 1)];
+    }
+
+    return $string;
+  }
+
+  function universal_db(){
+
+    Config::set('database.connections.mysql_dynamic.database','ileniadesign');
+    $universal=DB::connection('mysql_dynamic');
+
+    return $universal;
+
+  }
+
+  //Controllers start
   public function go_to_page(){
     $data = [];
     $data["page"] = Request::get('page');
     $agent = new Agent();
     $result;
-     if ($agent->isMobile()) {
+    if ($agent->isMobile()) {
       $result="mobile";
-     }elseif ($agent->isDesktop()) {
+    }elseif ($agent->isDesktop()) {
       $result="desktop";
-     }
+    }
     return view('ileniadesign.'.$result.'.home')->with("data",json_encode($data));
   }
 
-  public function lang_change()
-    {
+  public function lang_change(){
       $lang=Request::get("lang");
       App::setLocale($lang);
       session()->put('locale', $lang); 
       return redirect()->back();
-    }
+  }
 
-  //blocco register/login/logout
-
-  public function store($numb,$cookie)
-  {
+  //controller login
+  public function store($numb,$cookie){
       
       //Error messages
       $messages = [
@@ -68,8 +102,8 @@ class IleniadesignController extends Controller
     if ($_POST['captcha'] != $_SESSION['captcha']) {
       // die('Codice captcha non valido');
 
-       return redirect('/id?page=login')->with('captcha', 'Codice captcha non valido');
-       
+      return redirect('/id?page=login')->with('captcha', 'Codice captcha non valido');
+      
     }else{
 
       // validate the form data
@@ -130,7 +164,7 @@ class IleniadesignController extends Controller
 
     //   DB::table('newsletter_ileniadesign')
     //   ->insertGetId(array( 
-       
+      
     //    'id_user'=>auth()->guard('users_ileniadesign')->user()->id,
     //    'email'=>$email,
 
@@ -149,10 +183,7 @@ class IleniadesignController extends Controller
       
   }
 
-
-
-  protected function check_login($numb,$cookie)
-  {
+  protected function check_login($numb,$cookie){
 
       //Error messages
       $messages = [
@@ -190,9 +221,9 @@ class IleniadesignController extends Controller
               ->update(
                 array(
 
-                 'id_user'=>auth()->guard('users_ileniadesign')->user()->id,
+                'id_user'=>auth()->guard('users_ileniadesign')->user()->id,
 
-               ));
+              ));
 
               return redirect()->to('/id?page=cart');
             }
@@ -218,162 +249,68 @@ class IleniadesignController extends Controller
   }
 
   public function recovery_ileniadesign(){
-
+    
     $email=Request::get('email');
- 
-
-    //You can add validation login here
+    
     $user = DB::table('users_ileniadesigns')
     ->where('email', '=', $email)
     ->get();
-
-    //Check if the user exists
+    
     if (count($user) < 1) {
-        return redirect()->back()->withErrors(['email' => trans('email not exist!')]);
+      return redirect()->back()->withErrors(['email' => trans('email not exist!')]);
     }
-
-
-    //Retrieve the user from the database
+    
     $user = DB::table('users_ileniadesigns')
     ->where('email', '=' ,$email)
     ->first();    
-
-    if ($user) {
-
-        $object="Recovery password";
-        $recovery_password="Recovery password:";
-        $return="Return to login";
-
-      $data = array('email'=>$email, 'password_decript'=>$user->password_decript, 'recovery_password'=>$recovery_password, 'token_user'=>"", 'return'=>$return);
-   
-      Mail::send('mail', $data, function($message) use ($data) {
-         $message->to($data['email'])->subject
-            ('Recovery Password');
-         $message->from('no-reply@ileniazitodesign.com','Ileniazitodesign');
-      });
-
-      return redirect()->to('/id?page=login');  
-
-    }else{
-
-      return redirect()->back()->withErrors(['email' => trans('email does not match!')]);
-
-    }
-
-
-  }
-
-  public function random_token_user_ilenia_design(){
-
     
-    $token;
-    do{
-      $token = $this->getRandomString(14);
-
-
-
-      $orders_with_token = DB::table('users_ileniadesigns')
-      ->where("token_user", "=", $token)
-      ->get();
-
-      $token_exists = count($orders_with_token) > 0;
-
-
-      return View::make('query')->with("result",$token);
-
-    }while($token_exists);
-
-
-  }
-
-  function getRandomString($length = 8) {
-    $characters = '0123456789';
-    $string = '';
-
-    for ($i = 0; $i < $length; $i++) {
-      $string .= $characters[mt_rand(0, strlen($characters) - 1)];
-    }
-
-    return $string;
-  }
-
-  public function validatePasswordRequest(){
-
-    $nickname=Request::get('remind_nick');
-    $email=Request::get('remind_email');
- 
-
-    //You can add validation login here
-    $user = DB::connection('mysql_dynamic')->table('users_ileniadesigns')
-    ->where('nickname', '=', $nickname)
-    ->get();
-
-    //Check if the user exists
-    if (count($user) < 1) {
-        return redirect()->back()->withErrors(['remind_nick' => trans('nickname non esiste')]);
-    }
-
-
-    //Retrieve the user from the database
-    $user = DB::connection('mysql_dynamic')->table('users_ileniadesigns')
-    ->where('nickname', '=' ,$nickname)
-    ->where('email', '=' ,$email)
-    ->first();    
-
-
     if ($user) {
       
-      $lang=session()->get('locale'); 
-      if ($lang=="") {
-        $lang="it";
-      }
-
-      if ($lang=="it") {
-        $object="Recupero password";
-        $recovery_password="Hai richiesto il recupero delle credenziali:";
-        $return="Torna su ileniadesign!";
-      }else{
-        $object="Recovery password";
-        $recovery_password="Recovery password:";
-        $return="Return to ileniadesign!";
-      }
-
-      $data = array('nickname'=>$nickname, 'email'=>$email, 'password_decript'=>$user->password_decript, 'recovery_password'=>$recovery_password, 'return'=>$return);
-   
+      $object="Recovery password";
+      $recovery_password="Recovery password:";
+      $return="Return to login";
+      
+      $data = array('email'=>$email, 'password_decript'=>$user->password_decript, 'recovery_password'=>$recovery_password, 'token_user'=>"", 'return'=>$return);
+      
       Mail::send('mail', $data, function($message) use ($data) {
-         $message->to($data['email'], $data['nickname'])->subject
-            ('Password');
-         $message->from('infoileniadesign@gmail.com','ileniadesign');
+        $message->to($data['email'])->subject
+        ('Recovery Password');
+        $message->from('no-reply@ileniazitodesign.com','Ileniazitodesign');
       });
-
-      return redirect()->to('/ileniadesign');  
-
+      
+      return redirect()->to('/id?page=login');  
+      
     }else{
-
-      return redirect()->back()->withErrors(['remind_email' => trans('email non corrisponde')]);
-
+      
+      return redirect()->back()->withErrors(['email' => trans('email does not match!')]);
+      
     }
-
+    
   }
 
-  public function universal_db(){
-
-    Config::set('database.connections.mysql_dynamic.database','ileniadesign');
-    $universal=DB::connection('mysql_dynamic');
-
-    return $universal;
-
-  }
-
+  //controllers shopmyart
   public function get_image_shopmyart_ileniadesign(){
+
     $type_img=Request::get("type_img");
     $get_image = $this->universal_db()->table('image_shopmyart_ileniadesign')
     ->orderBy('position', 'DESC')
     ->get();
-    return View::make('query')->with("result",json_encode($get_image)); 
-   }
 
-  
+    return View::make('query')->with("result",json_encode($get_image)); 
+
+  }
+
+  public function get_subcat_ileniadesign(){
+
+    $id_cat=Request::get('id_cat');
+
+    $get_subcat=$this->universal_db()->table('image_subcategory_ileniadesign')
+      ->get();
+
+    return View::make('query')->with("result",json_encode($get_subcat)); 
+
+  }
+
   public function update_position_image_ileniadesign(){
   
   $ultimate_array_position=Request::get('ultimate_array_position');
@@ -393,355 +330,366 @@ class IleniadesignController extends Controller
 
   }
 
-  public function get_subcat_ileniadesign(){
+  //controllers shopdetail
+  public function get_image_detail_ileniadesign(){
+
+    $id_image=Request::get('id_image');
+    $type_page=Request::get('type_page');
+
+    $get_image = $this->universal_db()->table('image_shopmyart_ileniadesign')
+    ->where('id', '=',$id_image)
+    ->get();
+    return View::make('query')->with("result",json_encode($get_image)); 
+
+  }
+
+  public function get_count_prod_cart_ileniadesign(){
+
+    if (auth()->guard('users_ileniadesign')->check()) {
+
+      $id_user=auth()->guard('users_ileniadesign')->user()->id;
+
+    }else{
+
+      // $id_user=Request::get("token_user");
+
+    }
+
+    $get_cart=$this->universal_db()->table('cart_ileniadesign')
+    ->select(DB::raw('sum(qnt) as sum_qnt_cart'))
+    ->where('id_user', '=',$id_user)
+    ->where('sold', '=',null)
+    ->first();
+
+    return View::make('query')->with("result",$get_cart->sum_qnt_cart);
+
+  }
+
+  public function add_cart_ileniadesign(){
+
+    $id_product=Request::get("id_product");
+    $name_product=Request::get("name_product");
+    $qnt=Request::get("qnt");
+    $price=Request::get("price");
+    $format=Request::get("format");
+    $price_a4=Request::get("price_a4");
+    $price_a3=Request::get("price_a3");
+    $price_a5=Request::get("price_a5");
+    $type_image=Request::get("type_image");
+    
+    if (auth()->guard('users_ileniadesign')->check()) {
+
+      $id_user=auth()->guard('users_ileniadesign')->user()->id;
+
+    }else{
+      
+      // $id_user=Request::get("token_user");
+
+    }
+
+    $exist_product=$this->universal_db()->table('cart_ileniadesign')
+    ->where('id_product','=',$id_product)
+    ->where('format','=',$format)
+    ->first();
+
+    if ($exist_product) {
+
+      $this->universal_db()->table('cart_ileniadesign')
+      ->where('id_product','=',$id_product)
+      ->update(array( 
+        'qnt'=>$exist_product->qnt+1,
+      ));
+
+    }else{
+
+      $this->universal_db()->table('cart_ileniadesign')
+      ->insertGetId(array( 
+        'id_product'=>$id_product,
+        'name_product'=>$name_product,
+        'qnt'=>$qnt,
+        'price'=>$price,
+        'format'=>$format,
+        'id_user'=>$id_user,
+        'price_a4'=>$price_a4,
+        'price_a3'=>$price_a3,
+        'price_a5'=>$price_a5,
+        'type_img'=>$type_image,
+      ));  
+
+    }
+
+  return View::make('query')->with("result",json_encode("added!"));
+
+  }
+
+  //controllers cart
+  public function get_prod_cart_ileniadesign(){
+
+    if (auth()->guard('users_ileniadesign')->check()) {
+
+      $id_user=auth()->guard('users_ileniadesign')->user()->id;
+
+    }else{
+
+      // $id_user=Request::get("token_user");
+
+    }
+
+    $get_cart=$this->universal_db()->table('cart_ileniadesign')
+    ->select(DB::raw('image_shopmyart_ileniadesign.type_img as cat_img, image_shopmyart_ileniadesign.subtype_image as subcat_img, cart_ileniadesign.*'))
+    ->join('image_shopmyart_ileniadesign', 'image_shopmyart_ileniadesign.id', '=', 'cart_ileniadesign.id_product') 
+    ->where('cart_ileniadesign.id_user', '=',$id_user)
+    ->where('cart_ileniadesign.sold', '=',null)
+    ->get();
+
+    return View::make('query')->with("result",json_encode($get_cart));
+
+  }
+
+  public function update_prod_cart_ileniadesign(){
+
+    $id_cart=Request::get("id_cart");
+    $format=Request::get("format");
+    $qnt=Request::get("qnt");
+    $price=Request::get("price");
+    
+    if (auth()->guard('users_ileniadesign')->check()) {
+
+      $id_user=auth()->guard('users_ileniadesign')->user()->id;
+
+    }else{
+
+      // $id_user=Request::get("token_user");
+    }
+
+    $this->universal_db()->table('cart_ileniadesign')
+    ->where('id', '=',$id_cart)
+    ->where('id_user', '=',$id_user)
+    ->update(
+      array(
+
+        'format'=>$format,
+        'qnt'=>$qnt,
+        'price'=>$price,
+
+      ));
+
+    return View::make('query')->with("result",json_encode("aggiornato"));
+
+  }
+
+  public function delete_prod_cart_ileniadesign(){
   
+    $id_product=Request::get("id_product");
+
+    $this->universal_db()->table('cart_ileniadesign')
+    ->where('id', '=',$id_product)
+    ->delete();
+    return View::make('query')->with("result",json_encode("delete!"));
+    
+  }
+
+  //controllers summary
+  public function apply_discount_ileniadesign(){
+  
+    $name_discount=Request::get("name_discount");
+
+    $verify_code=$this->universal_db()->table('image_discount_ileniadesign')
+    ->where('name', '=', $name_discount)
+    ->first();
+
+    if ($verify_code) {
+      $code_verified=$verify_code->off_discount;
+    }else{
+      $code_verified=0;
+    }
+    
+
+    return View::make('query')->with("result",$code_verified);
+    
+  }
+
+  //controllers setting
+  public function get_all_image_ileniadesign(){
+
+    $get_all_image=$this->universal_db()->table('image_shopmyart_ileniadesign')
+    ->select($this->universal_db()->raw('image_shopmyart_ileniadesign.*, image_category_ileniadesign.id as id_cat, image_category_ileniadesign.name as name_cat, image_subcategory_ileniadesign.id as id_subcat, image_subcategory_ileniadesign.name as name_subcat'))
+    ->join('image_category_ileniadesign', 'image_category_ileniadesign.id', '=', 'image_shopmyart_ileniadesign.type_img')
+    ->join('image_subcategory_ileniadesign', 'image_subcategory_ileniadesign.id', '=', 'image_shopmyart_ileniadesign.subtype_image') 
+    ->orderBy('id','DESC')
+    ->get();
+
+    return View::make('query')->with("result",json_encode($get_all_image));
+
+  }
+
+  public function get_category_image_ileniadesign(){
+
+    $get_category=$this->universal_db()->table('image_category_ileniadesign')
+    ->select($this->universal_db()->raw('id as id_cat, name as name_cat'))
+    ->get();
+
+    return View::make('query')->with("result",json_encode($get_category));
+
+  }
+
+  public function get_subcategory_image_ileniadesign(){
+
+    $get_subcategory=$this->universal_db()->table('image_subcategory_ileniadesign')
+    ->select($this->universal_db()->raw('id as id_subcat, name as name_subcat, id_cat as id_cat'))
+    ->get();
+
+    return View::make('query')->with("result",json_encode($get_subcategory));
+
+  }
+
+  public function get_discount_code_ileniadesign(){
+
+    $get_discount_code=$this->universal_db()->table('image_discount_ileniadesign')
+    ->get();
+
+    return View::make('query')->with("result",json_encode($get_discount_code));
+
+  }
+
+  public function add_image_ileniadesign(){
+
+    $name_image=Request::get('name_image');
+    $price_a4=Request::get('price_a4');
+    $price_a3=Request::get('price_a3');
+    $price_a5=Request::get('price_a5');
+    $type_img_shopmyart=Request::get('type_img_shopmyart');
+    $subtype_img_shopmyart=Request::get('subtype_img_shopmyart');
+
+    $id_image=$this->universal_db()->table('image_shopmyart_ileniadesign')
+      ->insertGetId(array( 
+  
+        'name'=>strtoupper($name_image),
+        'price_a4'=>$price_a4,
+        'price_a3'=>$price_a3,
+        'price_a5'=>$price_a5,
+        'type_img'=>$type_img_shopmyart,
+        'subtype_image'=>$subtype_img_shopmyart,
+
+      ));
+
+    return View::make('query')->with("result",json_encode($id_image)); 
+
+  }
+
+  public function add_data_cat_prod_ileniadesign(){
+
+    $name_cat=Request::get('name_cat');
+
+    $this->universal_db()->table('image_category_ileniadesign')
+    ->insertGetId(array(
+
+      "name"=>$name_cat,
+
+    ));
+
+    return View::make('query')->with("result",json_encode("aggiornato")); 
+
+  }
+
+  public function add_data_subcat_prod_ileniadesign(){
+
+    $name_subcat=Request::get('name_subcat');
     $id_cat=Request::get('id_cat');
 
-    $get_subcat=$this->universal_db()->table('image_subcategory_ileniadesign')
-      ->get();
-  
-    return View::make('query')->with("result",json_encode($get_subcat)); 
-  
-    }
+    $this->universal_db()->table('image_subcategory_ileniadesign')
+    ->insertGetId(array(
 
-    public function get_image_detail_ileniadesign(){
+      "name"=>$name_subcat,
+      "id_cat"=>$id_cat,
 
-      $id_image=Request::get('id_image');
-      $type_page=Request::get('type_page');
-  
-      $get_image = $this->universal_db()->table('image_shopmyart_ileniadesign')
+    ));
+
+    return View::make('query')->with("result",json_encode("aggiornato")); 
+
+  }
+
+  public function add_data_discount_prod_ileniadesign(){
+
+    $name_discount=Request::get('name_discount');
+    $off_discount=Request::get('off_discount');
+
+    $this->universal_db()->table('image_discount_ileniadesign')
+    ->insertGetId(array(
+
+      "name"=>$name_discount,
+      "off"=>$off_discount,
+
+    ));
+
+    return View::make('query')->with("result",json_encode("aggiornato")); 
+
+  }
+
+  public function update_image_ileniadesign(){
+
+    $id_image=Request::get('id_image');
+    $image_file=Request::get('image_file');
+    $position=Request::get('position');
+    $ext_file=Request::get('ext_file');
+
+    $this->universal_db()->table('image_shopmyart_ileniadesign')
       ->where('id', '=',$id_image)
-      ->get();
-      return View::make('query')->with("result",json_encode($get_image)); 
-  
-    }
-
-    public function add_cart_ileniadesign(){
-
-      $id_product=Request::get("id_product");
-      $name_product=Request::get("name_product");
-      $qnt=Request::get("qnt");
-      $price=Request::get("price");
-      $format=Request::get("format");
-      $price_a4=Request::get("price_a4");
-      $price_a3=Request::get("price_a3");
-      $price_a5=Request::get("price_a5");
-      $type_image=Request::get("type_image");
-      
-      if (auth()->guard('users_ileniadesign')->check()) {
-  
-        $id_user=auth()->guard('users_ileniadesign')->user()->id;
-  
-      }else{
-        
-        // $id_user=Request::get("token_user");
-  
-      }
-
-      $exist_product=$this->universal_db()->table('cart_ileniadesign')
-      ->where('id_product','=',$id_product)
-      ->where('format','=',$format)
-      ->first();
-
-      if ($exist_product) {
-
-        $this->universal_db()->table('cart_ileniadesign')
-        ->where('id_product','=',$id_product)
-        ->update(array( 
-          'qnt'=>$exist_product->qnt+1,
-        ));
-
-      }else{
-
-        $this->universal_db()->table('cart_ileniadesign')
-        ->insertGetId(array( 
-          'id_product'=>$id_product,
-          'name_product'=>$name_product,
-          'qnt'=>$qnt,
-          'price'=>$price,
-          'format'=>$format,
-          'id_user'=>$id_user,
-          'price_a4'=>$price_a4,
-          'price_a3'=>$price_a3,
-          'price_a5'=>$price_a5,
-          'type_img'=>$type_image,
-        ));  
-
-      }
-  
-    return View::make('query')->with("result",json_encode("added!"));
-  
-    }
-
-    public function get_count_prod_cart_ileniadesign(){
-
-      if (auth()->guard('users_ileniadesign')->check()) {
-  
-        $id_user=auth()->guard('users_ileniadesign')->user()->id;
-  
-      }else{
-  
-        // $id_user=Request::get("token_user");
-
-      }
-  
-      $get_cart=$this->universal_db()->table('cart_ileniadesign')
-      ->select(DB::raw('sum(qnt) as sum_qnt_cart'))
-      ->where('id_user', '=',$id_user)
-      ->where('sold', '=',null)
-      ->first();
-  
-      return View::make('query')->with("result",$get_cart->sum_qnt_cart);
-  
-    }
-
-    public function get_prod_cart_ileniadesign(){
-
-      if (auth()->guard('users_ileniadesign')->check()) {
-  
-        $id_user=auth()->guard('users_ileniadesign')->user()->id;
-  
-      }else{
-  
-        // $id_user=Request::get("token_user");
-
-      }
-  
-      $get_cart=$this->universal_db()->table('cart_ileniadesign')
-      ->select(DB::raw('image_shopmyart_ileniadesign.type_img as cat_img, image_shopmyart_ileniadesign.subtype_image as subcat_img, cart_ileniadesign.*'))
-      ->join('image_shopmyart_ileniadesign', 'image_shopmyart_ileniadesign.id', '=', 'cart_ileniadesign.id_product') 
-      ->where('cart_ileniadesign.id_user', '=',$id_user)
-      ->where('cart_ileniadesign.sold', '=',null)
-      ->get();
-  
-      return View::make('query')->with("result",json_encode($get_cart));
-  
-    }
-
-    public function update_prod_cart_ileniadesign(){
-
-      $id_cart=Request::get("id_cart");
-      $format=Request::get("format");
-      $qnt=Request::get("qnt");
-      $price=Request::get("price");
-      
-      if (auth()->guard('users_ileniadesign')->check()) {
-  
-        $id_user=auth()->guard('users_ileniadesign')->user()->id;
-  
-      }else{
-  
-        // $id_user=Request::get("token_user");
-      }
-  
-      $this->universal_db()->table('cart_ileniadesign')
-      ->where('id', '=',$id_cart)
-      ->where('id_user', '=',$id_user)
       ->update(
-        array(
-  
-         'format'=>$format,
-         'qnt'=>$qnt,
-         'price'=>$price,
-  
-       ));
-  
-      return View::make('query')->with("result",json_encode("aggiornato"));
-  
-    }
+          array(
+            'image_file'=>$image_file,
+            'position'=>$position,
+          ));
 
-    public function delete_prod_cart_ileniadesign(){
-    
-      $id_product=Request::get("id_product");
+      return View::make('query')->with("result",json_encode("updated")); 
 
-      $this->universal_db()->table('cart_ileniadesign')
-      ->where('id', '=',$id_product)
-      ->delete();
-      return View::make('query')->with("result",json_encode("delete!"));
-     
-    }
+  }
 
-    public function apply_discount_ileniadesign(){
-    
-      $name_discount=Request::get("name_discount");
+  public function update_setting_image(){
 
-      $verify_code=$this->universal_db()->table('discount_code_ileniadesign')
-      ->where('name_discount', '=', $name_discount)
-      ->first();
+    $table=Request::get("table");
+    $id=Request::get("id");
+    $complete_id=Request::get("complete_id");
+    $name=Request::get("text");
 
-      if ($verify_code) {
-        $code_verified=$verify_code->off_discount;
-      }else{
-        $code_verified=0;
-      }
-      
+    $this->universal_db()->table($table)
+    ->where("id","=",$id)
+    ->update(array(
+      $complete_id=>$name,
+    ));
 
-      return View::make('query')->with("result",$code_verified);
-     
-    }
+    return View::make('query')->with("result",json_encode("updated"));
 
-    public function get_all_image_ileniadesign(){
+  }
 
-      $get_all_image=$this->universal_db()->table('image_shopmyart_ileniadesign')
-      ->select($this->universal_db()->raw('image_shopmyart_ileniadesign.*, image_category_ileniadesign.id as id_cat, image_category_ileniadesign.name as name_cat, image_subcategory_ileniadesign.id as id_subcat, image_subcategory_ileniadesign.name as name_subcat'))
-      ->join('image_category_ileniadesign', 'image_category_ileniadesign.id', '=', 'image_shopmyart_ileniadesign.type_img')
-      ->join('image_subcategory_ileniadesign', 'image_subcategory_ileniadesign.id', '=', 'image_shopmyart_ileniadesign.subtype_image') 
-      ->orderBy('id','DESC')
-      ->get();
+  public function delete_image_ileniadesign(){
 
-      return View::make('query')->with("result",json_encode($get_all_image));
+    $id_image=Request::get('id_image');
 
-    }
+    $this->universal_db()->table('image_shopmyart_ileniadesign')
+    ->where('id', '=',$id_image)
+    ->delete();
 
-    public function get_category_image_ileniadesign(){
+    $file = new Filesystem;
 
-      $get_category=$this->universal_db()->table('image_category_ileniadesign')
-      ->select($this->universal_db()->raw('id as id_cat, name as name_cat'))
-      ->get();
+    $target_dir = "../shopmyart/".$id_image."/";
 
-      return View::make('query')->with("result",json_encode($get_category));
+    $file->deleteDirectory($target_dir);
 
-    }
+    return View::make('query')->with("result",json_encode("eliminato")); 
 
-    public function get_subcategory_image_ileniadesign(){
+  }
 
-      $get_subcategory=$this->universal_db()->table('image_subcategory_ileniadesign')
-      ->select($this->universal_db()->raw('id as id_subcat, name as name_subcat, id_cat as id_cat'))
-      ->get();
+  public function delete_cat_subcat_ileniadesign(){
 
-      return View::make('query')->with("result",json_encode($get_subcategory));
+    $id=Request::get('id');
+    $type=Request::get('type');
+    $this->universal_db()->table('image_'.$type.'_ileniadesign')
+    ->where("id","=",$id)
+    ->delete();
 
-    }
+    return View::make('query')->with("result",json_encode("eliminato")); 
 
-    public function get_discount_code_ileniadesign(){
-
-      $get_discount_code=$this->universal_db()->table('discount_code_ileniadesign')
-      ->get();
-
-      return View::make('query')->with("result",json_encode($get_discount_code));
-
-    }
-
-    public function update_setting_image(){
-
-      $table=Request::get("table");
-      $id=Request::get("id");
-      $name=Request::get("text");
-
-      $this->universal_db()->table($table)
-      ->where("id","=",$id)
-      ->update(array(
-        "name"=>$name,
-      ));
-
-      return View::make('query')->with("result",json_encode("updated"));
-
-    }
-
-    public function add_image_ileniadesign(){
-
-      $name_image=Request::get('name_image');
-      $price_a4=Request::get('price_a4');
-      $price_a3=Request::get('price_a3');
-      $price_a5=Request::get('price_a5');
-      $type_img_shopmyart=Request::get('type_img_shopmyart');
-      $subtype_img_shopmyart=Request::get('subtype_img_shopmyart');
-  
-      $id_image=$this->universal_db()->table('image_shopmyart_ileniadesign')
-        ->insertGetId(array( 
-    
-         'name'=>strtoupper($name_image),
-         'price_a4'=>$price_a4,
-         'price_a3'=>$price_a3,
-         'price_a5'=>$price_a5,
-         'type_img'=>$type_img_shopmyart,
-         'subtype_image'=>$subtype_img_shopmyart,
-  
-       ));
-  
-      return View::make('query')->with("result",json_encode($id_image)); 
-  
-     }
-  
-    public function update_image_ileniadesign(){
-  
-      $id_image=Request::get('id_image');
-      $image_file=Request::get('image_file');
-      $position=Request::get('position');
-      $ext_file=Request::get('ext_file');
-  
-      $this->universal_db()->table('image_shopmyart_ileniadesign')
-        ->where('id', '=',$id_image)
-        ->update(
-            array(
-             'image_file'=>$image_file,
-             'position'=>$position,
-           ));
-
-        return View::make('query')->with("result",json_encode("updated")); 
-  
-    }
-
-    public function delete_image_ileniadesign(){
-
-      $id_image=Request::get('id_image');
-  
-      $this->universal_db()->table('image_shopmyart_ileniadesign')
-      ->where('id', '=',$id_image)
-      ->delete();
-
-      $file = new Filesystem;
-
-      $target_dir = "../shopmyart/".$id_image."/";
-
-      $file->deleteDirectory($target_dir);
-
-      return View::make('query')->with("result",json_encode("eliminato")); 
-  
-    }
-
-    public function add_data_cat_prod_ileniadesign(){
-
-      $name_cat=Request::get('name_cat');
-
-      $this->universal_db()->table('image_category_ileniadesign')
-      ->insertGetId(array(
-
-        "name"=>$name_cat,
-
-      ));
-
-      return View::make('query')->with("result",json_encode("aggiornato")); 
-
-    }
-
-    public function add_data_subcat_prod_ileniadesign(){
-
-      $name_subcat=Request::get('name_subcat');
-      $id_cat=Request::get('id_cat');
-
-      $this->universal_db()->table('image_subcategory_ileniadesign')
-      ->insertGetId(array(
-
-        "name"=>$name_subcat,
-        "id_cat"=>$id_cat,
-
-      ));
-
-      return View::make('query')->with("result",json_encode("aggiornato")); 
-
-    }
-
-    public function delete_cat_subcat_ileniadesign(){
-
-      $id=Request::get('id');
-      $type=Request::get('type');
-      $this->universal_db()->table('image_'.$type.'_ileniadesign')
-      ->where("id","=",$id)
-      ->delete();
-
-      return View::make('query')->with("result",json_encode("eliminato")); 
-
-    }
+  }
 
 }
