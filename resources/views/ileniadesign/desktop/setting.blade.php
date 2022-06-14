@@ -108,7 +108,6 @@
 </section>
 <script>
 
-    //sistemare select option di image, subcategory e discount dinamicamente
     //.not("#discount_code") $(document).on('keyup' perchè se lo prende anche da altri input
     function start_function_setting(){
 
@@ -175,11 +174,11 @@
             '<p class="p-0 m-0" style="text-decoration: underline;text-underline-offset: 1px;color:#dbd3d3" onclick="delete_image(\''+res[i].id+'\')">Remove</p>'+
             '</td>'+
             '<td class="flex-grow-1" style="vertical-align: middle;">'+
-            '<select class="styled-select append_cat_option" style="border: transparent;font-family: Futura PT, sans-serif;font-size: 12px!important;white-space: nowrap;" id="id_image_cat_'+res[i].id+'" id_cat='+res[i].id_cat+'>'+
+            '<select class="styled-select append_cat_option" table="image_shopmyart_ileniadesign" column="type_img" style="border: transparent;font-family: Futura PT, sans-serif;font-size: 12px!important;white-space: nowrap;" id="id_image_cat_'+res[i].id+'" id_cat='+res[i].id_cat+'>'+
             '</select>'+
             '</td>'+
             '<td class="flex-grow-1" style="vertical-align: middle;">'+
-            '<select class="styled-select append_subcat_option" style="border: transparent;font-family: Futura PT, sans-serif;font-size: 12px!important;white-space: nowrap;" id="id_image_subcat_'+res[i].id+'" id_subcat='+res[i].id_subcat+'>'+
+            '<select class="styled-select append_subcat_option" table="image_shopmyart_ileniadesign" column="subtype_image" style="border: transparent;font-family: Futura PT, sans-serif;font-size: 12px!important;white-space: nowrap;" id="id_image_subcat_'+res[i].id+'" id_subcat='+res[i].id_subcat+'>'+
             '</select>'+
             '</td>'+
             '</tr>');
@@ -280,7 +279,7 @@
                 '<td style="border: transparent;font-family: Futura PT, sans-serif;font-size: 12px!important;white-space: nowrap;vertical-align: middle;">'+res_subcategory[i].id_subcat+'</td>'+
                 '<td><input class="image_subcategory_ileniadesign form-control input" type="text" value="'+res[i].name_subcat.replace(/"/g, '&quot;')+'" id="name_subcat_setting_'+res[i].id_subcat+'"></td>'+
                 '<td style="vertical-align: middle;">'+
-                '<select class="styled-select append_subcat_cat_option" style="border: transparent;font-family: Futura PT, sans-serif;font-size: 12px!important;white-space: nowrap;" id="id_subcat_cat_'+res[i].id_subcat+'" id_subcat_subcat='+res[i].id_cat+'>'+
+                '<select class="styled-select append_subcat_cat_option" table="image_subcategory_ileniadesign" column="id_cat" style="border: transparent;font-family: Futura PT, sans-serif;font-size: 12px!important;white-space: nowrap;" id="id_subcat_cat_'+res[i].id_subcat+'" id_subcat_subcat='+res[i].id_cat+'>'+
                 select_list_subcat+
                 '</select>'+
                 '</td>'+
@@ -332,7 +331,7 @@
                 '<td style="border: transparent;font-family: Futura PT, sans-serif;font-size: 12px!important;white-space: nowrap;vertical-align: middle;">'+res[i].id+'</td>'+
                 '<td><input class="image_discount_ileniadesign form-control input" type="text" value="'+res[i].name.replace(/"/g, '&quot;')+'" id="name_discount_setting_'+res[i].id+'"></td>'+
                 '<td><input class="image_discount_ileniadesign form-control input" type="text" value="'+res[i].off+'" id="off_discount_setting_'+res[i].id+'"></td>'+
-                '<td style="vertical-align: middle;"><select class="styled-select" style="border: transparent;font-family: Futura PT, sans-serif;font-size: 12px!important;white-space: nowrap;" id="end_discount_setting_'+res[i].id+'">'+
+                '<td style="vertical-align: middle;"><select class="styled-select" table="image_discount_ileniadesign" column="end_discount" style="border: transparent;font-family: Futura PT, sans-serif;font-size: 12px!important;white-space: nowrap;" id="end_discount_setting_'+res[i].id+'">'+
                     select_discount+
                 '</select></td>'+
                 '<td class="flex-grow-1" style="vertical-align: middle;">'+
@@ -343,6 +342,8 @@
                 }
 
                 $("#append_discount_setting").append(list_discount);
+
+                change_select_option();
 
         });
     }
@@ -439,6 +440,25 @@
         function(data){
             console.log(data);
         });
+        
+    }
+
+    function change_select_option(){
+        
+        $(".styled-select").change(function(data){
+            var id=$(this).attr("id").split("_")[3];
+            var table=$(this).attr("table");
+            var column=$(this).attr("column");
+            var value=$(this).val();
+
+            $.get("update_setting_image_select",{id:id, table:table, column:column, value:value},
+            function(data){
+
+                console.log(data);
+
+            });
+            
+        })
         
     }
 
@@ -559,5 +579,7 @@
         });
 
     }
+
+    
 
 </script>

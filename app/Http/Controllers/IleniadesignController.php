@@ -661,6 +661,23 @@ class IleniadesignController extends Controller{
 
   }
 
+  public function update_setting_image_select(){
+
+    $id=Request::get("id");
+    $table=Request::get("table");
+    $column=Request::get("column");
+    $value=Request::get("value");
+
+    $this->universal_db()->table($table)
+    ->where("id","=",$id)
+    ->update(array(
+      $column=>$value,
+    ));
+
+    return View::make('query')->with("result",json_encode("updated"));
+
+  }
+
   public function delete_image_ileniadesign(){
 
     $id_image=Request::get('id_image');

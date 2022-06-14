@@ -489,6 +489,8 @@ Route::get('/update_image_ileniadesign', 'IleniadesignController@update_image_il
 
 Route::get("/update_setting_image","IleniadesignController@update_setting_image");
 
+Route::get("/update_setting_image_select","IleniadesignController@update_setting_image_select");
+
 Route::get('/delete_image_ileniadesign', 'IleniadesignController@delete_image_ileniadesign');
 
 Route::get('/delete_cat_subcat_ileniadesign', 'IleniadesignController@delete_cat_subcat_ileniadesign');
