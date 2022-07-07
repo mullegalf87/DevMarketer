@@ -174,6 +174,10 @@
         background-color: transparent;
     }  
 
+    .mandatory_input{
+        border-bottom:1px solid red!important
+    }
+
 </style>
 <section class="container-fluid" style="padding:0">
     <div class="d-flex flex-nowrap">
@@ -187,20 +191,20 @@
                         <li id="code_discount" style="flex-grow: 1;"><strong style="font-family: 'Futura PT', sans-serif;font-size: 15px!important;white-space: nowrap;">Code discoount</strong></li>
                         <li id="delivery_method" style="flex-grow: 1;"><strong style="font-family: 'Futura PT', sans-serif;font-size: 15px!important;white-space: nowrap;">Delivery method</strong></li>
                     </div>
-                    <fieldset class="pb-0">
+                    <fieldset id="fieldset_1" class="pb-0">
                         <div class="d-flex flex-wrap">
                             <div class="col-md-6 pl-0" style="margin: 10% 0 10% 0;">
-                                <input class="m-0 input" placeholder="First name*" style="height:60px;background: transparent; border-radius: 0; border-bottom: 1px solid #dbd3d3;font-family: 'Futura PT', sans-serif;font-size: 15px!important;">
+                                <input class="m-0 input" placeholder="First name*" style="height:60px;background: transparent; border-radius: 0; border-bottom: 1px solid #dbd3d3;font-family: 'Futura PT', sans-serif;font-size: 15px!important;" type_input="name" value="{{auth()->guard('users_ileniadesign')->user()->name}}">
                             </div>
                             <div class="col-md-6 pr-0" style="margin: 10% 0 10% 0;">
-                                <input class="m-0 input" placeholder="Last name*" style="height:60px;background: transparent; border-radius: 0; border-bottom: 1px solid #dbd3d3;font-family: 'Futura PT', sans-serif;font-size: 15px!important;">
+                                <input class="m-0 input" placeholder="Last name*" style="height:60px;background: transparent; border-radius: 0; border-bottom: 1px solid #dbd3d3;font-family: 'Futura PT', sans-serif;font-size: 15px!important;" type_input="lastname" value="{{auth()->guard('users_ileniadesign')->user()->lastname}}">
                             </div>
                             <div class="col-md-12 p-0" style="margin: 0 0 10% 0;">
-                                <input class="m-0 input" placeholder="Email*" style="height:60px;background: transparent; border-radius: 0; border-bottom: 1px solid #dbd3d3;font-family: 'Futura PT', sans-serif;font-size: 15px!important;">
+                                <input class="m-0 input" placeholder="Email*" style="height:60px;background: transparent; border-radius: 0; border-bottom: 1px solid #dbd3d3;font-family: 'Futura PT', sans-serif;font-size: 15px!important;" type_input="email" value="{{auth()->guard('users_ileniadesign')->user()->email}}">
                             </div>
                         </div>
                         <div class="d-flex flex-nowrap">
-                            <button type="button" name="next" class="next action-button btn btn-primary text-left w-100" value="Next Step">
+                            <button type="button" name="next" class="next action-button btn btn-primary text-left w-100 save_data_user" step="1" value="Next Step">
                                 <div class="d-flex flex-nowrap">
                                     <p class="flex-grow-1 m-0">SHIPPING DETAIL</p>
                                     <p class="m-0"><i class="bx bx-shopping-bag"></i></p>
@@ -208,25 +212,25 @@
                             </button>
                         </div>
                     </fieldset>
-                    <fieldset>
+                    <fieldset id="fieldset_2">
                         <div class="d-flex flex-wrap">
                             <div class="col-md-6 pl-0" style="margin: 10% 0 10% 0;">
-                                <input class="m-0 input" placeholder="Country*" style="height:60px;background: transparent; border-radius: 0; border-bottom: 1px solid #dbd3d3;;font-family: 'Futura PT', sans-serif;font-size: 15px!important;">
+                                <input class="m-0 input" placeholder="Country*" style="height:60px;background: transparent; border-radius: 0; border-bottom: 1px solid #dbd3d3;;font-family: 'Futura PT', sans-serif;font-size: 15px!important;" type_input="state" value="{{auth()->guard('users_ileniadesign')->user()->state}}">
                             </div>
                             <div class="col-md-6 pr-0" style="margin: 10% 0 10% 0;">
-                                <input class="m-0 input" placeholder="Region*" style="height:60px;background: transparent; border-radius: 0; border-bottom: 1px solid #dbd3d3;;font-family: 'Futura PT', sans-serif;font-size: 15px!important;">
+                                <input class="m-0 input" placeholder="Region*" style="height:60px;background: transparent; border-radius: 0; border-bottom: 1px solid #dbd3d3;;font-family: 'Futura PT', sans-serif;font-size: 15px!important;" type_input="region" value="{{auth()->guard('users_ileniadesign')->user()->region}}">
                             </div>
                             <div class="col-md-6 pl-0" style="margin: 0 0 10% 0;">
-                                <input class="m-0 input" placeholder="City*" style="height:60px;background: transparent; border-radius: 0; border-bottom: 1px solid #dbd3d3;;font-family: 'Futura PT', sans-serif;font-size: 15px!important;">
+                                <input class="m-0 input" placeholder="City*" style="height:60px;background: transparent; border-radius: 0; border-bottom: 1px solid #dbd3d3;;font-family: 'Futura PT', sans-serif;font-size: 15px!important;" type_input="city" value="{{auth()->guard('users_ileniadesign')->user()->city}}">
                             </div>
                             <div class="col-md-6 pr-0" style="margin: 0 0 10% 0;">
-                                <input class="m-0 input" placeholder="Address*" style="height:60px;background: transparent; border-radius: 0; border-bottom: 1px solid #dbd3d3;;font-family: 'Futura PT', sans-serif;font-size: 15px!important;">
+                                <input class="m-0 input" placeholder="Address*" style="height:60px;background: transparent; border-radius: 0; border-bottom: 1px solid #dbd3d3;;font-family: 'Futura PT', sans-serif;font-size: 15px!important;" type_input="address" value="{{auth()->guard('users_ileniadesign')->user()->address}}">
                             </div>
                             <div class="col-md-6 pl-0" style="margin: 0 0 10% 0;">
-                                <input class="m-0 input" placeholder="Zip code*" style="height:60px;background: transparent; border-radius: 0; border-bottom: 1px solid #dbd3d3;;font-family: 'Futura PT', sans-serif;font-size: 15px!important;">
+                                <input class="m-0 input" placeholder="Zip code*" style="height:60px;background: transparent; border-radius: 0; border-bottom: 1px solid #dbd3d3;;font-family: 'Futura PT', sans-serif;font-size: 15px!important;" type_input="zip" value="{{auth()->guard('users_ileniadesign')->user()->zip}}">
                             </div>
                             <div class="col-md-6 pr-0" style="margin: 0 0 10% 0;">
-                                <input class="m-0 input" placeholder="Phone*" style="height:60px;background: transparent; border-radius: 0; border-bottom: 1px solid #dbd3d3;;font-family: 'Futura PT', sans-serif;font-size: 15px!important;">
+                                <input class="m-0 input" placeholder="Phone*" style="height:60px;background: transparent; border-radius: 0; border-bottom: 1px solid #dbd3d3;;font-family: 'Futura PT', sans-serif;font-size: 15px!important;" type_input="cell" value="{{auth()->guard('users_ileniadesign')->user()->cell}}">
                             </div>
                         </div>
                         <div class="d-flex flex-nowrap">
@@ -236,7 +240,7 @@
                                     <p class="m-0"><i class="bx bx-shopping-bag"></i></p>
                                 </div>
                             </button>
-                            <button type="button" name="next" class="next action-button btn btn-primary text-left w-100" value="Next Step" style="background-color: #CDB4B4!important;">
+                            <button type="button" name="next" class="next action-button btn btn-primary text-left w-100 save_data_user" step="2" value="Next Step" style="background-color: #CDB4B4!important;">
                                 <div class="d-flex flex-nowrap">
                                     <p class="flex-grow-1 m-0">CODE DISCOUNT</p>
                                     <p class="m-0"><i class="bx bx-shopping-bag"></i></p>
@@ -360,27 +364,64 @@
         var opacity;
         
         $(".next").click(function(){
-            
-            current_fs = $(this).parent().parent();
-            next_fs = $(this).parent().parent().next();
-            
-            $("#progressbar li").eq($("fieldset").index(next_fs)).addClass("active");
-            
-            next_fs.show();
-            
-            current_fs.animate({opacity: 0}, {
-                step: function(now) {
+
+            $(document).one("click",".save_data_user",function(data){
+
+                var step=$(this).attr("step");
+                var object_input=[];
+
+                $("#fieldset_"+step).find("input").each(function(data){
+
+                    var column=$(this).attr("type_input");
+                    var value=$(this).val();
+
+                    if (value=="") {
+
+                        $(this).addClass('mandatory_input');
+
+                    }else{
+
+                        $(this).removeClass('mandatory_input');
+                        object_input.push({column:column, value:value});
+
+                    }
                     
-                    opacity = 1 - now;
+                });
+
+                var count_mandatory=$(".mandatory_input").length;
+
+                console.log(count_mandatory);
+                
+                if (count_mandatory==0) {
+
+                    save_data_user(object_input);
+
+                    current_fs = $(this).parent().parent();
+                    next_fs = $(this).parent().parent().next();
                     
-                    current_fs.css({
-                        'display': 'none',
-                        'position': 'relative'
+                    $("#progressbar li").eq($("fieldset").index(next_fs)).addClass("active");
+                    
+                    next_fs.show();
+                    
+                    current_fs.animate({opacity: 0}, {
+                        step: function(now) {
+                            
+                            opacity = 1 - now;
+                            
+                            current_fs.css({
+                                'display': 'none',
+                                'position': 'relative'
+                            });
+                            next_fs.css({'opacity': opacity});
+
+                        },
+                        duration: 600
                     });
-                    next_fs.css({'opacity': opacity});
-                },
-                duration: 600
+
+                }
+
             });
+
         });
         
         $(".previous").click(function(){
@@ -448,5 +489,41 @@
 
     }
 
+    // $(document).ready(function(){
+
+    //     $(document).on("click",".save_data_user",function(data){
+
+    //         var step=$(this).attr("step");
+    //         var object_input=[];
+
+    //         $("#fieldset_"+step).find("input").each(function(data){
+
+    //             var column=$(this).attr("type_input");
+    //             var value=$(this).val();
+
+    //             if (value=="") {
+    //                 $(this).css("border:1px solid red");
+    //             }
+
+    //             object_input.push({column:column, value:value});
+                
+    //         });
+
+    //          save_data_user(object_input);
+
+    //     });
+
+    // });
+
+    function save_data_user(object_input){
+
+        $.get("save_data_user_ileniadesign",{object_input:object_input},
+        function(data){
+
+            console.log(data);
+
+        });
+
+    }
 
 </script>

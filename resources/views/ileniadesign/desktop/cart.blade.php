@@ -180,6 +180,8 @@ function get_cart(page){
                 console.log(data);
 
                 get_count_cart();
+
+                apply_discount_code();
                 
             });
             

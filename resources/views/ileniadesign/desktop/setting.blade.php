@@ -131,7 +131,7 @@
 
         var x_timer;
 
-        $(document).on('keyup', '.input', function (e) {
+        $(document).on('keyup', '#setting .input', function (e) {
             clearTimeout(x_timer);
             var classFrom=$(this)[0].classList[0];
             var complete_id=$(this).attr("id");

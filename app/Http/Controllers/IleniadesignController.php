@@ -490,6 +490,24 @@ class IleniadesignController extends Controller{
   }
 
   //controllers summary
+  public function save_data_user_ileniadesign(){
+  
+    $object_input=Request::get("object_input");
+    $id_user=auth()->guard('users_ileniadesign')->user()->id;
+    
+    foreach ($object_input as $value) {
+  
+      $verify_code=DB::table('users_ileniadesigns')
+      ->where('id', '=', $id_user)
+      ->update(array(
+        $value["column"]=>$value["value"],
+      ));
+    }
+    
+    return View::make('query')->with("result","updated!");
+    
+  }
+
   public function apply_discount_ileniadesign(){
   
     $name_discount=Request::get("name_discount");

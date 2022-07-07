@@ -468,6 +468,8 @@ Route::get('/delete_prod_cart_ileniadesign', 'IleniadesignController@delete_prod
 //route summary
 Route::get('/apply_discount_ileniadesign', 'IleniadesignController@apply_discount_ileniadesign');
 
+Route::get('/save_data_user_ileniadesign', 'IleniadesignController@save_data_user_ileniadesign');
+
 //route setting
 Route::get("/get_all_image_ileniadesign","IleniadesignController@get_all_image_ileniadesign");
 

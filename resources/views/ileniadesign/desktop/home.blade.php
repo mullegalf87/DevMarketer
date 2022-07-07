@@ -440,8 +440,9 @@
     </footer>
     <script>
         //desktop
-        //fare form per acquisto step
-        //fare ordini profilo cliente
+        //sistemare $("#discount_code").is(":hidden") nel form prima dell'acquisto è perchè manca il save_data_user
+        //fare sistema di sconti da attivare e disattivare da ilenia nel setting: solo con a4 il terzo in omaggio;
+        //fare pagina ordini profilo cliente
         //richieste
         
         //mobile
