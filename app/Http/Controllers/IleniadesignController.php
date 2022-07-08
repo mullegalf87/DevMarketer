@@ -532,6 +532,7 @@ class IleniadesignController extends Controller{
       ->update(array(
         $value["column"]=>$value["value"],
       ));
+      
     }
     
     return View::make('query')->with("result","updated!");

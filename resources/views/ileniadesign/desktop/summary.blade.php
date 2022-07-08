@@ -127,6 +127,11 @@
         font-family: 'Futura PT', sans-serif;font-size: 15px!important;white-space: nowrap;
         content: "4"
     }
+
+    #summary #progressbar #make_payment:before {
+        font-family: 'Futura PT', sans-serif;font-size: 15px!important;white-space: nowrap;
+        content: "5"
+    }
       
     #summary #progressbar li:before {
         width: 50px;
@@ -178,18 +183,23 @@
         border-bottom:1px solid red!important
     }
 
+    .okconf:before {
+        content:"Ok"!important;
+    }
+
 </style>
 <section class="container-fluid" style="padding:0">
     <div class="d-flex flex-nowrap">
         <div class="col-md-7">
             <h3 class="pb-5 pt-5" style="font-family: 'Silk Serif', sans-serif;">Summary order</h3>
-            <form id="msform">
+            <!-- <form id="msform"> -->
                 <ul id="progressbar">
                     <div class="d-flex flex-nowrap">
                         <li class="active" id="personal_detail" style="flex-grow: 1;"><strong style="font-family: 'Futura PT', sans-serif;font-size: 15px!important;white-space: nowrap;">Personal detail</strong></li>
                         <li id="shipping_detail" style="flex-grow: 1;"><strong style="font-family: 'Futura PT', sans-serif;font-size: 15px!important;white-space: nowrap;">Shipping detail</strong></li>
                         <li id="code_discount" style="flex-grow: 1;"><strong style="font-family: 'Futura PT', sans-serif;font-size: 15px!important;white-space: nowrap;">Code discoount</strong></li>
                         <li id="delivery_method" style="flex-grow: 1;"><strong style="font-family: 'Futura PT', sans-serif;font-size: 15px!important;white-space: nowrap;">Delivery method</strong></li>
+                        <li id="make_payment" style="flex-grow: 1;"><strong style="font-family: 'Futura PT', sans-serif;font-size: 15px!important;white-space: nowrap;">Make payment</strong></li>
                     </div>
                     <fieldset id="fieldset_1" class="pb-0">
                         <div class="d-flex flex-wrap">
@@ -248,10 +258,10 @@
                             </button>
                         </div>
                     </fieldset>
-                    <fieldset>
+                    <fieldset id="fieldset_3">
                         <div class="d-flex flex-wrap">
                             <div class="col-md-12 p-5" style="margin: 10% 0 10% 0;border: 1px solid #CDB4B4;height: 150px;">
-                                <input class="m-0 input" placeholder="Discount Code" style="height:60px;background: transparent; border-radius: 0; border-bottom: 1px solid #dbd3d3;;font-family: 'Futura PT', sans-serif;font-size: 15px!important;" id="discount_code" value="happymay30">
+                                <input class="m-0 input" placeholder="Discount Code" style="height:60px;background: transparent; border-radius: 0; border-bottom: 1px solid #dbd3d3;;font-family: 'Futura PT', sans-serif;font-size: 15px!important;" id="discount_code" value="">
                             </div>
                         </div>
                         <div class="d-flex flex-nowrap">
@@ -261,7 +271,7 @@
                                     <p class="m-0"><i class="bx bx-shopping-bag"></i></p>
                                 </div>
                             </button>
-                            <button type="button" name="next" class="next action-button btn btn-primary text-left w-100" value="Next Step" style="background-color: #CDB4B4!important;" onclick="apply_discount_code()">
+                            <button type="button" name="next" class="next action-button btn btn-primary text-left w-100 save_data_user" step="3" value="Next Step" style="background-color: #CDB4B4!important;" onclick="apply_discount_code()">
                                 <div class="d-flex flex-nowrap">
                                     <p class="flex-grow-1 m-0">DELIVERY METHOD</p>
                                     <p class="m-0"><i class="bx bx-shopping-bag"></i></p>
@@ -269,7 +279,7 @@
                             </button>
                         </div>
                     </fieldset>
-                    <fieldset>
+                    <fieldset id="fieldset_4">
                         <div class="d-flex flex-wrap">
                             <div class="col-md-12 p-5 radioSection" style="margin: 10% 0 0 0;border: 1px solid #CDB4B4;height: 150px;">
                                 <div class="d-flex flex-nowrap">
@@ -295,7 +305,7 @@
                                     <p class="m-0"><i class="bx bx-shopping-bag"></i></p>
                                 </div>
                             </button>
-                            <button type="button" name="next" class="next action-button btn btn-primary text-left w-100" value="Next Step" style="background-color: #CDB4B4!important;">
+                            <button type="button" name="next" class="next action-button btn btn-primary text-left w-100 save_data_user" step="4" value="Next Step" style="background-color: #CDB4B4!important;">
                                 <div class="d-flex flex-nowrap">
                                     <p class="flex-grow-1 m-0">MAKE PAYMENT</p>
                                     <p class="m-0"><i class="bx bx-shopping-bag"></i></p>
@@ -303,8 +313,40 @@
                             </button>
                         </div>
                     </fieldset>
+                    <fieldset id="fieldset_5">
+
+                        <div class="mkpay" style="justify-content: center;">
+                            <div id='paypal-button' class="col-md-12 p-0 text-center" style="margin: 10% 0 10% 0;"></div>
+                        </div>
+                        <div class="mkpay">
+                            <button type="button" name="previous" class="previous action-button-previous btn btn-primary text-left w-100" value="Previous Step">
+                                <div class="d-flex flex-nowrap">
+                                    <p class="flex-grow-1 m-0">DELIVERY METHOD</p>
+                                    <p class="m-0"><i class="bx bx-shopping-bag"></i></p>
+                                </div>
+                            </button>
+                        </div>
+
+                        <div id="ocpay" class="d-none">
+                            <div class="d-flex" style="justify-content: center;">
+                                <div class="w-50" style="margin: 10% 0 10% 0;">
+                                    <h2 class="mb-5 text-left" style="font-family: 'Silk Serif', sans-serif;color: #000000;">Thank you for your order!</h2>
+                                    <p class="mb-5" style="text-align: justify;color: #000000;">Il tempo di elaborazione del tuo ordine richiede da 3 a 6 giorni lavorativi. Una volta preparato il pacco verra' spedito e sarai informato via e-mail sullo stato di avanzamento del tuo ordine ricevendo informazioni utili per il tracciamento.</p>
+                                </div>
+                            </div>
+                            <div class="d-flex flex-nowrap">
+                                <button class="btn btn-primary text-left w-100" onclick="change_vis('shopmyart')">
+                                    <div class="d-flex flex-nowrap">
+                                        <p class="flex-grow-1 m-0">Continue shopping</p>
+                                        <p class="m-0"><i class="bx bx-shopping-bag"></i></p>
+                                    </div>
+                                </button>
+                            </div>
+                        </div>
+
+                    </fieldset>
                 </ul>
-            </form>
+            <!-- </form> -->
         </div>
         <div class="col-md-5" style="background-color: #dbd3d3;">
             <div class="d-flex">
@@ -355,7 +397,18 @@
     function start_function_summary(){
 
         get_cart("summary");
+        reset_class_text_html();
         
+    }
+
+    function reset_class_text_html(){
+
+        $(".mkpay").removeClass("d-none");
+        $("#ocpay").addClass("d-none");
+
+        $("#make_payment>strong").text("Make payment");
+        $("#make_payment").removeClass("okconf");
+
     }
     
     $(document).ready(function(){
@@ -370,7 +423,7 @@
                 var step=$(this).attr("step");
                 var object_input=[];
 
-                $("#fieldset_"+step).find("input").each(function(data){
+                $("#fieldset_"+step).not($("#fieldset_3")).not($("#fieldset_4")).find("input").each(function(data){
 
                     var column=$(this).attr("type_input");
                     var value=$(this).val();
@@ -389,13 +442,15 @@
                 });
 
                 var count_mandatory=$(".mandatory_input").length;
-
-                console.log(count_mandatory);
                 
                 if (count_mandatory==0) {
 
-                    save_data_user(object_input);
+                    if (object_input.length!=0) {
 
+                        save_data_user(object_input);
+
+                    }
+                    
                     current_fs = $(this).parent().parent();
                     next_fs = $(this).parent().parent().next();
                     
@@ -489,32 +544,6 @@
 
     }
 
-    // $(document).ready(function(){
-
-    //     $(document).on("click",".save_data_user",function(data){
-
-    //         var step=$(this).attr("step");
-    //         var object_input=[];
-
-    //         $("#fieldset_"+step).find("input").each(function(data){
-
-    //             var column=$(this).attr("type_input");
-    //             var value=$(this).val();
-
-    //             if (value=="") {
-    //                 $(this).css("border:1px solid red");
-    //             }
-
-    //             object_input.push({column:column, value:value});
-                
-    //         });
-
-    //          save_data_user(object_input);
-
-    //     });
-
-    // });
-
     function save_data_user(object_input){
 
         $.get("save_data_user_ileniadesign",{object_input:object_input},
@@ -525,5 +554,45 @@
         });
 
     }
+
+    paypal.Buttons({
+
+        style: {
+            
+            shape: 'rect',
+            color: 'blue',
+            layout: 'vertical',
+            label: 'paypal',
+
+            },
+
+            createOrder: function(data, actions) {
+
+            // This function sets up the details of the transaction, including the amount and line item details.
+            return actions.order.create({
+                purchase_units: [{
+                amount: {
+                    // value: Math.round(sum_cart)
+                    value: 10
+
+                }
+                }]
+            });
+            },
+
+            onApprove: function(data, actions) {
+                // This function captures the funds from the transaction.
+                return actions.order.capture().then(function(details) {
+
+                    $(".mkpay").addClass("d-none");
+                    $("#ocpay").removeClass("d-none");
+
+                    $("#make_payment>strong").text("Order confirmed");
+                    $("#make_payment").addClass("okconf");
+  
+                });
+            }
+
+    }).render('#paypal-button');
 
 </script>

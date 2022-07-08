@@ -23,6 +23,9 @@
     <!-- lettering -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/prefixfree/1.0.7/prefixfree.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/lettering.js/0.6.1/jquery.lettering.min.js"></script>
+    <!-- paypal -->
+    <script src="https://www.paypal.com/sdk/js?client-id=AaLPg6yTVNvanJXpjFSt0MsUZ4yG7FUVCuAHRJiFcjrGyEqWBKyz1kr60ysO079Y-WAdIlEmcKOE6amA&currency=EUR"></script>
+    <!-- sb-fo43uq10804200@personal.example.com pass: 12345678 -->
     <style>
         @import url('http://fonts.cdnfonts.com/css/silk-serif?styles=108358');
         @import url('http://fonts.cdnfonts.com/css/futura-pt?styles=117667');
@@ -440,10 +443,10 @@
     </footer>
     <script>
         //desktop
-        //sistemare $("#discount_code").is(":hidden") nel form prima dell'acquisto è perchè manca il save_data_user
         //fare sistema di sconti da attivare e disattivare da ilenia nel setting: solo con a4 il terzo in omaggio;
-        //fare pagina ordini profilo cliente
-        //richieste
+        //fare sistema di salvataggio ordine e invio email ordine dopo pagamento e ricordarsi di resettare gli step;
+        //fare pagina ordini profilo cliente;
+        //richieste;
         
         //mobile
         

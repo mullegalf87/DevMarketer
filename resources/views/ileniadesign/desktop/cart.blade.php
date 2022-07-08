@@ -32,7 +32,7 @@
                 <p class="total_cart">€ 0,00</p>
             </div>
             <div class="d-flex flex-nowrap">
-                <button class="btn btn-primary text-left w-100 mr-3" onclick="change_vis('shopmyart')">
+                <button class="btn btn-primary text-left w-100 mr-3" onclick="change_vis('shopmyart_0')">
                     <div class="d-flex flex-nowrap">
                         <p class="flex-grow-1 m-0">Continue shopping</p>
                         <p class="m-0"><i class="bx bx-shopping-bag"></i></p>
