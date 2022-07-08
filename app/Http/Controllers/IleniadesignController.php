@@ -74,6 +74,36 @@ class IleniadesignController extends Controller{
     }elseif ($agent->isDesktop()) {
       $result="desktop";
     }
+
+    //mi permette di controllare sin dall'inizio se l'utente è loggato o meno e quindi passarmi i dati senza andare in errore sfruttando semplicemente nelle view {{$_SESSION['cell']}}
+    if (auth()->guard('users_ileniadesign')->check()) {
+
+      $_SESSION["id"]=auth()->guard('users_ileniadesign')->user()->id;
+      $_SESSION["name"]=auth()->guard('users_ileniadesign')->user()->name;
+      $_SESSION["lastname"]=auth()->guard('users_ileniadesign')->user()->lastname;
+      $_SESSION["email"]=auth()->guard('users_ileniadesign')->user()->email;
+      $_SESSION["cell"]=auth()->guard('users_ileniadesign')->user()->cell;
+      $_SESSION["address"]=auth()->guard('users_ileniadesign')->user()->address;
+      $_SESSION["state"]=auth()->guard('users_ileniadesign')->user()->state;
+      $_SESSION["region"]=auth()->guard('users_ileniadesign')->user()->region;
+      $_SESSION["city"]=auth()->guard('users_ileniadesign')->user()->city;
+      $_SESSION["zip"]=auth()->guard('users_ileniadesign')->user()->zip;
+
+    }else{
+
+      $_SESSION["id"]="";
+      $_SESSION["name"]="";
+      $_SESSION["lastname"]="";
+      $_SESSION["email"]="";
+      $_SESSION["cell"]="";
+      $_SESSION["address"]="";
+      $_SESSION["state"]="";
+      $_SESSION["region"]="";
+      $_SESSION["city"]="";
+      $_SESSION["zip"]="";
+
+    }
+
     return view('ileniadesign.'.$result.'.home')->with("data",json_encode($data));
   }
 

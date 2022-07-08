@@ -194,13 +194,13 @@
                     <fieldset id="fieldset_1" class="pb-0">
                         <div class="d-flex flex-wrap">
                             <div class="col-md-6 pl-0" style="margin: 10% 0 10% 0;">
-                                <input class="m-0 input" placeholder="First name*" style="height:60px;background: transparent; border-radius: 0; border-bottom: 1px solid #dbd3d3;font-family: 'Futura PT', sans-serif;font-size: 15px!important;" type_input="name" value="{{auth()->guard('users_ileniadesign')->user()->name}}">
+                                <input class="m-0 input" placeholder="First name*" style="height:60px;background: transparent; border-radius: 0; border-bottom: 1px solid #dbd3d3;font-family: 'Futura PT', sans-serif;font-size: 15px!important;" type_input="name" value="{{$_SESSION['name']}}">
                             </div>
                             <div class="col-md-6 pr-0" style="margin: 10% 0 10% 0;">
-                                <input class="m-0 input" placeholder="Last name*" style="height:60px;background: transparent; border-radius: 0; border-bottom: 1px solid #dbd3d3;font-family: 'Futura PT', sans-serif;font-size: 15px!important;" type_input="lastname" value="{{auth()->guard('users_ileniadesign')->user()->lastname}}">
+                                <input class="m-0 input" placeholder="Last name*" style="height:60px;background: transparent; border-radius: 0; border-bottom: 1px solid #dbd3d3;font-family: 'Futura PT', sans-serif;font-size: 15px!important;" type_input="lastname" value="{{$_SESSION['lastname']}}">
                             </div>
                             <div class="col-md-12 p-0" style="margin: 0 0 10% 0;">
-                                <input class="m-0 input" placeholder="Email*" style="height:60px;background: transparent; border-radius: 0; border-bottom: 1px solid #dbd3d3;font-family: 'Futura PT', sans-serif;font-size: 15px!important;" type_input="email" value="{{auth()->guard('users_ileniadesign')->user()->email}}">
+                                <input class="m-0 input" placeholder="Email*" style="height:60px;background: transparent; border-radius: 0; border-bottom: 1px solid #dbd3d3;font-family: 'Futura PT', sans-serif;font-size: 15px!important;" type_input="email" value="{{$_SESSION['email']}}">
                             </div>
                         </div>
                         <div class="d-flex flex-nowrap">
@@ -215,22 +215,22 @@
                     <fieldset id="fieldset_2">
                         <div class="d-flex flex-wrap">
                             <div class="col-md-6 pl-0" style="margin: 10% 0 10% 0;">
-                                <input class="m-0 input" placeholder="Country*" style="height:60px;background: transparent; border-radius: 0; border-bottom: 1px solid #dbd3d3;;font-family: 'Futura PT', sans-serif;font-size: 15px!important;" type_input="state" value="{{auth()->guard('users_ileniadesign')->user()->state}}">
+                                <input class="m-0 input" placeholder="Country*" style="height:60px;background: transparent; border-radius: 0; border-bottom: 1px solid #dbd3d3;;font-family: 'Futura PT', sans-serif;font-size: 15px!important;" type_input="state" value="{{$_SESSION['state']}}">
                             </div>
                             <div class="col-md-6 pr-0" style="margin: 10% 0 10% 0;">
-                                <input class="m-0 input" placeholder="Region*" style="height:60px;background: transparent; border-radius: 0; border-bottom: 1px solid #dbd3d3;;font-family: 'Futura PT', sans-serif;font-size: 15px!important;" type_input="region" value="{{auth()->guard('users_ileniadesign')->user()->region}}">
+                                <input class="m-0 input" placeholder="Region*" style="height:60px;background: transparent; border-radius: 0; border-bottom: 1px solid #dbd3d3;;font-family: 'Futura PT', sans-serif;font-size: 15px!important;" type_input="region" value="{{$_SESSION['region']}}">
                             </div>
                             <div class="col-md-6 pl-0" style="margin: 0 0 10% 0;">
-                                <input class="m-0 input" placeholder="City*" style="height:60px;background: transparent; border-radius: 0; border-bottom: 1px solid #dbd3d3;;font-family: 'Futura PT', sans-serif;font-size: 15px!important;" type_input="city" value="{{auth()->guard('users_ileniadesign')->user()->city}}">
+                                <input class="m-0 input" placeholder="City*" style="height:60px;background: transparent; border-radius: 0; border-bottom: 1px solid #dbd3d3;;font-family: 'Futura PT', sans-serif;font-size: 15px!important;" type_input="city" value="{{$_SESSION['city']}}">
                             </div>
                             <div class="col-md-6 pr-0" style="margin: 0 0 10% 0;">
-                                <input class="m-0 input" placeholder="Address*" style="height:60px;background: transparent; border-radius: 0; border-bottom: 1px solid #dbd3d3;;font-family: 'Futura PT', sans-serif;font-size: 15px!important;" type_input="address" value="{{auth()->guard('users_ileniadesign')->user()->address}}">
+                                <input class="m-0 input" placeholder="Address*" style="height:60px;background: transparent; border-radius: 0; border-bottom: 1px solid #dbd3d3;;font-family: 'Futura PT', sans-serif;font-size: 15px!important;" type_input="address" value="{{$_SESSION['address']}}">
                             </div>
                             <div class="col-md-6 pl-0" style="margin: 0 0 10% 0;">
-                                <input class="m-0 input" placeholder="Zip code*" style="height:60px;background: transparent; border-radius: 0; border-bottom: 1px solid #dbd3d3;;font-family: 'Futura PT', sans-serif;font-size: 15px!important;" type_input="zip" value="{{auth()->guard('users_ileniadesign')->user()->zip}}">
+                                <input class="m-0 input" placeholder="Zip code*" style="height:60px;background: transparent; border-radius: 0; border-bottom: 1px solid #dbd3d3;;font-family: 'Futura PT', sans-serif;font-size: 15px!important;" type_input="zip" value="{{$_SESSION['zip']}}">
                             </div>
                             <div class="col-md-6 pr-0" style="margin: 0 0 10% 0;">
-                                <input class="m-0 input" placeholder="Phone*" style="height:60px;background: transparent; border-radius: 0; border-bottom: 1px solid #dbd3d3;;font-family: 'Futura PT', sans-serif;font-size: 15px!important;" type_input="cell" value="{{auth()->guard('users_ileniadesign')->user()->cell}}">
+                                <input class="m-0 input" placeholder="Phone*" style="height:60px;background: transparent; border-radius: 0; border-bottom: 1px solid #dbd3d3;;font-family: 'Futura PT', sans-serif;font-size: 15px!important;" type_input="cell" value="{{$_SESSION['cell']}}">
                             </div>
                         </div>
                         <div class="d-flex flex-nowrap">

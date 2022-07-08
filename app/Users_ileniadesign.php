@@ -34,6 +34,5 @@ class Users_ileniadesign extends Authenticatable
     // {
     //     $this->attributes['password'] = bcrypt($password);
     // }
-    
 
 }

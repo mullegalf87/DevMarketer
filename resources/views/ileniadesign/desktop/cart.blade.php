@@ -220,6 +220,8 @@ function delete_cart(id_product){
         sum_cart();
 
         get_count_cart();
+
+        apply_discount_code();
         
     });
 }
