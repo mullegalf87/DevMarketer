@@ -372,8 +372,16 @@
                 <div class="col-md-6 p-0"></div>
                 <div class="col-md-6 p-0">
                     <div class="d-flex flex-nowrap">
-                        <p class="flex-grow-1">Total</p>
+                        <p class="flex-grow-1">Start Total</p>
                         <p class="total_cart"></p>
+                    </div>
+                    <div class="d-flex flex-nowrap">
+                        <p class="flex-grow-1">Total gift</p>
+                        <p class="total_gift">€ 0.00</p>
+                    </div>
+                    <div class="d-flex flex-nowrap">
+                        <p class="flex-grow-1">New total</p>
+                        <p class="new_total">€ 0.00</p>
                     </div>
                     <div class="d-flex flex-nowrap">
                         <p class="flex-grow-1">Total discount</p>
@@ -384,7 +392,7 @@
                         <p class="total_delivery">€ 6.99</p>
                     </div>
                     <div class="d-flex flex-nowrap">
-                        <p class="flex-grow-1">New Total</p>
+                        <p class="flex-grow-1">End Total</p>
                         <p class="total_definitive"></p>
                     </div>
                 </div>
@@ -505,44 +513,12 @@
         
     });
 
-    function apply_discount_code(){
-
-        var name_discount=$("#discount_code").val();
-        var total_discount=0;
-
-        $.get("apply_discount_ileniadesign",{name_discount:name_discount},
-        function(data){
-            console.log(data)
-            total_discount=parseFloat($(".total_cart").text().split("€ ")[1])/100*data;
-            $(".total_discount").text("- € "+total_discount.toFixed(2));
-            total_definitive_cart();
-        });
-
-    }
-
     $(".radioSection").click(function () {
         $(this).find('input[type=radio]').prop('checked', true);
         $('.radioSection').removeClass('selected');
         $(this).addClass('selected');
         $(".total_delivery").text('€ '+$(this).find('input[type=radio]').val());
-        total_definitive_cart();
     });
-
-    function total_definitive_cart(){
-
-        var total_cart=0;
-        var total_discount=0;
-        var total_delivery=0;
-        var total_definitive=0;
-        
-        total_cart=parseFloat($(".total_cart").text().split("€ ")[1]);
-        total_discount=parseFloat($(".total_discount").text().split("€ ")[1]);
-        total_delivery=parseFloat($(".total_delivery").text().split("€ ")[1]);
-        total_definitive=total_cart-total_discount+total_delivery;
-
-        $(".total_definitive").text("€ "+total_definitive.toFixed(2));
-
-    }
 
     function save_data_user(object_input){
 

@@ -443,7 +443,8 @@
     </footer>
     <script>
         //desktop
-        //fare sistema di sconti da attivare e disattivare da ilenia nel setting: solo con a4 il terzo in omaggio;
+        //in cart trovare modo per portarsi le variabili da db per l'applicazione dell'omaggio e collegarlo al mysetting
+        //sistemare pagamento paypal riportandosì il prezzo finale
         //fare sistema di salvataggio ordine e invio email ordine dopo pagamento e ricordarsi di resettare gli step;
         //fare pagina ordini profilo cliente;
         //richieste;

@@ -59,7 +59,7 @@ function start_function_cart(){
 function get_cart(page){
     
     $(".append_cart").empty();
-    
+
     $.get("get_prod_cart_ileniadesign",{},
     function(data){
         
@@ -69,17 +69,10 @@ function get_cart(page){
         var color_remove;
         var title_image;
         
+        
         for (let i = 0; i < res.length; i++) {
 
-            if (res[i].price_a4==0) {
-
-                format='d-none';
-
-            } else if(res[i].price_a3==0){
-
-                format='d-none';
-
-            } else if(res[i].price_a5==0){
+            if (res[i].price_a4==0 || res[i].price_a3==0 || res[i].price_a5==0) {
 
                 format='d-none';
 
@@ -87,7 +80,7 @@ function get_cart(page){
 
                 format='';
 
-            } 
+            }
 
             if (page=="cart") {
                 
@@ -152,10 +145,11 @@ function get_cart(page){
             
             //selezionare quantità
             $("#select_qnt_"+res[i].id).val(res[i].qnt).attr("selected");
-            
+
         }
-        
-        sum_cart();
+
+        //controlla se ci sono immagini da dare in omaggio
+        gift_image();
         
         $(".styled-select").on("change",function(index){
             
@@ -168,20 +162,14 @@ function get_cart(page){
             var qnt=$("#select_qnt_"+id_cart+" :selected").val();
             
             $("#single_sum_cart_"+id_cart).text("€ "+parseFloat(price*qnt).toFixed(2));
-            
-            sum_cart();
-        
-            console.log("qnt");
-            console.log(qnt);
 
             $.get("/update_prod_cart_ileniadesign",{id_cart:id_cart, price:price, format:format, qnt:qnt},
             function(data){
-                
-                console.log(data);
 
                 get_count_cart();
 
-                apply_discount_code();
+                //controlla se ci sono immagini da dare in omaggio
+                gift_image();
                 
             });
             
@@ -191,11 +179,18 @@ function get_cart(page){
     
 }
 
-function sum_cart(){
-    
+//questa funzione permette di stabilire gli omaggio
+function gift_image(){
+
     var sum_cart=0;
-    var total_delivery=0;
-    
+    var qnt_gift=0;
+    var total_gift=0;
+    //indica quale prezzo e formato dare in omaggio unica variabile da db
+    var price_variable=22;
+    //indica che l'ultima è in omaggio unica variabile da db
+    var multiple_variable=2;
+    var substract_from_multiple_variable=multiple_variable-1;
+
     $(".sum_cart").each(function(data){
         
         sum_cart+=parseFloat($(this).text().split("€ ")[1]);
@@ -203,8 +198,67 @@ function sum_cart(){
     });
     
     $(".total_cart").text("€ "+sum_cart.toFixed(2));
-    total_delivery=parseFloat($(".total_delivery").text().split("€ ")[1]);
-    total_definitive=sum_cart+total_delivery;
+
+    $(".styled-select").each(function(){
+
+        var id_cart=$(this).attr("id").split("_")[2];
+        var price=$("#select_format_"+id_cart+" :selected").attr("price");
+        var qnt=$("#select_qnt_"+id_cart+" :selected").val();
+
+        if (price==price_variable) {
+
+            qnt_gift=qnt;
+    
+        }
+
+    });
+    
+    //algoritmo per ottenere che i multipli di 3 e/o inferiori siano in omaggio
+    //ottengo la quantità di 3 numeri a partire da quella riportata nel select e sottraggo di 2: es. 8-2=6
+    //mi faccio un ciclo for che comprende da 6 a 8= 6-7-8, controllo infine che tra questi numeri ci sia il multiplo di 3
+    for (let i = qnt_gift-substract_from_multiple_variable; i <= qnt_gift; i++) {
+        
+        if (i % multiple_variable == 0){
+            
+            qnt_gift=i;
+
+            total_gift=price_variable*qnt_gift/multiple_variable;
+        
+            $(".total_gift").text("- € "+(total_gift).toFixed(2));
+            
+        }
+        
+    }
+
+    $(".new_total").text("€ "+(sum_cart-total_gift).toFixed(2));
+
+    apply_discount_code();
+   
+}
+
+function apply_discount_code(){
+    
+    var name_discount=$("#discount_code").val();
+    var total_discount=0;
+    
+    $.get("apply_discount_ileniadesign",{name_discount:name_discount},
+    function(data){
+        total_discount=parseFloat($(".new_total").text().split("€ ")[1])/100*data;
+        $(".total_discount").text("- € "+total_discount.toFixed(2));
+        sum_cart();
+    });
+    
+}
+
+function sum_cart(){
+
+    var new_total=parseFloat($(".new_total").text().split("€ ")[1]);
+
+    var total_discount=parseFloat($(".total_discount").text().split("€ ")[1]);
+
+    var total_delivery=parseFloat($(".total_delivery").text().split("€ ")[1]);
+    
+    var total_definitive=new_total-total_discount+total_delivery;
 
     $(".total_definitive").text("€ "+total_definitive.toFixed(2));
     
