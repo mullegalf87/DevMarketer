@@ -611,6 +611,15 @@ class IleniadesignController extends Controller{
 
   }
 
+  public function get_gift_ileniadesign(){
+
+    $get_gift_code=$this->universal_db()->table('image_gift_ileniadesign')
+    ->get();
+
+    return View::make('query')->with("result",json_encode($get_gift_code));
+
+  }
+
   public function add_image_ileniadesign(){
 
     $name_image=Request::get('name_image');

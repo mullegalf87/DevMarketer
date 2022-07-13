@@ -481,6 +481,8 @@ Route::get("/get_subcategory_image_ileniadesign","IleniadesignController@get_sub
 
 Route::get("/get_discount_code_ileniadesign","IleniadesignController@get_discount_code_ileniadesign");
 
+Route::get("/get_gift_ileniadesign","IleniadesignController@get_gift_ileniadesign");
+
 Route::get('/add_image_ileniadesign', 'IleniadesignController@add_image_ileniadesign');
 
 Route::get('/add_data_cat_prod_ileniadesign', 'IleniadesignController@add_data_cat_prod_ileniadesign');

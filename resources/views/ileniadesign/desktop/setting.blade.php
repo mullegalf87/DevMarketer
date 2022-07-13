@@ -16,6 +16,7 @@
         <h4 class="text-center flex-grow-1" style="font-family: 'Futura PT', sans-serif;font-size: 13px!important;display: flex;align-items: center;justify-content: center;width: 5%;" onclick="change_vis_setting('list_cat')">CATEGORY</h4>
         <h4 class="text-center flex-grow-1" style="font-family: 'Futura PT', sans-serif;font-size: 13px!important;display: flex;align-items: center;justify-content: center;width: 5%;" onclick="change_vis_setting('list_subcat')">SUBCATEGORY</h4>
         <h4 class="text-center flex-grow-1" style="font-family: 'Futura PT', sans-serif;font-size: 13px!important;display: flex;align-items: center;justify-content: center;width: 5%;" onclick="change_vis_setting('list_discount');">DISCOUNT</h4>
+        <h4 class="text-center flex-grow-1" style="font-family: 'Futura PT', sans-serif;font-size: 13px!important;display: flex;align-items: center;justify-content: center;width: 5%;" onclick="change_vis_setting('list_gift');">GIFT</h4>
     </div>
 
     <div id="list_image">
@@ -101,6 +102,20 @@
                 <th>Azioni</th>
             </thead>
             <tbody class="mt-5" id="append_discount_setting">
+            </tbody>
+        </table>
+    </div>
+
+    <div id="list_gift" class="d-none">
+        <table class="table">
+            <thead>
+                <th>Id</th>
+                <th>Desc</th>
+                <th>Price</th>
+                <th>Multiple</th>
+                <th>Status</th>
+            </thead>
+            <tbody class="mt-5" id="append_gift_setting">
             </tbody>
         </table>
     </div>
@@ -300,6 +315,8 @@
 
             get_discount_code();
 
+            get_gift_code();
+
         });
 
     }
@@ -348,6 +365,48 @@
         });
     }
 
+    function get_gift_code(){
+        
+        $("#append_gift_setting").empty();
+        
+        $.get("get_gift_ileniadesign",{},
+        function(data){
+            
+            var res=jQuery.parseJSON(data);
+            var list_gift="";
+            var select_status;
+            
+            for (let i = 0; i < res.length; i++) {
+                
+                if (res[i].status==0) {
+                    
+                    select_status+='<option value="'+res[i].status+'" selected>Sì</option><option value="1">No</option>';
+                    
+                } else {
+                    
+                    select_status+='<option value="0">Sì</option><option value="'+res[i].status+'" selected>No</option>';
+                    
+                }
+                
+                list_gift+='<tr>'+
+                '<td style="border: transparent;font-family: Futura PT, sans-serif;font-size: 12px!important;white-space: nowrap;vertical-align: middle;">'+res[i].id+'</td>'+
+                '<td><input class="image_gift_ileniadesign form-control input" type="text" value="'+res[i].name.replace(/"/g, '&quot;')+'" id="name_gift_setting_'+res[i].id+'"></td>'+
+                '<td><input class="image_gift_ileniadesign form-control input" type="text" value="'+res[i].price+'" id="price_gift_setting_'+res[i].id+'"></td>'+
+                '<td><input class="image_gift_ileniadesign form-control input" type="text" value="'+res[i].multiple+'" id="multiple_gift_setting_'+res[i].id+'"></td>'+
+                '<td style="vertical-align: middle;"><select class="styled-select" table="image_gift_ileniadesign" column="status" style="border: transparent;font-family: Futura PT, sans-serif;font-size: 12px!important;white-space: nowrap;" id="end_status_setting_'+res[i].id+'">'+
+                select_status+
+                '</select></td>'+
+                '</tr>';
+                
+            }
+            
+            $("#append_gift_setting").append(list_gift);
+            
+            change_select_option();
+            
+        });
+    }
+    
     var file;
 
     imgInp.onchange = evt => {
@@ -450,7 +509,7 @@
             var table=$(this).attr("table");
             var column=$(this).attr("column");
             var value=$(this).val();
-
+            
             $.get("update_setting_image_select",{id:id, table:table, column:column, value:value},
             function(data){
 

@@ -443,7 +443,6 @@
     </footer>
     <script>
         //desktop
-        //in cart trovare modo per portarsi le variabili da db per l'applicazione dell'omaggio e collegarlo al mysetting
         //sistemare pagamento paypal riportandosì il prezzo finale
         //fare sistema di salvataggio ordine e invio email ordine dopo pagamento e ricordarsi di resettare gli step;
         //fare pagina ordini profilo cliente;
