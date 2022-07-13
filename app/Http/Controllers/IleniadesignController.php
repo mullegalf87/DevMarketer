@@ -515,8 +515,19 @@ class IleniadesignController extends Controller{
     $this->universal_db()->table('cart_ileniadesign')
     ->where('id', '=',$id_product)
     ->delete();
+
     return View::make('query')->with("result",json_encode("delete!"));
     
+  }
+
+  public function get_setting_gift_ileniadesign(){
+
+    $get_setting_gift=$this->universal_db()->table('image_gift_ileniadesign')
+    ->where("status","=",0)
+    ->get();
+
+    return View::make('query')->with("result",json_encode($get_setting_gift));
+
   }
 
   //controllers summary
@@ -532,7 +543,7 @@ class IleniadesignController extends Controller{
       ->update(array(
         $value["column"]=>$value["value"],
       ));
-      
+
     }
     
     return View::make('query')->with("result","updated!");

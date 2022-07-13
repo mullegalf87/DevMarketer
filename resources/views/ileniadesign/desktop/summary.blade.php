@@ -513,13 +513,6 @@
         
     });
 
-    $(".radioSection").click(function () {
-        $(this).find('input[type=radio]').prop('checked', true);
-        $('.radioSection').removeClass('selected');
-        $(this).addClass('selected');
-        $(".total_delivery").text('€ '+$(this).find('input[type=radio]').val());
-    });
-
     function save_data_user(object_input){
 
         $.get("save_data_user_ileniadesign",{object_input:object_input},
@@ -530,45 +523,5 @@
         });
 
     }
-
-    paypal.Buttons({
-
-        style: {
-            
-            shape: 'rect',
-            color: 'blue',
-            layout: 'vertical',
-            label: 'paypal',
-
-            },
-
-            createOrder: function(data, actions) {
-
-            // This function sets up the details of the transaction, including the amount and line item details.
-            return actions.order.create({
-                purchase_units: [{
-                amount: {
-                    // value: Math.round(sum_cart)
-                    value: 10
-
-                }
-                }]
-            });
-            },
-
-            onApprove: function(data, actions) {
-                // This function captures the funds from the transaction.
-                return actions.order.capture().then(function(details) {
-
-                    $(".mkpay").addClass("d-none");
-                    $("#ocpay").removeClass("d-none");
-
-                    $("#make_payment>strong").text("Order confirmed");
-                    $("#make_payment").addClass("okconf");
-  
-                });
-            }
-
-    }).render('#paypal-button');
 
 </script>

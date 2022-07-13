@@ -179,16 +179,42 @@ function get_cart(page){
     
 }
 
-//questa funzione permette di stabilire gli omaggio
-function gift_image(){
+//STEP_0)questa funzione ottiene il get del setting degli omaggi
+function get_setting_gift(){
 
+    var price_variable;
+    var multiple_variable;
+     var scriptUrl = "get_setting_gift_ileniadesign";
+
+     $.ajax({
+        url: scriptUrl,
+        type: 'get',
+        dataType: 'html',
+        async: false,
+        success: function(data) {
+            var res=jQuery.parseJSON(data);
+            if (res.length!=0) {
+                price_variable=res[0].price;
+                multiple_variable=res[0].multiple;
+            }
+        } 
+     });
+
+     return [price_variable, multiple_variable];
+
+}
+
+//STEP_1)questa funzione permette di stabilire gli omaggi
+function gift_image(){
+    
     var sum_cart=0;
     var qnt_gift=0;
     var total_gift=0;
-    //indica quale prezzo e formato dare in omaggio unica variabile da db
-    var price_variable=22;
-    //indica che l'ultima è in omaggio unica variabile da db
-    var multiple_variable=2;
+    var setting_gift=get_setting_gift();
+    // //indica quale prezzo e formato dare in omaggio unica variabile da db
+    var price_variable=setting_gift[0];
+    // //indica che l'ultima è in omaggio unica variabile da db
+    var multiple_variable=setting_gift[1];
     var substract_from_multiple_variable=multiple_variable-1;
 
     $(".sum_cart").each(function(data){
@@ -236,6 +262,7 @@ function gift_image(){
    
 }
 
+//STEP_2:questa funzione permette di applicare i codici sconto
 function apply_discount_code(){
     
     var name_discount=$("#discount_code").val();
@@ -250,6 +277,16 @@ function apply_discount_code(){
     
 }
 
+//STEP_3:questa funzione permette di stabilire il prezzo della spedizione ita o euro
+$(document).on("click", ".radioSection",function () {
+    $(this).find('input[type=radio]').prop('checked', true);
+    $('.radioSection').removeClass('selected');
+    $(this).addClass('selected');
+    $(".total_delivery").text('€ '+$(this).find('input[type=radio]').val());
+    sum_cart();
+});
+
+//STEP_4:questa funzione permette di stabilire il prezzo finale che passera su paypal
 function sum_cart(){
 
     var new_total=parseFloat($(".new_total").text().split("€ ")[1]);
@@ -257,12 +294,54 @@ function sum_cart(){
     var total_discount=parseFloat($(".total_discount").text().split("€ ")[1]);
 
     var total_delivery=parseFloat($(".total_delivery").text().split("€ ")[1]);
+    console.log(total_delivery);
     
     var total_definitive=new_total-total_discount+total_delivery;
 
     $(".total_definitive").text("€ "+total_definitive.toFixed(2));
     
 }
+
+//STEP_5:questa funzione permette passare il prezzo del total_definitive a paypal per pagare
+paypal.Buttons({
+
+style: {
+    
+    shape: 'rect',
+    color: 'blue',
+    layout: 'vertical',
+    label: 'paypal',
+
+    },
+
+    createOrder: function(data, actions) {
+
+    // This function sets up the details of the transaction, including the amount and line item details.
+    return actions.order.create({
+        purchase_units: [{
+        amount: {
+            // value: Math.round(sum_cart)
+            value: 10
+
+        }
+        }]
+    });
+    },
+
+    onApprove: function(data, actions) {
+        // This function captures the funds from the transaction.
+        return actions.order.capture().then(function(details) {
+
+            $(".mkpay").addClass("d-none");
+            $("#ocpay").removeClass("d-none");
+
+            $("#make_payment>strong").text("Order confirmed");
+            $("#make_payment").addClass("okconf");
+
+        });
+    }
+
+}).render('#paypal-button');
 
 function delete_cart(id_product){
     
