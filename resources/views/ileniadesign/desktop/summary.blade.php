@@ -376,7 +376,7 @@
                         <p class="total_cart"></p>
                     </div>
                     <div class="d-flex flex-nowrap">
-                        <p class="flex-grow-1">Total gift</p>
+                        <p class="flex-grow-1 text_total_gift">Omaggio</p>
                         <p class="total_gift">€ 0.00</p>
                     </div>
                     <div class="d-flex flex-nowrap">

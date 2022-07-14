@@ -467,6 +467,8 @@ Route::get('/delete_prod_cart_ileniadesign', 'IleniadesignController@delete_prod
 
 Route::get('/get_setting_gift_ileniadesign', 'IleniadesignController@get_setting_gift_ileniadesign');
 
+Route::get('/send_data_cart_ileniadesign', 'IleniadesignController@send_data_cart_ileniadesign');
+
 //route summary
 Route::get('/apply_discount_ileniadesign', 'IleniadesignController@apply_discount_ileniadesign');
 

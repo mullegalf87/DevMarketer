@@ -196,11 +196,12 @@ function get_setting_gift(){
             if (res.length!=0) {
                 price_variable=res[0].price;
                 multiple_variable=res[0].multiple;
+                format_variable=res[0].format;
             }
         } 
      });
 
-     return [price_variable, multiple_variable];
+     return [price_variable, multiple_variable, format_variable];
 
 }
 
@@ -211,10 +212,9 @@ function gift_image(){
     var qnt_gift=0;
     var total_gift=0;
     var setting_gift=get_setting_gift();
-    // //indica quale prezzo e formato dare in omaggio unica variabile da db
     var price_variable=setting_gift[0];
-    // //indica che l'ultima è in omaggio unica variabile da db
     var multiple_variable=setting_gift[1];
+    var format_variable=setting_gift[2];
     var substract_from_multiple_variable=multiple_variable-1;
 
     $(".sum_cart").each(function(data){
@@ -251,6 +251,7 @@ function gift_image(){
             total_gift=price_variable*qnt_gift/multiple_variable;
         
             $(".total_gift").text("- € "+(total_gift).toFixed(2));
+            $(".text_total_gift").text("Omaggio "+i/multiple_variable+" "+format_variable);
             
         }
         
@@ -294,54 +295,234 @@ function sum_cart(){
     var total_discount=parseFloat($(".total_discount").text().split("€ ")[1]);
 
     var total_delivery=parseFloat($(".total_delivery").text().split("€ ")[1]);
-    console.log(total_delivery);
     
     var total_definitive=new_total-total_discount+total_delivery;
 
     $(".total_definitive").text("€ "+total_definitive.toFixed(2));
+
+    return total_definitive.toFixed(2);
     
 }
 
-//STEP_5:questa funzione permette passare il prezzo del total_definitive a paypal per pagare
+//STEP_5:questa funzione permette di passare il prezzo del total_definitive a paypal per pagare
 paypal.Buttons({
 
-style: {
-    
-    shape: 'rect',
-    color: 'blue',
-    layout: 'vertical',
-    label: 'paypal',
-
-    },
+    style: {
+        shape: 'rect',
+        color: 'blue',
+        layout: 'vertical',
+        label: 'paypal',
+        },
 
     createOrder: function(data, actions) {
-
-    // This function sets up the details of the transaction, including the amount and line item details.
-    return actions.order.create({
-        purchase_units: [{
-        amount: {
-            // value: Math.round(sum_cart)
-            value: 10
-
-        }
-        }]
-    });
+        // This function sets up the details of the transaction, including the amount and line item details.
+        return actions.order.create({
+            purchase_units: [{
+            amount: {
+                value: sum_cart()
+            }
+            }]
+        });
     },
 
     onApprove: function(data, actions) {
         // This function captures the funds from the transaction.
         return actions.order.capture().then(function(details) {
 
-            $(".mkpay").addClass("d-none");
-            $("#ocpay").removeClass("d-none");
+            var id_cart;
+            var real_price;
+            var object_real_price=[];
 
-            $("#make_payment>strong").text("Order confirmed");
-            $("#make_payment").addClass("okconf");
+            var name_cart="{{$_SESSION['name']}}";
+            var lastname_cart="{{$_SESSION['lastname']}}";
+            var email_cart="{{$_SESSION['email']}}";
+            var address_cart="{{$_SESSION['address']}}";
+            var state_cart="{{$_SESSION['state']}}";
+            var region_cart="{{$_SESSION['region']}}";
+            var city_cart="{{$_SESSION['city']}}";
+            var zip_cart="{{$_SESSION['zip']}}";
+            var cell_cart="{{$_SESSION['cell']}}";
+            var discount_cart=$("#discount_code").val();
+            
+
+
+            var list_id_cart=[];
+            
+            var sum_real_cart=$("#sum_cart_images").text().split("€ ")[1];
+
+
+            $(".sum_cart").each(function(index){
+                id_cart=this.id.split("price_cart_")[1];
+                real_price=$(this).text().split("€ ")[1];
+                object_real_price.push({id_cart:id_cart, real_price:real_price});
+            });
+
+            $.get("/send_data_cart_ileniadesign",{discount_cart:discount_cart, object_real_price:object_real_price},
+            function(data){
+                var res=jQuery.parseJSON(data);
+
+                for (var i = 0; i < res.length; i++) {
+                    list_id_cart.push(res[i].id);
+                }
+
+                var form_data = new FormData();
+                form_data.append('data', data);
+                form_data.append('name_cart', name_cart);
+                form_data.append('lastname_cart', lastname_cart);
+                form_data.append('cell_cart', cell_cart);
+                form_data.append('email_cart', email_cart);
+                form_data.append('address_cart', address_cart);
+                form_data.append('state_cart', state_cart);
+                form_data.append('region_cart', region_cart);
+                form_data.append('city_cart', city_cart);
+                form_data.append('zip_cart', zip_cart);
+                form_data.append('sum', sum_real_cart);
+                form_data.append('discount', discount_cart);
+
+                $.ajax({
+
+                    url: 'public/cart_ileniadesign.php',     
+                    dataType: 'text',        
+                    cache       : false,
+                    contentType: false,
+                    processData : false,
+                    data: form_data,                  
+                    type: 'POST',
+                    async: true,
+                    headers: {
+                        "cache-control": "no-cache"
+                    },
+                    success: function(output){
+
+                        $.get("/convert_sold_ileniadesign",{id_cart:list_id_cart},
+                        function(data){
+
+                            $(document).ready(function(){
+                                get_prod_cart_ileniadesign();
+                                get_count_prod_cart_ileniadesign();
+                            });
+
+                            $(".mkpay").addClass("d-none");
+                            $("#ocpay").removeClass("d-none");
+
+                            $("#make_payment>strong").text("Order confirmed");
+                            $("#make_payment").addClass("okconf");
+
+                        });
+
+                    }
+
+                });  
+
+            });
 
         });
     }
 
 }).render('#paypal-button');
+
+function test(){
+
+    var id_cart;
+    var real_price;
+    var object_real_price=[];
+
+    var name_cart="{{$_SESSION['name']}}";
+    var lastname_cart="{{$_SESSION['lastname']}}";
+    var email_cart="{{$_SESSION['email']}}";
+    var address_cart="{{$_SESSION['address']}}";
+    var state_cart="{{$_SESSION['state']}}";
+    var region_cart="{{$_SESSION['region']}}";
+    var city_cart="{{$_SESSION['city']}}";
+    var zip_cart="{{$_SESSION['zip']}}";
+    var cell_cart="{{$_SESSION['cell']}}";
+
+    var list_id_cart=[];
+
+    var start_total=$(".total_cart").text().split("€ ")[1];
+    var text_total_gift=$(".text_total_gift").text();
+    var total_gift=$(".total_gift").text().split("€ ")[1];
+    var new_total=$(".new_total").text().split("€ ")[1];
+    var discount_cart=$("#discount_code").val();
+    var total_discount=$(".total_discount").text().split("€ ")[1];
+    var delivery=$(".total_delivery").text().split("€ ")[1];
+    var end_total=$(".total_definitive").text().split("€ ")[1];
+
+    $(".sum_cart").each(function(index){
+        id_cart=this.id.split("single_sum_cart_")[1];
+        real_price=$(this).text().split("€ ")[1];
+        object_real_price.push({id_cart:id_cart, real_price:real_price});
+    });
+
+    $.get("/send_data_cart_ileniadesign",{discount_cart:discount_cart, object_real_price:object_real_price},
+    function(data){
+        var res=jQuery.parseJSON(data);
+        
+        for (var i = 0; i < res.length; i++) {
+            list_id_cart.push(res[i].id);
+        }
+        
+        var form_data = new FormData();
+        //summary image cart
+        form_data.append('data', data);
+        //summary data user
+        form_data.append('name_cart', name_cart);
+        form_data.append('lastname_cart', lastname_cart);
+        form_data.append('cell_cart', cell_cart);
+        form_data.append('email_cart', email_cart);
+        form_data.append('address_cart', address_cart);
+        form_data.append('state_cart', state_cart);
+        form_data.append('region_cart', region_cart);
+        form_data.append('city_cart', city_cart);
+        form_data.append('zip_cart', zip_cart);
+        //summary receipt
+        form_data.append('start_total', start_total);
+        form_data.append('text_total_gift', text_total_gift);
+        form_data.append('total_gift', total_gift);
+        form_data.append('new_total', new_total);
+        form_data.append('discount_cart', discount_cart);
+        form_data.append('total_discount', total_discount);
+        form_data.append('delivery', delivery);
+        form_data.append('end_total', end_total);
+    
+        $.ajax({
+
+            url : "/ileniadesign_repo/other_function/cart_ileniadesign.php",  
+            dataType: 'text',        
+            cache       : false,
+            contentType: false,
+            processData : false,
+            data: form_data,                  
+            type: 'POST',
+            async: true,
+            headers: {
+                "cache-control": "no-cache"
+            },
+            success: function(output){
+                console.log(output);
+                // $.get("/convert_sold_ileniadesign",{id_cart:list_id_cart},
+                // function(data){
+                    
+                //     $(document).ready(function(){
+                //         get_prod_cart_ileniadesign();
+                //         get_count_prod_cart_ileniadesign();
+                //     });
+                    
+                //     $(".mkpay").addClass("d-none");
+                //     $("#ocpay").removeClass("d-none");
+                    
+                //     $("#make_payment>strong").text("Order confirmed");
+                //     $("#make_payment").addClass("okconf");
+                    
+                // });
+                
+            }
+            
+        });
+        
+    });
+
+}
 
 function delete_cart(id_product){
     

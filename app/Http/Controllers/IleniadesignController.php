@@ -530,6 +530,31 @@ class IleniadesignController extends Controller{
 
   }
 
+  public function send_data_cart_ileniadesign(){
+
+    $discount_cart=Request::get("discount_cart");
+    $object_real_price=Request::get("object_real_price");
+
+    for ($i=0; $i < count($object_real_price); $i++) { 
+      $id_cart=$object_real_price[$i]["id_cart"];
+      $real_price=$object_real_price[$i]["real_price"];
+      $this->universal_db()->table('cart_ileniadesign')
+      ->where("id","=",$id_cart)
+      ->update(array(
+        "disc_applied"=>$discount_cart,
+        "price_applied"=>$real_price,
+      ));
+    }  
+
+    $get_list_item=$this->universal_db()->table('cart_ileniadesign')
+    ->where('id_user','=', auth()->guard('users_ileniadesign')->user()->id)
+    ->where('sold','=', null)
+    ->get();
+
+    return View::make('query')->with("result",json_encode($get_list_item));
+
+  }
+
   //controllers summary
   public function save_data_user_ileniadesign(){
   

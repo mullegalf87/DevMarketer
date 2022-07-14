@@ -111,6 +111,7 @@
             <thead>
                 <th>Id</th>
                 <th>Desc</th>
+                <th>Format</th>
                 <th>Price</th>
                 <th>Multiple</th>
                 <th>Status</th>
@@ -391,6 +392,7 @@
                 list_gift+='<tr>'+
                 '<td style="border: transparent;font-family: Futura PT, sans-serif;font-size: 12px!important;white-space: nowrap;vertical-align: middle;">'+res[i].id+'</td>'+
                 '<td><input class="image_gift_ileniadesign form-control input" type="text" value="'+res[i].name.replace(/"/g, '&quot;')+'" id="name_gift_setting_'+res[i].id+'"></td>'+
+                '<td><input class="image_gift_ileniadesign form-control input" type="text" value="'+res[i].format+'" id="format_gift_setting_'+res[i].id+'"></td>'+
                 '<td><input class="image_gift_ileniadesign form-control input" type="text" value="'+res[i].price+'" id="price_gift_setting_'+res[i].id+'"></td>'+
                 '<td><input class="image_gift_ileniadesign form-control input" type="text" value="'+res[i].multiple+'" id="multiple_gift_setting_'+res[i].id+'"></td>'+
                 '<td style="vertical-align: middle;"><select class="styled-select" table="image_gift_ileniadesign" column="status" style="border: transparent;font-family: Futura PT, sans-serif;font-size: 12px!important;white-space: nowrap;" id="end_status_setting_'+res[i].id+'">'+
@@ -509,7 +511,7 @@
             var table=$(this).attr("table");
             var column=$(this).attr("column");
             var value=$(this).val();
-            
+
             $.get("update_setting_image_select",{id:id, table:table, column:column, value:value},
             function(data){
 

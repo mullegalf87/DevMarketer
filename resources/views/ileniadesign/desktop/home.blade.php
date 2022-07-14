@@ -443,8 +443,7 @@
     </footer>
     <script>
         //desktop
-        //sistemare pagamento paypal riportandosì il prezzo finale
-        //fare sistema di salvataggio ordine e invio email ordine dopo pagamento e ricordarsi di resettare gli step;
+        //fare sistema di salvataggio ordine e invio email ordine dopo pagamento(sistemare caratteri speciali nella mail) e ricordarsi di resettare gli step;
         //fare pagina ordini profilo cliente;
         //richieste;
         
