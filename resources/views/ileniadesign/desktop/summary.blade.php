@@ -331,11 +331,11 @@
                             <div class="d-flex" style="justify-content: center;">
                                 <div class="w-50" style="margin: 10% 0 10% 0;">
                                     <h2 class="mb-5 text-left" style="font-family: 'Silk Serif', sans-serif;color: #000000;">Thank you for your order!</h2>
-                                    <p class="mb-5" style="text-align: justify;color: #000000;">Il tempo di elaborazione del tuo ordine richiede da 3 a 6 giorni lavorativi. Una volta preparato il pacco verra' spedito e sarai informato via e-mail sullo stato di avanzamento del tuo ordine ricevendo informazioni utili per il tracciamento.</p>
+                                    <p class="mb-5" style="text-align: justify;color: #000000;">Il numero del tuo ordine è il seguente: <strong id="num_order"></strong>.<br>Il tempo di elaborazione del tuo ordine richiede da 3 a 6 giorni lavorativi. Una volta preparato il pacco verra' spedito e sarai informato via e-mail sullo stato di avanzamento del tuo ordine ricevendo informazioni utili per il tracciamento.</p>
                                 </div>
                             </div>
                             <div class="d-flex flex-nowrap">
-                                <button class="btn btn-primary text-left w-100" onclick="change_vis('shopmyart')">
+                                <button class="btn btn-primary text-left w-100" onclick="change_vis('shopmyart');$('.previous').click();$('fieldset').not('#fieldset_1').css({'opacity': '0', 'display': 'none'});">
                                     <div class="d-flex flex-nowrap">
                                         <p class="flex-grow-1 m-0">Continue shopping</p>
                                         <p class="m-0"><i class="bx bx-shopping-bag"></i></p>

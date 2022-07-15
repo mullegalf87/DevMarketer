@@ -443,9 +443,11 @@
     </footer>
     <script>
         //desktop
-        //fare sistema di salvataggio ordine e invio email ordine dopo pagamento(sistemare caratteri speciali nella mail) e ricordarsi di resettare gli step;
+        //resettare gli step; ho messo quando clicca su $('.previous').click();$('fieldset').not('#fieldset_1').css({'opacity': '0', 'display': 'none'});
+        //controllare dopo la vendita la messa nel carrello, fa cose strane
         //fare pagina ordini profilo cliente;
         //richieste;
+        
         
         //mobile
         
@@ -746,6 +748,7 @@
         function get_count_cart(){
             $.get("get_count_prod_cart_ileniadesign",{/*token_user:user*/},
             function(data){
+                data==0?data=0:data=data;
                 $(".circle_cart").text(data);
             });
         }

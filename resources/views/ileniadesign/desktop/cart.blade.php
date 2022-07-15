@@ -32,7 +32,7 @@
                 <p class="total_cart">€ 0,00</p>
             </div>
             <div class="d-flex flex-nowrap">
-                <button class="btn btn-primary text-left w-100 mr-3" onclick="change_vis('shopmyart_0')">
+                <button class="btn btn-primary text-left w-100 mr-3" onclick="change_vis('shopmyart_0');">
                     <div class="d-flex flex-nowrap">
                         <p class="flex-grow-1 m-0">Continue shopping</p>
                         <p class="m-0"><i class="bx bx-shopping-bag"></i></p>
@@ -53,7 +53,7 @@
 function start_function_cart(){
     
     get_cart("cart");
-    
+
 }
 
 function get_cart(page){
@@ -342,17 +342,20 @@ paypal.Buttons({
             var city_cart="{{$_SESSION['city']}}";
             var zip_cart="{{$_SESSION['zip']}}";
             var cell_cart="{{$_SESSION['cell']}}";
-            var discount_cart=$("#discount_code").val();
-            
-
 
             var list_id_cart=[];
-            
-            var sum_real_cart=$("#sum_cart_images").text().split("€ ")[1];
 
+            var start_total=$(".total_cart").text().split("€ ")[1];
+            var text_total_gift=$(".text_total_gift").text();
+            var total_gift=$(".total_gift").text().split("€ ")[1];
+            var new_total=$(".new_total").text().split("€ ")[1];
+            var discount_cart=$("#discount_code").val();
+            var total_discount=$(".total_discount").text().split("€ ")[1];
+            var delivery=$(".total_delivery").text().split("€ ")[1];
+            var end_total=$(".total_definitive").text().split("€ ")[1];
 
             $(".sum_cart").each(function(index){
-                id_cart=this.id.split("price_cart_")[1];
+                id_cart=this.id.split("single_sum_cart_")[1];
                 real_price=$(this).text().split("€ ")[1];
                 object_real_price.push({id_cart:id_cart, real_price:real_price});
             });
@@ -360,13 +363,15 @@ paypal.Buttons({
             $.get("/send_data_cart_ileniadesign",{discount_cart:discount_cart, object_real_price:object_real_price},
             function(data){
                 var res=jQuery.parseJSON(data);
-
+                
                 for (var i = 0; i < res.length; i++) {
                     list_id_cart.push(res[i].id);
                 }
-
+                
                 var form_data = new FormData();
+                //summary image cart
                 form_data.append('data', data);
+                //summary data user
                 form_data.append('name_cart', name_cart);
                 form_data.append('lastname_cart', lastname_cart);
                 form_data.append('cell_cart', cell_cart);
@@ -376,12 +381,19 @@ paypal.Buttons({
                 form_data.append('region_cart', region_cart);
                 form_data.append('city_cart', city_cart);
                 form_data.append('zip_cart', zip_cart);
-                form_data.append('sum', sum_real_cart);
-                form_data.append('discount', discount_cart);
-
+                //summary receipt
+                form_data.append('start_total', start_total);
+                form_data.append('text_total_gift', text_total_gift);
+                form_data.append('total_gift', total_gift);
+                form_data.append('new_total', new_total);
+                form_data.append('discount_cart', discount_cart);
+                form_data.append('total_discount', total_discount);
+                form_data.append('delivery', delivery);
+                form_data.append('end_total', end_total);
+            
                 $.ajax({
 
-                    url: 'public/cart_ileniadesign.php',     
+                    url : "/ileniadesign_repo/other_function/cart_ileniadesign.php",  
                     dataType: 'text',        
                     cache       : false,
                     contentType: false,
@@ -393,27 +405,30 @@ paypal.Buttons({
                         "cache-control": "no-cache"
                     },
                     success: function(output){
-
+            
                         $.get("/convert_sold_ileniadesign",{id_cart:list_id_cart},
                         function(data){
-
+                            
                             $(document).ready(function(){
-                                get_prod_cart_ileniadesign();
-                                get_count_prod_cart_ileniadesign();
+                                get_cart("cart");
+                                get_count_cart();
                             });
 
+                            var res=jQuery.parseJSON(data);
+                            
                             $(".mkpay").addClass("d-none");
                             $("#ocpay").removeClass("d-none");
-
+                            $("#num_order").text(res);
+                            
                             $("#make_payment>strong").text("Order confirmed");
                             $("#make_payment").addClass("okconf");
-
+                            
                         });
-
+                        
                     }
-
-                });  
-
+                    
+                });
+                
             });
 
         });
@@ -421,108 +436,111 @@ paypal.Buttons({
 
 }).render('#paypal-button');
 
-function test(){
+// function test(){
 
-    var id_cart;
-    var real_price;
-    var object_real_price=[];
+//     var id_cart;
+//     var real_price;
+//     var object_real_price=[];
 
-    var name_cart="{{$_SESSION['name']}}";
-    var lastname_cart="{{$_SESSION['lastname']}}";
-    var email_cart="{{$_SESSION['email']}}";
-    var address_cart="{{$_SESSION['address']}}";
-    var state_cart="{{$_SESSION['state']}}";
-    var region_cart="{{$_SESSION['region']}}";
-    var city_cart="{{$_SESSION['city']}}";
-    var zip_cart="{{$_SESSION['zip']}}";
-    var cell_cart="{{$_SESSION['cell']}}";
+//     var name_cart="{{$_SESSION['name']}}";
+//     var lastname_cart="{{$_SESSION['lastname']}}";
+//     var email_cart="{{$_SESSION['email']}}";
+//     var address_cart="{{$_SESSION['address']}}";
+//     var state_cart="{{$_SESSION['state']}}";
+//     var region_cart="{{$_SESSION['region']}}";
+//     var city_cart="{{$_SESSION['city']}}";
+//     var zip_cart="{{$_SESSION['zip']}}";
+//     var cell_cart="{{$_SESSION['cell']}}";
 
-    var list_id_cart=[];
+//     var list_id_cart=[];
 
-    var start_total=$(".total_cart").text().split("€ ")[1];
-    var text_total_gift=$(".text_total_gift").text();
-    var total_gift=$(".total_gift").text().split("€ ")[1];
-    var new_total=$(".new_total").text().split("€ ")[1];
-    var discount_cart=$("#discount_code").val();
-    var total_discount=$(".total_discount").text().split("€ ")[1];
-    var delivery=$(".total_delivery").text().split("€ ")[1];
-    var end_total=$(".total_definitive").text().split("€ ")[1];
+//     var start_total=$(".total_cart").text().split("€ ")[1];
+//     var text_total_gift=$(".text_total_gift").text();
+//     var total_gift=$(".total_gift").text().split("€ ")[1];
+//     var new_total=$(".new_total").text().split("€ ")[1];
+//     var discount_cart=$("#discount_code").val();
+//     var total_discount=$(".total_discount").text().split("€ ")[1];
+//     var delivery=$(".total_delivery").text().split("€ ")[1];
+//     var end_total=$(".total_definitive").text().split("€ ")[1];
 
-    $(".sum_cart").each(function(index){
-        id_cart=this.id.split("single_sum_cart_")[1];
-        real_price=$(this).text().split("€ ")[1];
-        object_real_price.push({id_cart:id_cart, real_price:real_price});
-    });
+//     $(".sum_cart").each(function(index){
+//         id_cart=this.id.split("single_sum_cart_")[1];
+//         real_price=$(this).text().split("€ ")[1];
+//         object_real_price.push({id_cart:id_cart, real_price:real_price});
+//     });
 
-    $.get("/send_data_cart_ileniadesign",{discount_cart:discount_cart, object_real_price:object_real_price},
-    function(data){
-        var res=jQuery.parseJSON(data);
+//     $.get("/send_data_cart_ileniadesign",{discount_cart:discount_cart, object_real_price:object_real_price},
+//     function(data){
+//         var res=jQuery.parseJSON(data);
         
-        for (var i = 0; i < res.length; i++) {
-            list_id_cart.push(res[i].id);
-        }
+//         for (var i = 0; i < res.length; i++) {
+//             list_id_cart.push(res[i].id);
+//         }
         
-        var form_data = new FormData();
-        //summary image cart
-        form_data.append('data', data);
-        //summary data user
-        form_data.append('name_cart', name_cart);
-        form_data.append('lastname_cart', lastname_cart);
-        form_data.append('cell_cart', cell_cart);
-        form_data.append('email_cart', email_cart);
-        form_data.append('address_cart', address_cart);
-        form_data.append('state_cart', state_cart);
-        form_data.append('region_cart', region_cart);
-        form_data.append('city_cart', city_cart);
-        form_data.append('zip_cart', zip_cart);
-        //summary receipt
-        form_data.append('start_total', start_total);
-        form_data.append('text_total_gift', text_total_gift);
-        form_data.append('total_gift', total_gift);
-        form_data.append('new_total', new_total);
-        form_data.append('discount_cart', discount_cart);
-        form_data.append('total_discount', total_discount);
-        form_data.append('delivery', delivery);
-        form_data.append('end_total', end_total);
+//         var form_data = new FormData();
+//         //summary image cart
+//         form_data.append('data', data);
+//         //summary data user
+//         form_data.append('name_cart', name_cart);
+//         form_data.append('lastname_cart', lastname_cart);
+//         form_data.append('cell_cart', cell_cart);
+//         form_data.append('email_cart', email_cart);
+//         form_data.append('address_cart', address_cart);
+//         form_data.append('state_cart', state_cart);
+//         form_data.append('region_cart', region_cart);
+//         form_data.append('city_cart', city_cart);
+//         form_data.append('zip_cart', zip_cart);
+//         //summary receipt
+//         form_data.append('start_total', start_total);
+//         form_data.append('text_total_gift', text_total_gift);
+//         form_data.append('total_gift', total_gift);
+//         form_data.append('new_total', new_total);
+//         form_data.append('discount_cart', discount_cart);
+//         form_data.append('total_discount', total_discount);
+//         form_data.append('delivery', delivery);
+//         form_data.append('end_total', end_total);
     
-        $.ajax({
+//         $.ajax({
 
-            url : "/ileniadesign_repo/other_function/cart_ileniadesign.php",  
-            dataType: 'text',        
-            cache       : false,
-            contentType: false,
-            processData : false,
-            data: form_data,                  
-            type: 'POST',
-            async: true,
-            headers: {
-                "cache-control": "no-cache"
-            },
-            success: function(output){
-                console.log(output);
-                // $.get("/convert_sold_ileniadesign",{id_cart:list_id_cart},
-                // function(data){
+//             url : "/ileniadesign_repo/other_function/cart_ileniadesign.php",  
+//             dataType: 'text',        
+//             cache       : false,
+//             contentType: false,
+//             processData : false,
+//             data: form_data,                  
+//             type: 'POST',
+//             async: true,
+//             headers: {
+//                 "cache-control": "no-cache"
+//             },
+//             success: function(output){
+      
+//                 $.get("/convert_sold_ileniadesign",{id_cart:list_id_cart},
+//                 function(data){
                     
-                //     $(document).ready(function(){
-                //         get_prod_cart_ileniadesign();
-                //         get_count_prod_cart_ileniadesign();
-                //     });
+//                     $(document).ready(function(){
+//                         get_cart("cart");
+//                         get_count_cart();
+//                     });
+
+//                     var res=jQuery.parseJSON(data);
                     
-                //     $(".mkpay").addClass("d-none");
-                //     $("#ocpay").removeClass("d-none");
+//                     $(".mkpay").addClass("d-none");
+//                     $("#ocpay").removeClass("d-none");
+//                     $("#num_order").text(res);
                     
-                //     $("#make_payment>strong").text("Order confirmed");
-                //     $("#make_payment").addClass("okconf");
+//                     $("#make_payment>strong").text("Order confirmed");
+//                     $("#make_payment").addClass("okconf");
                     
-                // });
+//                 });
                 
-            }
+//             }
             
-        });
+//         });
         
-    });
+//     });
 
-}
+// }
 
 function delete_cart(id_product){
     
@@ -531,11 +549,9 @@ function delete_cart(id_product){
         
         $("#tr_"+id_product).remove();
         
-        sum_cart();
+        gift_image();
 
         get_count_cart();
-
-        apply_discount_code();
         
     });
 }

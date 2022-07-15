@@ -25,19 +25,33 @@ use Jenssegers\Agent\Agent;
 
 class IleniadesignController extends Controller{
 
-  function random_token_user_ilenia_design(){
+  function universal_db(){
+
+    Config::set('database.connections.mysql_dynamic.database','ileniadesign');
+    $universal=DB::connection('mysql_dynamic');
+
+    return $universal;
+
+  }
+
+  //random token
+  function random_token_user_ilenia_design($table, $column){
 
     $token;
     do{
       $token = $this->getRandomString(14);
 
-      $orders_with_token = DB::table('users_ileniadesigns')
-      ->where("token_user", "=", $token)
+      $orders_with_token = $this->universal_db()->table($table)
+      ->where($column, "=", $token)
       ->get();
 
       $token_exists = count($orders_with_token) > 0;
 
-      return View::make('query')->with("result",$token);
+      if (!$token_exists) {
+
+        return $token;
+
+      }
 
     }while($token_exists);
 
@@ -52,15 +66,6 @@ class IleniadesignController extends Controller{
     }
 
     return $string;
-  }
-
-  function universal_db(){
-
-    Config::set('database.connections.mysql_dynamic.database','ileniadesign');
-    $universal=DB::connection('mysql_dynamic');
-
-    return $universal;
-
   }
 
   //Controllers start
@@ -159,7 +164,7 @@ class IleniadesignController extends Controller{
           'password' => bcrypt(Request::get('password')),
           'password_decript' => Request::get('password'),
           'cookie' => $cookie,
-          'token_user' => $this->random_token_user_ilenia_design(),
+          'token_user' => $this->random_token_user_ilenia_design('users_ileniadesigns','token_user'),
 
       ]);
       
@@ -418,13 +423,19 @@ class IleniadesignController extends Controller{
     }
 
     $exist_product=$this->universal_db()->table('cart_ileniadesign')
+    ->where('id_user','=',$id_user)
     ->where('id_product','=',$id_product)
     ->where('format','=',$format)
+    ->where('sold','=',null)
     ->first();
 
     if ($exist_product) {
 
       $this->universal_db()->table('cart_ileniadesign')
+      ->where('id_user','=',$id_user)
+      ->where('id_product','=',$id_product)
+      ->where('format','=',$format)
+      ->where('sold','=',null)
       ->where('id_product','=',$id_product)
       ->update(array( 
         'qnt'=>$exist_product->qnt+1,
@@ -553,6 +564,31 @@ class IleniadesignController extends Controller{
 
     return View::make('query')->with("result",json_encode($get_list_item));
 
+  }
+
+public function convert_sold_ileniadesign(){
+  
+  $id_cart=Request::get("id_cart");
+  
+  $token = $this->random_token_user_ilenia_design('cart_ileniadesign','sold_id');
+  
+  for( $i = 0; $i < count($id_cart); $i++ ) {
+    
+    $id_list_cart=str_replace("\"","",$id_cart[$i]);
+    
+    $this->universal_db()->table('cart_ileniadesign')
+    ->where('id','=', $id_list_cart)
+    ->update(
+      array(
+        'sold'=>1,
+        'sold_id'=>$token,
+        'status'=>"Processing",
+      ));
+      
+    }
+    
+    return View::make('query')->with("result",json_encode($token));
+    
   }
 
   //controllers summary
