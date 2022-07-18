@@ -21,7 +21,8 @@ use App;
 use Socialite;
 use File;
 use Jenssegers\Agent\Agent;
-
+use Illuminate\Http\Response;
+use Cookie;
 
 class IleniadesignController extends Controller{
 
@@ -96,6 +97,9 @@ class IleniadesignController extends Controller{
 
     }else{
 
+      //controllo se esiste il cookie diversamente lo associo
+      $this->getCookie()=='' ? $this->setCookie() : false;
+
       $_SESSION["id"]="";
       $_SESSION["name"]="";
       $_SESSION["lastname"]="";
@@ -112,6 +116,17 @@ class IleniadesignController extends Controller{
     return view('ileniadesign.'.$result.'.home')->with("data",json_encode($data));
   }
 
+  function setCookie(){
+    $minutes = 525960;//1 anno
+    $value = $this->random_token_user_ilenia_design('cart_ileniadesign','id_user');
+    Cookie::queue('cookie', $value, $minutes);
+  }
+
+  function getCookie(){
+    $value = Cookie::get('cookie');
+    return $value;
+  }
+
   public function lang_change(){
       $lang=Request::get("lang");
       App::setLocale($lang);
@@ -120,7 +135,7 @@ class IleniadesignController extends Controller{
   }
 
   //controller login
-  public function store($numb,$cookie){
+  public function store($numb){
       
       //Error messages
       $messages = [
@@ -163,23 +178,25 @@ class IleniadesignController extends Controller{
           'email' => Request::get('email'),
           'password' => bcrypt(Request::get('password')),
           'password_decript' => Request::get('password'),
-          'cookie' => $cookie,
+          'cookie' => $this->getCookie(),
           'token_user' => $this->random_token_user_ilenia_design('users_ileniadesigns','token_user'),
 
       ]);
       
       auth()->guard('users_ileniadesign')->login($user);
 
-      return redirect()->to('/ileniadesign');
+      DB::table('cart_ileniadesign')
+        ->where('id_user','=',$this->getCookie())
+        ->update(
+          array(
+           'id_user'=>auth()->guard('users_ileniadesign')->user()->id,
+      ));
 
-      // DB::table('cart_ileniadesign')
-      //   ->where('id_user','=',$cookie)
-      //   ->update(
-      //     array(
-
-      //      'id_user'=>auth()->guard('users_ileniadesign')->user()->id,
-
-      //    ));
+      if ($numb==1) {
+        return redirect()->to('/ileniadesign');
+      }else{
+        return redirect()->to('/id?page=cart');
+      }
 
     //   $email=auth()->guard('users_ileniadesign')->user()->email;
     //   $password=auth()->guard('users_ileniadesign')->user()->password_decript;
@@ -218,7 +235,7 @@ class IleniadesignController extends Controller{
       
   }
 
-  protected function check_login($numb,$cookie){
+  protected function check_login($numb){
 
       //Error messages
       $messages = [
@@ -252,7 +269,7 @@ class IleniadesignController extends Controller{
             }else{
 
               DB::table('cart_ileniadesign')
-              ->where('id_user','=',$cookie)
+              ->where('id_user','=',$this->getCookie())
               ->update(
                 array(
 
@@ -386,7 +403,7 @@ class IleniadesignController extends Controller{
 
     }else{
 
-      // $id_user=Request::get("token_user");
+      $id_user=$this->getCookie();
 
     }
 
@@ -417,8 +434,8 @@ class IleniadesignController extends Controller{
       $id_user=auth()->guard('users_ileniadesign')->user()->id;
 
     }else{
-      
-      // $id_user=Request::get("token_user");
+
+      $id_user=$this->getCookie();
 
     }
 
@@ -472,7 +489,7 @@ class IleniadesignController extends Controller{
 
     }else{
 
-      // $id_user=Request::get("token_user");
+      $id_user=$this->getCookie();
 
     }
 
@@ -500,7 +517,8 @@ class IleniadesignController extends Controller{
 
     }else{
 
-      // $id_user=Request::get("token_user");
+      $id_user=$this->getCookie();
+
     }
 
     $this->universal_db()->table('cart_ileniadesign')
@@ -595,6 +613,7 @@ public function convert_sold_ileniadesign(){
   public function save_data_user_ileniadesign(){
   
     $object_input=Request::get("object_input");
+
     $id_user=auth()->guard('users_ileniadesign')->user()->id;
     
     foreach ($object_input as $value) {

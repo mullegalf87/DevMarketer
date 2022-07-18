@@ -38,7 +38,7 @@
                         <p class="m-0"><i class="bx bx-shopping-bag"></i></p>
                     </div>
                 </button>
-                <button onclick="change_vis('summary')" class="btn btn-primary text-left w-100" style="background-color:#CDB4B4!important">
+                <button onclick="change_vis('{{$_SESSION['id']!='' ? 'summary' : 'login'}}')" class="btn btn-primary text-left w-100" style="background-color:#CDB4B4!important">
                     <div class="d-flex flex-nowrap">
                         <p class="flex-grow-1 m-0">Checkout</p>
                         <p class="m-0"><i class="bx bx-shopping-bag"></i></p>
@@ -362,6 +362,11 @@ paypal.Buttons({
 
             $.get("/send_data_cart_ileniadesign",{discount_cart:discount_cart, object_real_price:object_real_price},
             function(data){
+
+                //parte il wait nello step 5
+                $("#make_payment").addClass("waitconf");
+                $("#make_payment>strong").text("Wait...");
+
                 var res=jQuery.parseJSON(data);
                 
                 for (var i = 0; i < res.length; i++) {
@@ -419,7 +424,10 @@ paypal.Buttons({
                             $(".mkpay").addClass("d-none");
                             $("#ocpay").removeClass("d-none");
                             $("#num_order").text(res);
-                            
+
+                            //rimuove il wait dallo step 5
+                            $("#make_payment").removeClass("waitconf");
+                            //aggiungi ordine confermato allo step 5
                             $("#make_payment>strong").text("Order confirmed");
                             $("#make_payment").addClass("okconf");
                             

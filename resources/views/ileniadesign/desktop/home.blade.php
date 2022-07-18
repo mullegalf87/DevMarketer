@@ -442,15 +442,19 @@
         </div>
     </footer>
     <script>
-        //desktop
-        //resettare gli step; ho messo quando clicca su $('.previous').click();$('fieldset').not('#fieldset_1').css({'opacity': '0', 'display': 'none'});
-        //controllare dopo la vendita la messa nel carrello, fa cose strane
+        //MODIFICHE DESKTOP
+
+        //fare sistema user con cookie
+        //fare accettazione cookie
+        //sistemare problema lazy load delle immagini quando filtrate
         //fare pagina ordini profilo cliente;
         //richieste;
+        //fare modal per promozione all'apertura della pagina
+        //fare in mysetting report e tabelle per invio
         
+        //MODIFICHE MOBILE
         
-        //mobile
-        
+
         //importantissimo funzioni per cambiare pagina in laravel da chrome  
         var myhistory = [];
         var data = {!! $data !!};

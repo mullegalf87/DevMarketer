@@ -436,9 +436,9 @@ Route::get('/id', 'IleniadesignController@go_to_page');
 Route::get('id/lang', 'IleniadesignController@lang_change')->name('idLangChange');
 
 //route Login
-Route::post('register_ileniadesign/{numb}/{cookie}', 'IleniadesignController@store');
+Route::post('register_ileniadesign/{numb}/', 'IleniadesignController@store');
 
-Route::post('login_ileniadesign/{numb}/{cookie}', 'IleniadesignController@check_login');
+Route::post('login_ileniadesign/{numb}/', 'IleniadesignController@check_login');
 
 Route::get('logout_ileniadesign', 'IleniadesignController@logout_ileniadesign');
 

@@ -12,7 +12,7 @@
         </div>
         
         <div class="col-md-6 p-0">
-            <form id="login_account" class="w-100" style="position: absolute;left: 50%;top: 50%;transform: translate(-50%,-50%);" method="POST" action="{{ url('/login_ileniadesign/1/cookie') }}">
+            <form id="login_account" class="w-100" style="position: absolute;left: 50%;top: 50%;transform: translate(-50%,-50%);" method="POST" action="{{ url('/login_ileniadesign/1') }}">
                 {{ csrf_field() }}
                 <div class="col-md-12{{ $errors->has('email') ? ' has-error' : '' }}">
                     <h4 class="flex-grow-1" style="font-family: 'Futura PT', sans-serif;font-size: 15px!important;" onclick="switch_account('register_account')">REGISTER</h4>
@@ -35,7 +35,7 @@
                     <button type="submit" class="btn btn-primary text-left mt-3">LOGIN  </button>
                 </div>
             </form>   
-            <form id="register_account" class="w-100" style="position: absolute;left: 50%;top: 50%;transform: translate(-50%,-50%);display: none;" method="POST" action="{{ url('/register_ileniadesign/1/cookie') }}">
+            <form id="register_account" class="w-100" style="position: absolute;left: 50%;top: 50%;transform: translate(-50%,-50%);display: none;" method="POST" action="{{ url('/register_ileniadesign/1') }}">
                     {{ csrf_field() }}
                 <div class="col-md-12{{ $errors->has('name') ? ' has-error' : '' }}">
                     <h4 class="flex-grow-1" style="font-family: 'Futura PT', sans-serif;font-size: 15px!important;" onclick="switch_account('login_account')">LOGIN</h4>
@@ -107,15 +107,11 @@
     //controlla se dal carrello il cliente è già registrato oppure no
     function check_page_from_to_login(){
         
-        var url_register = "{{ url('/register_ileniadesign/2/cookie') }}";
-        
-        url_register = url_register.replace("cookie", user);
+        var url_register = "{{ url('/register_ileniadesign/2') }}";
         
         $("#register_account").attr("action",url_register);
         
-        var url_login = "{{ url('/login_ileniadesign/2/cookie') }}";
-        
-        url_login = url_login.replace("cookie", user);  
+        var url_login = "{{ url('/login_ileniadesign/2') }}";
         
         $("#login_account").attr("action",url_login);
         

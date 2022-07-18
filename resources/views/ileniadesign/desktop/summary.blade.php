@@ -183,6 +183,10 @@
         border-bottom:1px solid red!important
     }
 
+    .waitconf:before {
+        content:"Wait..."!important;
+    }
+
     .okconf:before {
         content:"Ok"!important;
     }
@@ -335,7 +339,7 @@
                                 </div>
                             </div>
                             <div class="d-flex flex-nowrap">
-                                <button class="btn btn-primary text-left w-100" onclick="change_vis('shopmyart');$('.previous').click();$('fieldset').not('#fieldset_1').css({'opacity': '0', 'display': 'none'});">
+                                <button class="btn btn-primary text-left w-100" onclick="change_vis('shopmyart');">
                                     <div class="d-flex flex-nowrap">
                                         <p class="flex-grow-1 m-0">Continue shopping</p>
                                         <p class="m-0"><i class="bx bx-shopping-bag"></i></p>
@@ -410,12 +414,23 @@
     }
 
     function reset_class_text_html(){
+        
+        //ogni volta che entri nella pagina del summary se ti trovi in uno step diverso dal primo ritorna al primo step
+        console.log($("#fieldset_1").css('display'));
+        if ($("#fieldset_1").css('display')=='none') {
+            $('.previous').click();
+            $('fieldset').not('#fieldset_1').css({'display': 'none'});
+            $('#fieldset_1').css({'opacity': ''});
+        }
 
+        //mostra/nascondi il botton paypal
         $(".mkpay").removeClass("d-none");
         $("#ocpay").addClass("d-none");
 
+        //resetta lo step finale dopo una vendita
         $("#make_payment>strong").text("Make payment");
         $("#make_payment").removeClass("okconf");
+        $("#make_payment").removeClass("waitconf");
 
     }
     
