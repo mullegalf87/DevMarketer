@@ -505,3 +505,5 @@ Route::get('/delete_image_ileniadesign', 'IleniadesignController@delete_image_il
 
 Route::get('/delete_cat_subcat_ileniadesign', 'IleniadesignController@delete_cat_subcat_ileniadesign');
 
+//route order
+Route::get('get_product_user_ileniadesign', 'IleniadesignController@get_product_user_ileniadesign');

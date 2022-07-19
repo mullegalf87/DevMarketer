@@ -225,6 +225,7 @@
                     @if( auth()->guard('users_ileniadesign')->check() )
                     @if( auth()->guard("users_ileniadesign")->user()->id==13 )
                     <a class="nav-link" onclick="change_vis('setting')">My setting </a>
+                    <a class="nav-link" onclick="change_vis('order')">My order </a>
                     @else
                     <a class="nav-link" onclick="change_vis('order')">My order </a>
                     @endif
@@ -390,6 +391,12 @@
             <div class="footer"></div>
         </div>
     </div>
+    <div id="order" class="page" style="display: none;">
+        <div class="container_page" style="flex: 1; position: absolute; right: 0; bottom: 0; left: 0;">
+            @include("ileniadesign.desktop.order")
+            <div class="footer"></div>
+        </div>
+    </div>
     @else
     <div id="order" class="page" style="display: none;">
         <div class="container_page" style="flex: 1; position: absolute; right: 0; bottom: 0; left: 0;">
@@ -443,12 +450,10 @@
     </footer>
     <script>
         //MODIFICHE DESKTOP
-
-        //fare sistema user con cookie
+        //fare pagina ordini profilo cliente: profilo, ordini(dopo l'acquisto mettere nella tabella cart numero omaggi e %sconto così da riportarli nella lista ordini) e preferiti(rendere il cuore interagibile in una tabella a parte chiamata preferiti);
+        //fare pagina richieste;
         //fare accettazione cookie
         //sistemare problema lazy load delle immagini quando filtrate
-        //fare pagina ordini profilo cliente;
-        //richieste;
         //fare modal per promozione all'apertura della pagina
         //fare in mysetting report e tabelle per invio
         
@@ -460,7 +465,6 @@
         var data = {!! $data !!};
         page_to_go = data["page"];
         change_vis(page_to_go);
-        
         
         function change_vis(page_name, history){
             var num_image=page_name.split("_")[1];

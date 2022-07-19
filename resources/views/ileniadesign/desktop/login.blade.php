@@ -82,7 +82,7 @@
                     <img class="" src="ileniadesign_repo/captcha.php" style="height: 60px;width: 60%;" />
                     <input type="text" name="captcha" class="captcha form-control p-0" placeholder="Inserisci Captcha" style="width: 60%;height:60px;background: transparent; border-radius: 0; border-bottom: 1px solid;font-family: 'Futura PT', sans-serif;font-size: 15px!important;" required>
                     @if (session('captcha'))
-                    <div class="alert alert-danger">
+                    <div class="alert alert-danger" style="width: 60%;">
                         {{ session('captcha') }}
                     </div>
                     @endif

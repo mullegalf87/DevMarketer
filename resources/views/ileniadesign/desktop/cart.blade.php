@@ -38,7 +38,7 @@
                         <p class="m-0"><i class="bx bx-shopping-bag"></i></p>
                     </div>
                 </button>
-                <button onclick="change_vis('{{$_SESSION['id']!='' ? 'summary' : 'login'}}')" class="btn btn-primary text-left w-100" style="background-color:#CDB4B4!important">
+                <button onclick="{{$_SESSION['id']!='' ? 'change_vis(\'summary\')' : 'change_vis(\'login\'); check_page_from_to_login()'}}" class="btn btn-primary text-left w-100" style="background-color:#CDB4B4!important">
                     <div class="d-flex flex-nowrap">
                         <p class="flex-grow-1 m-0">Checkout</p>
                         <p class="m-0"><i class="bx bx-shopping-bag"></i></p>

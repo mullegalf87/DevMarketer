@@ -26,9 +26,10 @@ use Cookie;
 
 class IleniadesignController extends Controller{
 
-  function universal_db(){
-
-    Config::set('database.connections.mysql_dynamic.database','ileniadesign');
+  function universal_db($db){
+    $dab=$db;
+    DB::disconnect("mysql_dynamic");
+    Config::set('database.connections.mysql_dynamic.database',$dab);
     $universal=DB::connection('mysql_dynamic');
 
     return $universal;
@@ -36,13 +37,12 @@ class IleniadesignController extends Controller{
   }
 
   //random token
-  function random_token_user_ilenia_design($table, $column){
+  function random_token_user_ilenia_design($db, $table, $column){
 
     $token;
     do{
       $token = $this->getRandomString(14);
-
-      $orders_with_token = $this->universal_db()->table($table)
+      $orders_with_token = $this->universal_db($db)->table($table)
       ->where($column, "=", $token)
       ->get();
 
@@ -118,7 +118,7 @@ class IleniadesignController extends Controller{
 
   function setCookie(){
     $minutes = 525960;//1 anno
-    $value = $this->random_token_user_ilenia_design('cart_ileniadesign','id_user');
+    $value = $this->random_token_user_ilenia_design('ileniadesign','cart_ileniadesign','id_user');
     Cookie::queue('cookie', $value, $minutes);
   }
 
@@ -179,13 +179,13 @@ class IleniadesignController extends Controller{
           'password' => bcrypt(Request::get('password')),
           'password_decript' => Request::get('password'),
           'cookie' => $this->getCookie(),
-          'token_user' => $this->random_token_user_ilenia_design('users_ileniadesigns','token_user'),
+          'token_user' => $this->random_token_user_ilenia_design('test','users_ileniadesigns','token_user'),
 
       ]);
       
       auth()->guard('users_ileniadesign')->login($user);
 
-      DB::table('cart_ileniadesign')
+      $this->universal_db('ileniadesign')->table('cart_ileniadesign')
         ->where('id_user','=',$this->getCookie())
         ->update(
           array(
@@ -264,30 +264,27 @@ class IleniadesignController extends Controller{
 
           if(auth()->guard('users_ileniadesign')->attempt(['email' => $email, 'password' => $password])) {
               
-            if ($numb==1) {
-              return redirect()->to('/ileniadesign');
-            }else{
-
-              DB::table('cart_ileniadesign')
+            $this->universal_db('ileniadesign')->table('cart_ileniadesign')
               ->where('id_user','=',$this->getCookie())
               ->update(
                 array(
-
                 'id_user'=>auth()->guard('users_ileniadesign')->user()->id,
+            ));
 
-              ));
-
+            if ($numb==1) {
+              return redirect()->to('/ileniadesign');
+            }else{
               return redirect()->to('/id?page=cart');
             }
 
-            } else{
+          } else{
 
-              return back()->withErrors([
-                'password' => 'Incorrect password!'
-            ])->withInput(); 
-        
+            return back()->withErrors([
+              'password' => 'Incorrect password!'
+          ])->withInput(); 
+      
 
-            }
+          }
 
       }
   }
@@ -304,7 +301,7 @@ class IleniadesignController extends Controller{
     
     $email=Request::get('email');
     
-    $user = DB::table('users_ileniadesigns')
+    $user = $this->universal_db('ileniadesign')->table('users_ileniadesigns')
     ->where('email', '=', $email)
     ->get();
     
@@ -312,7 +309,7 @@ class IleniadesignController extends Controller{
       return redirect()->back()->withErrors(['email' => trans('email not exist!')]);
     }
     
-    $user = DB::table('users_ileniadesigns')
+    $user = $this->universal_db('ileniadesign')->table('users_ileniadesigns')
     ->where('email', '=' ,$email)
     ->first();    
     
@@ -344,7 +341,7 @@ class IleniadesignController extends Controller{
   public function get_image_shopmyart_ileniadesign(){
 
     $type_img=Request::get("type_img");
-    $get_image = $this->universal_db()->table('image_shopmyart_ileniadesign')
+    $get_image = $this->universal_db('ileniadesign')->table('image_shopmyart_ileniadesign')
     ->orderBy('position', 'DESC')
     ->get();
 
@@ -356,7 +353,7 @@ class IleniadesignController extends Controller{
 
     $id_cat=Request::get('id_cat');
 
-    $get_subcat=$this->universal_db()->table('image_subcategory_ileniadesign')
+    $get_subcat=$this->universal_db('ileniadesign')->table('image_subcategory_ileniadesign')
       ->get();
 
     return View::make('query')->with("result",json_encode($get_subcat)); 
@@ -370,7 +367,7 @@ class IleniadesignController extends Controller{
   $array=explode(",", $ultimate_array_position);
 
   for ($i=0; $i < count($array); $i++) { 
-    $this->universal_db()->table('image_shopmyart_ileniadesign')
+    $this->universal_db('ileniadesign')->table('image_shopmyart_ileniadesign')
     ->where('id', '=',explode("_", $array[$i])[0])
     ->update(
       array(
@@ -388,7 +385,7 @@ class IleniadesignController extends Controller{
     $id_image=Request::get('id_image');
     $type_page=Request::get('type_page');
 
-    $get_image = $this->universal_db()->table('image_shopmyart_ileniadesign')
+    $get_image = $this->universal_db('ileniadesign')->table('image_shopmyart_ileniadesign')
     ->where('id', '=',$id_image)
     ->get();
     return View::make('query')->with("result",json_encode($get_image)); 
@@ -407,7 +404,7 @@ class IleniadesignController extends Controller{
 
     }
 
-    $get_cart=$this->universal_db()->table('cart_ileniadesign')
+    $get_cart=$this->universal_db('ileniadesign')->table('cart_ileniadesign')
     ->select(DB::raw('sum(qnt) as sum_qnt_cart'))
     ->where('id_user', '=',$id_user)
     ->where('sold', '=',null)
@@ -439,7 +436,7 @@ class IleniadesignController extends Controller{
 
     }
 
-    $exist_product=$this->universal_db()->table('cart_ileniadesign')
+    $exist_product=$this->universal_db('ileniadesign')->table('cart_ileniadesign')
     ->where('id_user','=',$id_user)
     ->where('id_product','=',$id_product)
     ->where('format','=',$format)
@@ -448,7 +445,7 @@ class IleniadesignController extends Controller{
 
     if ($exist_product) {
 
-      $this->universal_db()->table('cart_ileniadesign')
+      $this->universal_db('ileniadesign')->table('cart_ileniadesign')
       ->where('id_user','=',$id_user)
       ->where('id_product','=',$id_product)
       ->where('format','=',$format)
@@ -460,7 +457,7 @@ class IleniadesignController extends Controller{
 
     }else{
 
-      $this->universal_db()->table('cart_ileniadesign')
+      $this->universal_db('ileniadesign')->table('cart_ileniadesign')
       ->insertGetId(array( 
         'id_product'=>$id_product,
         'name_product'=>$name_product,
@@ -493,7 +490,7 @@ class IleniadesignController extends Controller{
 
     }
 
-    $get_cart=$this->universal_db()->table('cart_ileniadesign')
+    $get_cart=$this->universal_db('ileniadesign')->table('cart_ileniadesign')
     ->select(DB::raw('image_shopmyart_ileniadesign.type_img as cat_img, image_shopmyart_ileniadesign.subtype_image as subcat_img, cart_ileniadesign.*'))
     ->join('image_shopmyart_ileniadesign', 'image_shopmyart_ileniadesign.id', '=', 'cart_ileniadesign.id_product') 
     ->where('cart_ileniadesign.id_user', '=',$id_user)
@@ -521,7 +518,7 @@ class IleniadesignController extends Controller{
 
     }
 
-    $this->universal_db()->table('cart_ileniadesign')
+    $this->universal_db('ileniadesign')->table('cart_ileniadesign')
     ->where('id', '=',$id_cart)
     ->where('id_user', '=',$id_user)
     ->update(
@@ -541,7 +538,7 @@ class IleniadesignController extends Controller{
   
     $id_product=Request::get("id_product");
 
-    $this->universal_db()->table('cart_ileniadesign')
+    $this->universal_db('ileniadesign')->table('cart_ileniadesign')
     ->where('id', '=',$id_product)
     ->delete();
 
@@ -551,7 +548,7 @@ class IleniadesignController extends Controller{
 
   public function get_setting_gift_ileniadesign(){
 
-    $get_setting_gift=$this->universal_db()->table('image_gift_ileniadesign')
+    $get_setting_gift=$this->universal_db('ileniadesign')->table('image_gift_ileniadesign')
     ->where("status","=",0)
     ->get();
 
@@ -567,7 +564,7 @@ class IleniadesignController extends Controller{
     for ($i=0; $i < count($object_real_price); $i++) { 
       $id_cart=$object_real_price[$i]["id_cart"];
       $real_price=$object_real_price[$i]["real_price"];
-      $this->universal_db()->table('cart_ileniadesign')
+      $this->universal_db('ileniadesign')->table('cart_ileniadesign')
       ->where("id","=",$id_cart)
       ->update(array(
         "disc_applied"=>$discount_cart,
@@ -575,7 +572,7 @@ class IleniadesignController extends Controller{
       ));
     }  
 
-    $get_list_item=$this->universal_db()->table('cart_ileniadesign')
+    $get_list_item=$this->universal_db('ileniadesign')->table('cart_ileniadesign')
     ->where('id_user','=', auth()->guard('users_ileniadesign')->user()->id)
     ->where('sold','=', null)
     ->get();
@@ -588,13 +585,13 @@ public function convert_sold_ileniadesign(){
   
   $id_cart=Request::get("id_cart");
   
-  $token = $this->random_token_user_ilenia_design('cart_ileniadesign','sold_id');
+  $token = $this->random_token_user_ilenia_design('ileniadesign','cart_ileniadesign','sold_id');
   
   for( $i = 0; $i < count($id_cart); $i++ ) {
     
     $id_list_cart=str_replace("\"","",$id_cart[$i]);
     
-    $this->universal_db()->table('cart_ileniadesign')
+    $this->universal_db('ileniadesign')->table('cart_ileniadesign')
     ->where('id','=', $id_list_cart)
     ->update(
       array(
@@ -618,7 +615,7 @@ public function convert_sold_ileniadesign(){
     
     foreach ($object_input as $value) {
   
-      $verify_code=DB::table('users_ileniadesigns')
+      $verify_code=$this->universal_db('ileniadesign')->table('users_ileniadesigns')
       ->where('id', '=', $id_user)
       ->update(array(
         $value["column"]=>$value["value"],
@@ -634,7 +631,7 @@ public function convert_sold_ileniadesign(){
   
     $name_discount=Request::get("name_discount");
 
-    $verify_code=$this->universal_db()->table('image_discount_ileniadesign')
+    $verify_code=$this->universal_db('ileniadesign')->table('image_discount_ileniadesign')
     ->where('name', '=', $name_discount)
     ->first();
 
@@ -651,8 +648,8 @@ public function convert_sold_ileniadesign(){
   //controllers setting
   public function get_all_image_ileniadesign(){
 
-    $get_all_image=$this->universal_db()->table('image_shopmyart_ileniadesign')
-    ->select($this->universal_db()->raw('image_shopmyart_ileniadesign.*, image_category_ileniadesign.id as id_cat, image_category_ileniadesign.name as name_cat, image_subcategory_ileniadesign.id as id_subcat, image_subcategory_ileniadesign.name as name_subcat'))
+    $get_all_image=$this->universal_db('ileniadesign')->table('image_shopmyart_ileniadesign')
+    ->select($this->universal_db('ileniadesign')->raw('image_shopmyart_ileniadesign.*, image_category_ileniadesign.id as id_cat, image_category_ileniadesign.name as name_cat, image_subcategory_ileniadesign.id as id_subcat, image_subcategory_ileniadesign.name as name_subcat'))
     ->join('image_category_ileniadesign', 'image_category_ileniadesign.id', '=', 'image_shopmyart_ileniadesign.type_img')
     ->join('image_subcategory_ileniadesign', 'image_subcategory_ileniadesign.id', '=', 'image_shopmyart_ileniadesign.subtype_image') 
     ->orderBy('id','DESC')
@@ -664,8 +661,8 @@ public function convert_sold_ileniadesign(){
 
   public function get_category_image_ileniadesign(){
 
-    $get_category=$this->universal_db()->table('image_category_ileniadesign')
-    ->select($this->universal_db()->raw('id as id_cat, name as name_cat'))
+    $get_category=$this->universal_db('ileniadesign')->table('image_category_ileniadesign')
+    ->select($this->universal_db('ileniadesign')->raw('id as id_cat, name as name_cat'))
     ->get();
 
     return View::make('query')->with("result",json_encode($get_category));
@@ -674,8 +671,8 @@ public function convert_sold_ileniadesign(){
 
   public function get_subcategory_image_ileniadesign(){
 
-    $get_subcategory=$this->universal_db()->table('image_subcategory_ileniadesign')
-    ->select($this->universal_db()->raw('id as id_subcat, name as name_subcat, id_cat as id_cat'))
+    $get_subcategory=$this->universal_db('ileniadesign')->table('image_subcategory_ileniadesign')
+    ->select($this->universal_db('ileniadesign')->raw('id as id_subcat, name as name_subcat, id_cat as id_cat'))
     ->get();
 
     return View::make('query')->with("result",json_encode($get_subcategory));
@@ -684,7 +681,7 @@ public function convert_sold_ileniadesign(){
 
   public function get_discount_code_ileniadesign(){
 
-    $get_discount_code=$this->universal_db()->table('image_discount_ileniadesign')
+    $get_discount_code=$this->universal_db('ileniadesign')->table('image_discount_ileniadesign')
     ->get();
 
     return View::make('query')->with("result",json_encode($get_discount_code));
@@ -693,7 +690,7 @@ public function convert_sold_ileniadesign(){
 
   public function get_gift_ileniadesign(){
 
-    $get_gift_code=$this->universal_db()->table('image_gift_ileniadesign')
+    $get_gift_code=$this->universal_db('ileniadesign')->table('image_gift_ileniadesign')
     ->get();
 
     return View::make('query')->with("result",json_encode($get_gift_code));
@@ -709,7 +706,7 @@ public function convert_sold_ileniadesign(){
     $type_img_shopmyart=Request::get('type_img_shopmyart');
     $subtype_img_shopmyart=Request::get('subtype_img_shopmyart');
 
-    $id_image=$this->universal_db()->table('image_shopmyart_ileniadesign')
+    $id_image=$this->universal_db('ileniadesign')->table('image_shopmyart_ileniadesign')
       ->insertGetId(array( 
   
         'name'=>strtoupper($name_image),
@@ -729,7 +726,7 @@ public function convert_sold_ileniadesign(){
 
     $name_cat=Request::get('name_cat');
 
-    $this->universal_db()->table('image_category_ileniadesign')
+    $this->universal_db('ileniadesign')->table('image_category_ileniadesign')
     ->insertGetId(array(
 
       "name"=>$name_cat,
@@ -745,7 +742,7 @@ public function convert_sold_ileniadesign(){
     $name_subcat=Request::get('name_subcat');
     $id_cat=Request::get('id_cat');
 
-    $this->universal_db()->table('image_subcategory_ileniadesign')
+    $this->universal_db('ileniadesign')->table('image_subcategory_ileniadesign')
     ->insertGetId(array(
 
       "name"=>$name_subcat,
@@ -762,7 +759,7 @@ public function convert_sold_ileniadesign(){
     $name_discount=Request::get('name_discount');
     $off_discount=Request::get('off_discount');
 
-    $this->universal_db()->table('image_discount_ileniadesign')
+    $this->universal_db('ileniadesign')->table('image_discount_ileniadesign')
     ->insertGetId(array(
 
       "name"=>$name_discount,
@@ -781,7 +778,7 @@ public function convert_sold_ileniadesign(){
     $position=Request::get('position');
     $ext_file=Request::get('ext_file');
 
-    $this->universal_db()->table('image_shopmyart_ileniadesign')
+    $this->universal_db('ileniadesign')->table('image_shopmyart_ileniadesign')
       ->where('id', '=',$id_image)
       ->update(
           array(
@@ -800,7 +797,7 @@ public function convert_sold_ileniadesign(){
     $complete_id=Request::get("complete_id");
     $name=Request::get("text");
 
-    $this->universal_db()->table($table)
+    $this->universal_db('ileniadesign')->table($table)
     ->where("id","=",$id)
     ->update(array(
       $complete_id=>$name,
@@ -817,7 +814,7 @@ public function convert_sold_ileniadesign(){
     $column=Request::get("column");
     $value=Request::get("value");
 
-    $this->universal_db()->table($table)
+    $this->universal_db('ileniadesign')->table($table)
     ->where("id","=",$id)
     ->update(array(
       $column=>$value,
@@ -831,7 +828,7 @@ public function convert_sold_ileniadesign(){
 
     $id_image=Request::get('id_image');
 
-    $this->universal_db()->table('image_shopmyart_ileniadesign')
+    $this->universal_db('ileniadesign')->table('image_shopmyart_ileniadesign')
     ->where('id', '=',$id_image)
     ->delete();
 
@@ -849,11 +846,29 @@ public function convert_sold_ileniadesign(){
 
     $id=Request::get('id');
     $type=Request::get('type');
-    $this->universal_db()->table('image_'.$type.'_ileniadesign')
+    $this->universal_db('ileniadesign')->table('image_'.$type.'_ileniadesign')
     ->where("id","=",$id)
     ->delete();
 
     return View::make('query')->with("result",json_encode("eliminato")); 
+
+  }
+
+  //controller order
+  public function get_product_user_ileniadesign(){
+
+    $id_user=auth()->guard('users_ileniadesign')->user()->id;
+    
+    $get_cart=$this->universal_db('ileniadesign')->table('cart_ileniadesign')
+    ->select(DB::raw('sold_id, sold_date, status, count(id) as count_prod, sum(price_applied) as sum_price'))
+    ->where('id_user', '=',$id_user)
+    ->where('sold', '=',1)
+    ->groupBy('sold_id')
+    ->groupBy('sold_date')
+    ->groupBy('status')
+    ->get();
+
+    return View::make('query')->with("result",json_encode($get_cart));
 
   }
 
