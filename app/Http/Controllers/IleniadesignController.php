@@ -860,7 +860,7 @@ public function convert_sold_ileniadesign(){
     $id_user=auth()->guard('users_ileniadesign')->user()->id;
     
     $get_cart=$this->universal_db('ileniadesign')->table('cart_ileniadesign')
-    ->select(DB::raw('sold_id, sold_date, status, count(id) as count_prod, sum(price_applied) as sum_price'))
+    ->select(DB::raw('sold_id, id_product, type_img, sold_date, status, count(id) as count_prod, sum(price_applied) as sum_price'))
     ->where('id_user', '=',$id_user)
     ->where('sold', '=',1)
     ->groupBy('sold_id')
@@ -869,6 +869,18 @@ public function convert_sold_ileniadesign(){
     ->get();
 
     return View::make('query')->with("result",json_encode($get_cart));
+
+  }
+
+  public function show_detail_myorder_ileniadesign(){
+
+    $sold_id=Request::get('sold_id');
+
+    $myorder_detail=$this->universal_db('ileniadesign')->table('cart_ileniadesign')
+    ->where('sold_id', '=', $sold_id)
+    ->get();
+
+    return View::make('query')->with("result",json_encode($myorder_detail));
 
   }
 

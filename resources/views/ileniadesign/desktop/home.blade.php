@@ -450,7 +450,7 @@
     </footer>
     <script>
         //MODIFICHE DESKTOP
-        //fare pagina ordini profilo cliente: profilo, ordini(dopo l'acquisto mettere nella tabella cart numero omaggi e %sconto così da riportarli nella lista ordini) e preferiti(rendere il cuore interagibile in una tabella a parte chiamata preferiti);
+        //fare pagina ordini profilo cliente: ordini(dopo l'acquisto mettere nella tabella cart numero omaggi e %sconto così da riportarli nella lista ordini) e preferiti(rendere il cuore interagibile in una tabella stile cart), profilo;
         //fare pagina richieste;
         //fare accettazione cookie
         //sistemare problema lazy load delle immagini quando filtrate

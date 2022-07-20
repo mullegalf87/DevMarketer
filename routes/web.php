@@ -507,3 +507,5 @@ Route::get('/delete_cat_subcat_ileniadesign', 'IleniadesignController@delete_cat
 
 //route order
 Route::get('get_product_user_ileniadesign', 'IleniadesignController@get_product_user_ileniadesign');
+
+Route::get('/show_detail_myorder_ileniadesign', 'IleniadesignController@show_detail_myorder_ileniadesign');
