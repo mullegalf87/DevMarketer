@@ -12,11 +12,11 @@
 <section class="container-fluid" style="padding: 7%;">
 
     <div class="d-flex flex-nowrap w-100 p-5">
-        <h4 class="text-center flex-grow-1" style="font-family: 'Futura PT', sans-serif;font-size: 13px!important;display: flex;align-items: center;justify-content: center;width: 5%;" onclick="change_vis_setting('list_image')">IMAGE</h4>
-        <h4 class="text-center flex-grow-1" style="font-family: 'Futura PT', sans-serif;font-size: 13px!important;display: flex;align-items: center;justify-content: center;width: 5%;" onclick="change_vis_setting('list_cat')">CATEGORY</h4>
-        <h4 class="text-center flex-grow-1" style="font-family: 'Futura PT', sans-serif;font-size: 13px!important;display: flex;align-items: center;justify-content: center;width: 5%;" onclick="change_vis_setting('list_subcat')">SUBCATEGORY</h4>
-        <h4 class="text-center flex-grow-1" style="font-family: 'Futura PT', sans-serif;font-size: 13px!important;display: flex;align-items: center;justify-content: center;width: 5%;" onclick="change_vis_setting('list_discount');">DISCOUNT</h4>
-        <h4 class="text-center flex-grow-1" style="font-family: 'Futura PT', sans-serif;font-size: 13px!important;display: flex;align-items: center;justify-content: center;width: 5%;" onclick="change_vis_setting('list_gift');">GIFT</h4>
+        <h4 class="text-center flex-grow-1 list_image" style="font-family: 'Futura PT', sans-serif;font-size: 13px!important;display: flex;align-items: center;justify-content: center;width: 5%;text-underline-offset:5px; text-decoration:underline" onclick="change_vis_setting('list_image')">IMAGE</h4>
+        <h4 class="text-center flex-grow-1 list_cat" style="font-family: 'Futura PT', sans-serif;font-size: 13px!important;display: flex;align-items: center;justify-content: center;width: 5%;" onclick="change_vis_setting('list_cat')">CATEGORY</h4>
+        <h4 class="text-center flex-grow-1 list_subcat" style="font-family: 'Futura PT', sans-serif;font-size: 13px!important;display: flex;align-items: center;justify-content: center;width: 5%;" onclick="change_vis_setting('list_subcat')">SUBCATEGORY</h4>
+        <h4 class="text-center flex-grow-1 list_discount" style="font-family: 'Futura PT', sans-serif;font-size: 13px!important;display: flex;align-items: center;justify-content: center;width: 5%;" onclick="change_vis_setting('list_discount');">DISCOUNT</h4>
+        <h4 class="text-center flex-grow-1 list_gift" style="font-family: 'Futura PT', sans-serif;font-size: 13px!important;display: flex;align-items: center;justify-content: center;width: 5%;" onclick="change_vis_setting('list_gift');">GIFT</h4>
     </div>
 
     <div id="list_image">
@@ -131,15 +131,17 @@
         
     }
 
-    var old_section="list_image";
+    var old_section_setting="list_image";
 
     function change_vis_setting(section){
 
-        $("#"+old_section).addClass("d-none");
+        $("#"+old_section_setting).addClass("d-none");
+        $("."+old_section_setting).css({"text-underline-offset": "5px","text-decoration": ""});
 
-        old_section=section;
+        old_section_setting=section;
 
         $("#"+section).removeClass("d-none");
+        $("."+section).css({"text-underline-offset": "5px","text-decoration": "underline"});
 
     }
 

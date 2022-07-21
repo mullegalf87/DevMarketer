@@ -450,7 +450,7 @@
     </footer>
     <script>
         //MODIFICHE DESKTOP
-        //fare pagina ordini profilo cliente: ordini(dopo l'acquisto mettere nella tabella cart numero omaggi e %sconto così da riportarli nella lista ordini) e preferiti(rendere il cuore interagibile in una tabella stile cart), profilo;
+        //fare pagina ordini profilo cliente: e preferiti(rendere il cuore interagibile in una tabella stile cart), profilo;
         //fare pagina richieste;
         //fare accettazione cookie
         //sistemare problema lazy load delle immagini quando filtrate
@@ -759,6 +759,18 @@
                 data==0?data=0:data=data;
                 $(".circle_cart").text(data);
             });
+        }
+
+        function formatDate(date) {
+
+            var year=date.split("-")[0];
+            var month=date.split("-")[1];
+            var day=date.split("-")[2];
+            var correct_day=day.split(" ")[0];
+            var time=day.split(" ")[1];
+
+            return correct_day+"/"+month+"/"+year;
+
         }
         
     </script>

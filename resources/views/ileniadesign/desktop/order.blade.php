@@ -17,7 +17,10 @@
                     <p class="p-0 m-0 text-left">Id</p>
                 </div>
                 <div class="w-50 m-auto" style="">
-                    <p class="p-0 m-0 text-left">Order</p>
+                    <p class="p-0 m-0 text-center">Date</p>
+                </div>
+                <div class="w-50 m-auto" style="">
+                    <p class="p-0 m-0 text-center">Order</p>
                 </div>
                 <div class="w-50 m-auto" style="">
                     <p class="p-0 m-0 text-center">Quantity</p>
@@ -26,10 +29,16 @@
                     <p class="p-0 m-0 text-center">Status</p>
                 </div>
                 <div class="w-50 m-auto">
+                    <p class="p-0 m-0 text-center">Gift</p>
+                </div>
+                <div class="w-50 m-auto">
+                    <p class="p-0 m-0 text-center">Discount</p>
+                </div>
+                <div class="w-50 m-auto">
                     <p class="p-0 m-0 text-center">Delivery</p>
                 </div>
                 <div class="w-50 m-auto">
-                    <p class="p-0 m-0 text-right">Price</p>
+                    <p class="p-0 m-0 text-right">Total</p>
                 </div>
             </div>
         </div>
@@ -76,14 +85,14 @@
         
     }
 
-    var old_section="list_order";
+    var old_section_order="list_order";
 
     function change_vis_order(section){
 
-        $("#"+old_section).addClass("d-none");
-        $("."+old_section).css({"text-underline-offset": "5px","text-decoration": ""});
+        $("#"+old_section_order).addClass("d-none");
+        $("."+old_section_order).css({"text-underline-offset": "5px","text-decoration": ""});
 
-        old_section=section;
+        old_section_order=section;
 
         $("#"+section).removeClass("d-none");
         $("."+section).css({"text-underline-offset": "5px","text-decoration": "underline"});
@@ -119,8 +128,11 @@
                 '<div class="w-50 m-auto" style="" onclick="show_detail_myorder(\''+res[i].sold_id+'\')">'+
                 '<p class="p-0 m-0 text-left">'+num+'</p>'+
                 '</div>'+
+                '<div class="w-50 m-auto" style="" onclick="show_detail_myorder(\''+res[i].sold_id+'\')">'+
+                '<p class="p-0 m-0 text-center">'+formatDate(res[i].sold_date)+'</p>'+
+                '</div>'+
                 '<div class="w-50 m-auto" style="">'+
-                '<p class="p-0 m-0 text-left" onclick="show_detail_myorder(\''+res[i].sold_id+'\')">'+res[i].sold_id+'</p>'+
+                '<p class="p-0 m-0 text-center" onclick="show_detail_myorder(\''+res[i].sold_id+'\')">'+res[i].sold_id+'</p>'+
                 '</div>'+
                 '<div class="w-50 m-auto" style="">'+
                 '<p class="p-0 m-0 text-center">'+res[i].count_prod+'</p>'+
@@ -129,7 +141,13 @@
                 '<p '+url+' class="p-0 m-0 text-center" style="text-decoration: underline;text-underline-offset: 1px;">'+res[i].status+'</p>'+
                 '</div>'+
                 '<div class="w-50 m-auto" style="">'+
-                '<p class="p-0 m-0 text-center">Delivery</p>'+
+                '<p class="p-0 m-0 text-center">'+res[i].gift_applied+'</p>'+
+                '</div>'+
+                '<div class="w-50 m-auto" style="">'+
+                '<p class="p-0 m-0 text-center">'+res[i].disc_applied+'</p>'+
+                '</div>'+
+                '<div class="w-50 m-auto" style="">'+
+                '<p class="p-0 m-0 text-center">€ '+res[i].delivery_cost+'</p>'+
                 '</div>'+
                 '<div class="w-50 m-auto">'+
                 '<p class="p-0 m-0 text-right">€ '+parseFloat(res[i].sum_price).toFixed(2)+'</p>'+
@@ -161,6 +179,9 @@
 
                 var res=jQuery.parseJSON(data);
                 var format;
+                var gift_applied;
+                var gift_price_applied;
+                var total_price_applied;
 
                 for (var i = 0; i < res.length; i++) {
 
@@ -178,19 +199,28 @@
                     '<img style="width: 55px!important;" class="img-corner mr-4" src="ileniadesign_repo/shopmyart/'+res[i].id_product+'/1.'+res[i].type_img+'">'+
                     '</div>'+
                     '<div class="w-50 m-auto" style="">'+
-                    '<p class="p-0 m-0">'+res[i].name_product+'</p>'+
+                    '<p class="p-0 m-0 text-center">'+res[i].name_product+'</p>'+
+                    '</div>'+
+                    '<div class="w-50 m-auto" style="">'+
+                    '<p class="p-0 m-0 text-center">€ '+parseFloat(res[i].price).toFixed(2)+'</p>'+
                     '</div>'+
                     '<div class="w-50 m-auto" style="">'+
                     '<p class="p-0 m-0 text-center">'+res[i].qnt+'</p>'+
                     '</div>'+
-                    '<div class="w-50 m-auto">'+
+                    '<div class="w-50 m-auto" style="">'+
                     '<p class="p-0 m-0 text-center">'+format+'</p>'+
                     '</div>'+
                     '<div class="w-50 m-auto">'+
-                    '<p class="p-0 m-0 text-center">Gift</p>'+
+                    '<p class="p-0 m-0 text-center"></p>'+
+                    '</div>'+
+                    '<div class="w-50 m-auto" style="">'+
+                    '<p class="p-0 m-0 text-center"></p>'+
                     '</div>'+
                     '<div class="w-50 m-auto">'+
-                    '<p class="p-0 m-0 text-right">€ '+parseFloat(res[i].price*res[i].qnt).toFixed(2)+'</p>'+
+                    '<p class="p-0 m-0 text-center"></p>'+
+                    '</div>'+
+                    '<div class="w-50 m-auto">'+
+                    '<p class="p-0 m-0 text-right">€ '+parseFloat(res[i].price_applied).toFixed(2)+'</p>'+
                     '</div>'+
                     '</div>'+
                     '</div>');

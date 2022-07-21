@@ -301,7 +301,7 @@ class IleniadesignController extends Controller{
     
     $email=Request::get('email');
     
-    $user = $this->universal_db('ileniadesign')->table('users_ileniadesigns')
+    $user = $this->universal_db('test')->table('users_ileniadesigns')
     ->where('email', '=', $email)
     ->get();
     
@@ -309,7 +309,7 @@ class IleniadesignController extends Controller{
       return redirect()->back()->withErrors(['email' => trans('email not exist!')]);
     }
     
-    $user = $this->universal_db('ileniadesign')->table('users_ileniadesigns')
+    $user = $this->universal_db('test')->table('users_ileniadesigns')
     ->where('email', '=' ,$email)
     ->first();    
     
@@ -584,6 +584,11 @@ class IleniadesignController extends Controller{
 public function convert_sold_ileniadesign(){
   
   $id_cart=Request::get("id_cart");
+  $text_total_gift=Request::get("text_total_gift");
+  $total_gift=Request::get("total_gift");
+  $discount_cart=Request::get("discount_cart");
+  $total_discount=Request::get("total_discount");
+  $delivery=Request::get("delivery");
   
   $token = $this->random_token_user_ilenia_design('ileniadesign','cart_ileniadesign','sold_id');
   
@@ -595,6 +600,11 @@ public function convert_sold_ileniadesign(){
     ->where('id','=', $id_list_cart)
     ->update(
       array(
+        'gift_applied'=>$text_total_gift,
+        'num_gift_applied'=>$total_gift,
+        'disc_applied'=>$discount_cart,
+        'percent_disc_applied'=>$total_discount,
+        'delivery_cost'=>$delivery,
         'sold'=>1,
         'sold_id'=>$token,
         'status'=>"Processing",
@@ -615,7 +625,7 @@ public function convert_sold_ileniadesign(){
     
     foreach ($object_input as $value) {
   
-      $verify_code=$this->universal_db('ileniadesign')->table('users_ileniadesigns')
+      $verify_code=$this->universal_db('test')->table('users_ileniadesigns')
       ->where('id', '=', $id_user)
       ->update(array(
         $value["column"]=>$value["value"],
@@ -860,12 +870,10 @@ public function convert_sold_ileniadesign(){
     $id_user=auth()->guard('users_ileniadesign')->user()->id;
     
     $get_cart=$this->universal_db('ileniadesign')->table('cart_ileniadesign')
-    ->select(DB::raw('sold_id, id_product, type_img, sold_date, status, count(id) as count_prod, sum(price_applied) as sum_price'))
+    ->select(DB::raw('sold_id, id_product, type_img, gift_applied, disc_applied, delivery_cost, sold_date, status, sum(qnt) as count_prod, sum(price_applied)-num_gift_applied-percent_disc_applied+delivery_cost as sum_price'))
     ->where('id_user', '=',$id_user)
     ->where('sold', '=',1)
     ->groupBy('sold_id')
-    ->groupBy('sold_date')
-    ->groupBy('status')
     ->get();
 
     return View::make('query')->with("result",json_encode($get_cart));

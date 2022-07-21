@@ -94,7 +94,7 @@ function get_cart(page){
                 
             }
             
-            $(".append_cart_"+page).append('<div class="d-flex mb-4" id="tr_'+res[i].id+'">'+
+            $(".append_cart_"+page).append('<div class="d-flex mb-4 row_cart" id_cart='+res[i].id+' id="tr_'+res[i].id+'">'+
             '<div class="d-flex" style="width:20%">'+
             '<img onclick="change_vis(\'shopdetail_'+res[i].id_product+'\')" style="width: 55px!important;" class="img-corner mr-4" src="ileniadesign_repo/shopmyart/'+res[i].id_product+'/1.'+res[i].type_img+'">'+
             title_image+
@@ -225,16 +225,16 @@ function gift_image(){
     
     $(".total_cart").text("€ "+sum_cart.toFixed(2));
 
-    $(".styled-select").each(function(){
+    //ottengo di ogni riga nel summary le quantità e il prezzo, controllo se il prezzo è uguale alla variabile dei multipli e se sì aggiungo
+    $(".row_cart").each(function(){
 
-        var id_cart=$(this).attr("id").split("_")[2];
+        var id_cart=$(this).attr("id_cart");
         var price=$("#select_format_"+id_cart+" :selected").attr("price");
-        var qnt=$("#select_qnt_"+id_cart+" :selected").val();
 
         if (price==price_variable) {
+        
+            qnt_gift+=parseInt($("#select_qnt_"+id_cart+" :selected").val());
 
-            qnt_gift=qnt;
-    
         }
 
     });
@@ -411,7 +411,7 @@ paypal.Buttons({
                     },
                     success: function(output){
             
-                        $.get("/convert_sold_ileniadesign",{id_cart:list_id_cart},
+                        $.get("/convert_sold_ileniadesign",{id_cart:list_id_cart, text_total_gift:text_total_gift, total_gift:total_gift, discount_cart:discount_cart, total_discount:total_discount, delivery:delivery},
                         function(data){
                             
                             $(document).ready(function(){
@@ -479,6 +479,11 @@ paypal.Buttons({
 
 //     $.get("/send_data_cart_ileniadesign",{discount_cart:discount_cart, object_real_price:object_real_price},
 //     function(data){
+
+//         //parte il wait nello step 5
+//         $("#make_payment").addClass("waitconf");
+//         $("#make_payment>strong").text("Wait...");
+
 //         var res=jQuery.parseJSON(data);
         
 //         for (var i = 0; i < res.length; i++) {
@@ -522,8 +527,8 @@ paypal.Buttons({
 //                 "cache-control": "no-cache"
 //             },
 //             success: function(output){
-      
-//                 $.get("/convert_sold_ileniadesign",{id_cart:list_id_cart},
+    
+//                 $.get("/convert_sold_ileniadesign",{id_cart:list_id_cart, text_total_gift:text_total_gift, total_gift:total_gift, discount_cart:discount_cart, total_discount:total_discount, delivery:delivery},
 //                 function(data){
                     
 //                     $(document).ready(function(){
@@ -536,7 +541,10 @@ paypal.Buttons({
 //                     $(".mkpay").addClass("d-none");
 //                     $("#ocpay").removeClass("d-none");
 //                     $("#num_order").text(res);
-                    
+
+//                     //rimuove il wait dallo step 5
+//                     $("#make_payment").removeClass("waitconf");
+//                     //aggiungi ordine confermato allo step 5
 //                     $("#make_payment>strong").text("Order confirmed");
 //                     $("#make_payment").addClass("okconf");
                     
