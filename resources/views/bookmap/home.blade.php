@@ -33,6 +33,8 @@
 <script type="text/javascript" src="js/image-compressor.js"></script>
 <!-- google maps -->
 <script src="https://maps.googleapis.com/maps/api/js?libraries=geometry,places&callback=initialize&key=AIzaSyDPMzEErbMtImAPDLz1xPda-n7Ztcb299s" defer></script>
+<!-- overlapping google maps -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/OverlappingMarkerSpiderfier/1.0.3/oms.min.js"></script>
 <!-- boxicon -->
 <link rel='stylesheet' href='https://cdn.jsdelivr.net/npm/boxicons@2.0.2/css/boxicons.min.css'>
 <!-- socket -->
@@ -1652,6 +1654,12 @@ cursor:pointer;
 
 <script>
 
+//fare aggiungere icona personalizzata quindi sul crea che sulla modifica
+//sistemare parte della modifica
+//mettere bottone aggiungi anche nella modifica
+//testare con tantissimi prodotti
+//ricontrollare sistema degli abbonamenti
+//sistemare la chat
 
 //marketing
 //fare video intro funzionamento bookmap pubblicità a buttare su facebook e extractor email
@@ -1944,7 +1952,7 @@ function search_main(pc_or_mobile){
   $("#pagination_product").empty();
   clearOverlays();
   remove_circle();
-
+  
   var array_cat_selected=[];
   var search_element=$(".search_main_"+pc_or_mobile).val();
   var new_array_product_for_cat=[];
@@ -1985,7 +1993,6 @@ function search_main(pc_or_mobile){
     radius_km="20";
   } 
 
-
   for (var i = 0; i < new_array_product_for_cat.length; i++) {
   
   collection[i] = new google.maps.LatLng(new_array_product_for_cat[i].lat, new_array_product_for_cat[i].lng);
@@ -2016,7 +2023,9 @@ function search_main(pc_or_mobile){
 
   //step6: get array_product_filtered_for_price
   new_array_product_for_price=new_array_product_for_search.filter(function(x){ 
-    return x.price >= radius_price.split("-")[0] && x.price <= radius_price.split("-")[1]
+
+    return x.price >= radius_price.split("-")[0] && x.price <= radius_price.split("-")[1];
+    
   });
   
   //step7: ordina per page_rank
@@ -2024,7 +2033,6 @@ function search_main(pc_or_mobile){
   {
      return b.page_rank - a.page_rank;
   });
-
 
   if (new_array_product_for_price.length!=0) {
 
@@ -2049,11 +2057,15 @@ function search_main(pc_or_mobile){
 
     if(radius_circle) map.fitBounds(radius_circle.getBounds());
 
+    var oms = new OverlappingMarkerSpiderfier(map, { 
+      markersWontMove: true,   // we promise not to move any markers, allowing optimizations
+      markersWontHide: true,   // we promise not to change visibility of any markers, allowing optimizations
+      basicFormatEvents: true  // allow the library to skip calculating advanced formatting information
+    });
+
     for (var i = 0; i < array_product_page[0].length; i++) {
 
-
     collection_2[i] = new google.maps.LatLng(array_product_page[0][i].lat, array_product_page[0][i].lng); 
-
 
     var cat;
 
@@ -2098,6 +2110,7 @@ function search_main(pc_or_mobile){
         cat="@lang('bookmap/lang.other')";
 
       }
+
     pointMarker[i] = new google.maps.Marker({
 
       position: collection_2[i],
@@ -2113,14 +2126,14 @@ function search_main(pc_or_mobile){
       product_price:array_product_page[0][i].price,
       product_place:array_product_page[0][i].place,  
       id_user:array_product_page[0][i].id_vendor,
-      // icon: icon
+      icon: "https://developers.google.com/maps/documentation/javascript/examples/full/images/beachflag.png",
 
     });
 
     map.setZoom(12);
     map.panTo(pointMarker[i].position);
 
-    google.maps.event.addListener(pointMarker[i], 'click', function(){
+    google.maps.event.addListener(pointMarker[i], 'spider_click', function(){
 
       var content_info_window=
       "<div class='product--blue'>"+
@@ -2197,6 +2210,8 @@ function search_main(pc_or_mobile){
         infoWindow.open(map, this);
 
       });
+
+      oms.addMarker(pointMarker[i]);
 
     }
 
@@ -2294,6 +2309,12 @@ function show_result_page(type){
 
   if(radius_circle) map.fitBounds(radius_circle.getBounds());
 
+  // var oms = new OverlappingMarkerSpiderfier(map, { 
+  //     markersWontMove: true,   // we promise not to move any markers, allowing optimizations
+  //     markersWontHide: true,   // we promise not to change visibility of any markers, allowing optimizations
+  //     basicFormatEvents: true  // allow the library to skip calculating advanced formatting information
+  //   });
+
   for (var i = 0; i < array_product_page[numb].length; i++) {
 
   collection_2[i] = new google.maps.LatLng(array_product_page[numb][i].lat, array_product_page[numb][i].lng); 
@@ -2363,14 +2384,14 @@ function show_result_page(type){
       product_price:array_product_page[0][i].price,
       product_place:array_product_page[0][i].place,  
       id_user:array_product_page[0][i].id_vendor,
-      // icon: icon
+      icon: "https://developers.google.com/maps/documentation/javascript/examples/full/images/beachflag.png",
 
     });
 
   map.setZoom(12);
   map.panTo(pointMarker[i].position);
 
-  google.maps.event.addListener(pointMarker[i], 'click', function(){
+  google.maps.event.addListener(pointMarker[i], 'spider_click', function(){
    
     var content_info_window=
       "<div class='product--blue'>"+
@@ -2446,6 +2467,8 @@ function show_result_page(type){
  
         infoWindow.open(map, this);
     });
+
+    oms.addMarker(pointMarker[i]);
 
   }
 }  

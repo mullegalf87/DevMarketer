@@ -4,14 +4,14 @@
 $id_user=$_POST["id_user"];
 $id_prod=$_POST["id_prod"];
 
-$files = glob("../public/img/bookmap/img_user/".$id_user."/".$id_prod."/*"); // get all file names
+$files = glob("../bookmap_repo/img_user/".$id_user."/".$id_prod."/*"); // get all file names
 foreach($files as $file){ // iterate files
   if(is_file($file)) {
     unlink($file); // delete file
   }
 }
 
-$target_dir = "../public/img/bookmap/img_user/".$id_user."/".$id_prod."/";
+$target_dir = "../bookmap_repo/img_user/".$id_user."/".$id_prod."/";
 
 if( is_dir($target_dir) === false ){
 

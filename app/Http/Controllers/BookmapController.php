@@ -241,6 +241,15 @@ class BookmapController extends Controller
 
   }
 
+  public function universal_db_user(){
+
+    Config::set('database.connections.mysql_dynamic.database','test');
+    $universal=DB::connection('mysql');
+
+    return $universal;
+
+  }
+
   public function show_last_prod_bookmap(){
 
     $get_search=$this->universal_db()->table('products_bookmap')
@@ -504,7 +513,7 @@ class BookmapController extends Controller
     ->where('id_vendor', '=',auth()->guard('users_bookmap')->user()->id)//inserire id user
     ->first();
 
-    $this->universal_db()->table('users_bookmaps')
+    $this->universal_db_user()->table('users_bookmaps')
     ->where('id', '=',auth()->guard('users_bookmap')->user()->id)
     ->update(
       array(
