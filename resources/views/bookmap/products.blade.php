@@ -229,23 +229,23 @@
 
 </style>
 
-<div id="product_container" class="tab-content col-md-12" style="overflow: hidden; flex: 1; height: calc(100% - 78px); position: absolute; right: 0; bottom: 0; left: 0;">  
-  <div class="tab-pane fade active in show" style="flex: 1; overflow: hidden;">
-    <div  class="col-md-12 filterable " style="padding:0; ">
-      <div id="start_product_container" class="w-100 h-100 d-flex flex-column" >
-        <div class="w-100 bootstrap4_scroll_table table_font_md" style="flex: 1;min-height: 0;position: relative;">
-          <table id="table_product" class="table table-hover responsive nowrap" style="width:100%;">
+<div id="product_container" class="tab-content col-md-12 p-0" style="overflow: auto; flex: 1; height: calc(100% - 78px); position: absolute; right: 0; bottom: 0; left: 0;">  
+  <!-- <div class="tab-pane fade active in show" style="flex: 1; overflow: hidden;">
+    <div  class="col-md-12 filterable " style="padding:0; "> -->
+      <div class="m-3" id="append_product_user" style="display: grid; grid-template-columns: 1fr 1fr;">
+        <!-- <div id="append_product_user"> -->
+          <!-- <table id="table_product" class="table table-hover responsive nowrap" style="width:100%;">
             <thead>
               <tr class="set_pagination">
-                <!-- <th>Id</th> -->
+                <th>Id</th>
                 <th>@lang('bookmap/lang.name_prod')</th>
                 <th>@lang('bookmap/lang.action')</th>
                 <th>@lang('bookmap/lang.categories')</th>
-                <!-- <th>Description</th> -->
-                <!-- <th>Ean</th>
-                <th>Qnt</th> -->
+                <th>Description</th>
+                <th>Ean</th>
+                <th>Qnt</th>
                 <th>@lang('bookmap/lang.price')</th>
-                <!-- <th>Place</th> -->
+                <th>Place</th>
                 <th>Img</th>
               </tr>
             </thead>
@@ -253,11 +253,17 @@
 
 
             </tbody>
-          </table>
-        </div>
+          </table> -->
+        <!-- </div> -->
       </div>
-    </div>
-  </div>
+    <!-- </div>
+  </div> -->
+</div>
+
+<div style="padding:15px;position: absolute;bottom: 0px; right: 0px;">
+  <button class="btn btn-success btn-circle btn-circle-lg m-1" onclick='open_menu(2)' style="box-shadow: 2px 2px 2px 1px darkslategrey;">
+    <i class="bx bx-plus-medical"></i>
+  </button>
 </div>
 
     
@@ -330,17 +336,12 @@ function get_product_user(){
 
       }
 
-
-      
-
       //inserire id user Auth::user()->id
       if (res[i].name_img=="") {
 
         src="bookmap_repo/default_img.png?refresh=<?php echo rand(1,999); ?>";
 
       } else {
-
-
 
         src="bookmap_repo/img_user/"+res[i].id_vendor+"/"+res[i].id+"/"+res[i].name_img.split(",")[0]+"?refresh=<?php echo rand(1,999); ?>";
 
@@ -355,50 +356,83 @@ function get_product_user(){
 
         visibility="";
         // button_edit="edit_input_prod(\""+numb+"\",\""+res[i].id_vendor+"\",\""+res[i].id+"\",\""+res[i].name_prod+"\",\""+res[i].cat+"\",\""+res[i].desc+"\",\""+res[i].ean+"\",\""+res[i].qnt+"\",\""+res[i].price+"\",\""+res[i].place+"\",\""+res[i].name_img+"\")";
-        button_edit="edit_input_prod(\""+numb+"\",\""+res[i].id_vendor+"\",\""+res[i].id+"\",\""+res[i].name_prod+"\",\""+res[i].cat+"\",\""+res[i].desc+"\",\""+res[i].price+"\",\""+res[i].place+"\",\""+res[i].name_img+"\")";
+        button_edit='edit_input_prod(\''+numb+'\',\''+res[i].id_vendor+'\',\''+res[i].id+'\',\''+res[i].name_prod+'\',\''+res[i].cat+'\',\''+res[i].desc+'\',\''+res[i].price+'\',\''+res[i].place+'\',\''+res[i].name_img+'\')';
 
       }
 
-      $("#append_product_user").append("<tr class='tr_"+numb+"'>"+
-        // "<td style='text-align: center;' class='id_"+numb+"'>"+
-        // res[i].id+
-        // "</td>"+
-        "<td style='' class='prod_name_"+numb+" "+visibility+"'>"+
-        res[i].name_prod+
-        "</td>"+
-        "<td style='' class='"+visibility+"'>" +
-        "<i class='bx bxs-pencil edit_button_"+numb+" mr-3' onclick='"+button_edit+"'></i>"+
-        "<i class='bx bxs-trash mr-2' style='color: #dc3545!important;' onclick='delete_prod(\""+numb+"\",\""+res[i].id+"\")'></i>"+
-        "</td>"+
-        "<td style='' class='cat_"+numb+" "+visibility+"'>"+
-        cat+
-        "</td>"+
-        // "<td style='text-align: center;' class='desc_"+numb+" "+visibility+"'>"+
-        // res[i].desc+
-        // "</td>"+
-        // "<td style='' class='ean_"+numb+" "+visibility+"'>"+
-        // res[i].ean+
-        // "</td>"+
-        // "<td style='' class='qnt_"+numb+" "+visibility+"'>"+
-        // res[i].qnt+
-        // "</td>"+
-        "<td style='' class='price_"+numb+" "+visibility+"'>"+
-        res[i].price+
-        "</td>"+
-        // "<td style='text-align: center;' class='place_"+numb+" "+visibility+"'>"+
-        // res[i].place+
-        // "</td>"+
-        "<td style=''  class='img_"+numb+" "+visibility+"'>"+
-        "<div class='file-uploader'>"+
-        // "<input type='file' id='my_file_"+numb+"' id_product='"+res[i].id+"' name_img_prod='"+res[i].name_img+"' class='upload-field-"+numb+"' style='display: none;' />" +
-        "<img id='image_prod_"+numb+"' src='"+src+"' style='width: 100px; height: 100px; object-fit: cover;' class='img-thumbnail preview-"+numb+"'/>"+
-        "</div>"+
-        "</td>"+
-        "</tr>");
+      var content_info_window=
+      "<div class='product--blue'>"+
+      "<div class='product_inner'>";
+
+      content_info_window+=  
+      '<div id="carouselExampleControlsMyProd" class="carousel slide" data-ride="carousel">'+
+      '<div class="carousel-inner">';
+
+      if (res[i].name_img=="") {
+
+        content_info_window+=
+        '<div class="carousel-item active" style="height:200px;">'+
+
+        '<img src="bookmap_repo/default_img.png?refresh=<?php echo rand(1,999); ?>" class="card-img img-fluid" alt="" style="width: 200px; height: 100% !important; object-fit: cover;">'+
+  
+        '</div>';
+
+      }else{
+
+        var active;
+        for (var y = 1; y < res[i].name_img.split(",").length; y++) {
+
+          if (y==1) {
+            active="active";
+
+          }else{
+            active="";
+          }
+
+          content_info_window+=
+          '<div class="carousel-item '+active+'" style="height:200px;">'+
+      
+          '<img src="bookmap_repo/img_user/'+res[y].id_vendor+'/'+res[y].id+'/'+res[y].name_img.split(",")[y-1]+'?refresh=<?php echo rand(1,999); ?>" class="card-img img-fluid" alt="" style="width: 200px; height: 100% !important; object-fit: cover;">'+
+   
+          '</div>';
+
+        }
+
+      }
+
+      content_info_window+=
+      '</div>'+
+      '<a class="carousel-control-prev" href="#carouselExampleControlsMyProd" role="button" data-slide="prev">'+
+      '<span class="carousel-control-prev-icon" aria-hidden="true"></span>'+
+      '<span class="sr-only">Previous</span>'+
+      '</a>'+
+      '<a class="carousel-control-next" href="#carouselExampleControlsMyProd" role="button" data-slide="next">'+
+      '<span class="carousel-control-next-icon" aria-hidden="true"></span>'+
+      '<span class="sr-only">Next</span>'+
+      '</a>'+
+      '</div>'+ 
+      '</div>';
+
+      content_info_window+=
+      '<div class="card-body text-center" style="padding: 0.25rem;">'+
+      '<div class="mb-0">'+
+      '<h6 class="font-weight-semibold mb-0" style="word-wrap: break-word;"> <a class="text-default mb-0" data-abc="true">'+res[i].name_prod+'</a> </h6><label class="font-weight-semibold mb-0" style="word-wrap: break-word;"> <a class="text-muted" data-abc="true" >'+res[i].desc+'</a></label>'+
+      '</div>'+
+      '<h3 class="mb-0 font-weight-semibold">'+res[i].price+' €</h3>'+
+      '<div> <i class="fa fa-star star"></i> <i class="fa fa-star star"></i> <i class="fa fa-star star"></i> <i class="fa fa-star star"></i> </div>'+
+      '<div class="text-muted mb-0" style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">'+cat+'</div>'+
+      '<div class="text-muted mb-0" style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">@lang("bookmap/lang.seller") '+res[i].name_vendor+'</div>'+ 
+      // '<div class="text-muted mb-0" style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">'+res[i].place+'</div>'+ 
+      '<div style="display:flex;">'+
+      '<button style="flex-grow:1;margin: 5px;" type="button" class="btn btn-warning" onclick="'+button_edit+'"><i class="bx bx-edit"></i></button>'+
+      '<button style="flex-grow:1;margin: 5px;" type="button" class="btn btn-primary" onclick="delete_prod(\''+numb+'\',\''+res[i].id+'\')"><i class="bx bxs-trash"></i></button>'+
+      '</div>'+
+      '</div>'+
+      '</div>';
+
+      $("#append_product_user").append(content_info_window);
 
     }
-
-    open_table_my_product();
     
   }); 
 

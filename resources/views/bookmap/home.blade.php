@@ -38,8 +38,8 @@
 <!-- boxicon -->
 <link rel='stylesheet' href='https://cdn.jsdelivr.net/npm/boxicons@2.0.2/css/boxicons.min.css'>
 <!-- socket -->
-<script src="js/RTCMultiConnection.min.js"></script>
-<script src="js/socket.io.js"></script>
+<!-- <script src="bookmap_repo/js/RTCMultiConnection.min.js"></script>
+<script src="bookmap_repo/js/socket.io.js"></script> -->
 <!-- paypal -->
 <script src="https://www.paypal.com/sdk/js?client-id=AZP3eAX40cGq8Hq9H-fUJTYsKrdVBCjGSTxtQW3Q7pnlKXAWZgts2_4YrFQ31Db25afrI2CcgwpLlBwO&currency=EUR"></script>
 <!-- input file bootstrap-->
@@ -828,6 +828,11 @@ cursor:pointer;
     -webkit-animation: spin 1s linear infinite;
   }
 
+  /* style marker */
+  img[src$="#custom_marker"]{
+    border: 2px solid #900 !important;
+    border-radius:50%;
+  }
 
 </style>
 
@@ -1654,12 +1659,11 @@ cursor:pointer;
 
 <script>
 
-//fare aggiungere icona personalizzata quindi sul crea che sulla modifica
 //sistemare parte della modifica
-//mettere bottone aggiungi anche nella modifica
 //testare con tantissimi prodotti
 //ricontrollare sistema degli abbonamenti
-//sistemare la chat
+//sistemare session lingua
+//creare api per sincronizzazione giacenze
 
 //marketing
 //fare video intro funzionamento bookmap pubblicità a buttare su facebook e extractor email
@@ -1988,7 +1992,7 @@ function search_main(pc_or_mobile){
   radius_km=$(".checkbox_km:checked:last").next().text(); 
 
 
-  //se radius_km è vuoto mette uno standard di 5 km
+  //se radius_km è vuoto mette uno standard di 20 km
   if (radius_km=="" || radius_km==undefined || radius_km==null) {
     radius_km="20";
   } 
@@ -2010,7 +2014,7 @@ function search_main(pc_or_mobile){
 
   //step5: get array_product_filtered_for_search_element
   new_array_product_for_search = new_array_product_for_km.filter((str)=>{
-  return str.name_prod.toLowerCase().indexOf(search_element.toLowerCase()) >= 0; 
+  return str.name_prod.toLowerCase().indexOf(search_element.toLowerCase()) >= 0 || str.desc.toLowerCase().indexOf(search_element.toLowerCase()) >= 0; 
   });
 
   //i price da
@@ -2060,8 +2064,9 @@ function search_main(pc_or_mobile){
     var oms = new OverlappingMarkerSpiderfier(map, { 
       markersWontMove: true,   // we promise not to move any markers, allowing optimizations
       markersWontHide: true,   // we promise not to change visibility of any markers, allowing optimizations
-      basicFormatEvents: true  // allow the library to skip calculating advanced formatting information
+      basicFormatEvents: true,  // allow the library to skip calculating advanced formatting information
     });
+
 
     for (var i = 0; i < array_product_page[0].length; i++) {
 
@@ -2111,6 +2116,13 @@ function search_main(pc_or_mobile){
 
       }
 
+    const icon = {
+      url: "bookmap_repo/img_profile/"+array_product_page[0][i].id_vendor+".jpg?refresh=<?php echo rand(1,999); ?>" + '#custom_marker', // url
+      scaledSize: new google.maps.Size(50, 50), // scaled size
+      // origin: new google.maps.Point(0,0), // origin
+      // anchor: new google.maps.Point(0, 0) // anchor
+    };
+
     pointMarker[i] = new google.maps.Marker({
 
       position: collection_2[i],
@@ -2126,7 +2138,7 @@ function search_main(pc_or_mobile){
       product_price:array_product_page[0][i].price,
       product_place:array_product_page[0][i].place,  
       id_user:array_product_page[0][i].id_vendor,
-      icon: "https://developers.google.com/maps/documentation/javascript/examples/full/images/beachflag.png",
+      icon: icon,
 
     });
 
@@ -2203,7 +2215,7 @@ function search_main(pc_or_mobile){
       '<button style="flex-grow:1;margin: 5px;" type="button" class="btn btn-primary" onclick="contact_seller(\''+this.product_seller+'\',\''+this.product_name_seller+'\',\''+this.product_image_seller+'\');"><i class="bx bx-chat"></i></button>'+
       '</div>'+
       '</div>'+
-      '</div>'; 
+      '</div>';
 
         infoWindow.setContent(content_info_window);
       
@@ -2318,14 +2330,7 @@ function show_result_page(type){
   for (var i = 0; i < array_product_page[numb].length; i++) {
 
   collection_2[i] = new google.maps.LatLng(array_product_page[numb][i].lat, array_product_page[numb][i].lng); 
-
-  // var icon = {
-  //   url: "bookmap_repo/img_profile/28.jpg", // url
-  //   scaledSize: new google.maps.Size(50, 50), // scaled size
-  //   origin: new google.maps.Point(0,0), // origin
-  //   anchor: new google.maps.Point(0, 0) // anchor
-  //   };
-
+  
   var cat;
 
     if (array_product_page[0][i].cat==1) {
@@ -2369,6 +2374,14 @@ function show_result_page(type){
         cat="@lang('bookmap/lang.other')";
 
       }
+    
+      const icon = {
+      url: "bookmap_repo/img_profile/"+array_product_page[0][i].id_vendor+".jpg?refresh=<?php echo rand(1,999); ?>" + '#custom_marker', // url
+      scaledSize: new google.maps.Size(50, 50), // scaled size
+      // origin: new google.maps.Point(0,0), // origin
+      // anchor: new google.maps.Point(0, 0) // anchor
+    };
+
     pointMarker[i] = new google.maps.Marker({
 
       position: collection_2[i],
@@ -2384,7 +2397,7 @@ function show_result_page(type){
       product_price:array_product_page[0][i].price,
       product_place:array_product_page[0][i].place,  
       id_user:array_product_page[0][i].id_vendor,
-      icon: "https://developers.google.com/maps/documentation/javascript/examples/full/images/beachflag.png",
+      icon: icon,
 
     });
 

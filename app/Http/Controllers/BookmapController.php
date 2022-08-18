@@ -262,7 +262,7 @@ class BookmapController extends Controller
   public function get_product_bookmap(){
 
 
-    Config::set('database.connections.mysql_dynamic.database',env('DB_DATABASE', 'middleware'));
+    
       $geo_products_bookmap=$this->universal_db()->table('products_bookmap')
       ->where("visibility","=",0)
       ->get();
@@ -275,7 +275,7 @@ class BookmapController extends Controller
   public function get_product_user_bookmap(){
 
     //l'id vendor dovrà essere passato con il session per sicurezza
-    Config::set('database.connections.mysql_dynamic.database',env('DB_DATABASE', 'middleware'));
+    
       $products_bookmap=$this->universal_db()->table('products_bookmap')
       ->where("id_vendor","=",auth()->guard('users_bookmap')->user()->id)//inserire id user Auth::user()->id
       ->orderBy('id', 'DESC')
@@ -470,7 +470,7 @@ class BookmapController extends Controller
 
   public function add_product_bookmap(Request $request){
 
-   Config::set('database.connections.mysql_dynamic.database',env('DB_DATABASE', 'middleware'));
+   
    $id_prod= Request::get('id_prod');
    $name_prod= Request::get('name_prod');
    $cat_prod= Request::get('cat_prod');
@@ -528,7 +528,7 @@ class BookmapController extends Controller
 
   public function add_image_product_bookmap(Request $request){
 
-   Config::set('database.connections.mysql_dynamic.database',env('DB_DATABASE', 'middleware'));
+   
    $id_prod= Request::get('id_prod');
    $image_prod= Request::get('image_prod');
 
@@ -549,7 +549,7 @@ class BookmapController extends Controller
 
   public function save_product_bookmap(){
 
-    Config::set('database.connections.mysql_dynamic.database',env('DB_DATABASE', 'middleware'));
+    
 
 
    //update 
@@ -589,7 +589,7 @@ class BookmapController extends Controller
 
   public function update_img_product_bookmap(){
 
-    Config::set('database.connections.mysql_dynamic.database',env('DB_DATABASE', 'middleware'));
+    
 
 
    //update 
@@ -611,7 +611,7 @@ class BookmapController extends Controller
 
 
   public function delete_product_bookmap(){
-    Config::set('database.connections.mysql_dynamic.database',env('DB_DATABASE', 'middleware'));
+    
     $this->universal_db()->table('products_bookmap')
     ->where('id', '=',Request::get('id_prod'))
     ->where('id_vendor', '=',auth()->guard('users_bookmap')->user()->id)//inserire id user Auth::user()->id
@@ -722,7 +722,7 @@ class BookmapController extends Controller
    $id_prod= Request::get('id_prod');
    $price_prod= Request::get('price_prod'); 
 
-   Config::set('database.connections.mysql_dynamic.database',env('DB_DATABASE', 'middleware'));
+   
 
    $prod_exist=$this->universal_db()->table('cart_bookmap')
    ->where('id_product', '=',$id_prod)
@@ -789,7 +789,7 @@ class BookmapController extends Controller
 
   public function delete_prod_cart_bookmap(){
 
-    Config::set('database.connections.mysql_dynamic.database',env('DB_DATABASE', 'middleware'));
+    
     $this->universal_db()->table('cart_bookmap')
     ->where('id_product', '=',Request::get('id_prod'))
     ->where('id_buyer', '=',auth()->guard('users_bookmap')->user()->id)//inserire id user Auth::user()->id
@@ -802,7 +802,7 @@ class BookmapController extends Controller
   //contact
   public function get_user_chat_box_bookmap(){
 
-    Config::set('database.connections.mysql_dynamic.database',env('DB_DATABASE', 'middleware'));
+    
     $check_user=$this->universal_db()->table('chat_bookmap')
     ->where('id_user_receive', '=',auth()->guard('users_bookmap')->user()->id)
     ->first();
@@ -856,7 +856,7 @@ class BookmapController extends Controller
   public function get_chat_bookmap(){
 
     $id_room= Request::get('id_room');
-    Config::set('database.connections.mysql_dynamic.database',env('DB_DATABASE', 'middleware'));
+    
     $get_chat=$this->universal_db()->table('chat_bookmap')
     ->where('id_room', '=',$id_room)
     ->get();
@@ -881,7 +881,7 @@ class BookmapController extends Controller
       $token = $this->getRandomString(64);
 
 
-      Config::set('database.connections.mysql_dynamic.database',env('DB_DATABASE', 'middleware'));
+      
       $orders_with_token = $this->universal_db()->table('chat_room_bookmap')
       ->where("id_room", "=", $token)
       ->get();
@@ -925,7 +925,7 @@ class BookmapController extends Controller
     $message = Request::get('message');
   
 
-    Config::set('database.connections.mysql_dynamic.database',env('DB_DATABASE', 'middleware'));
+    
     $exist_chat_room=$this->universal_db()->table('chat_bookmap')
     ->where("id_user_send", "=", $id_user_send)
     ->where("id_user_receive", "=", $id_user_receive)
@@ -968,7 +968,7 @@ class BookmapController extends Controller
 
   //profile
   public function upload_img_profile_bookmap(){
-    Config::set('database.connections.mysql_dynamic.database',env('DB_DATABASE', 'middleware'));
+    
     $id_user=auth()->guard('users_bookmap')->user()->id;
     $file_name=Request::get('file_name');
     $this->universal_db()->table('users_bookmaps')
@@ -982,7 +982,7 @@ class BookmapController extends Controller
 
 
   public function save_data_user_bookmap(){
-    Config::set('database.connections.mysql_dynamic.database',env('DB_DATABASE', 'middleware'));
+    
     $id_user=auth()->guard('users_bookmap')->user()->id;
     $username=Request::get('username');
     $this->universal_db()->table('users_bookmaps')
@@ -1018,7 +1018,7 @@ class BookmapController extends Controller
   }
 
   public function change_subscription_bookmap(){
-    Config::set('database.connections.mysql_dynamic.database',env('DB_DATABASE', 'middleware'));
+    
     $id_user=auth()->guard('users_bookmap')->user()->id;
     $state_subscription=Request::get('state_subscription');
     $qnt_prod=auth()->guard('users_bookmap')->user()->qnt_prod;
@@ -1061,7 +1061,7 @@ class BookmapController extends Controller
 
 
   public function check_token_exist_bookmap(){
-    //Config::set('database.connections.mysql_dynamic.database',env('DB_DATABASE', 'middleware'));
+    //
     $ip_address=Request::get('ip_address');
     $type_interaction=Request::get('type_interaction');
     $search=Request::get('search');
@@ -1133,7 +1133,7 @@ class BookmapController extends Controller
 
   public function get_discount_code_bookmap(){
 
-    // Config::set('database.connections.mysql_dynamic.database',env('DB_DATABASE', 'middleware'));
+    // 
 
     $code_discount=Request::get("code_discount");
 
@@ -1148,7 +1148,7 @@ class BookmapController extends Controller
 
   public function get_last_prod_bookmap(){
 
-    // Config::set('database.connections.mysql_dynamic.database',env('DB_DATABASE', 'middleware'));
+    // 
 
 
     $get_last_prod = DB::select('SELECT * FROM `products_bookmap` where name_img!="" ORDER BY RAND() LIMIT 1');

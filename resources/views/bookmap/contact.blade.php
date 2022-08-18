@@ -330,7 +330,7 @@
 
    //apre connessione socket con condivisione dati
     var connection = new RTCMultiConnection();
-    connection.socketURL = 'https://rtcmulticonnection.herokuapp.com:443/';
+    connection.socketURL = 'https://muazkhan.com:9001/';
     connection.session = {
       data: true
     };
@@ -523,6 +523,7 @@ function send_chat_bookmap(id_user_receive, name_user_receive, from, image_user_
  function open_chat(id_room, id_user_receive, name_user_receive, image_user_receive){
   connection.closeSocket();
   connection.openOrJoin(id_room);
+  $("#logo_loading").addClass("rotate_logo_loading");
 
   $(".notify_chat").css("color","black");
   $(".badge_"+id_user_receive).text(0);
@@ -592,6 +593,7 @@ function send_chat_bookmap(id_user_receive, name_user_receive, from, image_user_
       }
 
       $('.msg_history').scrollTop($('.msg_history')[0].scrollHeight);
+      $("#logo_loading").removeClass("rotate_logo_loading");
 
     });  
 
