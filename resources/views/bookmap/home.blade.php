@@ -864,156 +864,303 @@ cursor:pointer;
     @endif
     </ul>
     <div class="collapse navbar-collapse">
-      <div id="search_geo_prod" class="form-inline my-2 my-lg-0 mx-auto">
+      
+      <div id="search_geo_prod" class="form-inline my-2 my-lg-0 mx-auto d-none">
         <div class="dropdown">
-          <button class="btn btn-success my-2 my-sm-0" type="button" style="border-top-right-radius: 0;border-bottom-right-radius: 0; border-top-left-radius: 5px; border-bottom-left-radius: 5px;" id="dropdownCategoryButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="bx bxs-categories"></i>
+          <button class="btn btn-primary my-2 my-sm-0" type="button" style="border-top-right-radius: 0;border-bottom-right-radius: 0; border-top-left-radius: 5px; border-bottom-left-radius: 5px;" id="dropdownCategoryButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="bx bxs-categories"></i>
           </button>
           <div class="dropdown-menu dropdown_cat" aria-labelledby="dropdownCategoryButton">
             <div style="height: 300px; overflow: auto">
-            <div class="dropdown-item" >
-              <div class="form-check" style="justify-content: left">
-                <label><strong>@lang('bookmap/lang.categories')</strong></label>
+              <div class="dropdown-item" >
+                <div class="form-check" style="justify-content: left">
+                  <label><strong>@lang('bookmap/lang.categories')</strong></label>
+                </div>
               </div>
-            </div>
-            <div class="dropdown-item">
-              <div class="form-check" style="justify-content: left">
-                <input class="checkbox_cat" type="checkbox" value="1">
-                <label >@lang('bookmap/lang.book')</label>
+              <div class="dropdown-item">
+                <div class="form-check" style="justify-content: left">
+                  <input class="checkbox_cat" type="checkbox" value="1">
+                  <label >@lang('bookmap/lang.book')</label>
+                </div>
               </div>
-            </div>
-            <div class="dropdown-item">
-              <div class="form-check" style="justify-content: left">
-                <input class="checkbox_cat" type="checkbox" value="2">
-                <label >@lang('bookmap/lang.vehicles')</label>
+              <div class="dropdown-item">
+                <div class="form-check" style="justify-content: left">
+                  <input class="checkbox_cat" type="checkbox" value="2">
+                  <label >@lang('bookmap/lang.vehicles')</label>
+                </div>
               </div>
-            </div>
-            <div class="dropdown-item">
-              <div class="form-check" style="justify-content: left">
-                <input class="checkbox_cat" type="checkbox" value="3">
-                <label >@lang('bookmap/lang.technology')</label>
+              <div class="dropdown-item">
+                <div class="form-check" style="justify-content: left">
+                  <input class="checkbox_cat" type="checkbox" value="3">
+                  <label >@lang('bookmap/lang.technology')</label>
+                </div>
               </div>
-            </div>
-            <div class="dropdown-item">
-              <div class="form-check" style="justify-content: left">
-                <input class="checkbox_cat" type="checkbox" value="4">
-                <label >@lang('bookmap/lang.clothing')</label>
+              <div class="dropdown-item">
+                <div class="form-check" style="justify-content: left">
+                  <input class="checkbox_cat" type="checkbox" value="4">
+                  <label >@lang('bookmap/lang.clothing')</label>
+                </div>
               </div>
-            </div>
-            <div class="dropdown-item">
-              <div class="form-check" style="justify-content: left">
-                <input class="checkbox_cat" type="checkbox" value="5">
-                <label >@lang('bookmap/lang.medicines')</label>
+              <div class="dropdown-item">
+                <div class="form-check" style="justify-content: left">
+                  <input class="checkbox_cat" type="checkbox" value="5">
+                  <label >@lang('bookmap/lang.medicines')</label>
+                </div>
               </div>
-            </div>
-            <div class="dropdown-item">
-              <div class="form-check" style="justify-content: left">
-                <input class="checkbox_cat" type="checkbox" value="6">
-                <label >Sport</label>
+              <div class="dropdown-item">
+                <div class="form-check" style="justify-content: left">
+                  <input class="checkbox_cat" type="checkbox" value="6">
+                  <label >Sport</label>
+                </div>
               </div>
-            </div>
-            <div class="dropdown-item">
-              <div class="form-check" style="justify-content: left">
-                <input class="checkbox_cat" type="checkbox" value="7">
-                <label >@lang('bookmap/lang.properties')</label>
+              <div class="dropdown-item">
+                <div class="form-check" style="justify-content: left">
+                  <input class="checkbox_cat" type="checkbox" value="7">
+                  <label >@lang('bookmap/lang.properties')</label>
+                </div>
               </div>
-            </div>
-            <div class="dropdown-item">
-              <div class="form-check" style="justify-content: left">
-                <input class="checkbox_cat" type="checkbox" value="8">
-                <label >@lang('bookmap/lang.food_and_drink')</label>
+              <div class="dropdown-item">
+                <div class="form-check" style="justify-content: left">
+                  <input class="checkbox_cat" type="checkbox" value="8">
+                  <label >@lang('bookmap/lang.food_and_drink')</label>
+                </div>
               </div>
-            </div>
-            <div class="dropdown-item">
-              <div class="form-check" style="justify-content: left">
-                <input class="checkbox_cat" type="checkbox" value="9">
-                <label >@lang('bookmap/lang.multimedia')</label>
+              <div class="dropdown-item">
+                <div class="form-check" style="justify-content: left">
+                  <input class="checkbox_cat" type="checkbox" value="9">
+                  <label >@lang('bookmap/lang.multimedia')</label>
+                </div>
               </div>
-            </div>
-            <div class="dropdown-item">
-              <div class="form-check" style="justify-content: left">
-                <input class="checkbox_cat" type="checkbox" value="9">
-                <label >@lang('bookmap/lang.other')</label>
+              <div class="dropdown-item">
+                <div class="form-check" style="justify-content: left">
+                  <input class="checkbox_cat" type="checkbox" value="9">
+                  <label >@lang('bookmap/lang.other')</label>
+                </div>
               </div>
-            </div>
-
-            <div class="dropdown-item">
-              <div class="form-check" style="justify-content: left">
-                <label><strong>Km</strong></label>
+              <div class="dropdown-item">
+                <div class="form-check" style="justify-content: left">
+                  <label><strong>Km</strong></label>
+                </div>
               </div>
-            </div>
-            <div class="dropdown-item">
-              <div class="form-check" style="justify-content: left">
-                <input class="checkbox_km" type="checkbox" >
-                <label >1</label>
+              <div class="dropdown-item">
+                <div class="form-check" style="justify-content: left">
+                  <input class="checkbox_km" type="checkbox" >
+                  <label >1</label>
+                </div>
               </div>
-            </div>
-            <div class="dropdown-item">
-              <div class="form-check" style="justify-content: left">
-                <input class="checkbox_km" type="checkbox" >
-                <label >5</label>
+              <div class="dropdown-item">
+                <div class="form-check" style="justify-content: left">
+                  <input class="checkbox_km" type="checkbox" >
+                  <label >5</label>
+                </div>
               </div>
-            </div>
-            <div class="dropdown-item">
-              <div class="form-check" style="justify-content: left">
-                <input class="checkbox_km" type="checkbox" >
-                <label >10</label>
+              <div class="dropdown-item">
+                <div class="form-check" style="justify-content: left">
+                  <input class="checkbox_km" type="checkbox" >
+                  <label >10</label>
+                </div>
               </div>
-            </div>
-            <div class="dropdown-item">
-              <div class="form-check" style="justify-content: left">
-                <input class="checkbox_km" type="checkbox" >
-                <label >20</label>
+              <div class="dropdown-item">
+                <div class="form-check" style="justify-content: left">
+                  <input class="checkbox_km" type="checkbox" >
+                  <label >20</label>
+                </div>
               </div>
-            </div>
-
-            <div class="dropdown-item">
-              <div class="form-check" style="justify-content: left">
-                <label><strong>@lang('bookmap/lang.price')</strong></label>
+              <div class="dropdown-item">
+                <div class="form-check" style="justify-content: left">
+                  <label><strong>@lang('bookmap/lang.price')</strong></label>
+                </div>
               </div>
-            </div>
-            <div class="dropdown-item">
-              <div class="form-check" style="justify-content: left">
-                <input class="checkbox_price" type="checkbox" >
-                <label >0-20</label>
+              <div class="dropdown-item">
+                <div class="form-check" style="justify-content: left">
+                  <input class="checkbox_price" type="checkbox" >
+                  <label >0-20</label>
+                </div>
               </div>
-            </div>
-            <div class="dropdown-item">
-              <div class="form-check" style="justify-content: left">
-                <input class="checkbox_price" type="checkbox" >
-                <label >20-50</label>
+              <div class="dropdown-item">
+                <div class="form-check" style="justify-content: left">
+                  <input class="checkbox_price" type="checkbox" >
+                  <label >20-50</label>
+                </div>
               </div>
-            </div>
-            <div class="dropdown-item">
-              <div class="form-check" style="justify-content: left">
-                <input class="checkbox_price" type="checkbox" >
-                <label >50-100</label>
+              <div class="dropdown-item">
+                <div class="form-check" style="justify-content: left">
+                  <input class="checkbox_price" type="checkbox" >
+                  <label >50-100</label>
+                </div>
               </div>
-            </div>
-            <div class="dropdown-item">
-              <div class="form-check" style="justify-content: left">
-                <input class="checkbox_price" type="checkbox" >
-                <label >100-200</label>
+              <div class="dropdown-item">
+                <div class="form-check" style="justify-content: left">
+                  <input class="checkbox_price" type="checkbox" >
+                  <label >100-200</label>
+                </div>
               </div>
-            </div>
-            <div class="dropdown-item">
-              <div class="form-check" style="justify-content: left">
-                <input class="checkbox_price" type="checkbox" >
-                <label >200-500</label>
+              <div class="dropdown-item">
+                <div class="form-check" style="justify-content: left">
+                  <input class="checkbox_price" type="checkbox" >
+                  <label >200-500</label>
+                </div>
               </div>
-            </div>
-            <div class="dropdown-item">
-              <div class="form-check" style="justify-content: left">
-                <input class="checkbox_price" type="checkbox" >
-                <label >500-10000</label>
+              <div class="dropdown-item">
+                <div class="form-check" style="justify-content: left">
+                  <input class="checkbox_price" type="checkbox" >
+                  <label >500-10000</label>
+                </div>
               </div>
-            </div>
-
             </div>
           </div>
         </div>
         <input  class="form-control search_main_1 search_field" type="search" placeholder="@lang('bookmap/lang.search_products')..." aria-label="Search"  style="border-top-left-radius: 0; border-bottom-left-radius: 0;">
-        <button class="btn btn-success my-2 my-sm-0 search_button_1 disabled_button_search"><i class="bx bx-search"></i></button>
+        <button class="btn btn-primary my-2 my-sm-0 search_button_1 disabled_button_search"><i class="bx bx-search"></i></button>
       </div>
+
+      <div id="search_my_prod" class="form-inline my-2 my-lg-0 mx-auto d-none">
+      <div class="dropdown">
+          <button class="btn btn-primary my-2 my-sm-0" type="button" style="border-top-right-radius: 0;border-bottom-right-radius: 0; border-top-left-radius: 5px; border-bottom-left-radius: 5px;" id="dropdownCategoryButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="bx bxs-categories"></i>
+          </button>
+          <div class="dropdown-menu dropdown_cat" aria-labelledby="dropdownCategoryButton">
+            <div style="height: 300px; overflow: auto">
+              <div class="dropdown-item" >
+                <div class="form-check" style="justify-content: left">
+                  <label><strong>@lang('bookmap/lang.categories')</strong></label>
+                </div>
+              </div>
+              <div class="dropdown-item">
+                <div class="form-check" style="justify-content: left">
+                  <input class="checkbox_cat" type="checkbox" value="1">
+                  <label >@lang('bookmap/lang.book')</label>
+                </div>
+              </div>
+              <div class="dropdown-item">
+                <div class="form-check" style="justify-content: left">
+                  <input class="checkbox_cat" type="checkbox" value="2">
+                  <label >@lang('bookmap/lang.vehicles')</label>
+                </div>
+              </div>
+              <div class="dropdown-item">
+                <div class="form-check" style="justify-content: left">
+                  <input class="checkbox_cat" type="checkbox" value="3">
+                  <label >@lang('bookmap/lang.technology')</label>
+                </div>
+              </div>
+              <div class="dropdown-item">
+                <div class="form-check" style="justify-content: left">
+                  <input class="checkbox_cat" type="checkbox" value="4">
+                  <label >@lang('bookmap/lang.clothing')</label>
+                </div>
+              </div>
+              <div class="dropdown-item">
+                <div class="form-check" style="justify-content: left">
+                  <input class="checkbox_cat" type="checkbox" value="5">
+                  <label >@lang('bookmap/lang.medicines')</label>
+                </div>
+              </div>
+              <div class="dropdown-item">
+                <div class="form-check" style="justify-content: left">
+                  <input class="checkbox_cat" type="checkbox" value="6">
+                  <label >Sport</label>
+                </div>
+              </div>
+              <div class="dropdown-item">
+                <div class="form-check" style="justify-content: left">
+                  <input class="checkbox_cat" type="checkbox" value="7">
+                  <label >@lang('bookmap/lang.properties')</label>
+                </div>
+              </div>
+              <div class="dropdown-item">
+                <div class="form-check" style="justify-content: left">
+                  <input class="checkbox_cat" type="checkbox" value="8">
+                  <label >@lang('bookmap/lang.food_and_drink')</label>
+                </div>
+              </div>
+              <div class="dropdown-item">
+                <div class="form-check" style="justify-content: left">
+                  <input class="checkbox_cat" type="checkbox" value="9">
+                  <label >@lang('bookmap/lang.multimedia')</label>
+                </div>
+              </div>
+              <div class="dropdown-item">
+                <div class="form-check" style="justify-content: left">
+                  <input class="checkbox_cat" type="checkbox" value="9">
+                  <label >@lang('bookmap/lang.other')</label>
+                </div>
+              </div>
+              <div class="dropdown-item">
+                <div class="form-check" style="justify-content: left">
+                  <label><strong>Km</strong></label>
+                </div>
+              </div>
+              <div class="dropdown-item">
+                <div class="form-check" style="justify-content: left">
+                  <input class="checkbox_km" type="checkbox" >
+                  <label >1</label>
+                </div>
+              </div>
+              <div class="dropdown-item">
+                <div class="form-check" style="justify-content: left">
+                  <input class="checkbox_km" type="checkbox" >
+                  <label >5</label>
+                </div>
+              </div>
+              <div class="dropdown-item">
+                <div class="form-check" style="justify-content: left">
+                  <input class="checkbox_km" type="checkbox" >
+                  <label >10</label>
+                </div>
+              </div>
+              <div class="dropdown-item">
+                <div class="form-check" style="justify-content: left">
+                  <input class="checkbox_km" type="checkbox" >
+                  <label >20</label>
+                </div>
+              </div>
+              <div class="dropdown-item">
+                <div class="form-check" style="justify-content: left">
+                  <label><strong>@lang('bookmap/lang.price')</strong></label>
+                </div>
+              </div>
+              <div class="dropdown-item">
+                <div class="form-check" style="justify-content: left">
+                  <input class="checkbox_price" type="checkbox" >
+                  <label >0-20</label>
+                </div>
+              </div>
+              <div class="dropdown-item">
+                <div class="form-check" style="justify-content: left">
+                  <input class="checkbox_price" type="checkbox" >
+                  <label >20-50</label>
+                </div>
+              </div>
+              <div class="dropdown-item">
+                <div class="form-check" style="justify-content: left">
+                  <input class="checkbox_price" type="checkbox" >
+                  <label >50-100</label>
+                </div>
+              </div>
+              <div class="dropdown-item">
+                <div class="form-check" style="justify-content: left">
+                  <input class="checkbox_price" type="checkbox" >
+                  <label >100-200</label>
+                </div>
+              </div>
+              <div class="dropdown-item">
+                <div class="form-check" style="justify-content: left">
+                  <input class="checkbox_price" type="checkbox" >
+                  <label >200-500</label>
+                </div>
+              </div>
+              <div class="dropdown-item">
+                <div class="form-check" style="justify-content: left">
+                  <input class="checkbox_price" type="checkbox" >
+                  <label >500-10000</label>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <input  class="form-control" type="search" placeholder="@lang('bookmap/lang.search_products')..." aria-label="Search"  style="border-top-left-radius: 0; border-bottom-left-radius: 0;">
+        <button class="btn btn-primary my-2 my-sm-0"><i class="bx bx-search"></i></button>
+      </div>
+
       <ul class="navbar-nav">
         @if( auth()->guard('users_bookmap')->check() )
         <li class="nav-item" onclick="change_vis('cart')">
@@ -1040,7 +1187,7 @@ cursor:pointer;
       <div class="col-12">
         <div class="form-inline mb-3 mx-auto" style="flex-flow: nowrap;">
           <div class="dropdown">
-            <button class="btn btn-success" type="button" style="border-top-right-radius: 0;border-bottom-right-radius: 0; border-top-left-radius: 5px; border-bottom-left-radius: 5px;" id="dropdownCategoryButton2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="bx bxs-categories"></i>
+            <button class="btn btn-primary" type="button" style="border-top-right-radius: 0;border-bottom-right-radius: 0; border-top-left-radius: 5px; border-bottom-left-radius: 5px;" id="dropdownCategoryButton2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="bx bxs-categories"></i>
             </button>
             <div class="dropdown-menu dropdown_cat" aria-labelledby="dropdownCategoryButton2">
               <div style="height: 300px; overflow: auto">
@@ -1184,7 +1331,7 @@ cursor:pointer;
             </div>
           </div>
           <input class="form-control search_main_2 search_field" type="search" placeholder="Search for products..." aria-label="Search" style="border-top-left-radius: 0; border-bottom-left-radius: 0;">
-          <button class="btn btn-success search_button_2 disabled_button_search"><i class="bx bx-search"></i>
+          <button class="btn btn-primary search_button_2 disabled_button_search"><i class="bx bx-search"></i>
           </button>
         </div>
       </div>
@@ -1658,9 +1805,8 @@ cursor:pointer;
 </div>
 
 <script>
-
-//modificare solo l'immagine quando cambia semplicemente modificare il numero del refresh
-//quando si elimina un prodotto rimane la cartella, eliminare anche la cartella, sembra ci siano errori nella cancellazione del prod
+//DARIO
+//mettere il search tra i miei prodotti, cercare per stringa e categorie come filtro, togli tutto il resto delle categorie
 //testare con tantissimi prodotti
 //ricontrollare sistema degli abbonamenti
 //sistemare session lingua
@@ -2578,10 +2724,14 @@ function detect_device(){
 
   function page_build(page_name){
     switch(page_name){
+
       case 'home':
-      $("#search_geo_prod").css('visibility','');
       $("#navbar_searh_mobile_home .container").show();
+
+      $("#search_geo_prod").removeClass("d-none");
+      $("#search_my_prod").addClass("d-none");
       break;
+
       case 'products':
       var id_user="@if( auth()->guard('users_bookmap')->check() ){{ auth()->guard('users_bookmap')->user()->id}}@endif";
       if (id_user=="") {
@@ -2593,27 +2743,35 @@ function detect_device(){
         $("#navbar_searh_desktop_home .container").hide();
         $("#map").css("height", "calc(100% - 78px)");
         start_function_product();
-        $("#search_geo_prod").css('visibility','hidden');
+
+        $("#search_my_prod").removeClass("d-none");
+        $("#search_geo_prod").addClass("d-none");
       }
       break;
+
       case 'contact':
       var id_user="@if( auth()->guard('users_bookmap')->check() ){{ auth()->guard('users_bookmap')->user()->id}}@endif";
       if (id_user=="") {
         window.location.replace("/bookmap");
       }else{
         start_function_contact();
-        $("#search_geo_prod").css('visibility','hidden');
         $("#navbar_searh_mobile_home .container").hide();
+
+        $("#search_geo_prod").removeClass("d-none");
+        $("#search_my_prod").removeClass("d-none");
       }
+
       case 'cart':
       var id_user="@if( auth()->guard('users_bookmap')->check() ){{ auth()->guard('users_bookmap')->user()->id}}@endif";
       if (id_user=="") {
         window.location.replace("/bookmap");
       }else{
         start_function_cart();
-        $("#logo_loading").addClass("rotate_logo_loading");
-        $("#search_geo_prod").css('visibility','hidden');
+        $("#logo_loading").addClass("rotate_logo_loading")
         $("#navbar_searh_mobile_home .container").hide();
+
+        $("#search_geo_prod").removeClass("d-none");
+        $("#search_my_prod").removeClass("d-none");
       }
       default:
 
@@ -3058,7 +3216,9 @@ function detect_device(){
                               }
                             });
 
-                            change_vis('home');
+                            var origin = window.location.href; 
+                            origin = origin.split("page=")[1];
+                            change_vis(origin);
                           });
 
                       },
@@ -3228,7 +3388,7 @@ function validate_discount(){
 
       }else{
 
-        $("#button_discount").removeClass("btn-primary").removeClass("btn-danger").addClass("btn-success").text("@lang('bookmap/lang.confirmed_discount')");
+        $("#button_discount").removeClass("btn-primary").removeClass("btn-danger").addClass("btn-primary").text("@lang('bookmap/lang.confirmed_discount')");
 
         sum_cart=($('input:radio[name=radio]:checked').attr("sum"))-(res[0].discount*$('input:radio[name=radio]:checked').attr("sum")/100)+(res[0].discount/100);
 

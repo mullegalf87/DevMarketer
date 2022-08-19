@@ -252,12 +252,11 @@ function get_product_user(){
 
   $.get("/get_product_user_bookmap",{},
    function(data){  
-   
+  
     var numb;
     var cat;
-    var src="";
-    var visibility;
     var button_edit;
+    var src;
 
     $("#append_product_user").empty();
     
@@ -309,25 +308,12 @@ function get_product_user(){
 
       }
 
-      //inserire id user Auth::user()->id
-      if (res[i].name_img=="") {
-
-        src="bookmap_repo/default_img.png?refresh=<?php echo rand(1,999); ?>";
-
-      } else {
-
-        src="bookmap_repo/img_user/"+res[i].id_vendor+"/"+res[i].id+"/"+res[i].name_img.split(",")[0]+"?refresh=<?php echo rand(1,999); ?>";
-
-      }
-
       if (res[i].visibility==1) {
 
-        visibility="td_disabled";
         button_edit="open_menu(4)";
 
       }else{
 
-        visibility="";
         button_edit='edit_input_prod(\''+numb+'\',\''+res[i].id_vendor+'\',\''+res[i].id+'\',\''+res[i].name_prod+'\',\''+res[i].cat+'\',\''+res[i].desc+'\',\''+res[i].price+'\',\''+res[i].place+'\',\''+res[i].name_img+'\')';
 
       }
@@ -336,17 +322,8 @@ function get_product_user(){
       "<div class='product--blue' style='margin: 3%;'>"+
       "<div class='product_inner'>";
 
-      if (res[i].name_img=="") {
-
-        content_info_window+=
-        '<img src="bookmap_repo/default_img.png?refresh=<?php echo rand(1,999); ?>" class="card-img img-fluid" alt="" style="width: 100%; height: 200px !important; object-fit: cover;">';
-
-      }else{
-
-        content_info_window+=      
-        '<img src="bookmap_repo/img_user/'+res[i].id_vendor+'/'+res[i].id+'/'+res[i].name_img.split(",")[0]+'?refresh=<?php echo rand(1,999); ?>" class="card-img img-fluid" alt="" style="width: 100%; height: 200px !important; object-fit: cover;">';
-
-      }
+      content_info_window+=      
+        '<img src="" class="card-img img-fluid img-prod-'+numb+'" alt="" style="width: 100%; height: 200px !important; object-fit: cover;">';
 
       content_info_window+='</div>';
 
@@ -368,6 +345,20 @@ function get_product_user(){
       '</div>';
 
       $("#append_product_user").append(content_info_window);
+
+      
+
+      if (res[i].name_img=="") {
+
+        src='bookmap_repo/default_img.png?refresh=<?php echo rand(1,999); ?>';
+
+      }else{
+
+        src='bookmap_repo/img_user/'+res[i].id_vendor+'/'+res[i].id+'/'+res[i].name_img.split(",")[0]+'?refresh=<?php echo rand(1,999); ?>';
+
+      }
+
+      $(".img-prod-"+numb).attr("src",src);
 
     }
 
@@ -417,70 +408,66 @@ $(function() {
 });
 
 
-function open_table_my_product(){
+// function open_table_my_product(){
+
+// var num_height_body;
+// var num_height_div_exp;
+// var num_height_div_start;  
+// var num_height;
+
+// $("#table_product").DataTable({
+//   aaSorting: [],
+//   // responsive: true,
+//   responsive: {
+//             details: false
+//         },
+//   "bPaginate": true,
+//   "bLengthChange": false,
+//   "bFilter": true,
+//   "bInfo": true,
+//   "bAutoWidth": false,
+//   //appena carica la tabella esegue le funzioni dentro l'initicomplete
+//   "initComplete": function(settings, json) {
 
 
-var num_height_body;
-var num_height_div_exp;
-var num_height_div_start;  
-var num_height;
+//    num_height_div = $("#product_container").height();
+//    num_height_div_start = $("#start_product_container").height();
+//    num_height_body = $(".dataTables_scrollBody").height();
+//    num_height=num_height_div-num_height_div_start+num_height_body;
+//    num_height = parseFloat(num_height).toFixed(2)+"px";
+//    $(".dataTables_scrollBody").css("max-height",num_height);
+//    $(".dataTables_scrollBody").css("height",num_height);
 
-$("#table_product").DataTable({
-  aaSorting: [],
-  // responsive: true,
-  responsive: {
-            details: false
-        },
-  "bPaginate": true,
-  "bLengthChange": false,
-  "bFilter": true,
-  "bInfo": true,
-  "bAutoWidth": false,
-  //appena carica la tabella esegue le funzioni dentro l'initicomplete
-  "initComplete": function(settings, json) {
+//   //permette di cambiare il testo del label
+//   $("#table_product_filter label").contents().eq(0).replaceWith('');
+//   $("#table_product_filter input").attr("placeholder","Search...");
+//   $("#table_product_filter").css({'display':'flex', 'flex-wrap':'nowrap', 'padding':'0'}).addClass("col-md-12 col-sm-12");
+//   $("#table_product_filter label").css("flex","1");
 
-
-   num_height_div = $("#product_container").height();
-   num_height_div_start = $("#start_product_container").height();
-   num_height_body = $(".dataTables_scrollBody").height();
-   num_height=num_height_div-num_height_div_start+num_height_body;
-   num_height = parseFloat(num_height).toFixed(2)+"px";
-   $(".dataTables_scrollBody").css("max-height",num_height);
-   $(".dataTables_scrollBody").css("height",num_height);
-
-  //permette di cambiare il testo del label
-  $("#table_product_filter label").contents().eq(0).replaceWith('');
-  $("#table_product_filter input").attr("placeholder","Search...");
-  $("#table_product_filter").css({'display':'flex', 'flex-wrap':'nowrap', 'padding':'0'}).addClass("col-md-12 col-sm-12");
-  $("#table_product_filter label").css("flex","1");
-
-  $("#logo_loading").removeClass("rotate_logo_loading");
+//   $("#logo_loading").removeClass("rotate_logo_loading");
  
- },
+//  },
 
- "scrollY":"0px",
- dom: 'Bfrtip',
- retrieve: true, 
- columnDefs: [
- {
-  responsivePriority: 1,
-  targets: 0
-},
-{
-  responsivePriority: 2,
-  targets: -1
-}
-]
-});
+//  "scrollY":"0px",
+//  dom: 'Bfrtip',
+//  retrieve: true, 
+//  columnDefs: [
+//  {
+//   responsivePriority: 1,
+//   targets: 0
+// },
+// {
+//   responsivePriority: 2,
+//   targets: -1
+// }
+// ]
+// });
 
-// $("#navbar_searh_mobile_home .container").hide();
-// $("#navbar_searh_desktop_home .container").hide();
-// $("#map").css("height", "calc(100% - 78px)");
+// // $("#navbar_searh_mobile_home .container").hide();
+// // $("#navbar_searh_desktop_home .container").hide();
+// // $("#map").css("height", "calc(100% - 78px)");
 
-}
-
-
-
+// }
 
 //autocomplete indirizzo
 var placeSearch, autocomplete;
@@ -643,6 +630,26 @@ function save_input_prod(numb, id_prod){
                 
                 $.get('/add_image_product_bookmap',{id_prod:id_prod, image_prod:e},
                 function(data){
+
+                  $.notify({
+          
+                    title: '<strong>Info</strong>',
+                    message: "<br>@lang('bookmap/lang.prod_updated')",
+                    
+                  },{
+                    
+                    element: 'body',
+                    type: "info",
+                    width: 'auto',
+                    allow_dismiss: true,
+                    offset: 20,
+                    placement: {
+                      from: "bottom",
+                      align: "center",
+                    }
+                  });
+
+                  change_vis('products');
                   
                 });
                 
@@ -652,27 +659,29 @@ function save_input_prod(numb, id_prod){
             });
           },2000);
           
-        }
+        }else{
 
-        $.notify({
+          $.notify({
           
           title: '<strong>Info</strong>',
           message: "<br>@lang('bookmap/lang.prod_updated')",
           
-        },{
-          
-          element: 'body',
-          type: "info",
-          width: 'auto',
-          allow_dismiss: true,
-          offset: 20,
-          placement: {
-            from: "bottom",
-            align: "center",
-          }
-        });
+          },{
+            
+            element: 'body',
+            type: "info",
+            width: 'auto',
+            allow_dismiss: true,
+            offset: 20,
+            placement: {
+              from: "bottom",
+              align: "center",
+            }
+          });
 
-        change_vis('products');
+          change_vis('products');
+
+        }
 
       });
 
@@ -682,17 +691,12 @@ function save_input_prod(numb, id_prod){
 
 }
 
-
-
-
 //cancellare prodotto utente
 function delete_prod(numb, id_prod){
 
   if (confirm("Are you sure?")) {
     $.get("/delete_product_bookmap",{id_prod:id_prod},
      function(data){
-
-      $(".tr_"+numb).remove();
 
       change_vis('products');
 

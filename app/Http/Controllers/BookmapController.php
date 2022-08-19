@@ -616,9 +616,29 @@ class BookmapController extends Controller
     ->where('id', '=',Request::get('id_prod'))
     ->where('id_vendor', '=',auth()->guard('users_bookmap')->user()->id)//inserire id user Auth::user()->id
     ->delete();
+    
+    $dirPath='bookmap_repo/img_user/'.auth()->guard('users_bookmap')->user()->id.'/'.Request::get('id_prod').'/';
+    $this->deleteDir($dirPath);
     return View::make('query')->with("result",json_encode("delete!"));
 
-    
+  }
+
+  function deleteDir($dirPath) {
+    if (! is_dir($dirPath)) {
+      throw new InvalidArgumentException("$dirPath must be a directory");
+    }
+    if (substr($dirPath, strlen($dirPath) - 1, 1) != '/') {
+      $dirPath .= '/';
+    }
+    $files = glob($dirPath . '*', GLOB_MARK);
+    foreach ($files as $file) {
+      if (is_dir($file)) {
+        self::deleteDir($file);
+      } else {
+        unlink($file);
+      }
+    }
+    rmdir($dirPath);
   }
 
   public function check_subscription_bookmap(){
