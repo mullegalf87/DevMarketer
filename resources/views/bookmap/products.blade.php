@@ -230,45 +230,17 @@
 </style>
 
 <div id="product_container" class="tab-content col-md-12 p-0" style="overflow: auto; flex: 1; height: calc(100% - 78px); position: absolute; right: 0; bottom: 0; left: 0;">  
-  <!-- <div class="tab-pane fade active in show" style="flex: 1; overflow: hidden;">
-    <div  class="col-md-12 filterable " style="padding:0; "> -->
-      <div class="m-3" id="append_product_user" style="display: grid; grid-template-columns: 1fr 1fr;">
-        <!-- <div id="append_product_user"> -->
-          <!-- <table id="table_product" class="table table-hover responsive nowrap" style="width:100%;">
-            <thead>
-              <tr class="set_pagination">
-                <th>Id</th>
-                <th>@lang('bookmap/lang.name_prod')</th>
-                <th>@lang('bookmap/lang.action')</th>
-                <th>@lang('bookmap/lang.categories')</th>
-                <th>Description</th>
-                <th>Ean</th>
-                <th>Qnt</th>
-                <th>@lang('bookmap/lang.price')</th>
-                <th>Place</th>
-                <th>Img</th>
-              </tr>
-            </thead>
-            <tbody id="append_product_user">
-
-
-            </tbody>
-          </table> -->
-        <!-- </div> -->
-      </div>
-    <!-- </div>
-  </div> -->
+  <div class="p-3" id="append_product_user" style="display: grid; grid-template-columns: 1fr 1fr;">
+  </div>
 </div>
 
 <div style="padding:15px;position: absolute;bottom: 0px; right: 0px;">
-  <button class="btn btn-success btn-circle btn-circle-lg m-1" onclick='open_menu(2)' style="box-shadow: 2px 2px 2px 1px darkslategrey;">
+  <button class="btn btn-primary btn-circle btn-circle-lg m-1" onclick='open_menu(2)' style="box-shadow: 2px 2px 2px 1px darkslategrey;">
     <i class="bx bx-plus-medical"></i>
   </button>
 </div>
-
     
 <script type="text/javascript">
-
 
 function start_function_product(){
 
@@ -279,20 +251,21 @@ function start_function_product(){
 function get_product_user(){
 
   $.get("/get_product_user_bookmap",{},
-   function(data){
+   function(data){  
+   
+    var numb;
+    var cat;
+    var src="";
+    var visibility;
+    var button_edit;
 
     $("#append_product_user").empty();
-
+    
     var res=jQuery.parseJSON(data);
 
     for (var i = 0; i < res.length; i++) {
 
-      var numb = i+1;
-      var cat;
-      var src;
-      var visibility;
-      var button_edit;
- 
+      numb = i+1;
 
       if (res[i].cat==1) {
 
@@ -355,84 +328,50 @@ function get_product_user(){
       }else{
 
         visibility="";
-        // button_edit="edit_input_prod(\""+numb+"\",\""+res[i].id_vendor+"\",\""+res[i].id+"\",\""+res[i].name_prod+"\",\""+res[i].cat+"\",\""+res[i].desc+"\",\""+res[i].ean+"\",\""+res[i].qnt+"\",\""+res[i].price+"\",\""+res[i].place+"\",\""+res[i].name_img+"\")";
         button_edit='edit_input_prod(\''+numb+'\',\''+res[i].id_vendor+'\',\''+res[i].id+'\',\''+res[i].name_prod+'\',\''+res[i].cat+'\',\''+res[i].desc+'\',\''+res[i].price+'\',\''+res[i].place+'\',\''+res[i].name_img+'\')';
 
       }
 
       var content_info_window=
-      "<div class='product--blue'>"+
+      "<div class='product--blue' style='margin: 3%;'>"+
       "<div class='product_inner'>";
-
-      content_info_window+=  
-      '<div id="carouselExampleControlsMyProd" class="carousel slide" data-ride="carousel">'+
-      '<div class="carousel-inner">';
 
       if (res[i].name_img=="") {
 
         content_info_window+=
-        '<div class="carousel-item active" style="height:200px;">'+
-
-        '<img src="bookmap_repo/default_img.png?refresh=<?php echo rand(1,999); ?>" class="card-img img-fluid" alt="" style="width: 200px; height: 100% !important; object-fit: cover;">'+
-  
-        '</div>';
+        '<img src="bookmap_repo/default_img.png?refresh=<?php echo rand(1,999); ?>" class="card-img img-fluid" alt="" style="width: 100%; height: 200px !important; object-fit: cover;">';
 
       }else{
 
-        var active;
-        for (var y = 1; y < res[i].name_img.split(",").length; y++) {
-
-          if (y==1) {
-            active="active";
-
-          }else{
-            active="";
-          }
-
-          content_info_window+=
-          '<div class="carousel-item '+active+'" style="height:200px;">'+
-      
-          '<img src="bookmap_repo/img_user/'+res[y].id_vendor+'/'+res[y].id+'/'+res[y].name_img.split(",")[y-1]+'?refresh=<?php echo rand(1,999); ?>" class="card-img img-fluid" alt="" style="width: 200px; height: 100% !important; object-fit: cover;">'+
-   
-          '</div>';
-
-        }
+        content_info_window+=      
+        '<img src="bookmap_repo/img_user/'+res[i].id_vendor+'/'+res[i].id+'/'+res[i].name_img.split(",")[0]+'?refresh=<?php echo rand(1,999); ?>" class="card-img img-fluid" alt="" style="width: 100%; height: 200px !important; object-fit: cover;">';
 
       }
 
-      content_info_window+=
-      '</div>'+
-      '<a class="carousel-control-prev" href="#carouselExampleControlsMyProd" role="button" data-slide="prev">'+
-      '<span class="carousel-control-prev-icon" aria-hidden="true"></span>'+
-      '<span class="sr-only">Previous</span>'+
-      '</a>'+
-      '<a class="carousel-control-next" href="#carouselExampleControlsMyProd" role="button" data-slide="next">'+
-      '<span class="carousel-control-next-icon" aria-hidden="true"></span>'+
-      '<span class="sr-only">Next</span>'+
-      '</a>'+
-      '</div>'+ 
-      '</div>';
+      content_info_window+='</div>';
 
       content_info_window+=
       '<div class="card-body text-center" style="padding: 0.25rem;">'+
-      '<div class="mb-0">'+
-      '<h6 class="font-weight-semibold mb-0" style="word-wrap: break-word;"> <a class="text-default mb-0" data-abc="true">'+res[i].name_prod+'</a> </h6><label class="font-weight-semibold mb-0" style="word-wrap: break-word;"> <a class="text-muted" data-abc="true" >'+res[i].desc+'</a></label>'+
-      '</div>'+
-      '<h3 class="mb-0 font-weight-semibold">'+res[i].price+' €</h3>'+
-      '<div> <i class="fa fa-star star"></i> <i class="fa fa-star star"></i> <i class="fa fa-star star"></i> <i class="fa fa-star star"></i> </div>'+
-      '<div class="text-muted mb-0" style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">'+cat+'</div>'+
-      '<div class="text-muted mb-0" style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">@lang("bookmap/lang.seller") '+res[i].name_vendor+'</div>'+ 
-      // '<div class="text-muted mb-0" style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">'+res[i].place+'</div>'+ 
-      '<div style="display:flex;">'+
-      '<button style="flex-grow:1;margin: 5px;" type="button" class="btn btn-warning" onclick="'+button_edit+'"><i class="bx bx-edit"></i></button>'+
-      '<button style="flex-grow:1;margin: 5px;" type="button" class="btn btn-primary" onclick="delete_prod(\''+numb+'\',\''+res[i].id+'\')"><i class="bx bxs-trash"></i></button>'+
-      '</div>'+
-      '</div>'+
+          '<div class="mb-0">'+
+            '<h6 class="font-weight-semibold mb-0" style="word-wrap: break-word;"> <a class="text-default mb-0" data-abc="true">'+res[i].name_prod+'</a> </h6><label class="font-weight-semibold mb-0" style="word-wrap: break-word;"> <a class="text-muted" data-abc="true" >'+res[i].desc+'</a></label>'+
+          '</div>'+
+          '<h3 class="mb-0 font-weight-semibold">'+res[i].price+' €</h3>'+
+          '<div> <i class="fa fa-star star"></i> <i class="fa fa-star star"></i> <i class="fa fa-star star"></i> <i class="fa fa-star star"></i> </div>'+
+          '<div class="text-muted mb-0" style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">'+cat+'</div>'+
+          '<div class="text-muted mb-0" style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">@lang("bookmap/lang.seller") '+res[i].name_vendor+'</div>'+ 
+          // '<div class="text-muted mb-0" style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">'+res[i].place+'</div>'+ 
+          '<div style="display:flex;">'+
+            '<button style="flex-grow:1;margin: 5px;" type="button" class="btn btn-warning" onclick="'+button_edit+'"><i class="bx bx-edit"></i></button>'+
+            '<button style="flex-grow:1;margin: 5px;" type="button" class="btn btn-primary" onclick="delete_prod(\''+numb+'\',\''+res[i].id+'\')"><i class="bx bxs-trash"></i></button>'+
+          '</div>'+
+        '</div>'+
       '</div>';
 
       $("#append_product_user").append(content_info_window);
 
     }
+
+    $("#logo_loading").removeClass("rotate_logo_loading");
     
   }); 
 
@@ -608,7 +547,6 @@ function save_input_prod(numb, id_prod){
   var prod_lat;
   var prod_lng;
 
-
   if (cat_prod==1) {
 
         cat="@lang('bookmap/lang.book')";
@@ -679,57 +617,62 @@ function save_input_prod(numb, id_prod){
        function(data){
 
         var id_user="@if( auth()->guard('users_bookmap')->check() ){{ auth()->guard('users_bookmap')->user()->id}}@endif";
-              const formData = new FormData();
+              
+        const formData = new FormData();
 
-              for (var i = 0; i < prod_file.length; i++) {
+        if (prod_file.length!=0) {
+
+          for (var i = 0; i < prod_file.length; i++) {
+            
+            formData.append('prod_file[]', prod_file[i]);
+            
+          }
+
+          formData.append('id_user', id_user);
+          formData.append('id_prod', id_prod);
+          setTimeout(function(){
+            $.ajax({
+              url : "bookmap_repo/add_product.php",
+              type: 'POST',
+              data : formData,
+              processData: false, 
+              contentType: false,  
+              cache:false,
+              success : function(e) {
+                prod_file.name=0;
+                
+                $.get('/add_image_product_bookmap',{id_prod:id_prod, image_prod:e},
+                function(data){
+                  
+                });
+                
+              },
+              error: function (data, textStatus, errorThrown) {
+              },
+            });
+          },2000);
           
-                  formData.append('prod_file[]', prod_file[i]);
+        }
 
-                    }
+        $.notify({
+          
+          title: '<strong>Info</strong>',
+          message: "<br>@lang('bookmap/lang.prod_updated')",
+          
+        },{
+          
+          element: 'body',
+          type: "info",
+          width: 'auto',
+          allow_dismiss: true,
+          offset: 20,
+          placement: {
+            from: "bottom",
+            align: "center",
+          }
+        });
 
-                  formData.append('id_user', id_user);
-                  formData.append('id_prod', id_prod);
-                  setTimeout(function(){
-                    $.ajax({
-                      url : "bookmap_repo/add_product.php",
-                      type: 'POST',
-                      data : formData,
-                      processData: false, 
-                      contentType: false,  
-                      cache:false,
-                      success : function(e) {
-                        prod_file.name=0;
-                                             
-                        $.get('/add_image_product_bookmap',{id_prod:id_prod, image_prod:e},
-                          function(data){
-                            
-                            $.notify({
-
-                              title: '<strong>Info</strong>',
-                              message: "<br>@lang('bookmap/lang.prod_updated')",
-
-                            },{
-
-                              element: 'body',
-                              type: "info",
-                              width: 'auto',
-                              allow_dismiss: true,
-                              offset: 20,
-                              placement: {
-                                from: "bottom",
-                                align: "center",
-                              }
-                            });
-                            change
-                            _vis('products');
-                          });
-
-                      },
-                      error: function (data, textStatus, errorThrown) {
-
-                      },
-                    });
-                  },2000);
+        change_vis('products');
 
       });
 

@@ -1538,7 +1538,7 @@ cursor:pointer;
     <ul style="" id="pagination_product" class="pagination"></ul>
   </div>
   <div style="padding:15px;position: absolute;bottom: 0px; right: 0px;">
-    <button class="btn btn-success btn-circle btn-circle-lg m-1" onclick='open_menu(2)' style="box-shadow: 2px 2px 2px 1px darkslategrey;">
+    <button class="btn btn-primary btn-circle btn-circle-lg m-1" onclick='open_menu(2)' style="box-shadow: 2px 2px 2px 1px darkslategrey;">
       <i class="bx bx-plus-medical"></i>
     </button>
   </div>
@@ -1659,18 +1659,18 @@ cursor:pointer;
 
 <script>
 
-//sistemare parte della modifica
+//modificare solo l'immagine quando cambia semplicemente modificare il numero del refresh
+//quando si elimina un prodotto rimane la cartella, eliminare anche la cartella, sembra ci siano errori nella cancellazione del prod
 //testare con tantissimi prodotti
 //ricontrollare sistema degli abbonamenti
 //sistemare session lingua
+//sistemare sezione giacenze
 //creare api per sincronizzazione giacenze
-
-//marketing
-//fare video intro funzionamento bookmap pubblicità a buttare su facebook e extractor email
+//sistema di importazione file per i prodotti
 
 //POST RILASCIO
+//1)sistema di pagamento con api singole del venditore, forse meglio stripe
 //2)mettere voti e commenti dei clienti relativi al venditore, mettere stelline relative al venditore
-//3)inserire mini avatar direttamente come marker nella mappa, forse no
 //4)inserire indicazioni stradali al marker
 
 //bloccare apertura console da browser
@@ -1884,8 +1884,8 @@ function myHandler(e) {
 
         const svgMarker = {
           path: "M10.453 14.016l6.563-6.609-1.406-1.406-5.156 5.203-2.063-2.109-1.406 1.406zM12 2.016q2.906 0 4.945 2.039t2.039 4.945q0 1.453-0.727 3.328t-1.758 3.516-2.039 3.070-1.711 2.273l-0.75 0.797q-0.281-0.328-0.75-0.867t-1.688-2.156-2.133-3.141-1.664-3.445-0.75-3.375q0-2.906 2.039-4.945t4.945-2.039z",
-          fillColor: "green",
-          fillOpacity: 0.6,
+          fillColor: "red",
+          fillOpacity: 1,
           strokeWeight: 0,
           rotation: 0,
           scale: 2,
@@ -2052,7 +2052,7 @@ function search_main(pc_or_mobile){
       radius: radius_km * 1000,
       clickable: false,
       map: map,
-      fillColor:'#218838',
+      fillColor:'#007bff',
       strokeColor:'transparent'
     });
 
@@ -2066,7 +2066,6 @@ function search_main(pc_or_mobile){
       markersWontHide: true,   // we promise not to change visibility of any markers, allowing optimizations
       basicFormatEvents: true,  // allow the library to skip calculating advanced formatting information
     });
-
 
     for (var i = 0; i < array_product_page[0].length; i++) {
 
@@ -2189,14 +2188,14 @@ function search_main(pc_or_mobile){
 
       content_info_window+=
       '</div>'+
-      '<a class="carousel-control-prev" href="#carouselExampleControls" role="button" data-slide="prev">'+
-      '<span class="carousel-control-prev-icon" aria-hidden="true"></span>'+
-      '<span class="sr-only">Previous</span>'+
-      '</a>'+
-      '<a class="carousel-control-next" href="#carouselExampleControls" role="button" data-slide="next">'+
-      '<span class="carousel-control-next-icon" aria-hidden="true"></span>'+
-      '<span class="sr-only">Next</span>'+
-      '</a>'+
+        '<a class="carousel-control-prev" href="#carouselExampleControls" role="button" data-slide="prev">'+
+        '<span class="carousel-control-prev-icon" aria-hidden="true"></span>'+
+        '<span class="sr-only">Previous</span>'+
+        '</a>'+
+        '<a class="carousel-control-next" href="#carouselExampleControls" role="button" data-slide="next">'+
+        '<span class="carousel-control-next-icon" aria-hidden="true"></span>'+
+        '<span class="sr-only">Next</span>'+
+        '</a>'+
       '</div>'+ 
       '</div>';
 
@@ -2312,7 +2311,7 @@ function show_result_page(type){
     radius: radius_km * 1000,
     clickable: false,
     map: map,
-    fillColor:'#218838',
+    fillColor:'#007bff',
     strokeColor:'transparent'
   });
 
@@ -2321,11 +2320,11 @@ function show_result_page(type){
 
   if(radius_circle) map.fitBounds(radius_circle.getBounds());
 
-  // var oms = new OverlappingMarkerSpiderfier(map, { 
-  //     markersWontMove: true,   // we promise not to move any markers, allowing optimizations
-  //     markersWontHide: true,   // we promise not to change visibility of any markers, allowing optimizations
-  //     basicFormatEvents: true  // allow the library to skip calculating advanced formatting information
-  //   });
+  var oms = new OverlappingMarkerSpiderfier(map, { 
+      markersWontMove: true,   // we promise not to move any markers, allowing optimizations
+      markersWontHide: true,   // we promise not to change visibility of any markers, allowing optimizations
+      basicFormatEvents: true  // allow the library to skip calculating advanced formatting information
+    });
 
   for (var i = 0; i < array_product_page[numb].length; i++) {
 
@@ -2588,7 +2587,6 @@ function detect_device(){
       if (id_user=="") {
         window.location.replace("/bookmap");
       }else{
-        
         $("#logo_loading").addClass("rotate_logo_loading");
         $("#table_product").DataTable().destroy();
         $("#navbar_searh_mobile_home .container").hide();
