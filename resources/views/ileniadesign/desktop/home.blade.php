@@ -464,6 +464,8 @@
         var myhistory = [];
         var data = {!! $data !!};
         page_to_go = data["page"];
+        console.log(data)
+        console.log(page_to_go)
         change_vis(page_to_go);
         
         function change_vis(page_name, history){

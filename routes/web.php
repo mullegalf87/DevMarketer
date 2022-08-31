@@ -33,7 +33,7 @@ Route::get('/test', function () {
   return redirect('/tt?page=home');
 });
 
-//funzioni login
+//funzioni iniziali
 Route::get('/tt', 'TestsController@go_to_page');
 
 Route::get('tt/lang', 'TestsController@lang_change')->name('TtLangChange');
@@ -43,10 +43,7 @@ Route::post('register_test', 'TestsController@store');
 Route::post('login_test', 'TestsController@check_login');
 
 Route::get('logout_test', 'TestsController@logout_test');
-
-Route::post('reset_password_without_token_test', 'TestsController@validatePasswordRequest');
-
-//funzioni action
+//funzioni corpo
 
 
 //COMIZIAMO PROJECT

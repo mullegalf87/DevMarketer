@@ -92,9 +92,13 @@
         <div id="action" class="page" style="display: none;">
             @include("test.desktop.action")
         </div>
+        <div id="actiondetail" class="page" style="display: none;">
+            @include("test.desktop.actiondetail")
+        </div>
 
         <script>
-            //fare parte cambio pagina numerata
+
+            //cambio lingua
             var url = "{{ route('TtLangChange') }}";
             $(document).ready(function(){
                 // By default
@@ -131,40 +135,34 @@
                 });
             });
 
+            //cambio pagina
             var myhistory = [];
-            var data = {!!$page!!};
+            var data = {!! $page !!};
             var page_to_go = data.id;
             change_vis(page_to_go);
             function change_vis(page, history){
-                var res_id;
-                if (page.includes('_')) {
-                    res_id=page.split("_")[1];
-                    page=page.split("_")[0];
-                }
+                var num_page_detail = {!! $num_page !!};
                 var old_page=window.location.href.split("=")[1];
-                if (old_page.indexOf('layout') == 0) {
-                    $("#layout").hide();
+                if (old_page.indexOf('actiondetail') == 0) {
+                    $("#actiondetail").hide();
                 }else{
                     $("#"+old_page).hide();
                 }
                 if(history != 0){
-                    var id_user_profile="@if( auth()->guard('users_test')->check() ){{ auth()->guard('users_test')->user()->id}}@endif";
-                    if (old_page=="user_"+id_user_profile) {
-                    }else{
-                        myhistory.push(old_page);
-                    }
+                    myhistory.push(old_page);
                 }
                 old_page=page;
                 $("#"+page).show();
-                button_back(page, res_id);
-                case_page(page, res_id); 
+                button_back(page, num_page_detail);
+                case_page(page, num_page_detail); 
             }
             
-            function button_back(page_name, res_id){
+            //torna indietro tra le pagine
+            function button_back(page_name, num_page_detail){
                 history.pushState(null, null, history.pushState(null, null, window.location.href.substr(0, window.location.href.indexOf(page_name))));
                     history.pushState(null, null, window.history.replaceState(null, null, "/tt?page="+page_name));
-                if (page_name=="layout") {
-                    history.pushState(null, null, window.history.replaceState(null, null, "/tt?page="+page_name+"_"+res_id));
+                if (page_name=="actiondetail") {
+                    history.pushState(null, null, window.history.replaceState(null, null, "/tt?page="+page_name+"_"+num_page_detail));
                 } else{
                     history.pushState(null, null, window.history.replaceState(null, null, "/tt?page="+page_name));
                 }
@@ -181,13 +179,17 @@
                 };
             }
 
-            function case_page(page_name, res_id){
+            //passaggio tra una pagina e l'altra
+            function case_page(page_name, num_page_detail){
                 switch(page_name) {
                     case "home":
                     break;
                     case "login":
                     break;
                     case "action":
+                    break;
+                    case "actiondetail":
+                    start_function_actiondetail(num_page_detail);
                     break;
                     default:
                 }
@@ -197,6 +199,7 @@
                 }
             }
 
+            //logout
             function logout_test(){
                 $.get("/logout_test",{},
                 function(){

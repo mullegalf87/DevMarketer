@@ -87,16 +87,21 @@ class TestsController extends Controller
         }elseif ($agent->isDesktop()) {
             $result="desktop";
         }
-        $data = ['page' => Request::get('page')];
+        //se la pagina contiene il numero allora la divide, diversamente lascia la pagina originaria
+        if(strpos(Request::get('page'), "_") !== false){
+            $data = ['page' => explode("_", Request::get('page'))[0], 'num_page' => explode("_", Request::get('page'))[1]];
+        }else{
+            $data = ['page' => Request::get('page'), 'num_page' => '""'];
+        }
         if (auth()->guard('users_test')->check()) { 
             //dati che poi rivedrò nelle view con {{ $variable }} 
             $data['name']=auth()->guard('users_test')->user()->name;
             $data['lastname']=auth()->guard('users_test')->user()->lastname;
             $data['email']=auth()->guard('users_test')->user()->email;
-          }else{
+        }else{
             //controllo se esiste il cookie diversamente lo associo
             // $this->getCookie()=='' ? $this->setCookie() : false;      
-          }
+        }
         return view('test.'.$result.'.index', $data);
     }
 
@@ -165,5 +170,5 @@ class TestsController extends Controller
         auth()->guard('users_test')->logout();
         return redirect()->to('/test');
     }
-    
+
 }

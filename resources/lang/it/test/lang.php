@@ -14,6 +14,8 @@
 
         //page=action
         'action'=>'Azione',
+        'actiondetail'=>'Azione dettaglio',
+
 
     ];
 ?>
