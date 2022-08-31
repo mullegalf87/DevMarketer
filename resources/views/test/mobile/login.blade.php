@@ -59,8 +59,12 @@
 <div class="d-flex justify-content-center align-items-center mt-5">
     <div class="card">
         <ul class="nav nav-pills mb-3" id="pills-tab" role="tablist">
-            <li class="nav-item text-center"> <a class="nav-link active btl" id="pills-home-tab" data-toggle="pill" href="#pills-home" role="tab" aria-controls="pills-home" aria-selected="true">Login</a> </li>
-            <li class="nav-item text-center"> <a class="nav-link btr" id="pills-profile-tab" data-toggle="pill" href="#pills-profile" role="tab" aria-controls="pills-profile" aria-selected="false">Signup</a> </li>
+            <li class="nav-item text-center">
+                <a class="nav-link active btl" id="pills-home-tab" data-bs-toggle="pill" href="#pills-home" role="tab" aria-controls="pills-home" aria-selected="true">Login</a>
+            </li>
+            <li class="nav-item text-center">
+                <a class="nav-link btr" id="pills-profile-tab" data-bs-toggle="pill" href="#pills-profile" role="tab" aria-controls="pills-profile" aria-selected="false">Signup</a>
+            </li>
         </ul>
         <div class="tab-content" id="pills-tabContent">
             <form method="POST" action="{{ url('/login_test') }}" class="signup-form tab-pane fade show active" id="pills-home" role="tabpanel" aria-labelledby="pills-home-tab">

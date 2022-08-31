@@ -1413,7 +1413,7 @@ cursor:pointer;
     @endif
     @else
     <li class="nav-item">
-      <a href="#pageSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle"><i class="bx bxs-user-circle mr-3"></i> Login / Register</a>
+      <a href="#pageSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle"><i class="bx bxs-user-circle mr-3"></i>Login / Register</a>
       <ul class="collapse" id="pageSubmenu" style="padding:0">
         <div id="page_login">
           @include('bookmap.login')
@@ -2676,6 +2676,7 @@ function detect_device(){
   //cambia pagina
   var myhistory = [];
   var data = {!! $data !!};
+  console.log(data.test);
   page_to_go = data["page"];
   change_vis(page_to_go);
   
