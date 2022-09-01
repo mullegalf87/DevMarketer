@@ -71,6 +71,7 @@
                             </a>
                             <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
                                 <a class="dropdown-item" onclick="change_vis('action')">{{ __('test/lang.action') }}</a>
+                                <a class="dropdown-item" onclick="change_vis('warehouse')">Warehouse</a>
                                 <a class="dropdown-item" onclick="logout_test()">Logout</a>
                             </div>
                         </li>
@@ -95,9 +96,18 @@
         <div id="actiondetail" class="page" style="display: none;">
             @include("test.desktop.actiondetail")
         </div>
+        <div id="warehouse" class="page" style="display: none;">
+            @include("test.desktop.warehouse")
+        </div>
+        <div id="warehousedetail" class="page" style="display: none;">
+            @include("test.desktop.warehousedetail")
+        </div>
 
         <script>
-
+            //laravel model creazione e legame db, e relazione tra model (legati)
+            //provare a mettere layout pronti
+            //far partire i post anzichè i get
+                        
             //cambio lingua
             var url = "{{ route('TtLangChange') }}";
             $(document).ready(function(){
@@ -135,33 +145,34 @@
                 });
             });
 
-            //cambio pagina
+            //cambio pagina quando viene aperta la pagina
             var myhistory = [];
             var data = {!! $page !!};
+            var num_page_detail = {!! $num_page !!};
             var page_to_go = data.id;
-            change_vis(page_to_go);
-            function change_vis(page, history){
-                var num_page_detail = {!! $num_page !!};
+            change_vis(page_to_go, 1, num_page_detail);
+
+            //cambio pagina quando viene cliccato il bottone
+            function change_vis(page, history, num_page_detail){
                 var old_page=window.location.href.split("=")[1];
-                if (old_page.indexOf('actiondetail') == 0) {
-                    $("#actiondetail").hide();
-                }else{
-                    $("#"+old_page).hide();
-                }
+                var new_page=new_page=page.split("_")[0];
+                num_page_detail = num_page_detail==undefined ||  num_page_detail=="" ? page.split("_")[1] : num_page_detail;
+                //nascondo la vecchia pagina
+                $("#"+old_page.split("_")[0]).hide();
+                //metto nella cronologia per tornarae indietro tra le pagine
                 if(history != 0){
                     myhistory.push(old_page);
                 }
-                old_page=page;
-                $("#"+page).show();
-                button_back(page, num_page_detail);
-                case_page(page, num_page_detail); 
+                old_page=new_page;
+                //mostro la nuova pagina
+                $("#"+new_page).show();
+                button_back(new_page, num_page_detail);
+                case_page(new_page, num_page_detail); 
             }
             
-            //torna indietro tra le pagine
+            //torna indietro tra le pagine dopo aver creato la cronologia
             function button_back(page_name, num_page_detail){
-                history.pushState(null, null, history.pushState(null, null, window.location.href.substr(0, window.location.href.indexOf(page_name))));
-                    history.pushState(null, null, window.history.replaceState(null, null, "/tt?page="+page_name));
-                if (page_name=="actiondetail") {
+                if (num_page_detail!=undefined) {
                     history.pushState(null, null, window.history.replaceState(null, null, "/tt?page="+page_name+"_"+num_page_detail));
                 } else{
                     history.pushState(null, null, window.history.replaceState(null, null, "/tt?page="+page_name));
@@ -179,7 +190,7 @@
                 };
             }
 
-            //passaggio tra una pagina e l'altra
+            //passaggio tra una pagina e l'altra e faccio partire funziona per ogni pagina
             function case_page(page_name, num_page_detail){
                 switch(page_name) {
                     case "home":
@@ -191,11 +202,12 @@
                     case "actiondetail":
                     start_function_actiondetail(num_page_detail);
                     break;
+                    case "warehouse":
+                    break;
+                    case "warehousedetail":
+                    start_function_warehousedetail(num_page_detail);
+                    break;
                     default:
-                }
-                $("html, body").animate({ scrollTop: 0 }, "slow");
-                if($(".navbar-collapse").hasClass("show")==true){
-                    $(".navbar-toggler").click();
                 }
             }
 
@@ -204,6 +216,13 @@
                 $.get("/logout_test",{},
                 function(){
                     window.location.replace("/test");
+                });
+            }
+            get_product_test();
+            function get_product_test(){
+                $.get("get_product_test",{},
+                function(data){
+                    console.log(data);
                 });
             }
 

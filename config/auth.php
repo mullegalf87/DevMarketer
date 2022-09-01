@@ -97,7 +97,7 @@ return [
 
         'users_tests' => [
             'driver' => 'eloquent',
-            'model' => App\Users_test::class,
+            'model' => App\Modeltest\Users_test::class,
         ],  
         
         'users_bookmaps' => [

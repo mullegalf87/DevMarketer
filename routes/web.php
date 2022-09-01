@@ -43,7 +43,10 @@ Route::post('register_test', 'TestsController@store');
 Route::post('login_test', 'TestsController@check_login');
 
 Route::get('logout_test', 'TestsController@logout_test');
+
 //funzioni corpo
+Route::get('get_product_test', 'TestsController@get_product_test');
+
 
 
 //COMIZIAMO PROJECT

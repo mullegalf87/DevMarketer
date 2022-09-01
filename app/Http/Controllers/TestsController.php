@@ -10,7 +10,6 @@ use Config;
 use Session;
 use Auth;
 use Carbon\Carbon;
-use App\Users_test;
 use DateTime;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Input;
@@ -22,6 +21,10 @@ use LaraFlash;
 use Jenssegers\Agent\Agent;
 use Illuminate\Http\Response;
 use Cookie;
+// model
+use App\Modeltest\Users_test;
+use App\Modeltest\Product;
+use App\Modeltest\Cart;
 
 class TestsController extends Controller
 {   
@@ -87,18 +90,22 @@ class TestsController extends Controller
         }elseif ($agent->isDesktop()) {
             $result="desktop";
         }
-        //se la pagina contiene il numero allora la divide, diversamente lascia la pagina originaria
+        //se la pagina contiene il numero allora la divide, diversamente lascia la pagina originale
         if(strpos(Request::get('page'), "_") !== false){
             $data = ['page' => explode("_", Request::get('page'))[0], 'num_page' => explode("_", Request::get('page'))[1]];
         }else{
             $data = ['page' => Request::get('page'), 'num_page' => '""'];
         }
+        // $data = ['page' => Request::get('page')];
         if (auth()->guard('users_test')->check()) { 
             //dati che poi rivedrò nelle view con {{ $variable }} 
             $data['name']=auth()->guard('users_test')->user()->name;
             $data['lastname']=auth()->guard('users_test')->user()->lastname;
             $data['email']=auth()->guard('users_test')->user()->email;
         }else{
+            $data['name']="";
+            $data['lastname']="";
+            $data['email']="";
             //controllo se esiste il cookie diversamente lo associo
             // $this->getCookie()=='' ? $this->setCookie() : false;      
         }
@@ -171,4 +178,16 @@ class TestsController extends Controller
         return redirect()->to('/test');
     }
 
+    public function get_product_test(){
+
+        // $find_all=Product::All;
+        // $find_one=Product::find(1)->id;
+        $product=Cart::where('id_user',"=",auth()->guard('users_bookmap')->user()->id)->get();
+
+        $result=$product;
+
+        // $relation=[];
+        // $relation=['product'=>Product::all(), 'cart'=>Cart::all()];
+        return $result;
+    }
 }

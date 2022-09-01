@@ -1,6 +1,6 @@
 <?php
 
-namespace App;
+namespace App\Modeltest;
 
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
@@ -10,7 +10,7 @@ class Users_test extends Authenticatable
 {
     use Notifiable;
     use LaratrustUserTrait;
-
+    protected $connection = 'mysql2';//stabilisce a quale db si deve collegare
     /**
      * The attributes that are mass assignable.
      *
