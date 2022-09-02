@@ -104,8 +104,6 @@
         </div>
 
         <script>
-            //laravel model creazione e legame db, e relazione tra model (legati)
-            //provare a mettere layout pronti
             //far partire i post anzichè i get
                         
             //cambio lingua
@@ -218,11 +216,13 @@
                     window.location.replace("/test");
                 });
             }
+
             get_product_test();
             function get_product_test(){
                 $.get("get_product_test",{},
                 function(data){
-                    console.log(data);
+                    var res=jQuery.parseJSON(data);
+                    console.log(res);
                 });
             }
 

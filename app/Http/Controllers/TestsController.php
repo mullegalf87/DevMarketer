@@ -23,25 +23,10 @@ use Illuminate\Http\Response;
 use Cookie;
 // model
 use App\Modeltest\Users_test;
-use App\Modeltest\Product;
-use App\Modeltest\Cart;
+use App\Modeltest\Query;
 
 class TestsController extends Controller
 {   
-    //trovi tutte le tabelle
-    public function universal_db(){
-        Config::set('database.connections.mysql_dynamic.database','laravel');
-        $universal=DB::connection('mysql_dynamic');
-        return $universal;
-    }
-
-    //trovi gli utenti
-    public function universal_db_user(){
-        Config::set('database.connections.mysql_dynamic.database','test');
-        $universal=DB::connection('mysql');
-        return $universal;
-    }
-
     //set random token
     function random_token($db, $table, $column){
         $token;
@@ -178,16 +163,10 @@ class TestsController extends Controller
         return redirect()->to('/test');
     }
 
+    //index
     public function get_product_test(){
-
-        // $find_all=Product::All;
-        // $find_one=Product::find(1)->id;
-        $product=Cart::where('id_user',"=",auth()->guard('users_bookmap')->user()->id)->get();
-
-        $result=$product;
-
-        // $relation=[];
-        // $relation=['product'=>Product::all(), 'cart'=>Cart::all()];
+        $query = new Query;
+        $result=$query->join_user_product_cart();
         return $result;
     }
 }
