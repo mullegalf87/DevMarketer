@@ -13,6 +13,11 @@ use Illuminate\Database\Eloquent\Model;
 
 class Query extends Model
 {   
+    public function data_user(){
+        $iduser=auth()->guard('users_test')->user()->id;
+        return $iduser;
+    }
+
     public function universal_db2(){
         Config::set('database.connections.mysql_dynamic.database','laravel');
         $universal=DB::connection('mysql_dynamic');
@@ -49,14 +54,16 @@ class Query extends Model
 		return $data;
     }
 
-    public function join_user_product_cart() {
+    public function join_user_product_cart($iduser) {
         $data=$this->universal_db2()->table('cart as ca')
         ->select('ut.name','ut.lastname','pr.name as prod','pr.qnt','pr.price','ca.sold')
         ->join('users_tests as ut', 'ut.id', '=', 'ca.id_user')
         ->join('product as pr', 'pr.id', '=', 'ca.id_prod')
+        ->where('ca.id_user','=',$iduser)
         ->get();
 
 		$data=json_encode($data);
 		return $data;
     }
+
 }

@@ -166,7 +166,8 @@ class TestsController extends Controller
     //index
     public function get_product_test(){
         $query = new Query;
-        $result=$query->join_user_product_cart();
+        $iduser=$query->data_user();
+        $result=$query->join_user_product_cart($iduser);
         return $result;
     }
 }
