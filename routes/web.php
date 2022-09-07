@@ -458,6 +458,8 @@ Route::get('/get_count_prod_cart_ileniadesign', 'IleniadesignController@get_coun
 
 Route::get('/add_cart_ileniadesign', 'IleniadesignController@add_cart_ileniadesign');
 
+Route::get('/add_prefer_ileniadesign', 'IleniadesignController@add_prefer_ileniadesign');
+
 //route cart
 Route::get('/get_prod_cart_ileniadesign', 'IleniadesignController@get_prod_cart_ileniadesign');
 
@@ -509,3 +511,8 @@ Route::get('/delete_cat_subcat_ileniadesign', 'IleniadesignController@delete_cat
 Route::get('get_product_user_ileniadesign', 'IleniadesignController@get_product_user_ileniadesign');
 
 Route::get('/show_detail_myorder_ileniadesign', 'IleniadesignController@show_detail_myorder_ileniadesign');
+
+Route::get('/get_prefer_user_ileniadesign', 'IleniadesignController@get_prefer_user_ileniadesign');
+
+Route::get('/delete_prod_prefer_ileniadesign', 'IleniadesignController@delete_prod_prefer_ileniadesign');
+

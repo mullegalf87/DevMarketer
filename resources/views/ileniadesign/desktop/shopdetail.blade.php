@@ -26,7 +26,7 @@
                   <span class="carousel-control-next-icon" aria-hidden="true" style="position: absolute;margin: auto;top: 0;bottom: 0;right: 0;left: 0;"></span>
                   <span class="sr-only">Next</span>
                 </a>
-                <span class="bx bx-heart" style="position: absolute;bottom: 15;right: 15;font-size:x-large"></span>
+                <span class="bx bx-heart" style="position: absolute;bottom: 15;right: 15;font-size:x-large;z-index: 3000;"></span>
             </div>
         </div>
         <div id="card_front_detail" class="col-md-6" style="padding-top: 15%; padding-left: 5%; padding-bottom:0; padding-right: 25%;">
@@ -114,7 +114,7 @@
     // ripulire il colore carrello quando si rientra su shopdetail
     // appena scrolli e passi la prima section mettere il colore alla navbar
     function start_function_shopdetail(num_image){
-
+        $(".bx-heart").css("color","");
         id_article(num_image);
         advice_shopping();
         //ripristina il bottone dell'add_cart
@@ -165,7 +165,25 @@
 
                 format+='<p class="info_detail" id_image="'+res[0].id+'" name_image="'+res[0].name+'" name_size="A5" num_size="3" price="'+res[0].price_a5+'">A5</p>';
 
-            }    
+            }
+            
+            $(".bx-heart").attr("onclick","add_prefer(\'"+res[0].id+"\', \'"+res[0].name+"\', \'"+res[0].price_a4+"\',\'"+res[0].image_file.split(",")[0].split(".")[1]+"\')");
+
+            $.get("/get_prefer_user_ileniadesign",{},
+            function(data){
+                var res=jQuery.parseJSON(data);
+
+                for (let i = 0; i < res.length; i++) {
+
+                    if (res[i].id_product==num_image) {
+
+                        $(".bx-heart").css("color","red");
+
+                    }
+            
+                }
+    
+            });
             
             $(".group_info_image").html(format);
 
@@ -295,6 +313,23 @@
                 $(".group_add_button").html("<p class='flex-grow-1 m-0'>€ "+price+"</p><p class='m-0'><i class='bx bx-shopping-bag'></i> ADD</p>");
 
             }, 3000);
+            
+        });
+
+    }
+
+    function add_prefer(id_product,name_product,price,type_image){
+
+        $.get("add_prefer_ileniadesign",{id_product:id_product,name_product:name_product, price:price,/*token_user:user,*/ type_image:type_image},
+        function(data){ 
+            
+            var res=jQuery.parseJSON(data);
+            
+            if (res==null) {
+                $(".bx-heart").css("color","red");
+            }else{
+                delete_prefer(id_product);
+            }
             
         });
 

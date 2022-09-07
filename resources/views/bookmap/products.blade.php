@@ -226,6 +226,15 @@
     color: white!important;
 }
 
+.hero { 
+    position: relative; 
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 15px;
+}
+
 
 </style>
 
@@ -318,12 +327,22 @@ function get_product_user(){
 
       }
 
+      if (res[i].name_img=="") {
+
+        src='bookmap_repo/default_img.png?refresh=<?php echo rand(1,999); ?>';
+
+      }else{
+
+        src='bookmap_repo/img_user/'+res[i].id_vendor+'/'+res[i].id+'/'+res[i].name_img.split(",")[0]+'?refresh=<?php echo rand(1,999); ?>';
+
+      }
+
       var content_info_window=
       "<div class='product--blue' style='margin: 3%;'>"+
-      "<div class='product_inner'>";
+      "<div class='product_inner hero hero_"+res[i].id_vendor+"'>";
 
       content_info_window+=      
-        '<img src="" class="card-img img-fluid img-prod-'+numb+'" alt="" style="width: 100%; height: 200px !important; object-fit: cover;">';
+        '<img src="'+src+'" class="rounded-circle card-img img-fluid img-prod-'+numb+'" width="150" height="150" style="border-style: inset;z-index: 99;">';
 
       content_info_window+='</div>';
 
@@ -346,17 +365,7 @@ function get_product_user(){
 
       $("#append_product_user").append(content_info_window);
 
-      
-
-      if (res[i].name_img=="") {
-
-        src='bookmap_repo/default_img.png?refresh=<?php echo rand(1,999); ?>';
-
-      }else{
-
-        src='bookmap_repo/img_user/'+res[i].id_vendor+'/'+res[i].id+'/'+res[i].name_img.split(",")[0]+'?refresh=<?php echo rand(1,999); ?>';
-
-      }
+      $('head').append('<style>.hero_'+res[i].vendor_id+':before{content: ""; background-image: url('+src+'); background-size: cover; position: absolute; top: 0px; right: 0px; bottom: 0px; left: 0px;-webkit-filter: blur(2px);}</style>');
 
       $(".img-prod-"+numb).attr("src",src);
 

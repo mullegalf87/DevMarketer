@@ -46,33 +46,79 @@
         </div>
     </div>
 
-    <div id="list_prefer" class="d-none">
-        <table class="table">
-            <thead>
-                <th>Order</th>
-                <th>Qty</th>
-                <th>Total</th>
-                <th>Date</th>
-                <th>Info</th>
-            </thead>
-            <tbody class="" id="append_prefer">
-            </tbody>
-        </table>
+    <div id="list_prefer" class="d-none p-5">
+        <div class="d-flex mb-3">
+            <div class="d-flex flex-nowrap w-100 m-3" style="">
+                <div class="w-50 m-auto" style="">
+                    <p class="p-0 m-0 text-left">Image</p>
+                </div>
+                <div class="w-50 m-auto" style="">
+                    <p class="p-0 m-0 text-left">Name</p>
+                </div>
+                <div class="w-50 m-auto" style="">
+                    <p class="p-0 m-0 text-center"></p>
+                </div>
+                <div class="w-50 m-auto" style="">
+                    <p class="p-0 m-0 text-right">Price</p>
+                </div>
+            </div>
+        </div>
+        <div class="" id="append_prefer">
+        </div>
     </div>
 
     <div id="list_profile" class="d-none">
-        <h1>profilo</h1>
-        <!-- <table class="table">
-            <thead>
-                <th>Order</th>
-                <th>Qty</th>
-                <th>Total</th>
-                <th>Date</th>
-                <th>Info</th>
-            </thead>
-            <tbody class="mt-5" id="append_profile">
-            </tbody>
-        </table> -->
+        <div class="d-flex flex-nowrap h-100">
+            <div class="col-md-6 p-0">
+                <div class="" style="display: block;position: absolute; bottom:0;right: 0; left: 0;margin: 5rem!important;">
+                    <img class="m-auto" src="ileniadesign_repo/1.jpeg" style="width: 60%;float:right">
+                    <img class="img-corner" src="ileniadesign_repo/2.jpeg" style="width: 190px; object-fit: contain; pointer-events: none;position: absolute; bottom:-50px;left: 100px;">
+                </div>
+                <div class="emblem" style="position: absolute;left: 180px;bottom: 0;">Ileniazitodesign-Ileniazitodesign-</div>
+            </div>
+            <div class="col-md-6 p-0">
+                @if( auth()->guard('users_ileniadesign')->check() )
+                <div class="d-flex flex-nowrap">
+                    <div class="col-md-4">
+                        <input type="text" class="form-control p-0" name="name" placeholder="Name"  style="height:60px;background: transparent; border-radius: 0; border-bottom: 1px solid;font-family: 'Futura PT', sans-serif;font-size: 15px!important;" value="{{ auth()->guard('users_ileniadesign')->user()->name }}" required>
+                    </div>
+                    <div class="col-md-4">
+                        <input type="text" class="form-control p-0" name="lastname" placeholder="Lastname"  style="height:60px;background: transparent; border-radius: 0; border-bottom: 1px solid;font-family: 'Futura PT', sans-serif;font-size: 15px!important;" value="{{ auth()->guard('users_ileniadesign')->user()->lastname }}" required>
+                    </div>
+                </div>
+                <div class="d-flex flex-nowrap">
+                    <div class="col-md-4">
+                        <input type="text" class="form-control p-0" name="email" placeholder="Email"  style="height:60px;background: transparent; border-radius: 0; border-bottom: 1px solid;font-family: 'Futura PT', sans-serif;font-size: 15px!important;" value="{{ auth()->guard('users_ileniadesign')->user()->email }}" required>
+                    </div>
+                    <div class="col-md-4">
+                        <input type="text" class="form-control p-0" name="cell" placeholder="Cell"  style="height:60px;background: transparent; border-radius: 0; border-bottom: 1px solid;font-family: 'Futura PT', sans-serif;font-size: 15px!important;" value="{{ auth()->guard('users_ileniadesign')->user()->cell }}" required>
+                    </div>
+                </div>
+                <div class="col-md-12">
+                    <input type="text" class="form-control p-0" name="address" placeholder="Address"  style="width: 60%;height:60px;background: transparent; border-radius: 0; border-bottom: 1px solid;font-family: 'Futura PT', sans-serif;font-size: 15px!important;" value="{{ auth()->guard('users_ileniadesign')->user()->address }}" required>
+                </div>
+                <div class="d-flex flex-nowrap">
+                    <div class="col-md-4">
+                        <input type="text" class="form-control p-0" name="state" placeholder="State"  style="height:60px;background: transparent; border-radius: 0; border-bottom: 1px solid;font-family: 'Futura PT', sans-serif;font-size: 15px!important;" value="{{ auth()->guard('users_ileniadesign')->user()->state }}" required>
+                    </div>
+                    <div class="col-md-4">
+                        <input type="text" class="form-control p-0" name="region" placeholder="Region"  style="height:60px;background: transparent; border-radius: 0; border-bottom: 1px solid;font-family: 'Futura PT', sans-serif;font-size: 15px!important;" value="{{ auth()->guard('users_ileniadesign')->user()->region }}" required>
+                    </div>
+                </div>
+                <div class="col-md-12 flex-nowrap">
+                    <div class="col-md-6">
+                        <input type="text" class="form-control p-0" name="city" placeholder="City"  style="height:60px;background: transparent; border-radius: 0; border-bottom: 1px solid;font-family: 'Futura PT', sans-serif;font-size: 15px!important;" value="{{ auth()->guard('users_ileniadesign')->user()->city }}" required>
+                    </div>
+                    <div class="col-md-6">
+                        <input type="text" class="form-control p-0" name="zip" placeholder="Zip"  style="height:60px;background: transparent; border-radius: 0; border-bottom: 1px solid;font-family: 'Futura PT', sans-serif;font-size: 15px!important;" value="{{ auth()->guard('users_ileniadesign')->user()->zip }}" required>
+                    </div>
+                </div>
+                @endif
+                <div class="col-md-12">
+                    <button class="btn btn-primary text-left mt-3">SALVA  </button>
+                </div>
+            </div>
+        </div>
     </div>
 
 </section>
@@ -82,6 +128,7 @@
     function start_function_order(){
         
         get_all_order();
+        get_all_prefer();
         
     }
 
@@ -97,7 +144,6 @@
         $("#"+section).removeClass("d-none");
         $("."+section).css({"text-underline-offset": "5px","text-decoration": "underline"});
        
-
     }
 
     function get_all_order(){
@@ -138,7 +184,7 @@
                 '<p class="p-0 m-0 text-center">'+res[i].count_prod+'</p>'+
                 '</div>'+
                 '<div class="w-50 m-auto">'+
-                '<p '+url+' class="p-0 m-0 text-center" style="text-decoration: underline;text-underline-offset: 1px;">'+res[i].status+'</p>'+
+                '<a '+url+' class="p-0 m-0 text-center" style="text-decoration: underline;text-underline-offset: 1px;">'+res[i].status+'</a>'+
                 '</div>'+
                 '<div class="w-50 m-auto" style="">'+
                 '<p class="p-0 m-0 text-center">'+res[i].gift_applied+'</p>'+
@@ -230,6 +276,52 @@
             });
         
         }
+
+    }
+
+    function get_all_prefer(){
+        
+        $("#append_prefer").empty();
+        
+        $.get("get_prefer_user_ileniadesign",{},
+        function(data){
+            
+            var res=jQuery.parseJSON(data);
+            
+            for (let i = 0; i < res.length; i++) {
+                
+                $("#append_prefer").append('<div class="d-flex mb-3 tr_prefer_'+res[i].id_product+'">'+
+                '<div class="d-flex flex-nowrap w-100 mr-3 ml-3">'+
+                    '<div class="w-50 m-auto" style="">'+
+                    '<img onclick="change_vis(\'shopdetail_'+res[i].id_product+'\')" style="width: 55px!important;" class="img-corner" src="ileniadesign_repo/shopmyart/'+res[i].id_product+'/1.'+res[i].type_img+'">'+
+                    '</div>'+
+                    '<div class="w-50 m-auto" style="">'+
+                    '<p class="p-0 m-0 text-left">'+res[i].name_product+'</p>'+
+                    '</div>'+
+                    '<div class="w-50 m-auto" style="">'+
+                    '<p onclick="delete_prefer('+res[i].id_product+')" class="p-0 m-0 text-center" style="text-decoration: underline;text-underline-offset: 1px;color: #dbd3d3;">Remove</p>'+
+                    '</div>'+
+                    '<div class="w-50 m-auto" style="">'+
+                    '<p class="p-0 m-0 text-right">€ '+parseFloat(res[i].price).toFixed(2)+'</p>'+
+                    '</div>'+
+                '</div>'+
+                '</div>');
+                
+            }
+            
+        });
+        
+    }
+
+    function delete_prefer(id_product){
+
+        $.get("delete_prod_prefer_ileniadesign",{id_product:id_product},
+        function(data){
+
+            $(".bx-heart").css("color","black");
+            $(".tr_prefer_"+id_product).remove();
+
+        });
 
     }
 </script>

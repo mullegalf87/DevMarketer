@@ -450,7 +450,6 @@ class IleniadesignController extends Controller{
       ->where('id_product','=',$id_product)
       ->where('format','=',$format)
       ->where('sold','=',null)
-      ->where('id_product','=',$id_product)
       ->update(array( 
         'qnt'=>$exist_product->qnt+1,
       ));
@@ -474,6 +473,45 @@ class IleniadesignController extends Controller{
     }
 
   return View::make('query')->with("result",json_encode("added!"));
+
+  }
+
+  public function add_prefer_ileniadesign(){
+
+    $id_product=Request::get("id_product");
+    $name_product=Request::get("name_product");
+    $price=Request::get("price");
+    $type_image=Request::get("type_image");
+    
+    if (auth()->guard('users_ileniadesign')->check()) {
+
+      $id_user=auth()->guard('users_ileniadesign')->user()->id;
+
+    }else{
+
+      $id_user=$this->getCookie();
+
+    }
+
+    $exist_product=$this->universal_db('ileniadesign')->table('prefer_ileniadesign')
+    ->where('id_user','=',$id_user)
+    ->where('id_product','=',$id_product)
+    ->first();
+
+    if (!$exist_product) {
+
+      $this->universal_db('ileniadesign')->table('prefer_ileniadesign')
+      ->insertGetId(array( 
+        'id_product'=>$id_product,
+        'name_product'=>$name_product,
+        'price'=>$price,
+        'id_user'=>$id_user,
+        'type_img'=>$type_image,
+      ));  
+
+    }
+
+    return View::make('query')->with("result",json_encode($exist_product));
 
   }
 
@@ -889,6 +927,32 @@ public function convert_sold_ileniadesign(){
     ->get();
 
     return View::make('query')->with("result",json_encode($myorder_detail));
+
+  }
+
+  public function get_prefer_user_ileniadesign(){
+
+    $id_user=auth()->guard('users_ileniadesign')->user()->id;
+
+    $myprefer=$this->universal_db('ileniadesign')->table('prefer_ileniadesign')
+    ->where('id_user', '=', $id_user)
+    ->get();
+
+    return View::make('query')->with("result",json_encode($myprefer));
+
+  }
+
+  public function delete_prod_prefer_ileniadesign(){
+
+    $id_product=Request::get("id_product");
+    $id_user=auth()->guard('users_ileniadesign')->user()->id;
+
+    $this->universal_db('ileniadesign')->table('prefer_ileniadesign')
+    ->where('id_product', '=',$id_product)
+    ->where('id_user', '=',$id_user)
+    ->delete();
+
+    return View::make('query')->with("result",json_encode("delete!"));
 
   }
 

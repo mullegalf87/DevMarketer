@@ -450,7 +450,7 @@
     </footer>
     <script>
         //MODIFICHE DESKTOP
-        //fare pagina ordini profilo cliente: e preferiti(rendere il cuore interagibile in una tabella stile cart), profilo;
+        //fare pagina ordini profilo cliente;
         //fare pagina richieste;
         //fare accettazione cookie
         //sistemare problema lazy load delle immagini quando filtrate
