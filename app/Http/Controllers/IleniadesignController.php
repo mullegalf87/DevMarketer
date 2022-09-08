@@ -31,9 +31,13 @@ class IleniadesignController extends Controller{
     DB::disconnect("mysql_dynamic");
     Config::set('database.connections.mysql_dynamic.database',$dab);
     $universal=DB::connection('mysql_dynamic');
-
     return $universal;
+  }
 
+  public function universal_user_db(){
+    Config::set('database.connections.mysql_dynamic.database','test');
+    $universal=DB::connection('mysql');
+    return $universal;
   }
 
   //random token
@@ -335,6 +339,23 @@ class IleniadesignController extends Controller{
       
     }
     
+  }
+
+  //controllers home
+  public function get_promotion_ileniadesign(){
+
+    $get_discount=$this->universal_db('ileniadesign')->table('image_discount_ileniadesign')
+    ->where('end_discount', '=',0)
+    ->get();  
+
+    $get_gift=$this->universal_db('ileniadesign')->table('image_gift_ileniadesign')
+    ->where('status', '=',0)
+    ->get(); 
+
+    $result=["get_discount"=>$get_discount, "get_gift"=>$get_gift];
+
+    return View::make('query')->with("result",json_encode($result));
+
   }
 
   //controllers shopmyart
@@ -953,6 +974,37 @@ public function convert_sold_ileniadesign(){
     ->delete();
 
     return View::make('query')->with("result",json_encode("delete!"));
+
+  }
+
+  public function send_data_setting_ileniadesign(){
+
+    $name_setting=Request::get("name_setting");
+    $lastname_setting=Request::get("lastname_setting");
+    $email_setting=Request::get("email_setting");
+    $cell_setting=Request::get("cell_setting");
+    $address_setting=Request::get("address_setting");
+    $state_setting=Request::get("state_setting");
+    $region_setting=Request::get("region_setting");
+    $city_setting=Request::get("city_setting");
+    $zip_setting=Request::get("zip_setting");
+
+    $this->universal_user_db('test')->table('users_ileniadesigns')
+      ->where('id', '=',auth()->guard('users_ileniadesign')->user()->id)
+      ->update(
+        array(
+         'name'=>$name_setting,
+         'lastname'=>$lastname_setting,
+         'email'=>$email_setting,
+         'cell'=>$cell_setting,
+         'address'=>$address_setting,
+         'state'=>$state_setting,
+         'region'=>$region_setting,
+         'city'=>$city_setting,
+         'zip'=>$zip_setting,
+       ));
+
+      return View::make('query')->with("result",json_encode("modificato user!"));
 
   }
 

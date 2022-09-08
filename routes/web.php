@@ -444,6 +444,9 @@ Route::get('logout_ileniadesign', 'IleniadesignController@logout_ileniadesign');
 
 Route::post('recovery_ileniadesign', 'IleniadesignController@recovery_ileniadesign');
 
+//route home
+Route::get('/get_promotion_ileniadesign', 'IleniadesignController@get_promotion_ileniadesign');
+
 //route shopmyart
 Route::get("get_image_shopmyart_ileniadesign","IleniadesignController@get_image_shopmyart_ileniadesign");
 
@@ -515,4 +518,6 @@ Route::get('/show_detail_myorder_ileniadesign', 'IleniadesignController@show_det
 Route::get('/get_prefer_user_ileniadesign', 'IleniadesignController@get_prefer_user_ileniadesign');
 
 Route::get('/delete_prod_prefer_ileniadesign', 'IleniadesignController@delete_prod_prefer_ileniadesign');
+
+Route::get('/send_data_setting_ileniadesign', 'IleniadesignController@send_data_setting_ileniadesign');
 

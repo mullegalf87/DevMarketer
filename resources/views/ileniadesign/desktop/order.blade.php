@@ -1,7 +1,7 @@
 <style>
 
 </style>
-<section class="container-fluid p-0" style="">
+<section class="container-fluid p-0" >
     <div class="col-md-12 p-0 mt-5 mb-5">
         <h4 class="text-center" style="font-family: 'Futura PT', sans-serif;font-size: 15px!important;">MY &amp; PROFILE</h4>
     </div>
@@ -12,17 +12,17 @@
     </div>
     <div id="list_order" class="p-5">
         <div class="d-flex mb-3">
-            <div class="d-flex flex-nowrap w-100 m-3" style="">
-                <div class="w-50 m-auto" style="">
+            <div class="d-flex flex-nowrap w-100 m-3" >
+                <div class="w-50 m-auto" >
                     <p class="p-0 m-0 text-left">Id</p>
                 </div>
-                <div class="w-50 m-auto" style="">
+                <div class="w-50 m-auto" >
                     <p class="p-0 m-0 text-center">Date</p>
                 </div>
-                <div class="w-50 m-auto" style="">
+                <div class="w-50 m-auto" >
                     <p class="p-0 m-0 text-center">Order</p>
                 </div>
-                <div class="w-50 m-auto" style="">
+                <div class="w-50 m-auto" >
                     <p class="p-0 m-0 text-center">Quantity</p>
                 </div>
                 <div class="w-50 m-auto">
@@ -48,17 +48,17 @@
 
     <div id="list_prefer" class="d-none p-5">
         <div class="d-flex mb-3">
-            <div class="d-flex flex-nowrap w-100 m-3" style="">
-                <div class="w-50 m-auto" style="">
+            <div class="d-flex flex-nowrap w-100 m-3" >
+                <div class="w-50 m-auto" >
                     <p class="p-0 m-0 text-left">Image</p>
                 </div>
-                <div class="w-50 m-auto" style="">
+                <div class="w-50 m-auto" >
                     <p class="p-0 m-0 text-left">Name</p>
                 </div>
-                <div class="w-50 m-auto" style="">
+                <div class="w-50 m-auto" >
                     <p class="p-0 m-0 text-center"></p>
                 </div>
-                <div class="w-50 m-auto" style="">
+                <div class="w-50 m-auto" >
                     <p class="p-0 m-0 text-right">Price</p>
                 </div>
             </div>
@@ -67,55 +67,55 @@
         </div>
     </div>
 
-    <div id="list_profile" class="d-none">
+    <div id="list_profile" class="d-none p-5">
         <div class="d-flex flex-nowrap h-100">
-            <div class="col-md-6 p-0">
-                <div class="" style="display: block;position: absolute; bottom:0;right: 0; left: 0;margin: 5rem!important;">
-                    <img class="m-auto" src="ileniadesign_repo/1.jpeg" style="width: 60%;float:right">
-                    <img class="img-corner" src="ileniadesign_repo/2.jpeg" style="width: 190px; object-fit: contain; pointer-events: none;position: absolute; bottom:-50px;left: 100px;">
+            <div class="col-md-5 p-0">
+                <div class="text-center" style="position: absolute;">
+                    <img class="m-auto" src="ileniadesign_repo/1.jpeg" style="width: 60%;">
+                    <img class="img-corner" src="ileniadesign_repo/2.jpeg" style="width: 190px; object-fit: contain; pointer-events: none;position: absolute; bottom:-50px;right: 0;">
                 </div>
-                <div class="emblem" style="position: absolute;left: 180px;bottom: 0;">Ileniazitodesign-Ileniazitodesign-</div>
+                <div class="emblem" style="position: absolute;right: 0;bottom: 25px;">Ileniazitodesign-Ileniazitodesign-</div>
             </div>
-            <div class="col-md-6 p-0">
+            <div class="col-md-7 p-5">
                 @if( auth()->guard('users_ileniadesign')->check() )
                 <div class="d-flex flex-nowrap">
-                    <div class="col-md-4">
-                        <input type="text" class="form-control p-0" name="name" placeholder="Name"  style="height:60px;background: transparent; border-radius: 0; border-bottom: 1px solid;font-family: 'Futura PT', sans-serif;font-size: 15px!important;" value="{{ auth()->guard('users_ileniadesign')->user()->name }}" required>
+                    <div class="col-md-6">
+                        <input type="text" class="form-control p-0" name="name" id="name_setting" placeholder="Name"  style="height:60px;background: transparent; border-radius: 0; border-bottom: 1px solid;font-family: 'Futura PT', sans-serif;font-size: 15px!important;" value="{{ auth()->guard('users_ileniadesign')->user()->name }}" required>
                     </div>
-                    <div class="col-md-4">
-                        <input type="text" class="form-control p-0" name="lastname" placeholder="Lastname"  style="height:60px;background: transparent; border-radius: 0; border-bottom: 1px solid;font-family: 'Futura PT', sans-serif;font-size: 15px!important;" value="{{ auth()->guard('users_ileniadesign')->user()->lastname }}" required>
+                    <div class="col-md-6">
+                        <input type="text" class="form-control p-0" name="lastname" id="lastname_setting"  placeholder="Lastname"  style="height:60px;background: transparent; border-radius: 0; border-bottom: 1px solid;font-family: 'Futura PT', sans-serif;font-size: 15px!important;" value="{{ auth()->guard('users_ileniadesign')->user()->lastname }}" required>
                     </div>
                 </div>
                 <div class="d-flex flex-nowrap">
-                    <div class="col-md-4">
-                        <input type="text" class="form-control p-0" name="email" placeholder="Email"  style="height:60px;background: transparent; border-radius: 0; border-bottom: 1px solid;font-family: 'Futura PT', sans-serif;font-size: 15px!important;" value="{{ auth()->guard('users_ileniadesign')->user()->email }}" required>
+                    <div class="col-md-6">
+                        <input type="text" class="form-control p-0" name="email" id="email_setting"  placeholder="Email"  style="height:60px;background: transparent; border-radius: 0; border-bottom: 1px solid;font-family: 'Futura PT', sans-serif;font-size: 15px!important;" value="{{ auth()->guard('users_ileniadesign')->user()->email }}" required>
                     </div>
-                    <div class="col-md-4">
-                        <input type="text" class="form-control p-0" name="cell" placeholder="Cell"  style="height:60px;background: transparent; border-radius: 0; border-bottom: 1px solid;font-family: 'Futura PT', sans-serif;font-size: 15px!important;" value="{{ auth()->guard('users_ileniadesign')->user()->cell }}" required>
+                    <div class="col-md-6">
+                        <input type="text" class="form-control p-0" name="cell" id="cell_setting"  placeholder="Cell"  style="height:60px;background: transparent; border-radius: 0; border-bottom: 1px solid;font-family: 'Futura PT', sans-serif;font-size: 15px!important;" value="{{ auth()->guard('users_ileniadesign')->user()->cell }}" required>
                     </div>
                 </div>
                 <div class="col-md-12">
-                    <input type="text" class="form-control p-0" name="address" placeholder="Address"  style="width: 60%;height:60px;background: transparent; border-radius: 0; border-bottom: 1px solid;font-family: 'Futura PT', sans-serif;font-size: 15px!important;" value="{{ auth()->guard('users_ileniadesign')->user()->address }}" required>
+                    <input type="text" class="form-control p-0" name="address" id="address_setting"  placeholder="Address"  style="height:60px;background: transparent; border-radius: 0; border-bottom: 1px solid;font-family: 'Futura PT', sans-serif;font-size: 15px!important;" value="{{ auth()->guard('users_ileniadesign')->user()->address }}" required>
                 </div>
                 <div class="d-flex flex-nowrap">
-                    <div class="col-md-4">
-                        <input type="text" class="form-control p-0" name="state" placeholder="State"  style="height:60px;background: transparent; border-radius: 0; border-bottom: 1px solid;font-family: 'Futura PT', sans-serif;font-size: 15px!important;" value="{{ auth()->guard('users_ileniadesign')->user()->state }}" required>
+                    <div class="col-md-6">
+                        <input type="text" class="form-control p-0" name="state" id="state_setting"  placeholder="State"  style="height:60px;background: transparent; border-radius: 0; border-bottom: 1px solid;font-family: 'Futura PT', sans-serif;font-size: 15px!important;" value="{{ auth()->guard('users_ileniadesign')->user()->state }}" required>
                     </div>
-                    <div class="col-md-4">
-                        <input type="text" class="form-control p-0" name="region" placeholder="Region"  style="height:60px;background: transparent; border-radius: 0; border-bottom: 1px solid;font-family: 'Futura PT', sans-serif;font-size: 15px!important;" value="{{ auth()->guard('users_ileniadesign')->user()->region }}" required>
+                    <div class="col-md-6">
+                        <input type="text" class="form-control p-0" name="region" id="region_setting"  placeholder="Region"  style="height:60px;background: transparent; border-radius: 0; border-bottom: 1px solid;font-family: 'Futura PT', sans-serif;font-size: 15px!important;" value="{{ auth()->guard('users_ileniadesign')->user()->region }}" required>
                     </div>
                 </div>
-                <div class="col-md-12 flex-nowrap">
+                <div class="d-flex flex-nowrap">
                     <div class="col-md-6">
-                        <input type="text" class="form-control p-0" name="city" placeholder="City"  style="height:60px;background: transparent; border-radius: 0; border-bottom: 1px solid;font-family: 'Futura PT', sans-serif;font-size: 15px!important;" value="{{ auth()->guard('users_ileniadesign')->user()->city }}" required>
+                        <input type="text" class="form-control p-0" name="city" id="city_setting"  placeholder="City"  style="height:60px;background: transparent; border-radius: 0; border-bottom: 1px solid;font-family: 'Futura PT', sans-serif;font-size: 15px!important;" value="{{ auth()->guard('users_ileniadesign')->user()->city }}" required>
                     </div>
                     <div class="col-md-6">
-                        <input type="text" class="form-control p-0" name="zip" placeholder="Zip"  style="height:60px;background: transparent; border-radius: 0; border-bottom: 1px solid;font-family: 'Futura PT', sans-serif;font-size: 15px!important;" value="{{ auth()->guard('users_ileniadesign')->user()->zip }}" required>
+                        <input type="text" class="form-control p-0" name="zip" id="zip_setting"  placeholder="Zip"  style="height:60px;background: transparent; border-radius: 0; border-bottom: 1px solid;font-family: 'Futura PT', sans-serif;font-size: 15px!important;" value="{{ auth()->guard('users_ileniadesign')->user()->zip }}" required>
                     </div>
                 </div>
                 @endif
                 <div class="col-md-12">
-                    <button class="btn btn-primary text-left mt-3">SALVA  </button>
+                    <button onclick="send_data_setting()" class="btn btn-primary text-left mt-3 w-100 save_button">SALVA  </button>
                 </div>
             </div>
         </div>
@@ -171,28 +171,28 @@
 
                 $("#append_order").append('<div class="d-flex mb-3 tr_'+res[i].sold_id+'" style="background-color: #dbd3d3;">'+
                 '<div class="d-flex flex-nowrap w-100 m-3">'+
-                '<div class="w-50 m-auto" style="" onclick="show_detail_myorder(\''+res[i].sold_id+'\')">'+
+                '<div class="w-50 m-auto"  onclick="show_detail_myorder(\''+res[i].sold_id+'\')">'+
                 '<p class="p-0 m-0 text-left">'+num+'</p>'+
                 '</div>'+
-                '<div class="w-50 m-auto" style="" onclick="show_detail_myorder(\''+res[i].sold_id+'\')">'+
+                '<div class="w-50 m-auto"  onclick="show_detail_myorder(\''+res[i].sold_id+'\')">'+
                 '<p class="p-0 m-0 text-center">'+formatDate(res[i].sold_date)+'</p>'+
                 '</div>'+
-                '<div class="w-50 m-auto" style="">'+
+                '<div class="w-50 m-auto" >'+
                 '<p class="p-0 m-0 text-center" onclick="show_detail_myorder(\''+res[i].sold_id+'\')">'+res[i].sold_id+'</p>'+
                 '</div>'+
-                '<div class="w-50 m-auto" style="">'+
+                '<div class="w-50 m-auto" >'+
                 '<p class="p-0 m-0 text-center">'+res[i].count_prod+'</p>'+
                 '</div>'+
                 '<div class="w-50 m-auto">'+
                 '<a '+url+' class="p-0 m-0 text-center" style="text-decoration: underline;text-underline-offset: 1px;">'+res[i].status+'</a>'+
                 '</div>'+
-                '<div class="w-50 m-auto" style="">'+
+                '<div class="w-50 m-auto" >'+
                 '<p class="p-0 m-0 text-center">'+res[i].gift_applied+'</p>'+
                 '</div>'+
-                '<div class="w-50 m-auto" style="">'+
+                '<div class="w-50 m-auto" >'+
                 '<p class="p-0 m-0 text-center">'+res[i].disc_applied+'</p>'+
                 '</div>'+
-                '<div class="w-50 m-auto" style="">'+
+                '<div class="w-50 m-auto" >'+
                 '<p class="p-0 m-0 text-center">€ '+res[i].delivery_cost+'</p>'+
                 '</div>'+
                 '<div class="w-50 m-auto">'+
@@ -241,25 +241,25 @@
 
                     $(".tr_"+res[i].sold_id).after('<div class="d-flex mb-3 new_tr_'+res[i].sold_id+'">'+
                     '<div class="d-flex flex-nowrap w-100 mr-3 ml-3">'+
-                    '<div class="w-50 m-auto" style="">'+
+                    '<div class="w-50 m-auto" >'+
                     '<img style="width: 55px!important;" class="img-corner mr-4" src="ileniadesign_repo/shopmyart/'+res[i].id_product+'/1.'+res[i].type_img+'">'+
                     '</div>'+
-                    '<div class="w-50 m-auto" style="">'+
+                    '<div class="w-50 m-auto" >'+
                     '<p class="p-0 m-0 text-center">'+res[i].name_product+'</p>'+
                     '</div>'+
-                    '<div class="w-50 m-auto" style="">'+
+                    '<div class="w-50 m-auto" >'+
                     '<p class="p-0 m-0 text-center">€ '+parseFloat(res[i].price).toFixed(2)+'</p>'+
                     '</div>'+
-                    '<div class="w-50 m-auto" style="">'+
+                    '<div class="w-50 m-auto" >'+
                     '<p class="p-0 m-0 text-center">'+res[i].qnt+'</p>'+
                     '</div>'+
-                    '<div class="w-50 m-auto" style="">'+
+                    '<div class="w-50 m-auto" >'+
                     '<p class="p-0 m-0 text-center">'+format+'</p>'+
                     '</div>'+
                     '<div class="w-50 m-auto">'+
                     '<p class="p-0 m-0 text-center"></p>'+
                     '</div>'+
-                    '<div class="w-50 m-auto" style="">'+
+                    '<div class="w-50 m-auto" >'+
                     '<p class="p-0 m-0 text-center"></p>'+
                     '</div>'+
                     '<div class="w-50 m-auto">'+
@@ -292,16 +292,16 @@
                 
                 $("#append_prefer").append('<div class="d-flex mb-3 tr_prefer_'+res[i].id_product+'">'+
                 '<div class="d-flex flex-nowrap w-100 mr-3 ml-3">'+
-                    '<div class="w-50 m-auto" style="">'+
+                    '<div class="w-50 m-auto" >'+
                     '<img onclick="change_vis(\'shopdetail_'+res[i].id_product+'\')" style="width: 55px!important;" class="img-corner" src="ileniadesign_repo/shopmyart/'+res[i].id_product+'/1.'+res[i].type_img+'">'+
                     '</div>'+
-                    '<div class="w-50 m-auto" style="">'+
+                    '<div class="w-50 m-auto" >'+
                     '<p class="p-0 m-0 text-left">'+res[i].name_product+'</p>'+
                     '</div>'+
-                    '<div class="w-50 m-auto" style="">'+
+                    '<div class="w-50 m-auto" >'+
                     '<p onclick="delete_prefer('+res[i].id_product+')" class="p-0 m-0 text-center" style="text-decoration: underline;text-underline-offset: 1px;color: #dbd3d3;">Remove</p>'+
                     '</div>'+
-                    '<div class="w-50 m-auto" style="">'+
+                    '<div class="w-50 m-auto" >'+
                     '<p class="p-0 m-0 text-right">€ '+parseFloat(res[i].price).toFixed(2)+'</p>'+
                     '</div>'+
                 '</div>'+
@@ -324,4 +324,32 @@
         });
 
     }
+
+    //invio dati user al db
+    function send_data_setting(){
+
+        var name_setting=$("#name_setting").val();
+        var lastname_setting=$("#lastname_setting").val();
+        var address_setting=$("#address_setting").val();
+        var state_setting=$("#state_setting").val();
+        var region_setting=$("#region_setting").val();
+        var city_setting=$("#city_setting").val();
+        var zip_setting=$("#zip_setting").val();
+        var email_setting=$("#email_setting").val();
+        var cell_setting=$("#cell_setting").val();
+
+        $.get("/send_data_setting_ileniadesign",{name_setting:name_setting, lastname_setting:lastname_setting, address_setting:address_setting,state_setting:state_setting,region_setting:region_setting,city_setting:city_setting, zip_setting:zip_setting, email_setting:email_setting, cell_setting:cell_setting},
+        function(data){
+        
+            $('.save_button').text("Saved!");
+
+            setTimeout(function(){ 
+
+            $('.save_button').text("Save");
+
+            }, 2000);
+
+        })
+    }
+
 </script>

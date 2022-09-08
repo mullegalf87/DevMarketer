@@ -206,7 +206,7 @@
                     <a class="nav-link" onclick="change_vis('shopmyart_0')" >Store</a>
                 </li>
                 <li class="nav-item text-center pr-3 pl-3">
-                    <a class="nav-link" onclick="change_vis('request')">Request</a>
+                    <a class="nav-link" onclick="change_vis('requests')">Request</a>
                 </li>
                 <li class="nav-item text-center pr-3 pl-3">
                     <a class="nav-link" onclick="change_vis('about')">About</a>
@@ -382,6 +382,12 @@
             <div class="footer"></div>
         </div>
     </div>
+    <div id="requests" class="page" style="display: none;">
+        <div class="container_page" style="flex: 1; position: absolute; right: 0; bottom: 0; left: 0;">
+            @include("ileniadesign.desktop.requests")
+            <div class="footer"></div>
+        </div>
+    </div>
     
     @if( auth()->guard('users_ileniadesign')->check() )
     @if( auth()->guard("users_ileniadesign")->user()->id==13 )
@@ -448,18 +454,102 @@
             </div>
         </div>
     </footer>
+
+    <!-- modal -->
+    <div class="modal align-middle" id="offModal" aria-labelledby="oddModalLabel" aria-hidden="true" style="background: rgba(0,0,0,.3);">
+        <div class="modal-dialog modal-dialog-centered modal-margin" style="max-width: fit-content">
+            <div class="modal-content">
+                <div class="modal-body" style="padding: 0">
+                    <a class="close" data-dismiss="modal" aria-label="Close" style="position: absolute;top: 6px;right: 10px;z-index:30000;" onclick="$('#offModal').hide()">&times;</a>
+                    <div class="" style="display: flex;justify-content: center;">
+                        <div class="brand_discount" style="flex-grow: 1; display: none"></div>
+                        <div class="" style="flex-grow: 1">
+                            <div class="coupon_area">
+                                <div class="coupon_content">
+                                    <div class="col-md-12" style="padding:0">
+                                        <!-- <div id="container_image_discount" class="col-md-12" style="padding: 20px;background-image: url('public/img/ilenia_design/login_register.jpeg'); background-size: cover;color: #fff;position: relative;transition: all 0.6s cubic-bezier(1, -0.375, 0.285, 0.995);z-index: 1;"></div> -->
+                                        <div id="container_desc_discount" class="col-md-12" style="padding-right: 0;    padding-left: 0;">
+                                            <!-- <h3 class="mt-3">@lang('ileniadesign/lang.onlythismonth')</h3> -->
+                                            <h3 class="">PER QUESTO MESE</h3>
+                                            <h2 class="discount_percent"></h2>
+                                            <h3 class="code_text">CODICE SCONTO</h3>
+                                            <h2 class="code"></h2>
+                                            <h4 class="gift_text"></h3>
+                                                </div>
+                                            </div>  
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>                
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal" id="deliverymodal" aria-hidden="true" style="width: 100%;background: rgba(0,0,0,.3);">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content" style="border-radius: 0">
+                <div class="modal-body">
+                    <div style="" class="text-center">
+                        <img src="https://ileniazitodesign.com/public/img/ilenia_design/logo_izd.png?refresh=499" style="width:100px; height: 100px; object-fit: cover;pointer-events: none;padding:5px;" alt="logo">    
+                    </div>
+                    <div class="html-slot-container">
+                        <h1 class="text-center" style="font-size: 50px!important; padding: 9px;font-family: 'Futura PT', sans-serif;">ADESSO SPEDIAMO<br>ANCHE IN EUROPA</h1>
+                    </div>
+                    <div class="html-slot-container">
+                        <div class="cookie-content">
+                            <div class="cookie-section1">
+                                <select class="d-block w-100 form-control" id="select_delivery_locator" required="" style="border-radius: 0!important;padding: 0px 0!important; height: 44px; border: 1px solid #212529;">
+                                    <option value="">Scegli stato</option>
+                                    <option value="Austria">Austria</option>
+                                    <option value="Belgium">Belgium</option>
+                                    <option value="Bulgaria">Bulgaria</option>
+                                    <option value="Croatia">Croatia</option>
+                                    <option value="Cyprus">Cyprus</option>
+                                    <option value="France">France</option>
+                                    <option value="Germany">Germany</option>
+                                    <option value="Greece">Greece</option> 
+                                    <option value="Italy" selected="">Italy</option>
+                                    <option value="Luxembourg">Luxembourg</option>
+                                    <option value="Malta">Malta</option>
+                                    <option value="Netherlands">Netherlands</option>
+                                    <option value="Poland">Poland</option>
+                                    <option value="Portugal">Portugal</option>
+                                    <option value="Slovenia">Slovenia</option>
+                                    <option value="Spain">Spain</option>
+                                    <option value="Ukraine">Ukraine</option>
+                                    <option value="Denmark">Denmark</option>
+                                    <option value="Estonia">Estonia</option>
+                                    <option value="Finland">Finland</option>
+                                    <option value="Greenland">Greenland</option>
+                                    <option value="Ireland">Ireland</option>
+                                    <option value="Latvia">Latvia</option>
+                                    <option value="Lithuania">Lithuania</option>
+                                    <option value="Norway">Norway</option>
+                                    <option value="Sweden">Sweden</option>
+                                    <option value="Switzerland">Switzerland</option>
+                                </select>
+                                <button class="btn btn-primary w-100 mt-3" data-dismiss="modal" aria-label="Close" onclick="$('#deliverymodal').hide(); check_locator();">CONTINUE SHOPPING  </button>
+                            </div>
+                            <br>
+                            <p class="cookie text-center">We use cookies on our site to enhance your user experience, improve site quality and show you relevant products. We allow third parties to place cookies on our site. By continuing to use the site, you consent to the use of cookies</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
     <script>
         //MODIFICHE DESKTOP
-        //fare pagina ordini profilo cliente;
-        //fare pagina richieste;
-        //fare accettazione cookie
+        //sistemare il modal discount graficamente
+        //fare accettazione cookie dal modal delivery, e quindi fare la procedura di cambio paese in automatico nel profilo di spedizione
         //sistemare problema lazy load delle immagini quando filtrate
         //fare modal per promozione all'apertura della pagina
         //fare in mysetting report e tabelle per invio
+        //rilasciarlo 
         
         //MODIFICHE MOBILE
-        
-
         //importantissimo funzioni per cambiare pagina in laravel da chrome  
         var myhistory = [];
         var data = {!! $data !!};
@@ -578,6 +668,7 @@
             $(".container_page").css("height", "calc(100% - 82px)");
             set_lettering_circle_title();
             get_count_cart();
+            situation_modal();
         }
         
         function logout(){
@@ -772,6 +863,23 @@
             var time=day.split(" ")[1];
 
             return correct_day+"/"+month+"/"+year;
+
+        }
+
+        function situation_modal(){
+
+            $('#offModal').is(':visible') ?  $("#deliverymodal").hide() : $("#deliverymodal").show();
+            $.get('get_promotion_ileniadesign',{},
+            function(data){
+                var res=jQuery.parseJSON(data);
+                if (res.get_discount.length!=0) {
+                    $("#offModal").show();
+                    $(".discount_percent").text(res.get_discount[0].off+"% di sconto");
+                    $(".code").text(res.get_discount[0].name);
+                    var gift_text=res.get_gift.length!=0 ? gift_text=res.get_gift[0].name : gift_text="";
+                    $(".gift_text").text(gift_text);
+                }
+            });
 
         }
         
