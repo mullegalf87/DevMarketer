@@ -229,7 +229,7 @@
                     <fieldset id="fieldset_2">
                         <div class="d-flex flex-wrap">
                             <div class="col-md-6 pl-0" style="margin: 10% 0 10% 0;">
-                                <input class="m-0 input" placeholder="Country*" style="height:60px;background: transparent; border-radius: 0; border-bottom: 1px solid #dbd3d3;;font-family: 'Futura PT', sans-serif;font-size: 15px!important;" type_input="state" value="{{$_SESSION['state']}}">
+                                <input class="m-0 input locator_state" placeholder="Country*" style="height:60px;background: transparent; border-radius: 0; border-bottom: 1px solid #dbd3d3;;font-family: 'Futura PT', sans-serif;font-size: 15px!important;" type_input="state" value="{{$_SESSION['state']}}">
                             </div>
                             <div class="col-md-6 pr-0" style="margin: 10% 0 10% 0;">
                                 <input class="m-0 input" placeholder="Region*" style="height:60px;background: transparent; border-radius: 0; border-bottom: 1px solid #dbd3d3;;font-family: 'Futura PT', sans-serif;font-size: 15px!important;" type_input="region" value="{{$_SESSION['region']}}">
@@ -285,22 +285,23 @@
                     </fieldset>
                     <fieldset id="fieldset_4">
                         <div class="d-flex flex-wrap">
-                            <div class="col-md-12 p-5 radioSection" style="margin: 10% 0 0 0;border: 1px solid #CDB4B4;height: 150px;">
-                                <div class="d-flex flex-nowrap">
-                                    <p class="flex-grow-1" style="font-family: 'Futura PT', sans-serif;font-size: 15px!important;color: #000000;">
-                                        <input name="gruppo1" class="radio" type="radio" style="margin-right: 15px;" value="6.99" checked>DHL SPEDIZIONI ITALIA</p>
-                                    <p style="color:#000000;">€ 6,99</p>
-                                </div>
-                                <p style="padding-left: 28px;font-family: 'Futura PT', sans-serif;font-size: 15px!important;color: #CDB4B4;">Spedizione in Italia prevista entro 3 - 6 giorni</p>
-                            </div>
                             <div class="col-md-12 p-5 radioSection" style="margin: 10% 0 10% 0;border: 1px solid #CDB4B4;height: 150px;">
                                 <div class="d-flex flex-nowrap">
                                     <p class="flex-grow-1" style="font-family: 'Futura PT', sans-serif;font-size: 15px!important;color: #000000;">
-                                        <input name="gruppo1" class="radio" type="radio" style="margin-right: 15px;" value="18.99">DHL SPEDIZIONI EUROPA</p>
+                                        <input id="radio_delivery" name="radio1" class="radio" type="radio" style="margin-right: 15px;" value="" checked>
+                                    </p>
+                                    <p style="color:#000000;" class="price_delivery"></p>
+                                </div>
+                                <p style="padding-left: 28px;font-family: 'Futura PT', sans-serif;font-size: 15px!important;color: #CDB4B4;" class="within_delivery"></p>
+                            </div>
+                            <!-- <div id="delivery_foreign" class="col-md-12 p-5 radioSection" style="margin: 10% 0 10% 0;border: 1px solid #CDB4B4;height: 150px;">
+                                <div class="d-flex flex-nowrap">
+                                    <p class="flex-grow-1" style="font-family: 'Futura PT', sans-serif;font-size: 15px!important;color: #000000;">
+                                        <input name="radio2" class="radio" type="radio" style="margin-right: 15px;" value="18.99">DHL SPEDIZIONI EUROPA</p>
                                     <p style="color:#000000;">€ 18,99</p>
                                 </div>
                                 <p style="padding-left: 28px;font-family: 'Futura PT', sans-serif;font-size: 15px!important;color: #CDB4B4;">Spedizione in Europa prevista entro 12 - 16 giorni</p>
-                            </div>
+                            </div> -->
                         </div>
                         <div class="d-flex flex-nowrap">
                             <button type="button" name="previous" class="previous action-button-previous btn btn-primary text-left w-100 mr-3" value="Previous Step">
@@ -393,7 +394,7 @@
                     </div>
                     <div class="d-flex flex-nowrap">
                         <p class="flex-grow-1">Delivery</p>
-                        <p class="total_delivery">€ 6.99</p>
+                        <p class="total_delivery">0</p>
                     </div>
                     <div class="d-flex flex-nowrap">
                         <p class="flex-grow-1">End Total</p>

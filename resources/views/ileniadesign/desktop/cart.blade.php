@@ -3,47 +3,51 @@
         background-color: transparent;
     }
 </style>
-<section class="container-fluid" style="padding: 7%;">
-    <h3 class="pb-5" style="font-family: 'Silk Serif', sans-serif;">Shopping Cart</h3>
-    <div class="d-flex">
-        <div class="d-flex" style="width:20%">
-        </div>
-        <div class="ml-3 d-flex flex-nowrap w-100">
-            <div class="flex-grow-1 m-auto" style="width:20%">
-            <h5 style="font-family: 'Futura PT', sans-serif;font-size: 15px!important;white-space: nowrap;">Size</h5>
-            </div>
-            <div class="flex-grow-1 m-auto" style="width:20%">
-            <h5 style="font-family: 'Futura PT', sans-serif;font-size: 15px!important;white-space: nowrap;">Quantity</h5>
-            </div>
-            <div class="flex-grow-1 m-auto" style="width:20%">
-            </div>
-            <div class="flex-grow-2 m-auto" >
-            <h5 style="font-family: 'Futura PT', sans-serif;font-size: 15px!important;white-space: nowrap;">Price</h5>
-            </div>
-        </div>
+<section class="container-fluid p-0">
+    <div class="col-md-12 p-0 mt-5 mb-5">
+        <h4 class="text-center" style="font-family: 'Futura PT', sans-serif;font-size: 15px!important;">SHOPPING CART</h4>
     </div>
-    <div class="mt-5 append_cart append_cart_cart">
-    </div>
-    <div class="d-flex flex-nowrap">
-        <div class="col-md-6 p-0"></div>
-        <div class="col-md-6 p-0">
-            <div class="d-flex flex-nowrap">
-                <p class="flex-grow-1">Total</p>
-                <p class="total_cart">€ 0,00</p>
+    <div class="p-5">
+        <div class="d-flex">
+            <div class="d-flex" style="width:20%">
             </div>
-            <div class="d-flex flex-nowrap">
-                <button class="btn btn-primary text-left w-100 mr-3" onclick="change_vis('shopmyart_0');">
-                    <div class="d-flex flex-nowrap">
-                        <p class="flex-grow-1 m-0">Continue shopping</p>
-                        <p class="m-0"><i class="bx bx-shopping-bag"></i></p>
-                    </div>
-                </button>
-                <button onclick="{{$_SESSION['id']!='' ? 'change_vis(\'summary\')' : 'change_vis(\'login\'); check_page_from_to_login()'}}" class="btn btn-primary text-left w-100" style="background-color:#CDB4B4!important">
-                    <div class="d-flex flex-nowrap">
-                        <p class="flex-grow-1 m-0">Checkout</p>
-                        <p class="m-0"><i class="bx bx-shopping-bag"></i></p>
-                    </div>
-                </button>
+            <div class="ml-3 d-flex flex-nowrap w-100">
+                <div class="flex-grow-1 m-auto" style="width:20%">
+                <h5 style="font-family: 'Futura PT', sans-serif;font-size: 15px!important;white-space: nowrap;">Size</h5>
+                </div>
+                <div class="flex-grow-1 m-auto" style="width:20%">
+                <h5 style="font-family: 'Futura PT', sans-serif;font-size: 15px!important;white-space: nowrap;">Quantity</h5>
+                </div>
+                <div class="flex-grow-1 m-auto" style="width:20%">
+                </div>
+                <div class="flex-grow-2 m-auto" >
+                <h5 style="font-family: 'Futura PT', sans-serif;font-size: 15px!important;white-space: nowrap;">Price</h5>
+                </div>
+            </div>
+        </div>
+        <div class="mt-5 append_cart append_cart_cart">
+        </div>
+        <div class="d-flex flex-nowrap">
+            <div class="col-md-6 p-0"></div>
+            <div class="col-md-6 p-0">
+                <div class="d-flex flex-nowrap">
+                    <p class="flex-grow-1">Total</p>
+                    <p class="total_cart">€ 0,00</p>
+                </div>
+                <div class="d-flex flex-nowrap">
+                    <button class="btn btn-primary text-left w-100 mr-3" onclick="change_vis('shopmyart_0');">
+                        <div class="d-flex flex-nowrap">
+                            <p class="flex-grow-1 m-0">Continue shopping</p>
+                            <p class="m-0"><i class="bx bx-shopping-bag"></i></p>
+                        </div>
+                    </button>
+                    <button onclick="{{$_SESSION['id']!='' ? 'change_vis(\'summary\')' : 'change_vis(\'login\'); check_page_from_to_login()'}}" class="btn btn-primary text-left w-100" style="background-color:#CDB4B4!important">
+                        <div class="d-flex flex-nowrap">
+                            <p class="flex-grow-1 m-0">Checkout</p>
+                            <p class="m-0"><i class="bx bx-shopping-bag"></i></p>
+                        </div>
+                    </button>
+                </div>
             </div>
         </div>
     </div>

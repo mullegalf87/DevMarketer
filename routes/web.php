@@ -447,6 +447,10 @@ Route::post('recovery_ileniadesign', 'IleniadesignController@recovery_ileniadesi
 //route home
 Route::get('/get_promotion_ileniadesign', 'IleniadesignController@get_promotion_ileniadesign');
 
+Route::get('/check_locator_ileniadesign', 'IleniadesignController@check_locator_ileniadesign');
+
+Route::get('/check_token_exist_ileniadesign', 'IleniadesignController@check_token_exist_ileniadesign');
+
 //route shopmyart
 Route::get("get_image_shopmyart_ileniadesign","IleniadesignController@get_image_shopmyart_ileniadesign");
 
@@ -509,6 +513,16 @@ Route::get("/update_setting_image_select","IleniadesignController@update_setting
 Route::get('/delete_image_ileniadesign', 'IleniadesignController@delete_image_ileniadesign');
 
 Route::get('/delete_cat_subcat_ileniadesign', 'IleniadesignController@delete_cat_subcat_ileniadesign');
+
+Route::get('/get_my_user_ileniadesign', 'IleniadesignController@get_my_user_ileniadesign');
+
+Route::get('/get_all_order_ileniadesign', 'IleniadesignController@get_all_order_ileniadesign');
+
+Route::get('/get_visitor_ileniadesign', 'IleniadesignController@get_visitor_ileniadesign');
+
+Route::get('/get_buyed_user_ileniadesign', 'IleniadesignController@get_buyed_user_ileniadesign');
+
+Route::get('/save_update_status_ileniadesign', 'IleniadesignController@save_update_status_ileniadesign');
 
 //route order
 Route::get('get_product_user_ileniadesign', 'IleniadesignController@get_product_user_ileniadesign');

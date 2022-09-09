@@ -8,8 +8,7 @@
 
   error_reporting(E_ALL);
   ini_set('display_errors', 1);
-  require("./phpmailer/class.phpmailer.php");
-
+  require($_SERVER['DOCUMENT_ROOT'].'/phpmailer/class.phpmailer.php');
 
   $name=$_POST["name"];
   $email=$_POST["email"];

@@ -99,7 +99,7 @@
                 </div>
                 <div class="d-flex flex-nowrap">
                     <div class="col-md-6">
-                        <input type="text" class="form-control p-0" name="state" id="state_setting"  placeholder="State"  style="height:60px;background: transparent; border-radius: 0; border-bottom: 1px solid;font-family: 'Futura PT', sans-serif;font-size: 15px!important;" value="{{ auth()->guard('users_ileniadesign')->user()->state }}" required>
+                        <input type="text" class="form-control p-0 locator_state" name="state" id="state_setting"  placeholder="State"  style="height:60px;background: transparent; border-radius: 0; border-bottom: 1px solid;font-family: 'Futura PT', sans-serif;font-size: 15px!important;" value="{{ auth()->guard('users_ileniadesign')->user()->state }}" required>
                     </div>
                     <div class="col-md-6">
                         <input type="text" class="form-control p-0" name="region" id="region_setting"  placeholder="Region"  style="height:60px;background: transparent; border-radius: 0; border-bottom: 1px solid;font-family: 'Futura PT', sans-serif;font-size: 15px!important;" value="{{ auth()->guard('users_ileniadesign')->user()->region }}" required>

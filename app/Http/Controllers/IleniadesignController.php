@@ -358,6 +358,61 @@ class IleniadesignController extends Controller{
 
   }
 
+  public function check_locator_ileniadesign(){
+    $locator=Request::get("locator");
+    if (auth()->guard('users_ileniadesign')->check()) {
+      $this->universal_user_db('test')->table('users_ileniadesigns')
+      ->where('id', '=',auth()->guard('users_ileniadesign')->user()->id)
+      ->update(
+        array(
+         'state'=>$locator,
+      ));
+    }  
+    $price = $locator == "Italy" ? 7 : 21;
+    $type_delivery = $locator == "Italy" ? "DHL SPEDIZIONI ITALIA" : "DHL SPEDIZIONI EUROPA";
+    $within_delivery = $locator == "Italy" ? "Spedizione prevista 3 - 6 giorni" : "Spedizione prevista 12 - 16 giorni";
+    $result=["locator"=>$locator, "price"=>$price, "type_delivery"=>$type_delivery, "within_delivery"=>$within_delivery];
+    return View::make('query')->with("result",json_encode($result));
+
+  }
+
+  public function check_token_exist_ileniadesign(){
+   
+    $ip_address=Request::get('ip_address');
+    $type_interaction=Request::get('type_interaction');
+    $from=Request::get('from');
+    $city=Request::get('city');
+    $max_numb = $this->universal_db('ileniadesign')->table('cookie_ileniadesign')
+    ->select($this->universal_db('ileniadesign')->raw('max(numb_access) as max_numb_access'))
+    ->where("ip_address", "=", $ip_address)
+    ->where("type_interaction", "=", $type_interaction)
+    ->where("last_access", "LIKE" , "%".Carbon::today()."%")
+    ->get();
+    if ($max_numb[0]->max_numb_access!=0) {
+      $this->universal_db('ileniadesign')->table('cookie_ileniadesign')  
+      ->where('ip_address', '=',$ip_address)
+      ->where("type_interaction", "=", $type_interaction)
+      ->where("last_access", "LIKE" , "%".Carbon::today()."%")
+      ->update(
+        array(
+         'numb_access'=>$max_numb[0]->max_numb_access+1,
+       ));
+    }else{
+      $this->universal_db('ileniadesign')->table('cookie_ileniadesign')
+      ->insertGetId(array( 
+       'ip_address'=>$ip_address,
+       'type_interaction'=>$type_interaction,
+       'last_access'=>Carbon::today(),
+       'numb_access'=>1,
+       'from_fb'=>$from,
+       'city'=>$city,
+     ));
+    }
+
+    return View::make('query')->with("result",json_encode("fatto"));
+
+  }
+
   //controllers shopmyart
   public function get_image_shopmyart_ileniadesign(){
 
@@ -920,6 +975,77 @@ public function convert_sold_ileniadesign(){
     ->delete();
 
     return View::make('query')->with("result",json_encode("eliminato")); 
+
+  }
+
+  public function get_my_user_ileniadesign(){
+
+    $get_user=$this->universal_user_db('test')->table('users_ileniadesigns')
+    ->select(DB::raw('id as id, lastname as lastname, created_at as created_at'))
+    ->get();  
+
+    return View::make('query')->with("result",json_encode($get_user));
+
+  }
+
+  public function get_all_order_ileniadesign(){
+
+    $get_cart_ileniadesign=$this->universal_db('ileniadesign')->table('cart_ileniadesign')
+    ->orderBy('id', 'DESC')
+    ->get();  
+
+    return View::make('query')->with("result",json_encode($get_cart_ileniadesign));
+
+  }
+
+  public function get_visitor_ileniadesign(){
+
+    $get_access_before = $this->universal_db('ileniadesign')->select('SELECT * FROM `cookie_ileniadesign` WHERE date_stamp >= CURRENT_DATE - INTERVAL 14 DAY AND date_stamp < CURRENT_DATE - INTERVAL 7 DAY ORDER BY `cookie_ileniadesign`.`date_stamp` DESC');
+    $get_access_current = $this->universal_db('ileniadesign')->select('SELECT * FROM `cookie_ileniadesign` WHERE date_stamp >= CURRENT_DATE - INTERVAL 7 DAY AND date_stamp < CURRENT_DATE + INTERVAL 1 DAY ORDER BY `cookie_ileniadesign`.`date_stamp` DESC');
+    $result=["get_access_current" => $get_access_current, "get_access_before" => $get_access_before]; 
+
+    return View::make('query')->with("result",json_encode($result)); 
+
+  }
+
+  public function get_buyed_user_ileniadesign(){
+
+    $get_cart=$this->universal_db('ileniadesign')->table('cart_ileniadesign')
+    ->select($this->universal_db('ileniadesign')->raw('distinct sold_id, id_user, sold_date, status, count(id) as count_prod, sum(price) as sum_price'))
+    ->where('sold', '=',1)
+    ->groupBy('sold_id')
+    ->groupBy('id_user')
+    ->groupBy('sold_date')
+    ->groupBy('status')
+    ->orderBy('sold_date', 'DESC')
+    ->get();
+
+    return View::make('query')->with("result",json_encode($get_cart));
+
+  }
+
+  public function save_update_status_ileniadesign(){
+    
+    $sold_id=Request::get('sold_id');
+    $status=Request::get('status'); 
+    $comment_status=Request::get('comment_status'); 
+    $this->universal_db('ileniadesign')->table('cart_ileniadesign')
+      ->where('sold_id', 'LIKE', '%'.$sold_id.'%')
+      ->update(
+          array(
+           'status'=>$status,
+           'comment_status'=>$comment_status,
+          ));
+    $data_user=$this->universal_db('ileniadesign')->table('cart_ileniadesign')
+      ->where('sold_id', 'LIKE', '%'.$sold_id.'%')
+      ->first(); 
+    $user = $this->universal_db('ileniadesign')->table('users_ileniadesigns')
+    ->select($this->universal_db('ileniadesign')->raw('name, email'))
+    ->where('id', '=' ,$data_user->id_user)
+    ->get();   
+
+
+    return View::make('query')->with("result",json_encode($user));
 
   }
 

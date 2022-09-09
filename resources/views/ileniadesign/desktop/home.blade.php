@@ -26,6 +26,9 @@
     <!-- paypal -->
     <script src="https://www.paypal.com/sdk/js?client-id=AaLPg6yTVNvanJXpjFSt0MsUZ4yG7FUVCuAHRJiFcjrGyEqWBKyz1kr60ysO079Y-WAdIlEmcKOE6amA&currency=EUR"></script>
     <!-- sb-fo43uq10804200@personal.example.com pass: 12345678 -->
+    <!-- highcharts -->
+    <script src="https://code.highcharts.com/highcharts.js"></script>
+    <script src="https://code.highcharts.com/modules/data.js"></script>
     <style>
         @import url('http://fonts.cdnfonts.com/css/silk-serif?styles=108358');
         @import url('http://fonts.cdnfonts.com/css/futura-pt?styles=117667');
@@ -203,17 +206,16 @@
         <div class="collapse navbar-collapse" id="myNavbarToggler7" style="justify-content: center;">
             <ul class="navbar-nav w-100">
                 <li class="nav-item text-center pr-3 pl-3">
+                    <a class="nav-link" onclick="change_vis('home')">Home</a>
+                </li>
+                <li class="nav-item text-center pr-3 pl-3">
                     <a class="nav-link" onclick="change_vis('shopmyart_0')" >Store</a>
                 </li>
                 <li class="nav-item text-center pr-3 pl-3">
                     <a class="nav-link" onclick="change_vis('requests')">Request</a>
                 </li>
-                <li class="nav-item text-center pr-3 pl-3">
-                    <a class="nav-link" onclick="change_vis('about')">About</a>
-                </li>
-                <div class="d-none d-lg-block w-100 text-center" style="padding-top: 8px;">
-                    <!-- <img src="https://codingyaar.com/wp-content/uploads/logo.png"> -->
-                    <h4 class="m-0" style="vertical-align: middle;text-align: center;padding-top: 8px;font-family: 'Silk Serif', sans-serif; white-space: nowrap;" onclick="change_vis('home')">ILENIA ZITO DESIGN</h4>
+                <div class="d-lg-block w-100 text-center" style="padding-top: 8px;">
+                    <h4 class="m-0 titlesite" style="vertical-align: middle;text-align: center;padding-top: 8px;font-family: 'Silk Serif', sans-serif; white-space: nowrap;display: none;" onclick="change_vis('home')">ILENIA ZITO DESIGN</h4>
                 </div>
                 <li class="nav-item text-center pr-3 pl-3">
                     @if( auth()->guard('users_ileniadesign')->check() )
@@ -233,7 +235,7 @@
                     <a class="nav-link" onclick="change_vis('login')">Login/Register </a>
                     @endif
                 </li>
-                <li class="nav-item text-center pr-3 pl-3" style="padding: 8px;">
+                <li class="nav-item text-center" style="padding: 8px;">
                     <div class="circle_cart" onclick="change_vis('cart')">0</div>
                 </li>
             </ul>
@@ -415,7 +417,7 @@
 
     <footer id="footer" style="background-color:#CDB4B4;">
         <div class="">
-            <h1 class="text-center" style="font-size:25px!important;padding: 5%;">CECILIE BAHANSEN</h1>
+            <h1 class="text-center" style="font-size:25px!important;padding: 5%;">ILENIA ZITO DESIGN</h1>
         </div>
         <div class="d-flex flex-nowrap">
             <div class="col-md-2 text-left" style="padding-left: 60px;">
@@ -456,37 +458,7 @@
     </footer>
 
     <!-- modal -->
-    <div class="modal align-middle" id="offModal" aria-labelledby="oddModalLabel" aria-hidden="true" style="background: rgba(0,0,0,.3);">
-        <div class="modal-dialog modal-dialog-centered modal-margin" style="max-width: fit-content">
-            <div class="modal-content">
-                <div class="modal-body" style="padding: 0">
-                    <a class="close" data-dismiss="modal" aria-label="Close" style="position: absolute;top: 6px;right: 10px;z-index:30000;" onclick="$('#offModal').hide()">&times;</a>
-                    <div class="" style="display: flex;justify-content: center;">
-                        <div class="brand_discount" style="flex-grow: 1; display: none"></div>
-                        <div class="" style="flex-grow: 1">
-                            <div class="coupon_area">
-                                <div class="coupon_content">
-                                    <div class="col-md-12" style="padding:0">
-                                        <!-- <div id="container_image_discount" class="col-md-12" style="padding: 20px;background-image: url('public/img/ilenia_design/login_register.jpeg'); background-size: cover;color: #fff;position: relative;transition: all 0.6s cubic-bezier(1, -0.375, 0.285, 0.995);z-index: 1;"></div> -->
-                                        <div id="container_desc_discount" class="col-md-12" style="padding-right: 0;    padding-left: 0;">
-                                            <!-- <h3 class="mt-3">@lang('ileniadesign/lang.onlythismonth')</h3> -->
-                                            <h3 class="">PER QUESTO MESE</h3>
-                                            <h2 class="discount_percent"></h2>
-                                            <h3 class="code_text">CODICE SCONTO</h3>
-                                            <h2 class="code"></h2>
-                                            <h4 class="gift_text"></h3>
-                                                </div>
-                                            </div>  
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>                
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
+
     <div class="modal" id="deliverymodal" aria-hidden="true" style="width: 100%;background: rgba(0,0,0,.3);">
         <div class="modal-dialog modal-dialog-centered" role="document">
             <div class="modal-content" style="border-radius: 0">
@@ -495,13 +467,15 @@
                         <img src="https://ileniazitodesign.com/public/img/ilenia_design/logo_izd.png?refresh=499" style="width:100px; height: 100px; object-fit: cover;pointer-events: none;padding:5px;" alt="logo">    
                     </div>
                     <div class="html-slot-container">
-                        <h1 class="text-center" style="font-size: 50px!important; padding: 9px;font-family: 'Futura PT', sans-serif;">ADESSO SPEDIAMO<br>ANCHE IN EUROPA</h1>
+                        <h1 class="text-center discount_percent" style="font-size: 50px!important; padding: 9px;font-family: 'Futura PT', sans-serif;text-transform:uppercase"></h1>
+                        <h1 class="text-center code" style="font-size: 50px!important; padding: 9px;font-family: 'Futura PT', sans-serif;text-transform:uppercase; background-color: #dbd3d3;"></h1>
+                        <h1 class="text-center gift_text" style="font-size: 30px!important; padding: 9px;font-family: 'Futura PT', sans-serif;"></h1>
                     </div>
                     <div class="html-slot-container">
                         <div class="cookie-content">
                             <div class="cookie-section1">
                                 <select class="d-block w-100 form-control" id="select_delivery_locator" required="" style="border-radius: 0!important;padding: 0px 0!important; height: 44px; border: 1px solid #212529;">
-                                    <option value="">Scegli stato</option>
+                                    <option value="" selected="" disabled>Scegli stato</option>
                                     <option value="Austria">Austria</option>
                                     <option value="Belgium">Belgium</option>
                                     <option value="Bulgaria">Bulgaria</option>
@@ -510,7 +484,7 @@
                                     <option value="France">France</option>
                                     <option value="Germany">Germany</option>
                                     <option value="Greece">Greece</option> 
-                                    <option value="Italy" selected="">Italy</option>
+                                    <option value="Italy">Italy</option>
                                     <option value="Luxembourg">Luxembourg</option>
                                     <option value="Malta">Malta</option>
                                     <option value="Netherlands">Netherlands</option>
@@ -530,7 +504,7 @@
                                     <option value="Sweden">Sweden</option>
                                     <option value="Switzerland">Switzerland</option>
                                 </select>
-                                <button class="btn btn-primary w-100 mt-3" data-dismiss="modal" aria-label="Close" onclick="$('#deliverymodal').hide(); check_locator();">CONTINUE SHOPPING  </button>
+                                <button class="btn btn-primary w-100 mt-3" data-dismiss="modal" aria-label="Close" onclick="check_locator();">CONTINUE SHOPPING  </button>
                             </div>
                             <br>
                             <p class="cookie text-center">We use cookies on our site to enhance your user experience, improve site quality and show you relevant products. We allow third parties to place cookies on our site. By continuing to use the site, you consent to the use of cookies</p>
@@ -542,20 +516,39 @@
     </div>
     <script>
         //MODIFICHE DESKTOP
-        //sistemare il modal discount graficamente
-        //fare accettazione cookie dal modal delivery, e quindi fare la procedura di cambio paese in automatico nel profilo di spedizione
-        //sistemare problema lazy load delle immagini quando filtrate
-        //fare modal per promozione all'apertura della pagina
         //fare in mysetting report e tabelle per invio
+        //sistemare problema lazy load delle immagini quando filtrate
         //rilasciarlo 
         
         //MODIFICHE MOBILE
-        //importantissimo funzioni per cambiare pagina in laravel da chrome  
+        //riportare tutto il progetto dentro la cartella e sistemarlo solo graficamente
+
+        //funzioni iniziali
+        situation_modal();
+        var footer_show=$("#footer").detach();
+
+        //check ip
+        var address=window.location.href;
+        address=address.split("#")[1];
+
+        function check_visitor(type_interaction){
+            $.getJSON("http://ipinfo.io/json", function(e) {
+                console.log(e.ip)
+                var ip_address=e.ip;
+                var location=e.city + ", " + e.region;
+                if (ip_address!="109.117.218.107" && ip_address!="79.8.231.26" ) {
+                $.get("/check_token_exist_ileniadesign",{ip_address:ip_address, type_interaction:type_interaction, from:address, city:location},
+                    function(data){
+                    });
+                }
+            });
+
+        }
+
+        //cambio pagina
         var myhistory = [];
         var data = {!! $data !!};
         page_to_go = data["page"];
-        console.log(data)
-        console.log(page_to_go)
         change_vis(page_to_go);
         
         function change_vis(page_name, history){
@@ -629,46 +622,55 @@
             switch(page_name) {
                 case "home":
                     $("#navbar_1").css("background-color","#dbd3d3");
+                    $(".titlesite").hide();
                 break;
                 case "shopmyart":
                     start_function_shopmyart();
                     $("#navbar_1").css("background-color","#dbd3d3");
+                    $(".titlesite").show();
                 break;
                 case "shopdetail":
                     start_function_shopdetail(num_image);
                     $("#navbar_1").css("background-color","transparent");
+                    $(".titlesite").show();
                 break;
                 case "requests":
+                    $(".titlesite").show();
                 break;
                 case "cart":
                     start_function_cart();
                     $("#navbar_1").css("background-color","#dbd3d3");
+                    $(".titlesite").show();
                 break;
                 case "summary":
                     start_function_summary();
+                    $(".titlesite").show();
                 break;
                 case "setting":
                     start_function_setting();
+                    $(".titlesite").show();
                 break;
                 case "order":
                     start_function_order();
+                    $(".titlesite").show();
                 break;
                 case "login":
                     $("#navbar_1").css("background-color","#dbd3d3");
+                    $(".titlesite").show();
                 break;
                 default:
         
             }
-            var footer_show=$("#footer").detach();
-            $("#"+page_name+ " .footer").html(footer_show);
-            start_function_home();
+            check_visitor(page_name);
+            start_function_home(page_name);
         }
         
-        function start_function_home(){
+        function start_function_home(page_name){
             $(".container_page").css("height", "calc(100% - 82px)");
             set_lettering_circle_title();
             get_count_cart();
-            situation_modal();
+            
+            $("#"+page_name+ " .footer").html(footer_show);
         }
         
         function logout(){
@@ -868,18 +870,63 @@
 
         function situation_modal(){
 
-            $('#offModal').is(':visible') ?  $("#deliverymodal").hide() : $("#deliverymodal").show();
+            $("#deliverymodal").show();
             $.get('get_promotion_ileniadesign',{},
             function(data){
                 var res=jQuery.parseJSON(data);
                 if (res.get_discount.length!=0) {
-                    $("#offModal").show();
                     $(".discount_percent").text(res.get_discount[0].off+"% di sconto");
                     $(".code").text(res.get_discount[0].name);
                     var gift_text=res.get_gift.length!=0 ? gift_text=res.get_gift[0].name : gift_text="";
                     $(".gift_text").text(gift_text);
                 }
             });
+
+        }
+
+        function check_locator(){
+            var locator=$("#select_delivery_locator").val();
+            if (locator!=null) {
+                $.get('check_locator_ileniadesign',{locator:locator},
+                function(data){
+                    $('#deliverymodal').hide();
+                    var res=jQuery.parseJSON(data);
+                    $(".locator_state").val(res.locator);
+                    $("#radio_delivery").val(res.price.toFixed(2));
+                    $("#radio_delivery").after(res.type_delivery);
+                    $(".price_delivery").text("€ "+res.price.toFixed(2));
+                    $(".within_delivery").text(res.within_delivery);
+                    $(".total_delivery").text("€ "+res.price.toFixed(2));
+                    sum_cart();
+                    //bloccare la spedizione in relazione allo stato nel summary prima di pagare
+                });
+            }
+        }
+
+        function formatDate(date) {
+
+            var year=date.split("-")[0];
+            var month=date.split("-")[1];
+            var day=date.split("-")[2];
+            var correct_day=day.split(" ")[0];
+            var time=day.split(" ")[1];
+            return correct_day+"/"+month+"/"+year;
+
+        }
+
+        function formatDate_ileniadesign(date) {
+
+            var weekday = ["Domenica","Lunedì","Martedì","Mercoledì","Giovedì","Venerdì","Sabato"];
+            var d = new Date(date);
+            var month = '' + (d.getMonth() + 1);
+            var day = '' + d.getDate();
+            var day_name = '' + weekday[d.getDay()];
+            var year = d.getFullYear().toString().substr(-2);
+            if (month.length < 2) 
+            month = '0' + month;
+            if (day.length < 2) 
+            day = '0' + day;
+            return day_name;
 
         }
         

@@ -17,6 +17,11 @@
         <h4 class="text-center flex-grow-1 list_subcat" style="font-family: 'Futura PT', sans-serif;font-size: 13px!important;display: flex;align-items: center;justify-content: center;width: 5%;" onclick="change_vis_setting('list_subcat')">SUBCATEGORY</h4>
         <h4 class="text-center flex-grow-1 list_discount" style="font-family: 'Futura PT', sans-serif;font-size: 13px!important;display: flex;align-items: center;justify-content: center;width: 5%;" onclick="change_vis_setting('list_discount');">DISCOUNT</h4>
         <h4 class="text-center flex-grow-1 list_gift" style="font-family: 'Futura PT', sans-serif;font-size: 13px!important;display: flex;align-items: center;justify-content: center;width: 5%;" onclick="change_vis_setting('list_gift');">GIFT</h4>
+        <h4 class="text-center flex-grow-1 list_users" style="font-family: 'Futura PT', sans-serif;font-size: 13px!important;display: flex;align-items: center;justify-content: center;width: 5%;" onclick="change_vis_setting('list_users');get_my_user();">MY USERS</h4>
+        <h4 class="text-center flex-grow-1 list_order" style="font-family: 'Futura PT', sans-serif;font-size: 13px!important;display: flex;align-items: center;justify-content: center;width: 5%;" onclick="change_vis_setting('list_order');get_all_order_user();">ORDER</h4>
+        <h4 class="text-center flex-grow-1 list_visitor" style="font-family: 'Futura PT', sans-serif;font-size: 13px!important;display: flex;align-items: center;justify-content: center;width: 5%;" onclick="change_vis_setting('list_visitor');get_visitor_user();">VISITOR</h4>
+        <h4 class="text-center flex-grow-1 list_buyed" style="font-family: 'Futura PT', sans-serif;font-size: 13px!important;display: flex;align-items: center;justify-content: center;width: 5%;" onclick="change_vis_setting('list_buyed');get_buyed_user();">BUYED</h4>
+        <h4 class="text-center flex-grow-1 list_remind" style="font-family: 'Futura PT', sans-serif;font-size: 13px!important;display: flex;align-items: center;justify-content: center;width: 5%;" onclick="change_vis_setting('list_remind');get_newsletter_user();">REMIND</h4>
     </div>
 
     <div id="list_image">
@@ -117,6 +122,79 @@
                 <th>Status</th>
             </thead>
             <tbody class="mt-5" id="append_gift_setting">
+            </tbody>
+        </table>
+    </div>
+
+    <div id="list_users" class="d-none">
+        <table class="table">
+            <thead>
+                <th>#</th>
+                <th>Lastname</th>
+                <th>Date</th>
+            </thead>
+            <tbody class="mt-5" id="append_users_setting">
+            </tbody>
+        </table>
+    </div>
+
+    <div id="list_order" class="d-none">
+        <table class="table">
+            <thead>
+                <th>User</th>
+                <th>Image</th>
+                <th>Format</th>
+                <th>Sold</th>
+                <th>Date</th>
+            </thead>
+            <tbody class="mt-5" id="append_order_setting">
+            </tbody>
+        </table>
+    </div>
+
+    <div id="list_visitor" class="d-none">
+        <div id="container_chart_access"></div>
+        <div id=""><input class="form-control mb-3 w-100" id="search_input" type="search" placeholder="Search..."></div>
+        <table class="table">
+            <thead>
+                <th>Ip</th>
+                <th>Place</th>
+                <th>Access</th>
+                <th>Date</th>
+                <th>Type</th>
+                <th>Count</th>
+            </thead>
+            <tbody class="mt-5" id="append_visitor_setting">
+            </tbody>
+        </table>
+    </div>
+
+    <div id="list_buyed" class="d-none">
+        <table class="table">
+            <thead>
+                <th>User</th>
+                <th>Qty</th>
+                <th>€</th>
+                <th>Date</th>
+                <th>Info</th>
+                <th>Check</th>
+                <th>Action</th>
+            </thead>
+            <tbody class="mt-5" id="append_buyed_setting">
+            </tbody>
+        </table>
+    </div>
+
+    <div id="list_remind" class="d-none">
+        <table class="table">
+            <thead>
+                <th>User</th>
+                <th>Email</th>
+                <th>Date</th>
+                <th>Count</th>
+                <th>Action</th>
+            </thead>
+            <tbody class="mt-5" id="append_remind_setting">
             </tbody>
         </table>
     </div>
@@ -639,6 +717,289 @@
 
             get_category_image();
 
+        });
+
+    }
+
+    function get_my_user(){
+
+        $.get("/get_my_user_ileniadesign",{},
+        function(data){
+            $("#append_users_setting").empty();
+            var res=jQuery.parseJSON(data);
+            for (var i = 0; i < res.length; i++) {
+                $("#append_users_setting").append("<tr>"+
+                "<td data-label='id'>"+
+                res[i].id+
+                "</td>"+
+                "<td data-label='Lastname'>"+
+                res[i].lastname+
+                "</td>"+
+                "<td data-label='Date'>" +
+                formatDate(res[i].created_at)+
+                "</td>"+
+                "</tr>");   
+            }
+        }); 
+
+    }
+
+    function get_all_order_user(){
+
+        $.get("/get_all_order_ileniadesign",{},
+        function(data){
+            $("#append_order_setting").empty();
+            var res=jQuery.parseJSON(data);
+            var format;
+            for (var i = 0; i < res.length; i++) {
+                if (res[i].format==1) {
+                    format="A4";
+                }else if(res[i].format==2){
+                    format="A3";
+                }else{
+                    format="A5";
+                }
+                var order=i+1;
+                $("#append_order_setting").append("<tr>"+
+                "<td data-label='User'>"+
+                res[i].id_user+
+                "</td>"+
+                "<td data-label='Image'>"+
+                res[i].name_product+
+                "</td>"+
+                "<td data-label='Format'>"+
+                format+
+                "</td>"+
+                "<td data-label='Sold'>" +
+                res[i].sold+
+                "</td>"+
+                "<td data-label='Date'>" +
+                res[i].sold_date+
+                "</td>"+
+                "</tr>");
+            }
+        }); 
+
+    }
+
+    function get_visitor_user(){
+
+        $.get("/get_visitor_ileniadesign",{},
+        function(data){
+            $("#append_visitor_setting").empty();
+            var res=jQuery.parseJSON(data);
+            var series=[];
+            var series_before=[];
+            var categories=[];
+            var ext_file;
+            var ext_file_before;
+            var sumOf1;
+            var sumOf1_before;
+            var array_data_access=[];
+            var array_data_access_before=[];
+            for (var i = 0; i < res.get_access_current.length; i++) {
+                $("#append_visitor_setting").append("<tr class='list_visitor_user'>"+
+                    "<td data-label='ip'>"+
+                    res.get_access_current[i].ip_address+
+                    "</td>"+
+                    "<td data-label='from'>"+
+                    res.get_access_current[i].from_fb+
+                    "</td>"+
+                    "<td data-label='city'>"+
+                    res.get_access_current[i].city+
+                    "</td>"+
+                    "<td data-label='accesso'>"+
+                    res.get_access_current[i].date_stamp+
+                    "</td>"+
+                    "<td data-label='Page'>" +
+                    res.get_access_current[i].type_interaction+
+                    "</td>"+
+                    "<td data-label='Count'>" +
+                    res.get_access_current[i].numb_access+
+                    "</td>"+
+                    "</tr>");
+                ext_file=res.get_access_current[i].date_stamp.split(" ")[0];
+                sumOfId = (date_stamp) => res.get_access_current.filter(i => i.date_stamp.toLowerCase().indexOf(date_stamp) > -1).reduce((a, b) => a + b.numb_access, 0);
+                sumOf1 = sumOfId(ext_file);
+                array_data_access.push({"date_stamp":ext_file, "numb_access":sumOf1});
+            }
+            for (var i = 0; i < res.get_access_before.length; i++) {
+                ext_file_before=res.get_access_before[i].date_stamp.split(" ")[0];
+                sumOfId_before = (date_stamp) => res.get_access_before.filter(i => i.date_stamp.toLowerCase().indexOf(date_stamp) > -1).reduce((a, b) => a + b.numb_access, 0);
+                sumOf1_before = sumOfId_before(ext_file_before);
+                array_data_access_before.push({date_stamp:ext_file_before, numb_access:sumOf1_before});
+            }
+            //search user
+            var search = document.getElementById("search_input");
+                var els = document.querySelectorAll(".list_visitor_user");
+                search.addEventListener("keyup", function() {
+                    Array.prototype.forEach.call(els, function(el) {
+                        if (el.textContent.toLowerCase().trim().indexOf(search.value) > -1){
+                        el.style.display = '';
+                        }else{ 
+                        el.style.display = 'none';
+                        }
+                    });
+                }); 
+            var result = array_data_access.filter(function(el, i, x) {
+                return x.map(function(obj, j) {
+                return obj.date_stamp === el.date_stamp && (x = j);
+                }) && i == x;
+            });
+            var result_before = array_data_access_before.filter(function(el, i, x) {
+                return x.map(function(obj, j) {
+                return obj.date_stamp === el.date_stamp && (x = j);
+                }) && i == x;
+            });
+            result.sort(function(a, b) {
+                return new Date( a.date_stamp ) > new Date( b.date_stamp ) ? 1 : -1;
+            });
+            result_before.sort(function(a, b) {
+                return new Date( a.date_stamp ) > new Date( b.date_stamp ) ? 1 : -1;
+            });
+            var weekday = ["Sunday","Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"];
+            for (var i = 0; i < result.length; i++) {
+                categories.push(formatDate_ileniadesign(result[i].date_stamp));
+                series.push(result[i].numb_access);
+            }
+            for (var i = 0; i < result_before.length; i++) {
+                series_before.push(result_before[i].numb_access);
+            }
+            $(function () {
+                $('#container_chart_access').highcharts({
+                    title: {
+                        text: 'Visualizzazioni per giorno'
+                    },
+                    chart: {
+                        renderTo: 'container',
+                        marginBottom: 80
+                    },
+                    xAxis: {
+                        categories: categories
+                    },
+                    yAxis: {
+                        min: 0,
+                        title: {
+                        text: 'Quantità visualizzazioni'
+                        }
+                    },
+                    plotOptions: {
+                        column: {
+                        colorByPoint: true
+                        },
+                        series: {
+                        cursor: 'pointer',
+                        point: {
+                            events: {
+                            }
+                        }
+                        },
+                    },
+                    series: [{
+                        data: series,
+                        name: "settimana corrente"
+                    },{
+                        data: series_before,
+                        name: "settimana precedente"
+                    }]
+                });
+                var random = 0.5; 
+                $('#button').click(function () {
+                var chart = $('#container').highcharts();
+                chart.series[0].addPoint([
+                    (random || Math.random()) * 12,
+                    (random || Math.random()) * 200
+                    ]);
+                random = null;
+                });
+            });
+        }); 
+
+    }
+
+    function get_buyed_user(){
+
+        $.get("/get_buyed_user_ileniadesign",{},
+        function(data){
+            $("#append_buyed_setting").empty();
+            var result=jQuery.parseJSON(data);
+            var url;
+            for (var i = 0; i < result.length; i++) {
+                if (result[i].comment_status==1) {
+                url="href='https://www.poste.it/cerca/index.html?#/risultati-spedizioni/"+result[i].status+"'";
+                }else{ 
+                url="";
+                }
+                $("#append_buyed_setting").append("<tr>"+
+                "<td data-label='user'>"+
+                result[i].id_user+
+                "</td>"+
+                "<td data-label='Qty'>"+
+                result[i].count_prod+
+                "</td>"+
+                "<td data-label='Amount'>" +
+                result[i].sum_price+
+                " €</td>"+
+                "<td data-label='Date'>" +
+                formatDate(result[i].sold_date)+
+                "</td>"+
+                "<td data-label='Status'>" +
+                "<input class='form-control' type='text' id='order_"+result[i].sold_id+"' value='"+result[i].status+"'>"+
+                "</td>"+
+                "<td data-label='Status'>" +
+                "<a "+url+" target='_blank'>"+result[i].status+"</a>"+
+                "</td>"+
+                "<td data-label='Action'>" +
+                "<a onclick='save_update_status(\""+result[i].sold_id+"\")'>Save</a>"+
+                "</td>"+
+                "</tr>");
+            }
+        }); 
+
+    }
+
+    function save_update_status(sold_id){
+
+        var status=$("#order_"+sold_id).val();
+        var comment_status;
+        if (status=="Processing") {
+            comment_status=0;
+        }else if(status=="Sent"){
+            comment_status=2;
+        }else{
+            comment_status=1;
+        }
+        $.get("/save_update_status_ileniadesign",{sold_id:sold_id,status:status, comment_status:comment_status},
+        function(data){
+            var res=jQuery.parseJSON(data);
+            var name=res[0].name;
+            var email=res[0].email;
+            if (status=="Processing" || status=="Sent") {
+                alert("aggiornato!");
+                window.location.replace("/id?page=login");
+            }else{
+                var form_data = new FormData();
+                form_data.append('name', name);
+                form_data.append('email', email);
+                form_data.append('track', status);
+                $.ajax({
+                    url : "/ileniadesign_repo/other_function/send_track_ileniadesign.php",  
+                    dataType: 'text',        
+                    cache       : false,
+                    contentType: false,
+                    processData : false,
+                    data: form_data,                  
+                    type: 'POST',
+                    async: true,
+                    headers: {
+                    "cache-control": "no-cache"
+                    },
+                    success: function(output){
+                    alert("email inviata!");
+                    window.location.replace("/id?page=login");
+                    }
+                }); 
+            }
         });
 
     }
