@@ -18,7 +18,7 @@
         <h4 class="text-center flex-grow-1 list_discount" style="font-family: 'Futura PT', sans-serif;font-size: 13px!important;display: flex;align-items: center;justify-content: center;width: 5%;" onclick="change_vis_setting('list_discount');">DISCOUNT</h4>
         <h4 class="text-center flex-grow-1 list_gift" style="font-family: 'Futura PT', sans-serif;font-size: 13px!important;display: flex;align-items: center;justify-content: center;width: 5%;" onclick="change_vis_setting('list_gift');">GIFT</h4>
         <h4 class="text-center flex-grow-1 list_users" style="font-family: 'Futura PT', sans-serif;font-size: 13px!important;display: flex;align-items: center;justify-content: center;width: 5%;" onclick="change_vis_setting('list_users');get_my_user();">MY USERS</h4>
-        <h4 class="text-center flex-grow-1 list_order" style="font-family: 'Futura PT', sans-serif;font-size: 13px!important;display: flex;align-items: center;justify-content: center;width: 5%;" onclick="change_vis_setting('list_order');get_all_order_user();">ORDER</h4>
+        <h4 class="text-center flex-grow-1 list_orderall" style="font-family: 'Futura PT', sans-serif;font-size: 13px!important;display: flex;align-items: center;justify-content: center;width: 5%;" onclick="change_vis_setting('list_orderall');get_all_order_user();">ORDER</h4>
         <h4 class="text-center flex-grow-1 list_visitor" style="font-family: 'Futura PT', sans-serif;font-size: 13px!important;display: flex;align-items: center;justify-content: center;width: 5%;" onclick="change_vis_setting('list_visitor');get_visitor_user();">VISITOR</h4>
         <h4 class="text-center flex-grow-1 list_buyed" style="font-family: 'Futura PT', sans-serif;font-size: 13px!important;display: flex;align-items: center;justify-content: center;width: 5%;" onclick="change_vis_setting('list_buyed');get_buyed_user();">BUYED</h4>
         <h4 class="text-center flex-grow-1 list_remind" style="font-family: 'Futura PT', sans-serif;font-size: 13px!important;display: flex;align-items: center;justify-content: center;width: 5%;" onclick="change_vis_setting('list_remind');get_newsletter_user();">REMIND</h4>
@@ -138,7 +138,7 @@
         </table>
     </div>
 
-    <div id="list_order" class="d-none">
+    <div id="list_orderall" class="d-none">
         <table class="table">
             <thead>
                 <th>User</th>
