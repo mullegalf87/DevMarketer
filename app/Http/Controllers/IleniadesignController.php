@@ -185,53 +185,44 @@ class IleniadesignController extends Controller{
           'cookie' => $this->getCookie(),
           'token_user' => $this->random_token_user_ilenia_design('test','users_ileniadesigns','token_user'),
 
-      ]);
+        ]);
       
-      auth()->guard('users_ileniadesign')->login($user);
+        auth()->guard('users_ileniadesign')->login($user);
 
-      $this->universal_db('ileniadesign')->table('cart_ileniadesign')
-        ->where('id_user','=',$this->getCookie())
-        ->update(
-          array(
-           'id_user'=>auth()->guard('users_ileniadesign')->user()->id,
-      ));
+        $this->universal_db('ileniadesign')->table('cart_ileniadesign')
+          ->where('id_user','=',$this->getCookie())
+          ->update(
+            array(
+            'id_user'=>auth()->guard('users_ileniadesign')->user()->id,
+        ));
 
-      if ($numb==1) {
-        return redirect()->to('/ileniadesign');
-      }else{
-        return redirect()->to('/id?page=cart');
-      }
+        $email=auth()->guard('users_ileniadesign')->user()->email;
+        $password=auth()->guard('users_ileniadesign')->user()->password_decript;
+        $token_user=auth()->guard('users_ileniadesign')->user()->token_user;
 
-    //   $email=auth()->guard('users_ileniadesign')->user()->email;
-    //   $password=auth()->guard('users_ileniadesign')->user()->password_decript;
-    //   $token_user=auth()->guard('users_ileniadesign')->user()->token_user;
+        $object="Summary account";
+        $recovery_password="Welcome to Ileniazitodesign!";
+        $return="Return to login";
 
-    //   $object="Summary account";
-    //   $recovery_password="Welcome to Ileniazitodesign!";
-    //   $return="Return to login";
+        $data = array('email'=>$email, 'password_decript'=>$password, 'recovery_password'=>$recovery_password, 'token_user'=>$token_user, 'return'=>$return);
 
-    //   $data = array('email'=>$email, 'password_decript'=>$password, 'recovery_password'=>$recovery_password, 'token_user'=>$token_user, 'return'=>$return);
+        Mail::send('ileniadesign.desktop.mailregister', $data, function($message) use ($data) {
+        $message->to($data['email'])->subject
+        ('Welcome to Ileniazitodesign');
+        $message->from('no-reply@ileniazitodesign.com','Ileniazitodesign');
+        });
 
-    //   Mail::send('mail', $data, function($message) use ($data) {
-    //    $message->to($data['email'])->subject
-    //    ('Welcome to Ileniazitodesign');
-    //    $message->from('no-reply@ileniazitodesign.com','Ileniazitodesign');
-    //  });
+        $this->universal_db('ileniadesign')->table('newsletter_ileniadesign')
+        ->insertGetId(array( 
+        'id_user'=>auth()->guard('users_ileniadesign')->user()->id,
+        'email'=>$email,
+        ));
 
-    //   DB::table('newsletter_ileniadesign')
-    //   ->insertGetId(array( 
-      
-    //    'id_user'=>auth()->guard('users_ileniadesign')->user()->id,
-    //    'email'=>$email,
-
-
-    //  ));
-
-      // if ($numb==1) {
-      //   return redirect()->to('/');
-      // }else{
-      //   return redirect()->to('/id?page=cart');
-      // }
+        if ($numb==1) {
+          return redirect()->to('/ileniadesign');
+        }else{
+          return redirect()->to('/id?page=cart');
+        }
 
       }
 
@@ -410,6 +401,24 @@ class IleniadesignController extends Controller{
     }
 
     return View::make('query')->with("result",json_encode("fatto"));
+
+  }
+
+  public function register_newsletter_ileniadesign(){
+
+    $email=Request::get("email");
+    if (auth()->guard('users_ileniadesign')->check()) {
+      $id_user=auth()->guard('users_ileniadesign')->user()->id;
+    }else{
+      $id_user=$this->getCookie();
+    }
+    $this->universal_db('ileniadesign')->table('newsletter_ileniadesign')
+    ->insertGetId(array( 
+      "id_user"=>$id_user,
+      "email"=>$email
+    ));
+
+    return View::make('query')->with("result",json_encode("added")); 
 
   }
 
@@ -1028,24 +1037,51 @@ public function convert_sold_ileniadesign(){
     
     $sold_id=Request::get('sold_id');
     $status=Request::get('status'); 
-    $comment_status=Request::get('comment_status'); 
     $this->universal_db('ileniadesign')->table('cart_ileniadesign')
       ->where('sold_id', 'LIKE', '%'.$sold_id.'%')
       ->update(
           array(
            'status'=>$status,
-           'comment_status'=>$comment_status,
           ));
     $data_user=$this->universal_db('ileniadesign')->table('cart_ileniadesign')
       ->where('sold_id', 'LIKE', '%'.$sold_id.'%')
       ->first(); 
-    $user = $this->universal_db('ileniadesign')->table('users_ileniadesigns')
+    $user = $this->universal_user_db('ileniadesign')->table('users_ileniadesigns')
     ->select($this->universal_db('ileniadesign')->raw('name, email'))
     ->where('id', '=' ,$data_user->id_user)
     ->get();   
 
-
     return View::make('query')->with("result",json_encode($user));
+
+  }
+
+  public function send_newsletter_ileniadesign(){
+    
+    $id_user=Request::get('id_user');
+    $get_cart=$this->universal_db('ileniadesign')->table('cart_ileniadesign')
+      ->where('id_user', '=', $id_user)
+      ->whereNull('sold')
+      ->get();
+    $get_count_send=$this->universal_db('ileniadesign')->table('newsletter_ileniadesign')
+      ->where('id_user', '=', $id_user)
+      ->first(); 
+    $this->universal_db('ileniadesign')->table('newsletter_ileniadesign')
+        ->where('id_user','=',$id_user)
+        ->update(
+          array(
+           'count_send'=>$get_count_send->count_send+1,
+         ));  
+
+    return View::make('query')->with("result",json_encode($get_cart));
+
+  }
+
+  public function get_newsletter_ileniadesign(){
+
+    $email_list=$this->universal_db('ileniadesign')->table('newsletter_ileniadesign')
+    ->get();
+
+    return View::make('query')->with("result",json_encode($email_list));
 
   }
 

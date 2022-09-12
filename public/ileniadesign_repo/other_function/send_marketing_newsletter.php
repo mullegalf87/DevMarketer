@@ -15,27 +15,10 @@
   error_reporting(E_ALL);
   ini_set('display_errors', 1);
   require($_SERVER['DOCUMENT_ROOT'].'/phpmailer/class.phpmailer.php');
-  //summary image cart
+
   $data = json_decode($_POST["data"],true);
-  //summary data user
-  $name_cart=$_POST["name_cart"];
-  $lastname_cart=$_POST["lastname_cart"];
-  $email_cart=$_POST["email_cart"];
-  $cell_cart=$_POST["cell_cart"];
-  $address_cart=$_POST["address_cart"];
-  $state_cart=$_POST["state_cart"];
-  $region_cart=$_POST["region_cart"];
-  $city_cart=$_POST["city_cart"];
-  $zip_cart=$_POST["zip_cart"];
-  //summary receipt
-  $start_total=$_POST["start_total"];
-  $text_total_gift=$_POST["text_total_gift"];
-  $total_gift=$_POST["total_gift"];
-  $new_total=$_POST["new_total"];
-  $discount_cart=$_POST["discount_cart"];
-  $total_discount=$_POST["total_discount"];
-  $delivery=$_POST["delivery"];
-  $end_total=$_POST["end_total"];
+  $test="test";
+  $email=$_POST["email"];  
 
   $messaggio = new PHPmailer(true);
   $messaggio->SMTPSecure = "ssl";
@@ -45,21 +28,12 @@
   $messaggio->Host='mail.ileniazitodesign.com'; //smtp.gmail.com
   $messaggio->Port       = 465;  
   $messaggio->SMTPAuth = true; 
-  $messaggio->Username='_mainaccount@ileniazitodesign.com';
+  $messaggio->Username='_mainaccount@ileniazitodesign.com'; //dario.rosciglione87@gmail.com
   $messaggio->Password='}a3r6N:jKFF.i1!b'; //
   $messaggio->Mailer='smtp';
   $messaggio->From='ileniazitodesign@gmail.com';
   $messaggio->FromName='Ilenia Design';
-  $messaggio->Subject="Riepilogo ordine IleniaZitoDesign";
-
-  function replace_specialchar($string){
-
-    $a = array('À', 'Á', 'Â', 'Ã', 'Ä', 'Å', 'Æ', 'Ç', 'È', 'É', 'Ê', 'Ë', 'Ì',        'Í', 'Î', 'Ï', 'Ð', 'Ñ', 'Ò', 'Ó', 'Ô', 'Õ', 'Ö', 'Ø', 'Ù', 'Ú', 'Û', 'Ü', 'Ý', 'ß', 'à', 'á', 'â', 'ã', 'ä', 'å', 'æ', 'ç', 'è', 'é', 'ê', 'ë', 'ì', 'í', 'î', 'ï', 'ñ', 'ò', 'ó', 'ô', 'õ', 'ö', 'ø', 'ù', 'ú', 'û', 'ü', 'ý', 'ÿ', 'Ā', 'ā', 'Ă', 'ă', 'Ą', 'ą', 'Ć', 'ć', 'Ĉ', 'ĉ', 'Ċ', 'ċ', 'Č', 'č', 'Ď', 'ď', 'Đ', 'đ', 'Ē', 'ē', 'Ĕ', 'ĕ', 'Ė', 'ė', 'Ę', 'ę', 'Ě', 'ě', 'Ĝ', 'ĝ', 'Ğ', 'ğ', 'Ġ', 'ġ', 'Ģ', 'ģ', 'Ĥ', 'ĥ', 'Ħ', 'ħ', 'Ĩ', 'ĩ', 'Ī', 'ī', 'Ĭ', 'ĭ', 'Į', 'į', 'İ', 'ı', 'Ĳ', 'ĳ', 'Ĵ', 'ĵ', 'Ķ', 'ķ', 'Ĺ', 'ĺ', 'Ļ', 'ļ', 'Ľ', 'ľ', 'Ŀ', 'ŀ', 'Ł', 'ł', 'Ń', 'ń', 'Ņ', 'ņ', 'Ň', 'ň', 'ŉ', 'Ō', 'ō', 'Ŏ', 'ŏ', 'Ő', 'ő', 'Œ', 'œ', 'Ŕ', 'ŕ', 'Ŗ', 'ŗ', 'Ř', 'ř', 'Ś', 'ś', 'Ŝ', 'ŝ', 'Ş', 'ş', 'Š', 'š', 'Ţ', 'ţ', 'Ť', 'ť', 'Ŧ', 'ŧ', 'Ũ', 'ũ', 'Ū', 'ū', 'Ŭ', 'ŭ', 'Ů', 'ů', 'Ű', 'ű', 'Ų', 'ų', 'Ŵ', 'ŵ', 'Ŷ', 'ŷ', 'Ÿ', 'Ź', 'ź', 'Ż', 'ż', 'Ž', 'ž', 'ſ', 'ƒ', 'Ơ', 'ơ', 'Ư', 'ư', 'Ǎ', 'ǎ', 'Ǐ', 'ǐ', 'Ǒ', 'ǒ', 'Ǔ', 'ǔ', 'Ǖ', 'ǖ', 'Ǘ', 'ǘ', 'Ǚ', 'ǚ', 'Ǜ', 'ǜ', 'Ǻ', 'ǻ', 'Ǽ', 'ǽ', 'Ǿ', 'ǿ', 'Ά', 'ά', 'Έ', 'έ', 'Ό', 'ό', 'Ώ', 'ώ', 'Ί', 'ί', 'ϊ', 'ΐ', 'Ύ', 'ύ', 'ϋ', 'ΰ', 'Ή', 'ή');
-    $b = array('A', 'A', 'A', 'A', 'A', 'A', 'AE', 'C', 'E', 'E', 'E', 'E', 'I', 'I', 'I', 'I', 'D', 'N', 'O', 'O', 'O', 'O', 'O', 'O', 'U', 'U', 'U', 'U', 'Y', 's', 'a', 'a', 'a', 'a', 'a', 'a', 'ae', 'c', 'e', 'e', 'e', 'e', 'i', 'i', 'i', 'i', 'n', 'o', 'o', 'o', 'o', 'o', 'o', 'u', 'u', 'u', 'u', 'y', 'y', 'A', 'a', 'A', 'a', 'A', 'a', 'C', 'c', 'C', 'c', 'C', 'c', 'C', 'c', 'D', 'd', 'D', 'd', 'E', 'e', 'E', 'e', 'E', 'e', 'E', 'e', 'E', 'e', 'G', 'g', 'G', 'g', 'G', 'g', 'G', 'g', 'H', 'h', 'H', 'h', 'I', 'i', 'I', 'i', 'I', 'i', 'I', 'i', 'I', 'i', 'IJ', 'ij', 'J', 'j', 'K', 'k', 'L', 'l', 'L', 'l', 'L', 'l', 'L', 'l', 'l', 'l', 'N', 'n', 'N', 'n', 'N', 'n', 'n', 'O', 'o', 'O', 'o', 'O', 'o', 'OE', 'oe', 'R', 'r', 'R', 'r', 'R', 'r', 'S', 's', 'S', 's', 'S', 's', 'S', 's', 'T', 't', 'T', 't', 'T', 't', 'U', 'u', 'U', 'u', 'U', 'u', 'U', 'u', 'U', 'u', 'U', 'u', 'W', 'w', 'Y', 'y', 'Y', 'Z', 'z', 'Z', 'z', 'Z', 'z', 's', 'f', 'O', 'o', 'U', 'u', 'A', 'a', 'I', 'i', 'O', 'o', 'U', 'u', 'U', 'u', 'U', 'u', 'U', 'u', 'U', 'u', 'A', 'a', 'AE', 'ae', 'O', 'o', 'Α', 'α', 'Ε', 'ε', 'Ο', 'ο', 'Ω', 'ω', 'Ι', 'ι', 'ι', 'ι', 'Υ', 'υ', 'υ', 'υ', 'Η', 'η');
-  
-    return str_replace($a, $b, $string);
-
-  }
+  $messaggio->Subject="IleniaZitoDesign";
 
 
 $content_body ='<div style="display: none; overflow: hidden; line-height: 1px; max-height: 0px; max-width: 0px; opacity: 0; mso-hide: all;">
@@ -72,7 +46,7 @@ $content_body ='<div style="display: none; overflow: hidden; line-height: 1px; m
       <center style="width: 100%;"> 
        <table border="0" width="600" cellpadding="0" cellspacing="0" align="center" style="width: 600px; min-width: 600px; max-width: 600px; margin: auto;" class="email-container"> 
         <tbody> 
-         <tr> 
+         <tr> å
           <th valign="top" style="mso-line-height-rule: exactly;">  
            <table class="section_wrapper header" data-id="header" id="section-header" border="0" width="100%" cellpadding="0" cellspacing="0" align="center" style="min-width: 100%;" bgcolor="#ffffff"> 
             <tbody>
@@ -81,7 +55,8 @@ $content_body ='<div style="display: none; overflow: hidden; line-height: 1px; m
                <table border="0" width="100%" cellpadding="0" cellspacing="0" align="center" style="min-width: 100%;"> 
                 <tbody>
                  <tr> 
-                  <th class="column_logo" style="mso-line-height-rule: exactly; padding-top: 0; padding-bottom: 0;" align="center" bgcolor="#ffffff">  <a href="https://ileniazitodesign.com" target="_blank" style="text-decoration: none !important; text-underline: none;" rel="noopener"> <img src="https://i.ibb.co/J3Fk046/logo-izd.png" class="logo" width="128" border="0" style="width: 128px; height: auto !important; display: block; text-align: center; margin: auto;"> </a>  </th> 
+                  <th class="column_logo" style="mso-line-height-rule: exactly; padding-top: 0; padding-bottom: 0;" align="center" bgcolor="#ffffff">  <a href="https://ileniazitodesign.com" target="_blank" style="text-decoration: none !important; text-underline: none;" rel="noopener"> <img src="https://i.ibb.co/J3Fk046/logo-izd.png" class="logo" width="128" border="0" style="width: 128px; height: auto !important; display: block; text-align: center; margin: auto;"> </a>
+                  </th> 
                  </tr> 
                 </tbody>
                </table> </td> 
@@ -99,7 +74,7 @@ $content_body ='<div style="display: none; overflow: hidden; line-height: 1px; m
                    <table cellspacing="0" cellpadding="0" border="0" width="100%"> 
                     <tbody>
                      <tr> 
-                      <th style="mso-line-height-rule: exactly;" bgcolor="#ffffff" valign="top"> <h1 data-key="7941066_heading" style="font-family: -apple-system,BlinkMacSystemFont,"Segoe UI",Arial,"Karla"; font-size: 24px; line-height: 36px; font-weight: 700; color: #1a1a1a; text-transform: none; margin: 0;" align="center">CONFERMA ORDINE</h1> </th> 
+                      <th style="mso-line-height-rule: exactly;" bgcolor="#ffffff" valign="top"> <h1 data-key="7941066_heading" style="font-family: -apple-system,BlinkMacSystemFont,"Segoe UI",Arial,"Karla"; font-size: 24px; line-height: 36px; font-weight: 700; color: #1a1a1a; text-transform: none; margin: 0;" align="center">NON DIMENTICARE IL TUO ACQUISTO!</h1> </th> 
                      </tr> 
                     </tbody>
                    </table> </th> 
@@ -117,8 +92,8 @@ $content_body ='<div style="display: none; overflow: hidden; line-height: 1px; m
                     </tbody>
                    </table> </th> 
                  </tr>   
-                 <tr id="section-7941068" class="section introduction">
-                  <th style="mso-line-height-rule: exactly; padding: 11px 44px;" bgcolor="#ffffff"> <p style="mso-line-height-rule: exactly; direction: ltr; font-family: -apple-system,BlinkMacSystemFont,"Segoe UI",Arial,"Open Sans"; font-size: 15px; line-height: 22px; font-weight: 300; text-transform: none; color: #666666; margin: 0 0 11px;" align="left"> <span data-key="7941068_greeting_text" style="text-align: left; direction: ltr; font-family: -apple-system,BlinkMacSystemFont,"Segoe UI",Arial,"Open Sans"; font-size: 15px; line-height: 22px; font-weight: 300; text-transform: none; color: #666666;"> Grazie </span> '.$name_cart.' '.$lastname_cart.', </p> <span data-key="7941068_introduction_text" class="text" style="text-align: left; direction: ltr; font-family: -apple-system,BlinkMacSystemFont,"Segoe UI",Arial,"Open Sans"; font-size: 15px; line-height: 22px; font-weight: 300; text-transform: none; color: #666666;"> <p style="mso-line-height-rule: exactly; direction: ltr; font-family: -apple-system,BlinkMacSystemFont,"Segoe UI",Arial,"Open Sans"; font-size: 15px; line-height: 22px; font-weight: 300; text-transform: none; color: #666666; margin: 11px 0 0;" align="left"></p> <p style="mso-line-height-rule: exactly; direction: ltr; font-family: -apple-system,BlinkMacSystemFont,"Segoe UI",Arial,"Open Sans"; font-size: 15px; line-height: 22px; font-weight: 300; text-transform: none; color: #666666; margin: 11px 0 0;" align="left">Il tempo di elaborazione del tuo ordine richiede da 3 a 6 giorni lavorativi. Una volta preparato il pacco '.replace_specialchar("verrà").' spedito e sarai informato via e-mail sullo stato di avanzamento del tuo ordine ricevendo informazioni utili per il tracciamento. <br> Di seguito il riepilogo del tuo ordine.<br> Per qualunque problema non esitare a contattarci alla seguente email: ileniazitodesign@gmail.com<br> </p> </span> </th> 
+                 <tr id="section-7941068" class="section introduction"> 
+                  <th style="mso-line-height-rule: exactly; padding: 11px 44px;" bgcolor="#ffffff"> <p style="mso-line-height-rule: exactly; direction: ltr; font-family: -apple-system,BlinkMacSystemFont,"Segoe UI",Arial,"Open Sans"; font-size: 15px; line-height: 22px; font-weight: 300; text-transform: none; color: #666666; margin: 0 0 11px;" align="left"> <span data-key="7941068_greeting_text" style="text-align: left; direction: ltr; font-family: -apple-system,BlinkMacSystemFont,"Segoe UI",Arial,"Open Sans"; font-size: 15px; line-height: 22px; font-weight: 300; text-transform: none; color: #666666;"> Grazie </span> '.$email.', </p> <span data-key="7941068_introduction_text" class="text" style="text-align: left; direction: ltr; font-family: -apple-system,BlinkMacSystemFont,"Segoe UI",Arial,"Open Sans"; font-size: 15px; line-height: 22px; font-weight: 300; text-transform: none; color: #666666;"> <p style="mso-line-height-rule: exactly; direction: ltr; font-family: -apple-system,BlinkMacSystemFont,"Segoe UI",Arial,"Open Sans"; font-size: 15px; line-height: 22px; font-weight: 300; text-transform: none; color: #666666; margin: 11px 0 0;" align="left"></p> <p style="mso-line-height-rule: exactly; direction: ltr; font-family: -apple-system,BlinkMacSystemFont,"Segoe UI",Arial,"Open Sans"; font-size: 15px; line-height: 22px; font-weight: 300; text-transform: none; color: #666666; margin: 11px 0 0;" align="left">Di seguito il riepilogo del tuo carrello.<br> Per qualunque problema non esitare a contattarci alla seguente email: ileniazitodesign@gmail.com<br> </p> </span> </th> 
                  </tr>   
                  <tr id="section-7941071" class="section divider"> 
                   <th style="mso-line-height-rule: exactly; padding: 0px 44px;" bgcolor="#ffffff"> 
@@ -130,42 +105,7 @@ $content_body ='<div style="display: none; overflow: hidden; line-height: 1px; m
                     </tbody>
                    </table> </th> 
                  </tr>     
-                 <tr id="section-7941073" class="section shipping_address_and_fulfillment_details">  
-                  <th style="mso-line-height-rule: exactly; padding: 11px 44px;" bgcolor="#ffffff"> 
-                   <table border="0" width="100%" cellpadding="0" cellspacing="0" align="center" style="min-width: 100%;"> 
-                    <tbody>
-                     <tr>  
-                      <th width="50%" class="column_1_of_2 column_ship_to" style="mso-line-height-rule: exactly;" align="left" bgcolor="#ffffff" valign="top"> 
-                       <table align="center" border="0" width="100%" cellpadding="0" cellspacing="0" style="min-width: 100%;"> 
-                        <tbody>
-                         <tr> 
-                          <th style="mso-line-height-rule: exactly; padding-right: 11px;" align="left" bgcolor="#ffffff" valign="top"> <h3 data-key="7941073_ship_to" style="font-family: -apple-system,BlinkMacSystemFont,"Segoe UI",Arial,"Karla"; color: #1a1a1a; font-size: 16px; line-height: 24px; font-weight: 400; text-transform: none; margin: 0;" align="left">Indirizzo spedizione</h3> </th> 
-                         </tr> 
-                         <tr> 
-                          <th class="shipping_address" style="mso-line-height-rule: exactly; padding-right: 11px;" align="left" bgcolor="#ffffff" valign="top"> <p style="mso-line-height-rule: exactly; direction: ltr; font-family: -apple-system,BlinkMacSystemFont,"Segoe UI",Arial,"Open Sans"; font-size: 15px; line-height: 22px; font-weight: 300; text-transform: none; color: #666666; margin: 0;" align="left">'.$name_cart.' '.$lastname_cart.'<br> '.$address_cart.'<br> '.$zip_cart.' '.$city_cart.'<br> '.$region_cart.'<br> '.$state_cart.'<br> '.$email_cart.'<br> '.$cell_cart.'<br> </p> </th> 
-                         </tr>
-                         <tr> 
-                          <th colspan="2" class="product-table-h3-wrapper" style="mso-line-height-rule: exactly;" bgcolor="#ffffff" valign="top"> <h3 data-key="7941074_item" style="font-family: -apple-system,BlinkMacSystemFont,"Segoe UI",Arial,"Karla"; color: #1a1a1a; font-size: 16px; line-height: 24px; font-weight: 400; text-transform: none; border-bottom-width: 1px; border-bottom-color: #eeeeee; border-bottom-style: solid; margin: 0;" align="left">Ordine totale</h3> </th> 
-                         </tr>  
-                         <tr> 
-                          <th class="shipping_address" style="mso-line-height-rule: exactly; padding-right: 11px;" align="left" bgcolor="#ffffff" valign="top"> <p style="mso-line-height-rule: exactly; direction: ltr; font-family: -apple-system,BlinkMacSystemFont,"Segoe UI",Arial,"Open Sans"; font-size: 15px; line-height: 22px; font-weight: 300; text-transform: none; color: #666666; margin: 0;" align="left">
-                          Totale iniziale: '.$start_total.' &euro;<br> 
-                          Omaggio: '.$text_total_gift.'<br> 
-                          Totale sconto omaggio: -'.$total_gift.' &euro;<br>
-                          Nuovo totale: '.$new_total.' &euro;<br>
-                          Codice sconto applicato: '.$discount_cart.'<br> 
-                          Totale codice sconto: -'.$total_discount.' &euro;<br>
-                          Costo spedizione: '.$delivery.' &euro;<br>
-                          Prezzo totale: '.$end_total.' &euro;<br>
-                          </p> 
-                          </th> 
-                         </tr> 
-                        </tbody>
-                       </table> </th>    
-                     </tr> 
-                    </tbody>
-                   </table> </th>  
-                 </tr>   
+                 
                  <tr id="section-7941074" class="section products"> 
                   <th style="mso-line-height-rule: exactly; padding: 11px 44px;" bgcolor="#ffffff"> 
                    <table class="table-inner" cellspacing="0" cellpadding="0" border="0" width="100%" style="min-width: 100%;">   
@@ -174,30 +114,29 @@ $content_body ='<div style="display: none; overflow: hidden; line-height: 1px; m
                       <th class="product-table" style="mso-line-height-rule: exactly;" bgcolor="#ffffff" valign="top"> 
                        <table cellspacing="0" cellpadding="0" border="0" width="100%" style="min-width: 100%;"> 
                         <tbody>
-                        <tr> 
-                        <th colspan="2" class="product-table-h3-wrapper" style="mso-line-height-rule: exactly;" bgcolor="#ffffff" valign="top"> <h3 data-key="7941074_item" style="font-family: -apple-system,BlinkMacSystemFont,"Segoe UI",Arial,"Karla"; color: #1a1a1a; font-size: 16px; line-height: 24px; font-weight: 400; text-transform: none; border-bottom-width: 1px; border-bottom-color: #eeeeee; border-bottom-style: solid; margin: 0;" align="left">Riepilogo carrello</h3> </th> 
-                       </tr>';
+                         <tr> 
+                          <th colspan="2" class="product-table-h3-wrapper" style="mso-line-height-rule: exactly;" bgcolor="#ffffff" valign="top"> <h3 data-key="7941074_item" style="font-family: -apple-system,BlinkMacSystemFont,"Segoe UI",Arial,"Karla"; color: #1a1a1a; font-size: 16px; line-height: 24px; font-weight: 400; text-transform: none; border-bottom-width: 1px; border-bottom-color: #eeeeee; border-bottom-style: solid; margin: 0;" align="left">Riepilogo carrello</h3> </th> 
+                         </tr>';
 
                          for( $i = 0; $i < count($data); $i++ ) {
                           $array_cart_id_product=json_encode($data[$i]['id_product']);
-                          $array_cart_name_product=$data[$i]['name_product'];
+                          $array_cart_name_product=json_encode($data[$i]['name_product']);
                           $array_cart_qnt=json_encode($data[$i]['qnt']);
-                          $array_cart_price=json_encode($data[$i]['price_applied']);
+                          $array_cart_price=json_encode($data[$i]['price']);
                           $array_cart_format=json_encode($data[$i]['format']);
                           $array_cart_type_img=$data[$i]['type_img'];
 
                           if ($array_cart_format==1) {
                             $format_corr="A4";
-                          }elseif($array_cart_format==2){
+                          }else{
                             $format_corr="A3";
-                          }elseif($array_cart_format==3){
-                            $format_corr="A5";
                           }
 
                           $imgPath = '../shopmyart/'.$array_cart_id_product.'/1.'.$array_cart_type_img;
                           $cid = md5($imgPath);
                           $messaggio->AddEmbeddedImage($imgPath,$cid);
                          
+
                           $content_body.= 
                         '<tr class="row-border-bottom"> 
 
@@ -217,16 +156,14 @@ $content_body ='<div style="display: none; overflow: hidden; line-height: 1px; m
 
                               <th class="line-item-description" style="mso-line-height-rule: exactly; direction: ltr; font-family: -apple-system,BlinkMacSystemFont,"Segoe UI",Arial,"Open Sans"; font-size: 15px; line-height: 22px; font-weight: 300; text-transform: none; color: #666666; padding: 11px 5px 11px 0;" align="left" bgcolor="#ffffff" valign="top"> 
                                 <p style="mso-line-height-rule: exactly; direction: ltr; font-family: -apple-system,BlinkMacSystemFont,"Segoe UI",Arial,"Open Sans"; font-size: 15px; line-height: 22px; font-weight: 300; text-transform: none; color: #666666; margin: 0;" align="left"> 
-                                  <a style="color: #666666; text-decoration: none !important; text-underline: none; word-wrap: break-word; text-align: left !important; font-weight: 300;" rel="noopener"> '.replace_specialchar($array_cart_name_product).' 
+                                  <a style="color: #666666; text-decoration: none !important; text-underline: none; word-wrap: break-word; text-align: left !important; font-weight: 300;" rel="noopener"> '.$array_cart_name_product.' 
                                   </a> 
                                   <br> 
-                                  <span class="muted" style="text-align: left; direction: ltr; font-family: -apple-system,BlinkMacSystemFont,"Segoe UI",Arial,"Open Sans"; font-size: 13px; line-height: 22px; font-weight: normal; text-transform: none; color: #999999;">
-                                  '.replace_specialchar("Quantità").': '.$array_cart_qnt.'<br>
-                                  Formato: '.$format_corr.'<br>
-                                  Prezzo base: '.$data[$i]['price'].'<br>
+                                  <span class="muted" style="text-align: left; direction: ltr; font-family: -apple-system,BlinkMacSystemFont,"Segoe UI",Arial,"Open Sans"; font-size: 13px; line-height: 22px; font-weight: normal; text-transform: none; color: #999999;">Qnt: '.$array_cart_qnt.' / '.$format_corr.'
                                   </span> 
                                 </p> 
                               </th> 
+
                               <th class="right line-item-qty" width="1" style="mso-line-height-rule: exactly; white-space: nowrap; padding: 11px 0 11px 22px;" align="right" bgcolor="#ffffff" valign="top"> 
                               <p style="mso-line-height-rule: exactly; direction: ltr; font-family: -apple-system,BlinkMacSystemFont,"Segoe UI",Arial,"Open Sans"; font-size: 15px; line-height: 22px; font-weight: 300; text-transform: none; color: #666666; margin: 0;" align="right">'.$array_cart_price.' &euro;</p> 
                               </th> 
@@ -242,6 +179,8 @@ $content_body ='<div style="display: none; overflow: hidden; line-height: 1px; m
                       </tr>';
 
                         } 
+
+
 
                          $content_body.='</tbody>
                        </table> </th> 
@@ -316,22 +255,27 @@ $content_body ='<div style="display: none; overflow: hidden; line-height: 1px; m
    </tbody> 
   </table>';
 
-  function Unaccent($string)
-{
-    return preg_replace('~&([a-z]{1,2})(acute|cedil|circ|grave|lig|orn|ring|slash|th|tilde|uml);~i', '$1', htmlentities($string, ENT_QUOTES, 'UTF-8'));
-}
-
   $messaggio->Body =$content_body;
 
+                      
+
+                  
+
+                    
+
+
   $recipients = array(
-   'ileniazitodesign@gmail.com' => 'Person One',
-    $email_cart => 'Person Two',
-   'dario.rosciglione87@libero.it' => 'Person Three',
+   $email => 'Person One',
   );
   foreach($recipients as $email => $name)
   {
      $messaggio->AddCC($email, $name);
   }
+ 
+  // $messaggio->AddAddress("dario.rosciglione87@libero.it");
+  // $messaggio->AddAddress($email);
+
+
 
   return $messaggio->Send();
 
@@ -340,3 +284,6 @@ $content_body ='<div style="display: none; overflow: hidden; line-height: 1px; m
  
 </body>
 </html>
+
+
+

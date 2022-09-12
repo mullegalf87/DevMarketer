@@ -343,10 +343,10 @@
                     </div>
                     <div class="d-flex flex-nowrap w-100">
                         <div class="col-md-6">
-                            <input class="form-control" placeholder="Email" style="width: 60%;float: right;height:60px;background: transparent; border-radius: 0; border-bottom: 1px solid;font-family: 'Futura PT', sans-serif;font-size: 15px!important;">
+                            <input class="form-control" placeholder="Email" id="email_newsletter" style="width: 60%;float: right;height:60px;background: transparent; border-radius: 0; border-bottom: 1px solid;font-family: 'Futura PT', sans-serif;font-size: 15px!important;">
                         </div>
                         <div class="col-md-6">
-                            <button class="btn btn-primary text-left">SUBSCRIBE  </button>
+                            <button class="btn btn-primary text-left" onclick="register_newsletter()">SUBSCRIBE  </button>
                         </div>
                     </div>
                 </div>
@@ -458,7 +458,6 @@
     </footer>
 
     <!-- modal -->
-
     <div class="modal" id="deliverymodal" aria-hidden="true" style="width: 100%;background: rgba(0,0,0,.3);">
         <div class="modal-dialog modal-dialog-centered" role="document">
             <div class="modal-content" style="border-radius: 0">
@@ -516,8 +515,9 @@
     </div>
     <script>
         //MODIFICHE DESKTOP
-        //fare in mysetting report e tabelle per invio
+        //sistemare registrazione invio email da laravel
         //sistemare problema lazy load delle immagini quando filtrate
+        //provare a mettere le frecce nei bottoni
         //rilasciarlo 
         
         //MODIFICHE MOBILE
@@ -927,6 +927,15 @@
             if (day.length < 2) 
             day = '0' + day;
             return day_name;
+
+        }
+
+        function register_newsletter(){
+            var email=$("#email_newsletter").val();
+            $.get('register_newsletter_ileniadesign',{email:email},
+                function(data){
+                    console.log(data);
+            });
 
         }
         

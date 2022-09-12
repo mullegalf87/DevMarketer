@@ -14,34 +14,45 @@
   $email=$_POST["email"];
   $message=$_POST["message"];
 
+  
   $messaggio = new PHPmailer(true);
   $messaggio->SMTPSecure = "ssl";
   $messaggio->IsSMTP();
+  $messaggio->SMTPDebug  = 1;
   $messaggio->IsHTML(true);
-  $messaggio->Host='mail.ileniazitodesign.com';
+  $messaggio->Host='mail.ileniazitodesign.com'; //smtp.gmail.com
   $messaggio->Port       = 465;  
   $messaggio->SMTPAuth = true; 
-  $messaggio->Username='_mainaccount@ileniazitodesign.com';
+  $messaggio->Username='_mainaccount@ileniazitodesign.com'; //dario.rosciglione87@gmail.com
   $messaggio->Password='}a3r6N:jKFF.i1!b'; //
   $messaggio->Mailer='smtp';
-  $messaggio->FromName='Ileniadesign';
-  $messaggio->Subject="Request ileniadesign";
-  $messaggio->Body="
+  $messaggio->From='ileniazitodesign@gmail.com';
+  $messaggio->FromName='Ilenia Design';
+  $messaggio->Subject="Richiesta";
+
+  $content_body="
   <p>Name: ".$name."<br>
      Email: ".$email."<br>
      Message: ".$message."</p>";
-     $recipients = array(
-    'dario.rosciglione87@libero.it' => 'Person One',
-    'ileniazitodesign@gmail.com' => 'Person Two',
+
+    $messaggio->Body =$content_body;
+
+    $recipients = array(
+  //    'ileniazitodesign@gmail.com' => 'Person One',
+      // $email => 'Person Two',
+    'dario.rosciglione87@libero.it' => 'Person Three',
     );
     foreach($recipients as $email => $name)
     {
-        $messaggio->AddCC($email, $name);
+      $messaggio->AddCC($email, $name);
     }
+  
+    // $messaggio->AddAddress("dario.rosciglione87@libero.it");
+    // $messaggio->AddAddress($email);
 
-    $messaggio->Send();
 
-    return "inviato";
+
+    return $messaggio->Send();
 
   ?>
 </body>

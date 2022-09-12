@@ -47,12 +47,15 @@
         var message = $("#message_request").val();
     
         if (email!="") {
+
+            console.log(name);
     
             $.ajax({
                 url: '/ileniadesign_repo/other_function/contact_ileniadesign.php',
                 type: 'POST',
                 data: {name: name, email: email, message:message},
                 success: function(data){
+                    console.log(data);
                     $("#name_request").val("");
                     $("#email_request").val("");
                     $("#message_request").val("");

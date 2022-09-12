@@ -8,6 +8,15 @@
         font-family: 'Futura PT', sans-serif;
         font-size: 15px!important;
     }
+
+    #setting td{
+        border: transparent;
+        font-family: Futura PT, sans-serif;
+        font-size: 12px!important;
+        white-space: nowrap;
+        vertical-align: middle;
+    }
+
 </style>
 <section class="container-fluid" style="padding: 7%;">
 
@@ -961,15 +970,7 @@
     function save_update_status(sold_id){
 
         var status=$("#order_"+sold_id).val();
-        var comment_status;
-        if (status=="Processing") {
-            comment_status=0;
-        }else if(status=="Sent"){
-            comment_status=2;
-        }else{
-            comment_status=1;
-        }
-        $.get("/save_update_status_ileniadesign",{sold_id:sold_id,status:status, comment_status:comment_status},
+        $.get("/save_update_status_ileniadesign",{sold_id:sold_id,status:status},
         function(data){
             var res=jQuery.parseJSON(data);
             var name=res[0].name;
@@ -997,6 +998,66 @@
                     success: function(output){
                     alert("email inviata!");
                     window.location.replace("/id?page=login");
+                    }
+                }); 
+            }
+        });
+
+    }
+
+    function get_newsletter_user(){
+
+        $.get("/get_newsletter_ileniadesign",{},
+        function(data){
+            $("#append_remind_setting").empty();
+            var res=jQuery.parseJSON(data);
+            for (var i = 0; i < res.length; i++) {
+                $("#append_remind_setting").append("<tr>"+
+                "<td data-label='id'>"+
+                res[i].id_user+
+                "</td>"+
+                "<td data-label='User'>"+
+                res[i].email+
+                "</td>"+
+                "<td data-label='Image'>"+
+                res[i].date+
+                "</td>"+
+                "<td data-label='Count'>"+
+                res[i].count_send+
+                "</td>"+
+                "<td data-label='Action'>"+
+                "<a onclick='send_marketing_newsletter(\""+res[i].id_user+"\",\""+res[i].email+"\")' style='font-size: xx-small;color:red;'>send</a></td>"+
+                "</tr>");
+            }
+        }); 
+
+    }
+
+    function send_marketing_newsletter(id, email){
+
+        $.get("/send_newsletter_ileniadesign",{id_user:id},
+        function(data){
+            var res=jQuery.parseJSON(data);
+            if (res.length==0) {
+                alert("non ha prodotti nel carrello!");
+            }else{
+                var form_data = new FormData();
+                form_data.append('data', data);
+                form_data.append('email', email);
+                $.ajax({
+                    url : "/ileniadesign_repo/other_function/send_marketing_newsletter.php",  
+                    dataType: 'text',        
+                    cache       : false,
+                    contentType: false,
+                    processData : false,
+                    data: form_data,                  
+                    type: 'POST',
+                    async: true,
+                    headers: {
+                        "cache-control": "no-cache"
+                    },
+                    success: function(output){
+                        alert("Inviato");
                     }
                 }); 
             }
