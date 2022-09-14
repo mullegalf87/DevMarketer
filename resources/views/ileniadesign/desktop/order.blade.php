@@ -115,7 +115,7 @@
                 </div>
                 @endif
                 <div class="col-md-12">
-                    <button onclick="send_data_setting()" class="btn btn-primary text-left mt-3 w-100 save_button">SALVA  </button>
+                    <button onclick="send_data_setting()" class="btn btn-primary text-left mt-3 w-100 save_button">SALVA  <img style="position: absolute;right: 15px;top: 50%;transform: translateY(-50%);width: 5%;" src="ileniadesign_repo/long-arrow.png"></button>
                 </div>
             </div>
         </div>

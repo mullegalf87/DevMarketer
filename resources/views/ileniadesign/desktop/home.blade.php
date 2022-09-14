@@ -192,6 +192,9 @@
             overflow: hidden;
             text-overflow: ellipsis;
         }
+        button{
+            position: relative;
+        }
     </style>
 </head>
 <body>
@@ -268,7 +271,7 @@
                                 <p style="margin-left: 10%;">SPRING SUMMER 2021</p>
                                 <h1>- New Collection</h1>
                                 <p style="margin-left: 10%;">Text around circle. Very, very, very long text for testing. prova di tigno con s</p>
-                                <button style="margin-left: 10%;" class="btn btn-primary text-left">COLLECTION  </button>
+                                <button style="margin-left: 10%;" class="btn btn-primary text-left">COLLECTION  <img style="position: absolute;right: 15px;top: 50%;transform: translateY(-50%);width: 30px;" src="ileniadesign_repo/long-arrow.png"></button>
                             </div>
                         </div>
                     </div>
@@ -296,7 +299,7 @@
                             <h1 class="text-center" style="font-size: 50px!important;">Blouses</h1>
                             <h1 class="text-center" style="font-size: 50px!important;">Knitwear</h1>
                             <h1 class="text-center" style="font-size: 50px!important;">Jackets</h1><br>
-                            <button class="btn btn-primary text-left">VIEW ALL  </button>
+                            <button class="btn btn-primary text-left">VIEW ALL <img style="position: absolute;right: 15px;top: 50%;transform: translateY(-50%); width: 30px;" src="ileniadesign_repo/long-arrow.png"></button>
                         </div>
                     </div>
                     <div class="col-md-4">
@@ -346,7 +349,7 @@
                             <input class="form-control" placeholder="Email" id="email_newsletter" style="width: 60%;float: right;height:60px;background: transparent; border-radius: 0; border-bottom: 1px solid;font-family: 'Futura PT', sans-serif;font-size: 15px!important;">
                         </div>
                         <div class="col-md-6">
-                            <button class="btn btn-primary text-left" onclick="register_newsletter()">SUBSCRIBE  </button>
+                            <button class="btn btn-primary text-left" onclick="register_newsletter()">SUBSCRIBE  <img style="position: absolute;right: 15px;top: 50%;transform: translateY(-50%);width: 30px;" src="ileniadesign_repo/long-arrow.png"></button>
                         </div>
                     </div>
                 </div>
@@ -515,8 +518,7 @@
     </div>
     <script>
         //MODIFICHE DESKTOP
-        //provare a mettere le frecce nei bottoni
-        //rilasciarlo 
+        //modificare lingua
         
         //MODIFICHE MOBILE
         //riportare tutto il progetto dentro la cartella e sistemarlo solo graficamente

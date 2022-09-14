@@ -248,7 +248,7 @@
                 old_array_position.push(res[random_key].id+"_"+numb_position);
                 
                 $("#append_advice_shopping").append('<div class="col-md-4 p-0 position_image utility_subcat cat_subcat category_'+res[random_key].type_img+' subcategory_'+res[random_key].subtype_image+' parameter_a4_'+res[random_key].price_a4+' parameter_a3_'+res[random_key].price_a3+' parameter_a5_'+res[random_key].price_a5+'" id="id_image_shopmyart_'+res[random_key].id+'" position="'+numb_position+'" id_image="'+res[random_key].id+'" style="padding: 10!important;">'+
-                '<img onclick="change_vis(\'shopdetail_'+res[random_key].id+'\')" data-original="ileniadesign_repo/shopmyart/'+res[random_key].id+'/'+res[random_key].image_file.split(",")[0]+'" alt="'+res[random_key].name+'" class="lazy" style="width: 100%!important;" >'+
+                '<img onclick="change_vis(\'shopdetail_'+res[random_key].id+'\')" data-src="ileniadesign_repo/shopmyart/'+res[random_key].id+'/'+res[random_key].image_file.split(",")[0]+'" alt="'+res[random_key].name+'" class="lazy" style="width: 100%!important;" >'+
                 '<div class="d-flex flex-nowrap mt-1 mb-1">'+
                 '<label style="font-family: Futura PT, sans-serif; font-size: 15px!important;margin-bottom: 0;flex-grow:1">'+res[random_key].name.toLowerCase()+'</label>'+
                 '<i class="bx bx-shopping-bag"></i>'+
@@ -260,13 +260,11 @@
             
             jQuery(document).ready(function ($) {
 
-                $("img.lazy").lazyload({ 
+                $("img.lazy").lazy({ 
 
-                    data_attribute: "original",
-                    effect : "fadeIn",
-                    // placeholder: "data:image/gif;base64,R0lGODlhEALAPQAPzl5uLr9Nrl8e7...",
-                    
-
+                    bind: "event",
+                    delay: 2000
+                
                 });
 
             });

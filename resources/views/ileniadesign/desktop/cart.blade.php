@@ -44,7 +44,7 @@
                     <button onclick="{{$_SESSION['id']!='' ? 'change_vis(\'summary\')' : 'change_vis(\'login\'); check_page_from_to_login()'}}" class="btn btn-primary text-left w-100" style="background-color:#CDB4B4!important">
                         <div class="d-flex flex-nowrap">
                             <p class="flex-grow-1 m-0">Checkout</p>
-                            <p class="m-0"><i class="bx bx-shopping-bag"></i></p>
+                            <p class="m-0"><img style="position: absolute;right: 15px;top: 50%;transform: translateY(-50%); width: 30px;" src="ileniadesign_repo/long-arrow.png"></p>
                         </div>
                     </button>
                 </div>

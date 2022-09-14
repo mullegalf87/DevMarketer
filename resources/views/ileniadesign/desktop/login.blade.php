@@ -32,7 +32,7 @@
                     @endif
                 </div>
                 <div class="col-md-12">
-                    <button type="submit" class="btn btn-primary text-left mt-3">LOGIN  </button>
+                    <button type="submit" class="btn btn-primary text-left mt-3">LOGIN  <img style="position: absolute;right: 15px;top: 50%;transform: translateY(-50%);width: 30px;" src="ileniadesign_repo/long-arrow.png"></button>
                 </div>
             </form>   
             <form id="register_account" class="w-100" style="position: absolute;left: 50%;top: 50%;transform: translate(-50%,-50%);display: none;" method="POST" action="{{ url('/register_ileniadesign/1') }}">
@@ -88,7 +88,7 @@
                     @endif
                 </div>
                 <div class="col-md-12">
-                    <button type="submit" class="btn btn-primary text-left mt-3">REGISTER  </button>
+                    <button type="submit" class="btn btn-primary text-left mt-3">REGISTER  <img style="position: absolute;right: 15px;top: 50%;transform: translateY(-50%);width: 30px;" src="ileniadesign_repo/long-arrow.png"></button>
                 </div>
             </form>
         </div>

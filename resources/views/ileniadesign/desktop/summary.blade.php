@@ -221,7 +221,7 @@
                             <button type="button" name="next" class="next action-button btn btn-primary text-left w-100 save_data_user" step="1" value="Next Step">
                                 <div class="d-flex flex-nowrap">
                                     <p class="flex-grow-1 m-0">SHIPPING DETAIL</p>
-                                    <p class="m-0"><i class="bx bx-shopping-bag"></i></p>
+                                    <p class="m-0"><img style="position: absolute;right: 15px;top: 50%;transform: translateY(-50%); width: 30px;" src="ileniadesign_repo/long-arrow.png"></p>
                                 </div>
                             </button>
                         </div>
@@ -250,14 +250,14 @@
                         <div class="d-flex flex-nowrap">
                             <button type="button" name="previous" class="previous action-button-previous btn btn-primary text-left w-100 mr-3" value="Previous Step">
                                 <div class="d-flex flex-nowrap">
-                                    <p class="flex-grow-1 m-0">PERSONAL DETAIL</p>
-                                    <p class="m-0"><i class="bx bx-shopping-bag"></i></p>
+                                    <p class="flex-grow-1 m-0"><img style="position: absolute;left: 15px;top: 50%;transform: translateY(-50%); width: 30px;" src="ileniadesign_repo/long-arrow-left.png"></p>
+                                    <p class="m-0">PERSONAL DETAIL</p>
                                 </div>
                             </button>
                             <button type="button" name="next" class="next action-button btn btn-primary text-left w-100 save_data_user" step="2" value="Next Step" style="background-color: #CDB4B4!important;">
                                 <div class="d-flex flex-nowrap">
                                     <p class="flex-grow-1 m-0">CODE DISCOUNT</p>
-                                    <p class="m-0"><i class="bx bx-shopping-bag"></i></p>
+                                    <p class="m-0"><img style="position: absolute;right: 15px;top: 50%;transform: translateY(-50%); width: 30px;" src="ileniadesign_repo/long-arrow.png"></p>
                                 </div>
                             </button>
                         </div>
@@ -271,14 +271,14 @@
                         <div class="d-flex flex-nowrap">
                             <button type="button" name="previous" class="previous action-button-previous btn btn-primary text-left w-100 mr-3" value="Previous Step">
                                 <div class="d-flex flex-nowrap">
-                                    <p class="flex-grow-1 m-0">SHIPPING DETAIL</p>
-                                    <p class="m-0"><i class="bx bx-shopping-bag"></i></p>
+                                    <p class="flex-grow-1 m-0"><img style="position: absolute;left: 15px;top: 50%;transform: translateY(-50%); width: 30px;" src="ileniadesign_repo/long-arrow-left.png"></p>
+                                    <p class="m-0">SHIPPING DETAIL</p>
                                 </div>
                             </button>
                             <button type="button" name="next" class="next action-button btn btn-primary text-left w-100 save_data_user" step="3" value="Next Step" style="background-color: #CDB4B4!important;" onclick="apply_discount_code()">
                                 <div class="d-flex flex-nowrap">
                                     <p class="flex-grow-1 m-0">DELIVERY METHOD</p>
-                                    <p class="m-0"><i class="bx bx-shopping-bag"></i></p>
+                                    <p class="m-0"><img style="position: absolute;right: 15px;top: 50%;transform: translateY(-50%); width: 30px;" src="ileniadesign_repo/long-arrow.png"></p>
                                 </div>
                             </button>
                         </div>
@@ -306,14 +306,14 @@
                         <div class="d-flex flex-nowrap">
                             <button type="button" name="previous" class="previous action-button-previous btn btn-primary text-left w-100 mr-3" value="Previous Step">
                                 <div class="d-flex flex-nowrap">
-                                    <p class="flex-grow-1 m-0">CODE DISCOUNT</p>
-                                    <p class="m-0"><i class="bx bx-shopping-bag"></i></p>
+                                    <p class="flex-grow-1 m-0"><img style="position: absolute;left: 15px;top: 50%;transform: translateY(-50%); width: 30px;" src="ileniadesign_repo/long-arrow-left.png"></p>
+                                    <p class="m-0">CODE DISCOUNT</p>
                                 </div>
                             </button>
                             <button type="button" name="next" class="next action-button btn btn-primary text-left w-100 save_data_user" step="4" value="Next Step" style="background-color: #CDB4B4!important;">
                                 <div class="d-flex flex-nowrap">
                                     <p class="flex-grow-1 m-0">MAKE PAYMENT</p>
-                                    <p class="m-0"><i class="bx bx-shopping-bag"></i></p>
+                                    <p class="m-0"><img style="position: absolute;right: 15px;top: 50%;transform: translateY(-50%); width: 30px;" src="ileniadesign_repo/long-arrow.png"></p>
                                 </div>
                             </button>
                         </div>
@@ -326,8 +326,8 @@
                         <div class="mkpay">
                             <button type="button" name="previous" class="previous action-button-previous btn btn-primary text-left w-100" value="Previous Step">
                                 <div class="d-flex flex-nowrap">
+                                    <p class="flex-grow-1 m-0"><img style="position: absolute;left: 15px;top: 50%;transform: translateY(-50%); width: 30px;" src="ileniadesign_repo/long-arrow-left.png"></p>
                                     <p class="flex-grow-1 m-0">DELIVERY METHOD</p>
-                                    <p class="m-0"><i class="bx bx-shopping-bag"></i></p>
                                 </div>
                             </button>
                         </div>

@@ -32,7 +32,7 @@
                 <textarea class="form-control" placeholder="Message" id="message_request" style="background: transparent; border-radius: 0; border-bottom: 1px solid;font-family: 'Futura PT', sans-serif;font-size: 15px!important;"></textarea>
             </div>
             <div class="col-md-12 mt-3 mb-3">
-                <button id="change_submit_button" onclick="send_request()" class="btn btn-primary text-left w-100">INVIA  </button>
+                <button id="change_submit_button" onclick="send_request()" class="btn btn-primary text-left w-100">INVIA  <img style="position: absolute;right: 15px;top: 50%;transform: translateY(-50%);width: 30px;" src="ileniadesign_repo/long-arrow.png"></button>
             </div>
         </div>
     </div>
