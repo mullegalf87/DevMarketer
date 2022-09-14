@@ -8,7 +8,7 @@
     <link rel='stylesheet' href='https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css'>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
     <!-- lazyload -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.lazyload/1.9.1/jquery.lazyload.js"></script>
+    <script type="text/javascript" src="/js/jquery.lazy.min.js"></script>
     <!-- drug and drop image -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.11.2/jquery-ui.min.js"></script>
     <!-- imagecompressor -->
@@ -515,8 +515,6 @@
     </div>
     <script>
         //MODIFICHE DESKTOP
-        //sistemare registrazione invio email da laravel
-        //sistemare problema lazy load delle immagini quando filtrate
         //provare a mettere le frecce nei bottoni
         //rilasciarlo 
         

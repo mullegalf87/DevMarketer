@@ -42,16 +42,16 @@
                                         <span
                                             style="display:inline-block; vertical-align:middle; margin:29px 0 26px; border-bottom:1px solid #cecece; width:100px;"></span>
                                         <p style="color:#455056; font-size:15px;line-height:24px; margin:0;">
-                                            Nickname: {{ $nickname }}; 
-                                        </p>
-                                        <p style="color:#455056; font-size:15px;line-height:24px; margin:0;">
                                             Password: {{ $password_decript }};
                                         </p>
                                         <p style="color:#455056; font-size:15px;line-height:24px; margin:0;">
                                             Email: {{ $email }};
                                         </p>
-                                        <a href="https://comiziamo.tk/bm?page=home"
-                                            style="background:#20e277;text-decoration:none !important; font-weight:500; margin-top:35px; color:#fff;text-transform:uppercase; font-size:14px;padding:10px 24px;display:inline-block;border-radius:50px;">{{ $return }}</a>
+                                        <p style="color:#455056; font-size:15px;line-height:24px; margin:0;">
+                                            {{ $token_user }}
+                                        </p>
+                                        <a href="https://ileniazitodesign.com/id?page=login"
+                                            style="background:#9f5f29;text-decoration:none !important; font-weight:500; margin-top:35px; color:#fff;text-transform:uppercase; font-size:14px;padding:10px 24px;display:inline-block;border-radius:50px;">{{ $return }}</a>
                                     </td>
                                 </tr>
                                 <tr>
@@ -64,8 +64,8 @@
                     </tr>
                     <tr>
                         <td style="text-align:center;">
-                          <a href="http://comiziamo.tk/bookmap">
-                            <p style="font-size:14px; color:rgba(69, 80, 86, 0.7411764705882353); line-height:18px; margin:0 0 0;">&copy; <strong>Comiziamo</strong></p></a>
+                          <a href="https://ileniazitodesign.com">
+                            <p style="font-size:14px; color:rgba(69, 80, 86, 0.7411764705882353); line-height:18px; margin:0 0 0;">&copy; <strong>Ileniazitodesign</strong></p></a>
                         </td>
                     </tr>
                     <tr>

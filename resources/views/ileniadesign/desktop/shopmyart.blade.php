@@ -4,6 +4,12 @@
         opacity: 1; /* Firefox */
         text-align: center;
     }
+    img.lazy {        
+        /* optional way, set loading as background */
+        background-image: url('https://serviziadm.adm.gov.it/otello-th-theme/images/loading.gif');
+        background-repeat: no-repeat;
+        background-position: 50% 50%;
+    }
 </style>
 <section class="container-fluid p-0" style="background-color: #dbd3d3;">
     <div class="d-flex flex-wrap">
@@ -138,15 +144,15 @@
                 '@if( auth()->guard("users_ileniadesign")->user()->id==13 )'+
                 '<div class="image-css" style="position: relative;display: inline-block;">'+
                 '<img class="close" style="position: absolute;top: 5px;left: 5px;width:150px; height:150px;" src="public/img/ilenia_design/default_img.png">'+
-                '<img onclick="change_vis(\'shopdetail_'+res[i].id+'\')" data-original="ileniadesign_repo/shopmyart/'+res[i].id+'/'+res[i].image_file.split(",")[0]+'" alt="'+res[i].name+'" class="lazy" style="width: 100%!important;" >'+
+                '<img onclick="change_vis(\'shopdetail_'+res[i].id+'\')" data-src="ileniadesign_repo/shopmyart/'+res[i].id+'/'+res[i].image_file.split(",")[0]+'" alt="'+res[i].name+'" class="lazy" style="width: 100%!important;" >'+
                 '<a class="close" style="position: absolute;top: 5px;right: 5px;" onclick="delete_image(\''+res[i].id+'\')">x</a>'+
                 '<i class="" aria-hidden="true"></i>'+
                 '</div>'+
                 '@else'+
-                '<img onclick="change_vis(\'shopdetail_'+res[i].id+'\')" data-original="ileniadesign_repo/shopmyart/'+res[i].id+'/'+res[i].image_file.split(",")[0]+'" alt="'+res[i].name+'" class="lazy" style="width: 100%!important;" >'+
+                '<img onclick="change_vis(\'shopdetail_'+res[i].id+'\')" data-src="ileniadesign_repo/shopmyart/'+res[i].id+'/'+res[i].image_file.split(",")[0]+'" alt="'+res[i].name+'" class="lazy" style="width: 100%!important;" >'+
                 '@endif'+
                 '@else'+
-                '<img onclick="change_vis(\'shopdetail_'+res[i].id+'\')" data-original="ileniadesign_repo/shopmyart/'+res[i].id+'/'+res[i].image_file.split(",")[0]+'" alt="'+res[i].name+'" class="lazy" style="width: 100%!important;" >'+
+                '<img onclick="change_vis(\'shopdetail_'+res[i].id+'\')" data-src="ileniadesign_repo/shopmyart/'+res[i].id+'/'+res[i].image_file.split(",")[0]+'" alt="'+res[i].name+'" class="lazy" style="width: 100%!important;" >'+
                 '@endif'+
                 '<div class="d-flex flex-nowrap mt-1 mb-1">'+
                 '<label style="font-family: Futura PT, sans-serif; font-size: 15px!important;margin-bottom: 0;flex-grow:1">'+res[i].name.toLowerCase()+'</label>'+
@@ -159,13 +165,11 @@
             
             jQuery(document).ready(function ($) {
 
-                $("img.lazy").lazyload({ 
+                $("img.lazy").lazy({ 
 
-                    data_attribute: "original",
-                    effect : "fadeIn",
-                    // placeholder: "data:image/gif;base64,R0lGODlhEALAPQAPzl5uLr9Nrl8e7...",
-                    
-
+                    bind: "event",
+                    delay: 2000
+                  
                 });
 
             });
