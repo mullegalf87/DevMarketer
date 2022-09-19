@@ -1,58 +1,47 @@
 <style>    
-    .card {
+    #login.card {
         width: 400px;
         border: none
     }
-    
-    .btr {
+    #login.btr {
         border-top-right-radius: 5px !important
     }
-    
-    .btl {
+    #login.btl {
         border-top-left-radius: 5px !important
     }
-    
-    .btn-dark {
+    #login.btn-dark {
         color: #fff;
         background-color: #0d6efd;
         border-color: #0d6efd
     }
-    
-    .btn-dark:hover {
+    #login.btn-dark:hover {
         color: #fff;
         background-color: #0d6efd;
         border-color: #0d6efd
     }
-    
-    .nav-pills {
+    #login.nav-pills {
         display: table !important;
         width: 100%
     }
-    
-    .nav-pills .nav-link {
+    #login.nav-pills .nav-link {
         border-radius: 0px;
         border-bottom: 1px solid #0d6efd40
     }
-    
-    .nav-item {
+    #login.nav-item {
         display: table-cell;
     }
-    
-    .form {
+    #login.form {
         padding: 10px;
         height: 300px
     }
-    
-    .form input {
+    #login.form input {
         margin-bottom: 12px;
         border-radius: 3px
     }
-    
-    .form input:focus {
+    #login.form input:focus {
         box-shadow: none
     }
-    
-    .form button {
+    #login.form button {
         margin-top: 20px
     }
 </style>
