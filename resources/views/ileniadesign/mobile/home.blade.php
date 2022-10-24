@@ -284,18 +284,11 @@
         <div class="container_page" style="flex: 1; position: absolute; right: 0; bottom: 0; left: 0;">
             <section class="container-fluid h-100" style="background-color: #dbd3d3;">
                 <div class="d-flex flex-nowrap h-100">
-                    <div class="col-md-4 h-100">
-                        <p class="" style="position: absolute; bottom:0; right: 0;margin-bottom: 7rem!important;width:30%;">Intersection of couture and ready to wear</p>
-                    </div>
-                    <div class="col-md-4 p-0">
+                    <div class="col-md-12 p-0">
                         <div class="" style="display: block;position: absolute; bottom:0;right: 0; left: 0;margin-bottom: 7rem!important;">
                             <div class="curved2">ILENIAZITODESIGN</div>
                             <img class="img-corner m-auto" src="ileniadesign_repo/1.jpeg">
                         </div>
-                    </div>
-                    <div class="centered_text_on_image">- Embrace your feminity</div>
-                    <div class="col-md-4 h-100">
-                        <p style="position: absolute; bottom:0; left: 0;margin-bottom: 7rem!important;width:30%;">Intersection of couture and ready to wear</p>
                     </div>
                 </div>
             </section>

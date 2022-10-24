@@ -25,6 +25,7 @@ use Cookie;
 use App\Modeltest\Users_test;
 use App\Modeltest\Query;
 
+
 class TestsController extends Controller
 {   
     //set random token
@@ -169,5 +170,54 @@ class TestsController extends Controller
         $iduser=$query->data_user();
         $result=$query->join_user_product_cart($iduser);
         return $result;
+    }
+
+    public function create_db(){
+        DB::statement("CREATE DATABASE newdb");
+    }
+
+    public function create_table(){
+        Schema::create('product', function (Blueprint $table) {
+            $table->increments('id');
+            $table->string('nameprod',255);
+            $table->double('priceprod');
+        });
+    }
+
+    public function create_data(){
+        $nameprod=Request::get("nameprod");
+        $priceprod=Request::get("priceprod");
+        $getid=DB::table("product")
+        ->insertGetId(array(
+            "nameprod"=>$nameprod,
+            "priceprod"=>$priceprod
+        ));
+        return $getid; //12
+        // return View::make('query')->with("result",json_encode($get_data_col));
+    }
+    
+    public function update_data(){
+        $priceprod=Request::get("priceprod");
+        $idprod=Request::get("idprod");
+        DB::table("product")
+        ->where("idprod","=",$idprod)
+        ->update(array(
+            "priceprod"=>$priceprod
+        ));
+        return "updated";
+    }
+
+    public function delete_data(){
+        $idprod=Request::get("idprod");
+        DB::table("product")
+        ->where("idprod","=",$idprod)
+        ->delete();
+        return "deleted";
+    }
+
+    public function get_data(){
+        $getres=DB::table("product")
+        ->get();
+        return View::make('query')->with("result",json_encode($getres));
     }
 }

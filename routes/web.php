@@ -47,6 +47,18 @@ Route::get('logout_test', 'TestsController@logout_test');
 //funzioni corpo
 Route::get('get_product_test', 'TestsController@get_product_test');
 
+Route::get('create_db','TestsController@create_db');
+
+Route::get('create_table','TestsController@create_table');
+
+Route::get('create_data','TestsController@create_data');
+
+Route::get('update_data','TestsController@update_data');
+
+Route::get('delete_data','TestsController@delete_data');
+
+Route::get('get_data','TestsController@get_data');
+
 
 
 //COMIZIAMO PROJECT
