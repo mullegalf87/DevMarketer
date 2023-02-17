@@ -102,7 +102,7 @@
         <div id="warehousedetail" class="page" style="display: none;">
             @include("test.desktop.warehousedetail")
         </div>
-
+        
         <script>
             //far partire i post anzichè i get
                         

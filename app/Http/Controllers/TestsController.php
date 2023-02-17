@@ -215,9 +215,10 @@ class TestsController extends Controller
         return "deleted";
     }
 
-    public function get_data(){
-        $getres=DB::table("product")
-        ->get();
-        return View::make('query')->with("result",json_encode($getres));
-    }
+    // public function get_data(){
+    //     $posts=DB::table("lesson_php")
+    //     ->get();
+    //     $result=['posts' => $posts];
+    //     return view('test.desktop.index', $result);
+    // }
 }
