@@ -1,28 +1,22 @@
 <style>
 
 </style>
-
 <div class="p-3">
     Home
 </div>
-<div class="container">
-    <table>
-        <thead>
-            <tr>
-                <th>Name</th>
-                <th>Lastname</th>
-            </tr>
-        </thead>
-        <tbody>
-            @php
-                $posts = $posts=DB::table("lesson_php")->get();
-            @endphp
-            @include('components.card', ['posts' => $posts])
-        </tbody>
-    </table>
-</div>
-
 <script>
+
+    get_product_test();
+    function get_product_test(){
+        $.get("get_product_test",{},
+        function(data){
+            var res=jQuery.parseJSON(data);
+            console.log(data)
+            for (let i = 0; i < res.length; i++) {
+                const element = res[i];                
+            }
+        });
+    }
 
     // async function First(){
     //     console.log('Firts Func started');
@@ -53,13 +47,5 @@
     //     });
     // }
     // First();
-
-    function get_data(){
-        $.get("get_data",{},
-            function(data){
-                var res=jQuery.parseJson(data);
-                console.log(res);
-        });
-    }
 
 </script>

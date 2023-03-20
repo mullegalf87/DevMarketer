@@ -1,20 +1,14 @@
 <style type="text/css">
   
 </style>
-<div id="cart_container" class="tab-content col-md-12" style="overflow: auto; flex: 1; position: absolute; right: 0; bottom: 0; left: 0; height: calc(100% - 78px)">  
-
-  <div class="py-5 text-center">
-    <h2>@lang('bookmap/lang.my_cart')</h2>
-    <p class="lead">@lang('bookmap/lang.desc_cart')</p>
-  </div>
-
-  <div class="row">
+<div id="cart_container" class="tab-content col-md-12" style="flex: 1; position: absolute; right: 0; bottom: 0; left: 0;">  
+  <div class="row h-100">
     <div class="col-md-12 order-md-2 mb-4">
       <h4 class="d-flex justify-content-between align-items-center mb-3">
         <span class="text-muted">@lang('bookmap/lang.my_prefers')</span>
         <span class="badge badge-secondary badge-pill"></span>
       </h4>
-      <ul id="list_prod_cart" class="list-group mb-3" style="height: 322px; overflow: overlay;">
+      <ul id="list_prod_cart" class="list-group mb-3" style="overflow: overlay;">
       </ul>
     </div>
   </div>

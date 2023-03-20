@@ -217,15 +217,6 @@
                 });
             }
 
-            get_product_test();
-            function get_product_test(){
-                $.get("get_product_test",{},
-                function(data){
-                    var res=jQuery.parseJSON(data);
-                    console.log(res);
-                });
-            }
-
         </script>
     </body>
 </html>

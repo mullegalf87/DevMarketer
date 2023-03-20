@@ -22,12 +22,15 @@ use Jenssegers\Agent\Agent;
 use Illuminate\Http\Response;
 use Cookie;
 // model
-use App\Modeltest\Users_test;
-use App\Modeltest\Query;
+use App\Models\Users_test;
+use App\Models\Query;
+use App\Models\Userprod;
+use App\Models\Product;
 
 
 class TestsController extends Controller
 {   
+   
     //set random token
     function random_token($db, $table, $column){
         $token;
@@ -166,59 +169,17 @@ class TestsController extends Controller
 
     //index
     public function get_product_test(){
-        $query = new Query;
-        $iduser=$query->data_user();
-        $result=$query->join_user_product_cart($iduser);
-        return $result;
+        // così mostra tutti gli utenti associati ai prodotti
+        $user = Userprod::with('products')->get();
+        return json_encode($user);
+        //così mostra solo gli utenti con l'id da me stabilito
+        // $userId=1;
+        // $user = Userprod::with(['products' => function ($query) {
+        //     $query->select('id', 'id_lesson', 'product');
+        // }])->findOrFail($userId);
+        // return View::make('query')->with("result",json_encode($user));
+        
     }
 
-    public function create_db(){
-        DB::statement("CREATE DATABASE newdb");
-    }
 
-    public function create_table(){
-        Schema::create('product', function (Blueprint $table) {
-            $table->increments('id');
-            $table->string('nameprod',255);
-            $table->double('priceprod');
-        });
-    }
-
-    public function create_data(){
-        $nameprod=Request::get("nameprod");
-        $priceprod=Request::get("priceprod");
-        $getid=DB::table("product")
-        ->insertGetId(array(
-            "nameprod"=>$nameprod,
-            "priceprod"=>$priceprod
-        ));
-        return $getid; //12
-        // return View::make('query')->with("result",json_encode($get_data_col));
-    }
-    
-    public function update_data(){
-        $priceprod=Request::get("priceprod");
-        $idprod=Request::get("idprod");
-        DB::table("product")
-        ->where("idprod","=",$idprod)
-        ->update(array(
-            "priceprod"=>$priceprod
-        ));
-        return "updated";
-    }
-
-    public function delete_data(){
-        $idprod=Request::get("idprod");
-        DB::table("product")
-        ->where("idprod","=",$idprod)
-        ->delete();
-        return "deleted";
-    }
-
-    // public function get_data(){
-    //     $posts=DB::table("lesson_php")
-    //     ->get();
-    //     $result=['posts' => $posts];
-    //     return view('test.desktop.index', $result);
-    // }
 }

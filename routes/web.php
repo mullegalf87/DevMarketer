@@ -61,6 +61,7 @@ Route::get('get_data','TestsController@get_data');
 
 
 
+
 //COMIZIAMO PROJECT
 Route::get('/comiziamo', function () {
   return redirect('/co?page=home');

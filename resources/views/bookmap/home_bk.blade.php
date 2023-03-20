@@ -834,55 +834,42 @@ cursor:pointer;
     border-radius:50%;
   }
 
-  #home .gm-style-iw-d{
-    overflow: hidden!important;
-  }
-
-  #home .gm-style-iw{
-    padding: 0!important;
-  }
-
-  #home .gm-ui-hover-effect{
-    z-index: 10000;
-  }
-
-  #topbar{
-    z-index: 1;
-  }
 </style>
 
 
 </head>
 <body>
 <div class="overlay"></div>
-<nav id="topbar" class="navbar navbar-expand-lg navbar-light bg-light">
-  <a class="navbar-brand" onclick="change_vis('home')" style="margin-right: 0;">
-    <img id="logo_loading" src="bookmap_repo/logo_2.png" width="30" height="30" class="rounded-circle align-bottom mr-1">
-  </a>
-  <button class="navbar-toggler pr-0" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-    <span class="navbar-toggler-icon"></span>
-  </button>
-  <div class="collapse navbar-collapse" id="navbarSupportedContent">
-    <ul class="navbar-nav">
-      <li class="nav-item dropdown">
-        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-          Bookmap
-        </a>
-        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-          <a class="dropdown-item" onclick="open_menu(1);">Menu</a>
-          <div class="dropdown-divider"></div>
-          <a class="dropdown-item" href="#">Something else here</a>
-        </div>
-      </li>
+<!-- navbar desktop -->
+<nav class="navbar navbar-expand-md navbar-light bg-light main-menu" style="box-shadow:none; height:78px; padding: 15px;">
+  <div class="container col-md-12" style="margin:0; padding:0;">
+    <a class="navbar-brand" onclick="change_vis('home')" style="margin-right: 0;">
+      <img id="logo_loading" src="bookmap_repo/logo_2.png" width="30" height="30" class="rounded-circle align-bottom mr-1">
+      Bookmap
+    </a>
+    <!-- <div class="lds-hourglass" style="display: none;"></div> -->
+    <ul class="navbar-nav ml-auto d-block d-md-none">
+     @if( auth()->guard('users_bookmap')->check() )
+     <li class="nav-item">
+      <a onclick="change_vis('cart');" style="padding-right: 0" class="btn btn-link"><i class="bx bx-heart icon-single" style="color: blue;"></i> <span class="badge badge-danger badge_cart">0</span>
+        <a style="padding-right: 0" class="btn btn-link" onclick="open_menu(1);"><i class="bx bx-menu icon-single" style="color: blue;"></i></a>
+      </a>
+    </li>
+    @else
+    <li class="nav-item" onclick="open_menu(1);">
+      <a style="padding-right: 0" class="btn btn-link"><i class="bx bx-heart icon-single" style="color: blue;"></i> <span class="badge badge-danger badge_cart">0</span>
+        <a style="padding-right: 0" class="btn btn-link"><i class="bx bx-menu icon-single" style="color: blue;"></i></a>
+      </a>
+    </li>
+    @endif
     </ul>
-    <form class="form-inline my-2 my-lg-0 m-auto">
-      <div class="input-group">
-        <input type="search" class="form-control search_main_1" placeholder="Cerca...">
-        <div class="input-group-append">
-          <button type="button" class="btn btn-outline-secondary dropdown-toggle dropdown-toggle-split border-right-0" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="border-radius: 0;">
-            <span class="sr-only">Toggle Dropdown</span>
+    <div class="collapse navbar-collapse">
+      
+      <div id="search_geo_prod" class="form-inline my-2 my-lg-0 mx-auto d-none">
+        <div class="dropdown">
+          <button class="btn btn-primary my-2 my-sm-0" type="button" style="border-top-right-radius: 0;border-bottom-right-radius: 0; border-top-left-radius: 5px; border-bottom-left-radius: 5px;" id="dropdownCategoryButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="bx bxs-categories"></i>
           </button>
-          <div class="dropdown-menu dropdown_cat w-100" aria-labelledby="dropdownCategoryButton">
+          <div class="dropdown-menu dropdown_cat" aria-labelledby="dropdownCategoryButton">
             <div style="height: 300px; overflow: auto">
               <div class="dropdown-item" >
                 <div class="form-check" style="justify-content: left">
@@ -1016,25 +1003,341 @@ cursor:pointer;
               <div class="dropdown-item">
                 <div class="form-check" style="justify-content: left">
                   <input class="checkbox_price" type="checkbox" >
-                  <label >500-999999</label>
+                  <label >500-10000</label>
                 </div>
               </div>
             </div>
           </div>
-          <button type="button" class="btn btn-outline-secondary search_button_1 disabled_button_search">Cerca</button>
         </div>
+        <input  class="form-control search_main_1 search_field" type="search" placeholder="@lang('bookmap/lang.search_products')..." aria-label="Search"  style="border-top-left-radius: 0; border-bottom-left-radius: 0;">
+        <button class="btn btn-primary my-2 my-sm-0 search_button_1 disabled_button_search"><i class="bx bx-search"></i></button>
       </div>
-    </form>
-    <ul class="navbar-nav">
-      <li class="nav-item">
-        <a onclick="change_vis('cart');" class="btn btn-link">
-          <i class="bx bx-heart icon-single" style="color: blue;"></i>
-          <span class="badge badge-danger badge_cart">0</span>
-        </a>
-      </li>
-    </ul>
+
+      <div id="search_my_prod" class="form-inline my-2 my-lg-0 mx-auto d-none">
+      <div class="dropdown">
+          <button class="btn btn-primary my-2 my-sm-0" type="button" style="border-top-right-radius: 0;border-bottom-right-radius: 0; border-top-left-radius: 5px; border-bottom-left-radius: 5px;" id="dropdownCategoryButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="bx bxs-categories"></i>
+          </button>
+          <div class="dropdown-menu dropdown_cat" aria-labelledby="dropdownCategoryButton">
+            <div style="height: 300px; overflow: auto">
+              <div class="dropdown-item" >
+                <div class="form-check" style="justify-content: left">
+                  <label><strong>@lang('bookmap/lang.categories')</strong></label>
+                </div>
+              </div>
+              <div class="dropdown-item">
+                <div class="form-check" style="justify-content: left">
+                  <input class="checkbox_cat" type="checkbox" value="1">
+                  <label >@lang('bookmap/lang.book')</label>
+                </div>
+              </div>
+              <div class="dropdown-item">
+                <div class="form-check" style="justify-content: left">
+                  <input class="checkbox_cat" type="checkbox" value="2">
+                  <label >@lang('bookmap/lang.vehicles')</label>
+                </div>
+              </div>
+              <div class="dropdown-item">
+                <div class="form-check" style="justify-content: left">
+                  <input class="checkbox_cat" type="checkbox" value="3">
+                  <label >@lang('bookmap/lang.technology')</label>
+                </div>
+              </div>
+              <div class="dropdown-item">
+                <div class="form-check" style="justify-content: left">
+                  <input class="checkbox_cat" type="checkbox" value="4">
+                  <label >@lang('bookmap/lang.clothing')</label>
+                </div>
+              </div>
+              <div class="dropdown-item">
+                <div class="form-check" style="justify-content: left">
+                  <input class="checkbox_cat" type="checkbox" value="5">
+                  <label >@lang('bookmap/lang.medicines')</label>
+                </div>
+              </div>
+              <div class="dropdown-item">
+                <div class="form-check" style="justify-content: left">
+                  <input class="checkbox_cat" type="checkbox" value="6">
+                  <label >Sport</label>
+                </div>
+              </div>
+              <div class="dropdown-item">
+                <div class="form-check" style="justify-content: left">
+                  <input class="checkbox_cat" type="checkbox" value="7">
+                  <label >@lang('bookmap/lang.properties')</label>
+                </div>
+              </div>
+              <div class="dropdown-item">
+                <div class="form-check" style="justify-content: left">
+                  <input class="checkbox_cat" type="checkbox" value="8">
+                  <label >@lang('bookmap/lang.food_and_drink')</label>
+                </div>
+              </div>
+              <div class="dropdown-item">
+                <div class="form-check" style="justify-content: left">
+                  <input class="checkbox_cat" type="checkbox" value="9">
+                  <label >@lang('bookmap/lang.multimedia')</label>
+                </div>
+              </div>
+              <div class="dropdown-item">
+                <div class="form-check" style="justify-content: left">
+                  <input class="checkbox_cat" type="checkbox" value="9">
+                  <label >@lang('bookmap/lang.other')</label>
+                </div>
+              </div>
+              <div class="dropdown-item">
+                <div class="form-check" style="justify-content: left">
+                  <label><strong>Km</strong></label>
+                </div>
+              </div>
+              <div class="dropdown-item">
+                <div class="form-check" style="justify-content: left">
+                  <input class="checkbox_km" type="checkbox" >
+                  <label >1</label>
+                </div>
+              </div>
+              <div class="dropdown-item">
+                <div class="form-check" style="justify-content: left">
+                  <input class="checkbox_km" type="checkbox" >
+                  <label >5</label>
+                </div>
+              </div>
+              <div class="dropdown-item">
+                <div class="form-check" style="justify-content: left">
+                  <input class="checkbox_km" type="checkbox" >
+                  <label >10</label>
+                </div>
+              </div>
+              <div class="dropdown-item">
+                <div class="form-check" style="justify-content: left">
+                  <input class="checkbox_km" type="checkbox" >
+                  <label >20</label>
+                </div>
+              </div>
+              <div class="dropdown-item">
+                <div class="form-check" style="justify-content: left">
+                  <label><strong>@lang('bookmap/lang.price')</strong></label>
+                </div>
+              </div>
+              <div class="dropdown-item">
+                <div class="form-check" style="justify-content: left">
+                  <input class="checkbox_price" type="checkbox" >
+                  <label >0-20</label>
+                </div>
+              </div>
+              <div class="dropdown-item">
+                <div class="form-check" style="justify-content: left">
+                  <input class="checkbox_price" type="checkbox" >
+                  <label >20-50</label>
+                </div>
+              </div>
+              <div class="dropdown-item">
+                <div class="form-check" style="justify-content: left">
+                  <input class="checkbox_price" type="checkbox" >
+                  <label >50-100</label>
+                </div>
+              </div>
+              <div class="dropdown-item">
+                <div class="form-check" style="justify-content: left">
+                  <input class="checkbox_price" type="checkbox" >
+                  <label >100-200</label>
+                </div>
+              </div>
+              <div class="dropdown-item">
+                <div class="form-check" style="justify-content: left">
+                  <input class="checkbox_price" type="checkbox" >
+                  <label >200-500</label>
+                </div>
+              </div>
+              <div class="dropdown-item">
+                <div class="form-check" style="justify-content: left">
+                  <input class="checkbox_price" type="checkbox" >
+                  <label >500-10000</label>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <input  class="form-control" type="search" placeholder="@lang('bookmap/lang.search_products')..." aria-label="Search"  style="border-top-left-radius: 0; border-bottom-left-radius: 0;">
+        <button class="btn btn-primary my-2 my-sm-0"><i class="bx bx-search"></i></button>
+      </div>
+
+      <ul class="navbar-nav">
+        @if( auth()->guard('users_bookmap')->check() )
+        <li class="nav-item" onclick="change_vis('cart')">
+          <a class="btn btn-link"><i class="bx bx-heart icon-single" style="color: blue;"></i> <span class="badge badge-danger badge_cart">0</span></a>
+        </li>
+        @else
+        <li class="nav-item" onclick="open_menu(1)">
+          <a class="btn btn-link"><i class="bx bx-heart icon-single" style="color: blue;"></i> <span class="badge badge-danger badge_cart">0</span></a>
+        </li>
+        @endif
+        <li class="nav-item">
+          <button type="button" class="btn btn-link d-block" onclick="open_menu(1);" style="padding-right: 0">
+            <i class="bx bx-menu icon-single"></i>
+          </button>
+        </li>
+      </ul>
+    </div>
   </div>
 </nav>
+<!-- navbar mobile-->
+<div id="navbar_searh_mobile_home" class="search-bar d-md-none">
+  <div class="container">
+    <div class="row">
+      <div class="col-12">
+        <div class="form-inline mb-3 mx-auto" style="flex-flow: nowrap;">
+          <div class="dropdown">
+            <button class="btn btn-primary" type="button" style="border-top-right-radius: 0;border-bottom-right-radius: 0; border-top-left-radius: 5px; border-bottom-left-radius: 5px;" id="dropdownCategoryButton2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="bx bxs-categories"></i>
+            </button>
+            <div class="dropdown-menu dropdown_cat" aria-labelledby="dropdownCategoryButton2">
+              <div style="height: 300px; overflow: auto">
+              <div class="dropdown-item">
+                <div class="form-check" style="justify-content: left">
+                  <label><strong>@lang('bookmap/lang.categories')</strong></label>
+                </div>
+              </div>
+              <div class="dropdown-item">
+              <div class="form-check" style="justify-content: left">
+                <input class="checkbox_cat" type="checkbox" value="1">
+                <label >@lang('bookmap/lang.book')</label>
+              </div>
+            </div>
+              <div class="dropdown-item">
+                <div class="form-check" style="justify-content: left">
+                  <input class="checkbox_cat" type="checkbox" value="2">
+                  <label >@lang('bookmap/lang.vehicles')</label>
+                </div>
+              </div>
+              <div class="dropdown-item">
+                <div class="form-check" style="justify-content: left">
+                  <input class="checkbox_cat" type="checkbox" value="3">
+                  <label >@lang('bookmap/lang.technology')</label>
+                </div>
+              </div>
+              <div class="dropdown-item">
+                <div class="form-check" style="justify-content: left">
+                  <input class="checkbox_cat" type="checkbox" value="4">
+                  <label >@lang('bookmap/lang.clothing')</label>
+                </div>
+              </div>
+              <div class="dropdown-item">
+                <div class="form-check" style="justify-content: left">
+                  <input class="checkbox_cat" type="checkbox" value="5">
+                  <label >@lang('bookmap/lang.medicines')</label>
+                </div>
+              </div>
+              <div class="dropdown-item">
+                <div class="form-check" style="justify-content: left">
+                  <input class="checkbox_cat" type="checkbox" value="6">
+                  <label >Sport</label>
+                </div>
+              </div>
+              <div class="dropdown-item">
+                <div class="form-check" style="justify-content: left">
+                  <input class="checkbox_cat" type="checkbox" value="7">
+                  <label >@lang('bookmap/lang.properties')</label>
+                </div>
+              </div>
+              <div class="dropdown-item">
+                <div class="form-check" style="justify-content: left">
+                  <input class="checkbox_cat" type="checkbox" value="8">
+                  <label >@lang('bookmap/lang.food_and_drink')</label>
+                </div>
+              </div>
+              <div class="dropdown-item">
+                <div class="form-check" style="justify-content: left">
+                  <input class="checkbox_cat" type="checkbox" value="9">
+                  <label >@lang('bookmap/lang.multimedia')</label>
+                </div>
+              </div>
+              <div class="dropdown-item">
+                <div class="form-check" style="justify-content: left">
+                  <input class="checkbox_cat" type="checkbox" value="9">
+                  <label >@lang('bookmap/lang.other')</label>
+                </div>
+              </div>
+              <div class="dropdown-item">
+                <div class="form-check" style="justify-content: left">
+                  <label><strong>Km</strong></label>
+                </div>
+              </div>
+              <div class="dropdown-item">
+                <div class="form-check" style="justify-content: left">
+                  <input class="checkbox_km" type="checkbox" >
+                  <label >1</label>
+                </div>
+              </div>
+              <div class="dropdown-item">
+                <div class="form-check" style="justify-content: left">
+                  <input class="checkbox_km" type="checkbox" >
+                  <label >5</label>
+                </div>
+              </div>
+              <div class="dropdown-item">
+                <div class="form-check" style="justify-content: left">
+                  <input class="checkbox_km" type="checkbox" >
+                  <label >10</label>
+                </div>
+              </div>
+              <div class="dropdown-item">
+                <div class="form-check" style="justify-content: left">
+                  <input class="checkbox_km" type="checkbox" >
+                  <label >20</label>
+                </div>
+              </div>
+
+              <div class="dropdown-item">
+              <div class="form-check" style="justify-content: left">
+                <label><strong>@lang('bookmap/lang.price')</strong></label>
+              </div>
+            </div>
+            <div class="dropdown-item">
+              <div class="form-check" style="justify-content: left">
+                <input class="checkbox_price" type="checkbox" >
+                <label >0-20</label>
+              </div>
+            </div>
+            <div class="dropdown-item">
+              <div class="form-check" style="justify-content: left">
+                <input class="checkbox_price" type="checkbox" >
+                <label >20-50</label>
+              </div>
+            </div>
+            <div class="dropdown-item">
+              <div class="form-check" style="justify-content: left">
+                <input class="checkbox_price" type="checkbox" >
+                <label >50-100</label>
+              </div>
+            </div>
+            <div class="dropdown-item">
+              <div class="form-check" style="justify-content: left">
+                <input class="checkbox_price" type="checkbox" >
+                <label >100-200</label>
+              </div>
+            </div>
+            <div class="dropdown-item">
+              <div class="form-check" style="justify-content: left">
+                <input class="checkbox_price" type="checkbox" >
+                <label >200-500</label>
+              </div>
+            </div>
+            <div class="dropdown-item">
+              <div class="form-check" style="justify-content: left">
+                <input class="checkbox_price" type="checkbox" >
+                <label >500-10000</label>
+              </div>
+            </div>
+            </div>
+            </div>
+          </div>
+          <input class="form-control search_main_2 search_field" type="search" placeholder="Search for products..." aria-label="Search" style="border-top-left-radius: 0; border-bottom-left-radius: 0;">
+          <button class="btn btn-primary search_button_2 disabled_button_search"><i class="bx bx-search"></i>
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
 <nav id="sidebar" style="padding: 0;overflow: hidden;">
   <div class="sidebar-header" style="padding: 15px; ">
     <div class="container">
@@ -1072,6 +1375,9 @@ cursor:pointer;
     <li class="nav-item">
       <a onclick="open_menu(6)"><i class="bx bx-mail-send mr-3"></i> @lang('bookmap/lang.contact_us')</a>
     </li>
+    <!-- <li class="nav-item addtohomescreen" style="display: none;">
+      <a onclick="addToHomescreen()"><i class="bx bx-star mr-3"></i> @lang('bookmap/lang.add_to_home')</a>
+    </li> -->
     @if( auth()->guard('users_bookmap')->check() )
     <li class="nav-item">
       <a onclick="change_vis('home')"><i class="bx bx-home mr-3"></i> Home</a>
@@ -1088,6 +1394,9 @@ cursor:pointer;
     <li class="nav-item">
       <a onclick="open_menu(4)"><i class="bx bx-list-ul mr-3"></i> @lang('bookmap/lang.profile')</a>
     </li>
+    <!-- <li class="nav-item">
+      <a onclick="open_menu(6)"><i class="bx bx-mail-send mr-3"></i> @lang('bookmap/lang.contact_us')</a>
+    </li> -->
     <li class="nav-item">
       <a href="/logout_bookmap"><i class="bx bx-log-out mr-3"></i> Logout</a>
     </li>
@@ -1113,6 +1422,7 @@ cursor:pointer;
     </li>
     @endif
   </ul>
+
   <!-- sidebar whois -->
   <div id="form_whois_user" class="tab-content col-md-12" style="flex: 1 1 0%; height: calc(100% - 73.31px);  overflow-x: hidden; position: relative; padding: 15px; display: none"> 
     <div style="padding: 10px; text-align: center;">
@@ -1122,15 +1432,19 @@ cursor:pointer;
         <label style="text-align: justify;">@lang('bookmap/lang.content_whois')</label>
     </div>
   </div> 
+
   <!-- sidebar add product form -->
   <div id="form_add_prod" class="tab-content col-md-12" style="flex: 1 1 0%; height: calc(100% - 73.31px);  overflow-x: hidden; position: relative; padding: 15px; display: none"> 
+
       <div style="padding: 10px; text-align: center;">
         <h4 id="name_form_prod">@lang('bookmap/lang.add_prod')</h4>
       </div>
+
       <div class="form-group">
         <label>@lang('bookmap/lang.name_prod')</label>
         <input type="text" name="prod_name" id="prod_name" class="form-control form-creation-product" placeholder="@lang('bookmap/lang.name_prod')" required>
       </div>
+
       <div class="form-group">
         <label>@lang('bookmap/lang.categories')</label>
         <select class="form-control form-creation-product" name="prod_cat" id="prod_cat">
@@ -1147,20 +1461,40 @@ cursor:pointer;
           <option value="9">@lang('bookmap/lang.other')</option>
         </select>
       </div>
+
       <div class="form-group">
         <label>@lang('bookmap/lang.desc_prod')</label>
         <textarea id="prod_desc" class="form-control form-creation-product" placeholder="@lang('bookmap/lang.desc_prod')" required></textarea>
       </div>
+
+      <!-- <div class="form-group">
+        <label>@lang('bookmap/lang.ean_prod')</label>
+        <input type="text" name="prod_ean" id="prod_ean" class="form-control" placeholder="@lang('bookmap/lang.ean_prod')" required>
+      </div> -->
+
+      <!-- <div class="form-group" style="display: flex; flex-wrap: nowrap;">
+        <div style="padding-right: 2px; flex-grow: 1">
+          <label>@lang('bookmap/lang.qnt_prod')</label>
+          <input type="text" name="prod_giac" id="prod_giac"  class="form-control form-creation-product" placeholder="@lang('bookmap/lang.qnt_prod')" required>
+        </div>
+        <div style="padding-left: 2px; flex-grow: 1">
+          <label>@lang('bookmap/lang.price_prod')</label>
+          <input type="text" name="prod_price" id="prod_price"  class="form-control form-creation-product" placeholder="@lang('bookmap/lang.price_prod')" required>
+        </div>
+      </div> -->
+
       <div class="form-group">
         <div>
           <label>@lang('bookmap/lang.price_prod')</label>
           <input type="text" name="prod_price" id="prod_price"  class="form-control form-creation-product" placeholder="@lang('bookmap/lang.price_prod')" required>
         </div>
       </div>
+
       <div class="form-group">
         <label>@lang('bookmap/lang.place_prod')</label>
         <input type="text" name="prod_place" onclick='initAutocomplete()' id="prod_place" class="form-control form-creation-product" placeholder="@lang('bookmap/lang.place_prod')" required>
       </div>
+
       <div class="form-group">
         <label>@lang('bookmap/lang.choose_file_prod')</label>
         <div class="custom-file" style="margin-bottom: .5rem;">
@@ -1171,15 +1505,20 @@ cursor:pointer;
           <div class="gallery"></div>
         </div>
       </div>
+
       <div>
         <button id="name_submit_prod" type="submit" class="btn btn-primary" style="width: 100%">@lang('bookmap/lang.add')</button>
       </div>
+
   </div>  
+
   <!-- sidebar user profile form -->
   <div id="form_setting_user" class="tab-content col-md-12" style="flex: 1 1 0%; height: calc(100% - 73.31px);  overflow-x: hidden; position: relative; padding: 15px; display: none"> 
+
     <div style="padding: 10px; text-align: center;">
       <h4 id="name_form_prod">@lang('bookmap/lang.choose_file_prod')</h4>
     </div>
+
     @if( auth()->guard('users_bookmap')->check() )
     <input type="file" name="image-file" id="imgupload" onchange="previewFile()" style="opacity: 0;display: none">
     <div class="d-flex flex-column align-items-center text-center">
@@ -1191,14 +1530,17 @@ cursor:pointer;
         @endif
       </div>
     </div>
+
     <div class="form-group">
       <label>Username</label>
       <input type="text" name="username" id="username" class="form-control form-creation-product" placeholder="Username" value="{{ auth()->guard('users_bookmap')->user()->username }}">
     </div>
     @endif
+
     <div>
       <button  type="submit" class="btn btn-primary mb-3" onclick="save_data_user()" style="width: 100%">@lang('bookmap/lang.save')</button>
     </div>
+
     <label>@lang('bookmap/lang.select_sub')</label>
     <div class="subscription-container mb-3 mt-3">
       <input type="radio" name="radio" id="option1" value="0" sum="0">
@@ -1207,12 +1549,14 @@ cursor:pointer;
         <h3 class="subscription__main-feature">0-5 @lang('bookmap/lang.products')</h3>
         <span class="subscription__price">Free/gratis</span>
       </label>
+
       <input type="radio" name="radio" id="option2" value="1" sum="4.99">
       <label for="option2" class="subscription__button">
         <h3 class="subscription__title">premium</h3>
         <h3 class="subscription__main-feature">6-50 @lang('bookmap/lang.products')</h3>
         <span class="subscription__price">4,99 €/@lang('bookmap/lang.month')</span>
       </label>
+
       <input type="radio" name="radio" id="option3" value="2" sum="9.99">
       <label for="option3" class="subscription__button">
         <h3 class="subscription__title">deluxe</h3>
@@ -1220,6 +1564,7 @@ cursor:pointer;
         <span class="subscription__price">9,99 €/@lang('bookmap/lang.month')</span>
       </label>
     </div>
+
     <div>
       <div class="form-group">
         <label>@lang('bookmap/lang.discount_code')</label>
@@ -1228,20 +1573,27 @@ cursor:pointer;
       </div>
       <div id='paypal-button' class="w-100"></div>
     </div>
+
   </div> 
+
   <!-- sidebar contact seller form -->
   <div id="form_contact_seller" class="tab-content col-md-12" style="flex: 1 1 0%; height: calc(100% - 73.31px);  overflow-x: hidden; position: relative; padding: 15px; display: none"> 
+
     <div style="padding: 10px; text-align: center;">
       <h4 id="name_form_contact"></h4>
     </div>
+
     <div class="form-group">
       <label>@lang('bookmap/lang.message')</label>
       <textarea name="chat_message" id="chatSend" class="form-control form-creation-product" placeholder="@lang('bookmap/lang.write_seller')..." required></textarea> 
       <button class="btn btn-primary mt-3 w-100" id="fab_send">@lang('bookmap/lang.send')</button>
     </div> 
+
   </div>  
+
   <!-- sidebar contact us -->
   <div id="form_contact_us" class="tab-content col-md-12" style="flex: 1 1 0%; height: calc(100% - 73.31px);  overflow-x: hidden; position: relative; padding: 15px; display: none"> 
+
     <div style="padding: 10px; text-align: center;">
       <h4>@lang('bookmap/lang.contact_us')</h4>
     </div>
@@ -1260,7 +1612,9 @@ cursor:pointer;
         <button type="submit" class="btn btn-primary mt-3 w-100">@lang('bookmap/lang.send')</button>
       </div>
     </form> 
+
   </div> 
+
   @if( auth()->guard('users_bookmap')->check() )
   @if( auth()->guard('users_bookmap')->user()->id ==28 )
   <!-- sidebar register user -->
@@ -1452,15 +1806,13 @@ cursor:pointer;
 
 <script>
 //DARIO
-//1)sistemare chat funzionante al 100% con messaggi per le notifiche nella navbar, senza socket
-//2)mettere il search tra i miei prodotti, cercare per stringa e categorie come filtro, togli tutto il resto delle categorie
-//3)mettere il search tra i miei preferiti cercare per stringa e categorie come filtro, togli tutto il resto delle categorie
-//4)ricontrollare sistema degli abbonamenti
-//5)sistemare sezione giacenze
-//6)sistema di importazione file per i prodotti
-//7)sistemare session lingua
-//8)creare api per sincronizzazione giacenze
-
+//mettere il search tra i miei prodotti, cercare per stringa e categorie come filtro, togli tutto il resto delle categorie
+//testare con tantissimi prodotti
+//ricontrollare sistema degli abbonamenti
+//sistemare session lingua
+//sistemare sezione giacenze
+//creare api per sincronizzazione giacenze
+//sistema di importazione file per i prodotti
 
 //POST RILASCIO
 //1)sistema di pagamento con api singole del venditore, forse meglio stripe
@@ -1946,14 +2298,14 @@ function search_main(pc_or_mobile){
 
       content_info_window+=  
       '<div id="carouselExampleControls" class="carousel slide" data-ride="carousel">'+
-      '<div class="carousel-inner" style="width: 200px!important;">';
+      '<div class="carousel-inner">';
 
       if (this.product_image=="") {
 
         content_info_window+=
-        '<div class="carousel-item active" style="height:200px!important;width: 200px!important">'+
+        '<div class="carousel-item active" style="height:200px;">'+
 
-        '<img src="bookmap_repo/default_img.png?refresh=<?php echo rand(1,999); ?>" class="card-img img-fluid" alt="" style="width: 200px; height: 200px!important; object-fit: contain!important;">'+
+        '<img src="bookmap_repo/default_img.png?refresh=<?php echo rand(1,999); ?>" class="card-img img-fluid" alt="" style="width: 200px; height: 100% !important; object-fit: cover;">'+
   
         '</div>';
 
@@ -1970,9 +2322,9 @@ function search_main(pc_or_mobile){
           }
 
           content_info_window+=
-          '<div class="carousel-item '+active+'" style="height:200px;width: 200px!important">'+
+          '<div class="carousel-item '+active+'" style="height:200px;">'+
       
-          '<img src="bookmap_repo/img_user/'+this.product_seller+'/'+this.product_id+'/'+this.product_image.split(",")[i-1]+'?refresh=<?php echo rand(1,999); ?>" class="card-img img-fluid" alt="" style="width: 200px; height: 200px!important; object-fit: contain;">'+
+          '<img src="bookmap_repo/img_user/'+this.product_seller+'/'+this.product_id+'/'+this.product_image.split(",")[i-1]+'?refresh=<?php echo rand(1,999); ?>" class="card-img img-fluid" alt="" style="width: 200px; height: 100% !important; object-fit: cover;">'+
    
           '</div>';
 
@@ -2205,14 +2557,14 @@ function show_result_page(type){
 
       content_info_window+=  
       '<div id="carouselExampleControls" class="carousel slide" data-ride="carousel">'+
-      '<div class="carousel-inner" style="width: 200px!important;">';
+      '<div class="carousel-inner">';
 
       if (this.product_image=="") {
 
         content_info_window+=
         '<div class="carousel-item active" style="height:200px;">'+
 
-        '<img src="bookmap_repo/default_img.png?refresh=<?php echo rand(1,999); ?>" class="card-img img-fluid" alt="" style="width: 200px; height: 100% !important; object-fit: contain!important;">'+
+        '<img src="bookmap_repo/default_img.png?refresh=<?php echo rand(1,999); ?>" class="card-img img-fluid" alt="" style="width: 200px; height: 100% !important; object-fit: cover;">'+
   
         '</div>';
 
@@ -2231,7 +2583,7 @@ function show_result_page(type){
           content_info_window+=
           '<div class="carousel-item '+active+'" style="height:200px;">'+
       
-          '<img src="bookmap_repo/img_user/'+this.product_seller+'/'+this.product_id+'/'+this.product_image.split(",")[i-1]+'?refresh=<?php echo rand(1,999); ?>" class="card-img img-fluid" alt="" style="width: 200px; height: 100% !important; object-fit: contain;">'+
+          '<img src="bookmap_repo/img_user/'+this.product_seller+'/'+this.product_id+'/'+this.product_image.split(",")[i-1]+'?refresh=<?php echo rand(1,999); ?>" class="card-img img-fluid" alt="" style="width: 200px;; height: 100% !important; object-fit: cover;">'+
    
           '</div>';
 
@@ -2303,19 +2655,23 @@ function remove_circle(){
 }
 
 //detect mobile device
-function detect_device(page){
-  var height=$("#topbar").outerHeight()+"px";
+function detect_device(){
+
     if(window.matchMedia("(max-width: 767px)").matches){
-        // alert("This is a cell.");
-        $("#map").css("height", "calc(100% - "+height+")");   
-        $("#"+page+"_container").css("height", "calc(100% - "+height+")");   
+        // The viewport is less than 768 pixels wide
+        $("#map").css("height", "calc(100% - 136px)");
+        // $(".lds-hourglass").css("left", "143.97px");
+        //$('.addtohomescreen').show();
+
+         
     } else{
         // alert("This is a tablet or desktop.");
-        $("#map").css("height", "calc(100% - "+height+")");
-        $("#"+page+"_container").css("height", "calc(100% - "+height+")");   
+        $("#map").css("height", "calc(100% - 78px)");
         $("#sidebar").css("width","35%");
+        // $(".lds-hourglass").css("left", "105.97px"); 
     }  
 };
+
 
   //cambia pagina
   var myhistory = [];
@@ -2338,7 +2694,7 @@ function detect_device(page){
 
     button_back(page);
 
-    detect_device(page);
+    detect_device();
 
     //lato mobile chiude il sidebar
     $("#sidebar").removeClass("active");

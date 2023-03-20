@@ -17,7 +17,7 @@ return [
     //page=home
     'whois'=>'Chi siamo',
     'content_whois'=>'
-    Bookmap nasce nasce con l’obiettivo di rivoluzionare il mondo degli acquisti, ridando forza e vigore all’emergenza dell’esigenza, un sistema semplice ed efficace che rimette in ordine di priorità l’acquisto rapido e diretto a scapito di quell’euro risparmiato acquistando on-line.
+    Bookmap nasce con l’obiettivo di rivoluzionare il mondo degli acquisti, ridando forza e vigore all’emergenza dell’esigenza, un sistema semplice ed efficace che rimette in ordine di priorità l’acquisto rapido e diretto a scapito di quell’euro risparmiato acquistando on-line.
     Un geolocalizzatore che consente a chiunque di comprare e vendere senza costi nelle proprie vicinanze.',
 
     'active_gps'=>'Abilita la geolocalizzazione!',

@@ -235,11 +235,18 @@
     padding: 15px;
 }
 
+#products img{
+  border-style: inset;
+  z-index: 99;
+  width: 250px;
+  height: 250px!important;
+  object-fit: cover;
+}
 
 </style>
 
-<div id="product_container" class="tab-content col-md-12 p-0" style="overflow: auto; flex: 1; height: calc(100% - 78px); position: absolute; right: 0; bottom: 0; left: 0;">  
-  <div class="p-3" id="append_product_user" style="display: grid; grid-template-columns: 1fr 1fr;">
+<div id="products_container" class="tab-content col-md-12 p-0" style="overflow: auto; flex: 1; position: absolute; right: 0; bottom: 0; left: 0;">  
+  <div class="row col-md-12 m-0 p-0" id="append_product_user" style="">
   </div>
 </div>
 
@@ -338,16 +345,16 @@ function get_product_user(){
       }
 
       var content_info_window=
-      "<div class='product--blue' style='margin: 3%;'>"+
-      "<div class='product_inner hero hero_"+res[i].id_vendor+"'>";
+      "<div class='product--blue col-md-4' style=''>"+
+      "<div class='hero_"+res[i].id_vendor+" text-center p-3'>";
 
       content_info_window+=      
-        '<img src="'+src+'" class="rounded-circle card-img img-fluid img-prod-'+numb+'" width="150" height="150" style="border-style: inset;z-index: 99;">';
+        '<img src="'+src+'" class="rounded-circle card-img img-prod-'+numb+'">';
 
       content_info_window+='</div>';
 
       content_info_window+=
-      '<div class="card-body text-center" style="padding: 0.25rem;">'+
+      '<div class="card-body text-center">'+
           '<div class="mb-0">'+
             '<h6 class="font-weight-semibold mb-0" style="word-wrap: break-word;"> <a class="text-default mb-0" data-abc="true">'+res[i].name_prod+'</a> </h6><label class="font-weight-semibold mb-0" style="word-wrap: break-word;"> <a class="text-muted" data-abc="true" >'+res[i].desc+'</a></label>'+
           '</div>'+
