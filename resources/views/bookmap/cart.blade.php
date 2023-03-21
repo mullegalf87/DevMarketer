@@ -8,7 +8,7 @@
         <span class="text-muted">@lang('bookmap/lang.my_prefers')</span>
         <span class="badge badge-secondary badge-pill"></span>
       </h4>
-      <ul id="list_prod_cart" class="list-group mb-3" style="overflow: overlay;">
+      <ul id="list_prod_cart" class="list-group mb-3 overflow-auto" style="height:400px">
       </ul>
     </div>
   </div>
@@ -102,10 +102,10 @@ function start_function_cart(){
               "<small class='text-muted'>"+res[i].name_vendor+"</small>"+
               "</div>"+
               "<span class='text-muted'>€ "+res[i].price+"</span>"+
-              "<i class='bx bx-chat mr-2' style='' onclick='contact_seller(\""+res[i].id_vendor+"\",\""+res[i].name_vendor+"\");'></i>"+
+              "<i class='bx bx-chat mr-2' style='' onclick='contact_seller(\""+res[i].id_vendor+"\",\""+res[i].name_vendor+"\",\""+res[i].image_vendor+"\",\"idprod_"+res[i].id+"\");'></i>"+
               "<i class='bx bxs-trash mr-2' style='color: #dc3545!important;' onclick='delete_prod_cart(\""+res[i].id+"\")'></i>"+
               "</li>");
-
+              
 
             } else{
               // alert("This is a tablet or desktop.");
@@ -117,7 +117,7 @@ function start_function_cart(){
               "<small class='text-muted'>"+res[i].name_vendor+"</small>"+
               "</div>"+
               "<span class='text-muted'>€ "+res[i].price+"</span>"+
-              "<i class='bx bx-chat mr-2' style='' onclick='contact_seller(\""+res[i].id_vendor+"\",\""+res[i].name_vendor+"\");'></i>"+
+              "<i class='bx bx-chat mr-2' style='' onclick='contact_seller(\""+res[i].id_vendor+"\",\""+res[i].name_vendor+"\",\""+res[i].image_vendor+"\",\"idprod_"+res[i].id+"\");'></i>"+
               "<i class='bx bxs-trash mr-2' style='color: #dc3545!important;' onclick='delete_prod_cart(\""+res[i].id+"\")'></i>"+
               "</li>");
               

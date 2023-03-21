@@ -819,66 +819,14 @@ class BookmapController extends Controller
 
   //contact
   public function get_user_chat_box_bookmap(){
-
-    
-    $check_user=$this->universal_db()->table('chat_bookmap')
-    ->where('id_user_receive', '=',auth()->guard('users_bookmap')->user()->id)
-    ->first();
-
-    if ($check_user) {
-
-      $get_user=$this->universal_db()->table('chat_bookmap')
-      ->select(DB::raw('id_room as id_room, id_user_send as id_user, name_user_send as name_user, image_user_send as image_user_send, readen as readen'))
-      ->where('id_user_receive', '=',auth()->guard('users_bookmap')->user()->id)
-      ->get();
-
-      //  $count_message=$this->universal_db()->table('chat_bookmap')
-      // ->select(DB::raw('count(*) as count_message, id_room, id_user'))
-      // ->where('id_user_receive', '=',auth()->guard('users_bookmap')->user()->id)
-      // ->where('readen','=',0)
-      // ->groupBy('id_user_send')
-      // ->get();
-
-    }else{
-
-      $get_user=$this->universal_db()->table('chat_bookmap')
-      ->select(DB::raw('id_room as id_room, id_user_receive as id_user, name_user_receive as name_user, image_user_send as image_user_send, readen as readen'))
-      ->where('id_user_send', '=',auth()->guard('users_bookmap')->user()->id)
-      ->get();
-
-      //  $count_message=$this->universal_db()->table('chat_bookmap')
-      // ->select(DB::raw('count(*) as count_message, id_room'))
-      // ->where('id_user_send', '=',auth()->guard('users_bookmap')->user()->id)
-      // ->where('readen','=',0)
-      // ->groupBy('id_user_send')
-      // ->get();
-
-    }
-
-    $count_message=$this->universal_db()->table('chat_bookmap')
-      ->select(DB::raw('count(*) as count_message, id_room'))
-      ->where('id_user_receive', '=',auth()->guard('users_bookmap')->user()->id)
-      ->where('readen','=',0)
-      ->groupBy('id_user_send')
-      ->get();
-
-
-
-    $result=["get_user" => $get_user, "count_message" => $count_message]; 
-
-
     return View::make('query')->with("result",json_encode($result));
-
   }
 
   public function get_chat_bookmap(){
-
     $id_room= Request::get('id_room');
-    
     $get_chat=$this->universal_db()->table('chat_bookmap')
     ->where('id_room', '=',$id_room)
     ->get();
-
     //update chat_bookmap set readen=0
     $this->universal_db()->table('chat_bookmap')
       ->where('id_user_receive','=',auth()->guard('users_bookmap')->user()->id)
@@ -887,101 +835,35 @@ class BookmapController extends Controller
         array(
        'readen'=>1,
        ));
-
     return View::make('query')->with("result",json_encode($get_chat));
-
   }
-
-  function random_token(){
-
-    $token;
-    do{
-      $token = $this->getRandomString(64);
-
-
-      
-      $orders_with_token = $this->universal_db()->table('chat_room_bookmap')
-      ->where("id_room", "=", $token)
-      ->get();
-
-      $token_exists = count($orders_with_token) > 0;
-
-
-      return $token;
-
-    }while($token_exists);
-
-
-  }
-
-
-  function getRandomString($length = 64) {
-    $characters = '0123456789abcdefghijklmnopqrstuvxyzABCDEFGHIJKLMNOPQRSTUVXYZ';
-    $string = '';
-
-    for ($i = 0; $i < $length; $i++) {
-      $string .= $characters[mt_rand(0, strlen($characters) - 1)];
-    }
-
-    return $string;
-  }
-
 
   public function send_chat_bookmap(){
-
     $id_user_send=auth()->guard('users_bookmap')->user()->id;
-    $image_user_send=auth()->guard('users_bookmap')->user()->image;
     $name_user_send=auth()->guard('users_bookmap')->user()->username;
-    $id_user_receive= Request::get('id_user_receive');
-    $name_user_receive= Request::get('name_user_receive');
-    
-    if (Request::get('image_user_receive')) {
-      $image_user_receive= Request::get('image_user_receive');
-    }else{
-      $image_user_receive="";
-    }
-    $message = Request::get('message');
-  
-
-    
-    $exist_chat_room=$this->universal_db()->table('chat_bookmap')
-    ->where("id_user_send", "=", $id_user_send)
-    ->where("id_user_receive", "=", $id_user_receive)
-    ->orWhere("id_user_send", "=", $id_user_receive)
-    ->where("id_user_receive", "=", $id_user_send)
-    ->first();
-
-
-    if (!$exist_chat_room) {
-
-      $id_room = $this->random_token();
-
-      $this->universal_db()->table('chat_room_bookmap')
-      ->insertGetId(array( 
-       'id_room'=>$id_room,
-     ));
-
-    }else{
-      
-      $id_room = $exist_chat_room->id_room;
-
-    }
-
+    $image_user_send=auth()->guard('users_bookmap')->user()->image;
+    $id_user_receive=Request::get("id_user_receive");
+    $name_user_receive=Request::get("name_user_receive");
+    $image_user_receive=Request::get("image_user_receive");
+    $message=Request::get("message");
+    $idprod=Request::get("idprod");
+    $getidroom=$this->universal_db()->table('chat_room_bookmap')
+      ->insertGetId(array(
+        "date"=>now()
+      ));
     $this->universal_db()->table('chat_bookmap')
-     ->insertGetId(array( 
-     'id_room'=>$id_room,
-     'message'=>$message,
-     'id_user_send'=>$id_user_send,
-     'image_user_send'=>$image_user_send,
-     'name_user_send'=>$name_user_send,
-     'id_user_receive'=>$id_user_receive,
-     'name_user_receive'=>$name_user_receive,
-     'image_user_receive'=>$image_user_receive,
-     'readen'=>0,
-    ));
-
+      ->insertGetId(array(
+        "id_room"=>$getidroom,
+        "message"=>$message,
+        "id_user_send"=>$id_user_send,
+        "name_user_send"=>$name_user_send,
+        "image_user_send"=>$image_user_send,
+        "id_user_receive"=>$id_user_receive,
+        "name_user_receive"=>$name_user_receive,
+        "image_user_receive"=>$image_user_receive,
+        "readen"=>0
+      ));
     return View::make('query')->with("result",json_encode("fatto"));
-
   }
 
   //profile
@@ -1173,6 +1055,28 @@ class BookmapController extends Controller
 
     return View::make('query')->with("result",json_encode($get_last_prod));
 
+  }
+
+  function random_token(){
+    $token;
+    do{
+      $token = $this->getRandomString(64);
+      $orders_with_token = $this->universal_db()->table('chat_room_bookmap')
+      ->where("id_room", "=", $token)
+      ->get();
+      $token_exists = count($orders_with_token) > 0;
+      return $token;
+    }while($token_exists);
+  }
+
+
+  function getRandomString($length = 64) {
+    $characters = '0123456789abcdefghijklmnopqrstuvxyzABCDEFGHIJKLMNOPQRSTUVXYZ';
+    $string = '';
+    for ($i = 0; $i < $length; $i++) {
+      $string .= $characters[mt_rand(0, strlen($characters) - 1)];
+    }
+    return $string;
   }
 
 

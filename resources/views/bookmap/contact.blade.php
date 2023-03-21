@@ -184,310 +184,37 @@
 </div>
 <script type="text/javascript">
 
-   //apre connessione socket con condivisione dati
-    var connection = new RTCMultiConnection();
-    connection.socketURL = 'https://muazkhan.com:9001/';
-    connection.session = {
-      data: true
-    };
-  
   function start_function_contact(){
-
-    height_position();
     get_user_bookmap();
-
   }
 
-  function height_position(){
-
-    var height_page=$(window).height();
-    var height_inbox_chat=height_page-78-70;
-    var height_msg_history=height_page-78-70-15-48-15;
-
-    $("#container_contact .inbox_chat").css("height",height_inbox_chat+"px");
-    $("#container_contact .msg_history").css("height",height_msg_history+"px");
-
-  }
-
-
-  function get_user_bookmap(from){
-    $("#append_list_user_chat_box").empty();
+  function get_user_bookmap(){
     $.get('/get_user_chat_box_bookmap', {}, 
       function (data){
        var res=jQuery.parseJSON(data);
-
-     var arr1=res.get_user;
-     var arr2=res.count_message;
-
-     console.log(res)
-
-      if (arr1==undefined && arr2==undefined) {
-
-        window.location.replace("/bookmap");
-        
-      }else{
-
-        const map = new Map();
-        arr1.forEach(item => map.set(item.id_room, item));
-        arr2.forEach(item => map.set(item.id_room, {...map.get(item.id_room), ...item}));
-        const arr_list_user = Array.from(map.values());
-
-        var active_chat;
-        var src;
-        var count_message;
-
-        for (var i = 0; i < arr_list_user.length; i++) {
-
-          if (i==0) {
-            active_chat="active_chat";
-          }else{
-            active_chat="";
-          }
-
-          if (arr_list_user[i].image_user_send=="") {
-
-            src="bookmap_repo/default_img.png?refresh=<?php echo rand(1,999); ?>"
-          }else{
-            src="bookmap_repo/img_profile/"+arr_list_user[i].image_user_send+"?refresh=<?php echo rand(1,999); ?>";
-
-          }
-
-          if (arr_list_user[i].count_message==undefined) {
-            count_message=0;
-          }else{
-            count_message=arr_list_user[i].count_message;
-          }
-
-
-
-          $("#append_list_user_chat_box").append(
-            '<div class="chat_list_contact '+active_chat+' list_user_box" onclick="open_chat(\''+arr_list_user[i].id_room+'\', \''+arr_list_user[i].id_user+'\', \''+arr_list_user[i].name_user+'\', \''+arr_list_user[i].image_user_send+'\')" id="'+arr_list_user[i].id_user+'">'+
-            '<div class="chat_people">'+
-            '<div class="chat_img">'+
-            '<img src='+src+' alt="sunil">'+
-            '</div>'+
-            '<div class="chat_ib">'+
-            '<h6>'+arr_list_user[i].name_user+'</h6>'+
-            '</div>'+
-            '<span class="badge badge_notify badge_'+arr_list_user[i].id_user+'">'+count_message+'</span>'+
-            '</div>'+
-            '</div>');
-
-        }
-
-        //detect mobile device
-          if(window.matchMedia("(max-width: 767px)").matches){
-               
-          } else{
-
-              open_chat(arr_list_user[0].id_room, arr_list_user[0].id_user, arr_list_user[0].name_user, arr_list_user[0].image_user_send);
-
-          }  
-
-        // if (from==undefined) {
-
-        //   open_chat(arr_list_user[0].id_room, arr_list_user[0].id_user, arr_list_user[0].name_user, arr_list_user[0].image_user_send);
-
-        // }
-
-        var search = document.getElementById("search_input");
-        var els = document.querySelectorAll(".chat_list_contact");
-
-        search.addEventListener("keyup", function() {
-          Array.prototype.forEach.call(els, function(el) {
-            if (el.textContent.toLowerCase().trim().indexOf(search.value) > -1){
-              el.style.display = '';
-            }else{ 
-              el.style.display = 'none';
-            }
-          });
-
-        });
-
-      }
-
     });
-
   }
 
-function contact_seller(id_user_receive, name_user_receive, image_user_receive){
-
-  open_menu(5);
-  $("#name_form_contact").text("@lang('bookmap/lang.contact_seller') "+name_user_receive);
-  $("#fab_send").attr("onclick","send_chat_bookmap(\""+id_user_receive+"\",\""+name_user_receive+"\",\"contact_seller\",\""+image_user_receive+"\")");
-
-}
-
-function send_chat_bookmap(id_user_receive, name_user_receive, from, image_user_receive){
-
-  var id_user="@if( auth()->guard('users_bookmap')->check() ){{ auth()->guard('users_bookmap')->user()->id}}@endif";
-  console.log(id_user)
-  if (id_user=="") {
-
-    open_menu(1);
-
-  } else{
-
-    var message;
-
-    if (from=="contact_seller") {
-
-      message=$("#chatSend").val();
-
-    }else{
-
-      message=$(".write_msg").val();
-
-    }
-
-    if (message!="") {
-
-     $.get('/send_chat_bookmap', {id_user_receive:id_user_receive, name_user_receive:name_user_receive, message:message, image_user_receive:image_user_receive}, 
-      function (data){
-       var res=jQuery.parseJSON(data);
-
-       var dt = new Date();
-       var time = dt.getHours() + ":" + dt.getMinutes() + ":" + dt.getSeconds();
-
-       $(".msg_history").append(
-        "<div class='outgoing_msg'>"+
-        "<div class='sent_msg'>"+
-        "<p>"+$(".write_msg").val()+"</p>"+
-        "<span class='time_date'>"+time+"</span>"+
-        "</div>");  
-
-       if (from!="contact_seller") {
-
-        connection.send($(".write_msg").val());
-        get_user_bookmap("send_msg_socket");
-
-      }else{
-        change_vis('contact')
-      }
-      $(".write_msg").val("");
-      $('.msg_history').scrollTop($('.msg_history')[0].scrollHeight);
-
-    });
-
-   }
-   
- }
-
-}  
-
-
- function open_chat(id_room, id_user_receive, name_user_receive, image_user_receive){
-  connection.closeSocket();
-  connection.openOrJoin(id_room);
-  $("#logo_loading").addClass("rotate_logo_loading");
-
-  $(".notify_chat").css("color","black");
-  $(".badge_"+id_user_receive).text(0);
-  $(".badge_"+id_user_receive).addClass("userid_"+connection.userid);
-  $(".msg_history").empty();
-  $(".list_user_box").removeClass("active_chat");
-  $("#"+id_user_receive).addClass('active_chat');
-  $(".nickname_user_chat").text(name_user_receive);
-  $(".msg_send_btn").attr("onclick","send_chat_bookmap(\""+id_user_receive+"\",\""+name_user_receive+"\",\""+image_user_receive+"\")");
-  if (image_user_receive=="") {
-    $(".img_user_chat").attr("src","bookmap_repo/default_img.png?refresh=<?php echo rand(1,999); ?>");
-  }else{
-    $(".img_user_chat").attr("src","bookmap_repo/img_profile/"+image_user_receive+"?refresh=<?php echo rand(1,999); ?>");
-  }
-
-
-  if(window.matchMedia("(max-width: 767px)").matches){
-        // The viewport is less than 768 pixels wide
-        $(".inbox_people").hide();
-        $(".mesgs").show();
-        $(".nickname_after_return").show();
-        $(".nickname_after_return").html('<div style="position: absolute;flex-grow: 1;right: 15px;"><i class="bx bx-arrow-back" onclick="back_inbox_people()"></i></div>');
-
-      } 
-
-      $.get('/get_chat_bookmap', {id_room:id_room}, 
-        function (data){
-         var res=jQuery.parseJSON(data);
-         var id_user="@if( auth()->guard('users_bookmap')->check() ){{ auth()->guard('users_bookmap')->user()->id }}@endif";
-         var src;
-         for (var i = 0; i < res.length; i++) {
-
-          if (res[i].image_user_send=="") {
-
-            src="bookmap_repo/default_img.png?refresh=<?php echo rand(1,999); ?>"
-          }else{
-            src="bookmap_repo/img_profile/"+res[i].image_user_send+"?refresh=<?php echo rand(1,999); ?>";
-
-          }
-
-          if (res[i].id_user_send==id_user) {
-
-           $(".msg_history").append(
-            '<div class="outgoing_msg">'+
-              '<div class="sent_msg">'+
-                '<p>'+res[i].message+'</p>'+
-                '<span class="time_date">'+res[i].date+'</span>'+
-              '</div>'+
-            '</div>');
-
-         }else{
-
-          $(".msg_history").append(
-            '<div class="incoming_msg">'+
-              // '<div class="incoming_msg_img"> <img src="'+src+'" alt="sunil">'+
-              '</div>'+
-              '<div class="received_msg">'+
-                '<div class="received_withd_msg">'+
-                  '<p>'+res[i].message+'</p>'+
-                  '<span class="time_date">'+res[i].date+'</span>'+
-                '</div>'+
-              '</div>'+
-            '</div>');
-
-        }
-
-      }
-
-      $('.msg_history').scrollTop($('.msg_history')[0].scrollHeight);
-      $("#logo_loading").removeClass("rotate_logo_loading");
-
+  function open_chat(){
+    $.get('/get_chat_bookmap', {}, 
+    function (data){
+      var res=jQuery.parseJSON(data);
     });  
+  }
 
-    }
+  function send_chat_bookmap(id_user_receive, name_user_receive, from, image_user_receive, idprod){
+    var message=$("#chatSend").val();
+    $.get('/send_chat_bookmap', {id_user_receive:id_user_receive, name_user_receive:name_user_receive, message:message, image_user_receive:image_user_receive, idprod:idprod}, 
+    function (data){
+      var res=jQuery.parseJSON(data);
+      change_vis('contact');
+    });
+  }
 
-function back_inbox_people(){
-
-  if(window.matchMedia("(max-width: 767px)").matches){
-        // The viewport is less than 768 pixels wide
-        $(".inbox_people").show();
-        $(".mesgs").hide();
-        $(".nickname_after_return").hide();
-  
-    } 
-
-}
-
-
-//riceve i messaggi
-connection.onmessage = function(event) {
-  var dt = new Date();
-  var time = dt.getHours() + ":" + dt.getMinutes() + ":" + dt.getSeconds();
-
-   get_user_bookmap("receive_msg_socket");
-   $(".notify_chat").css("color","red");
-
-  $(".msg_history").append("<div class='incoming_msg'>"+
-    "<div class='received_msg'>"+
-    "<div class='received_withd_msg'>"+
-    "<p>"+event.data+"</p>"+
-    "<span class='time_date'>"+time+"</span>"+
-    "</div>"+
-    "</div>"+
-    "</div>");
-
-  $('.msg_history').scrollTop($('.msg_history')[0].scrollHeight);
-
-};
-
+  function contact_seller(id_user_receive, name_user_receive, image_user_receive, idprod){
+    open_menu(5);
+    $("#name_form_contact").text("@lang('bookmap/lang.contact_seller') "+name_user_receive);
+    $("#fab_send").attr("onclick","send_chat_bookmap(\""+id_user_receive+"\",\""+name_user_receive+"\",\"contact_seller\",\""+image_user_receive+"\",\""+idprod+"\")");
+  }
 
 </script>
