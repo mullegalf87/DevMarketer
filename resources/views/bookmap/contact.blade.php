@@ -191,7 +191,11 @@
   function get_user_bookmap(){
     $.get('/get_user_chat_box_bookmap', {}, 
       function (data){
-       var res=jQuery.parseJSON(data);
+        var res=jQuery.parseJSON(data);
+        $.each(res, function(key, value) {
+            console.log(value["id"])
+            console.log(value["username"])
+        });
     });
   }
 

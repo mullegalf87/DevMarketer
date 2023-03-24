@@ -819,7 +819,39 @@ class BookmapController extends Controller
 
   //contact
   public function get_user_chat_box_bookmap(){
+    $id_user_send=auth()->guard('users_bookmap')->user()->id;
+    $dataroom = $this->universal_db()->table('chat_room_bookmap as ch')
+    ->where(function($query) use ($id_user_send) {
+      $query->where("user1", "=", $id_user_send);
+      $query->orWhere("user2", "=", $id_user_send);
+    })
+    ->select('user1', 'user2')
+    ->distinct()
+    ->get();
+
+    $distinct_users = collect($dataroom->pluck('user1')->merge($dataroom->pluck('user2')))
+    ->unique()
+    ->reject(function ($value) use($id_user_send){
+      return $value == $id_user_send;
+    })
+    ->values();
+
+    $result = [];
+    foreach ($distinct_users as $key => $value) {
+      $datauser=$this->get_data_user_chat($value);
+      if (isset($datauser)) {
+        $result[] = $datauser;
+      }
+    }
     return View::make('query')->with("result",json_encode($result));
+  }
+
+  function get_data_user_chat($value){
+    $data=$this->universal_db_user()->table('users_bookmaps')
+    ->select(DB::raw('id, username'))
+    ->where("id","=",$value)
+    ->first();
+    return $data;
   }
 
   public function get_chat_bookmap(){
@@ -838,6 +870,7 @@ class BookmapController extends Controller
     return View::make('query')->with("result",json_encode($get_chat));
   }
 
+  //inserisce riga di messaggio con dati sender and receiver
   public function send_chat_bookmap(){
     $id_user_send=auth()->guard('users_bookmap')->user()->id;
     $name_user_send=auth()->guard('users_bookmap')->user()->username;
@@ -847,13 +880,32 @@ class BookmapController extends Controller
     $image_user_receive=Request::get("image_user_receive");
     $message=Request::get("message");
     $idprod=Request::get("idprod");
-    $getidroom=$this->universal_db()->table('chat_room_bookmap')
+    //query che controlla se i membri della chat hanno comunicato tra loro
+    $idroom=$this->universal_db()->table('chat_room_bookmap')
+    ->where(function($query) use ($id_user_send, $id_user_receive) {
+      $query->where("user1","=",$id_user_send);
+      $query->where("user2","=",$id_user_receive);
+    })
+    ->orWhere(function($query) use ($id_user_send, $id_user_receive) {
+      $query->where("user2","=",$id_user_send);
+      $query->Where("user1","=",$id_user_receive);
+    })
+    ->first();
+    //controlla se non hanno comunicato tra loro crea un nuovo idroom diversamente si prende l'idroom già esistente
+    if (!isset($idroom)) {
+      $idroom=$this->universal_db()->table('chat_room_bookmap')
       ->insertGetId(array(
+        "user1"=>$id_user_send,
+        "user2"=>$id_user_receive,
         "date"=>now()
       ));
+    }else{
+      $idroom=$idroom->id;
+    }
+    //inserisce i messaggi della chat con readen 0 perchè non letti
     $this->universal_db()->table('chat_bookmap')
       ->insertGetId(array(
-        "id_room"=>$getidroom,
+        "id_room"=>$idroom,
         "message"=>$message,
         "id_user_send"=>$id_user_send,
         "name_user_send"=>$name_user_send,
