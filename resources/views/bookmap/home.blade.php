@@ -1242,7 +1242,7 @@ cursor:pointer;
     </div>
     <div class="form-group">
       <label>@lang('bookmap/lang.message')</label>
-      <textarea name="chat_message" id="chatSend" class="form-control form-creation-product" placeholder="@lang('bookmap/lang.write_seller')..." required></textarea> 
+      <textarea name="chat_message" class="form-control form-creation-product chatSend" from="home" placeholder="@lang('bookmap/lang.write_seller')..." required></textarea> 
       <button class="btn btn-primary mt-3 w-100" id="fab_send">@lang('bookmap/lang.send')</button>
     </div> 
   </div>  
@@ -1409,7 +1409,7 @@ cursor:pointer;
                 </div>
                 <div style="display:flex;" class="mt-3">
                   <button id="add_cart_last_prod" style="flex-grow:1;margin: 5px;" type="button" class="btn btn-warning" onclick="add_cart(128,10)"><i class="bx bx-heart"></i></button>
-                  <button id="contact_seller_last_prod" style="flex-grow:1;margin: 5px;" type="button" class="btn btn-primary" onclick="contact_seller('28','Mullegalf87','28.jpg','idprod_');"><i class="bx bx-chat"></i>
+                  <button id="contact_seller_last_prod" style="flex-grow:1;margin: 5px;" type="button" class="btn btn-primary" onclick="contact_seller('28','idprod_');"><i class="bx bx-chat"></i>
                   </button>
                 </div>
               </div>
@@ -1458,7 +1458,7 @@ cursor:pointer;
 
 <script>
 //DARIO
-//1)sistemare chat funzionante al 100% con messaggi per le notifiche nella navbar, senza socket: sono arrivato che dopo il send_chat_bookmap() parte change_vis(contact) e qui faccio partire le funzioni, get_user_bookmap e open_chat()
+//1)sistemare che quando send va all'ultimo messaggio e testarlo con più users
 //2)mettere il search tra i miei prodotti, cercare per stringa e categorie come filtro, togli tutto il resto delle categorie
 //3)mettere il search tra i miei preferiti cercare per stringa e categorie come filtro, togli tutto il resto delle categorie
 //4)ricontrollare sistema degli abbonamenti
@@ -1576,7 +1576,7 @@ function show_modal_last_prod(){
       $("#place_last_prod").text(res[0].place);
 
       $("#add_cart_last_prod").attr("onclick","add_cart("+res[0].id+","+res[0].price+")");
-      $("#contact_seller_last_prod").attr("onclick","contact_seller('"+res[0].id_vendor+"','"+res[0].name_vendor+"','"+res[0].image_vendor+", idprod_"+res[0].id+"')");
+      $("#contact_seller_last_prod").attr("onclick","contact_seller('"+res[0].id_vendor+"', idprod_"+res[0].id+"')");
 
     });
 
@@ -2011,7 +2011,7 @@ function search_main(pc_or_mobile){
       '<div class="text-muted mb-0" style="white-space: nowrap; width: 193px;  overflow: hidden; text-overflow: ellipsis;">'+this.product_place+'</div>'+ 
       '<div style="display:flex;">'+
       '<button style="flex-grow:1;margin: 5px;" type="button" class="btn btn-warning" onclick="add_cart('+this.product_id+','+this.product_price+')"><i class="bx bx-heart"></i></button>'+
-      '<button style="flex-grow:1;margin: 5px;" type="button" class="btn btn-primary" onclick="contact_seller(\''+this.product_seller+'\',\''+this.product_name_seller+'\',\''+this.product_image_seller+'\',\'idprod_'+this.product_id+'\');"><i class="bx bx-chat"></i></button>'+
+      '<button style="flex-grow:1;margin: 5px;" type="button" class="btn btn-primary" onclick="contact_seller(\''+this.product_seller+'\',\'idprod_'+this.product_id+'\');"><i class="bx bx-chat"></i></button>'+
       '</div>'+
       '</div>'+
       '</div>';
@@ -2271,7 +2271,7 @@ function show_result_page(type){
       '<div class="text-muted mb-0" style="white-space: nowrap; width: 193px;  overflow: hidden; text-overflow: ellipsis;">'+this.product_place+'</div>'+ 
       '<div style="display:flex;">'+
       '<button style="flex-grow:1;margin: 5px;" type="button" class="btn btn-warning" onclick="add_cart('+this.product_id+','+this.product_price+')"><i class="bx bx-heart"></i></button>'+
-      '<button style="flex-grow:1;margin: 5px;" type="button" class="btn btn-primary" onclick="contact_seller(\''+this.product_seller+'\',\''+this.product_name_seller+'\',\''+this.product_image_seller+'\',\'idprod_'+this.product_id+'\');"><i class="bx bx-chat"></i></button>'+
+      '<button style="flex-grow:1;margin: 5px;" type="button" class="btn btn-primary" onclick="contact_seller(\''+this.product_seller+'\',\'idprod_'+this.product_id+'\');"><i class="bx bx-chat"></i></button>'+
       '</div>'+
       '</div>'+
       '</div>'; 
@@ -2933,6 +2933,14 @@ function detect_device(page){
 
   }
 
+  //ottieni num di messaggi da leggere
+  function count_get_cart_user(){
+      $.get('/count_get_chat_bookmap',{},
+      function(data){
+        var res=jQuery.parseJSON(data);
+        $(".badge_chat").text(res[0].count_mess_chat);
+      });
+  }
 
   //define chat color della chat
 if (typeof(Storage) !== "undefined") {
@@ -3147,6 +3155,11 @@ paypal.Buttons({
     }
   }).render('#paypal-button');
 
+  // chat
+  function contact_seller(id_user_receive, idprod){
+    open_menu(5);
+    $("#fab_send").attr("onclick","send_chat_bookmap(\"\",\""+id_user_receive+"\",\""+idprod+"\",\"home\")");
+  }
      
 </script>
 </body>

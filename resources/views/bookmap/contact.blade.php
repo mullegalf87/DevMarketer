@@ -113,71 +113,25 @@
           </div>
         </form>
       </div>
-      <div class="card card-body border-0 m-0 p-0" style="overflow-y: auto; height: 0;">
-          <div class="d-flex flex-nowrap border-0 pt-3 px-3">
-            <img class="rounded" style="width: 50px; height: 50px;" src="https://i.pinimg.com/736x/5c/24/69/5c24695df36eee73abfbdd8274085ecd--cute-anime-guys-anime-boys.jpg" />
-            <h6 class="" style="margin: 0px; margin-left: 10px;"> Yusuf Bulgurcu <i class="fa fa-check text-primary" title="Onaylanmış Hesap!" aria-hidden="true"></i> </br><small> İstanbul, TR </small></h6>
-          </div>
-          <div class="d-flex flex-nowrap border-0 pt-3 px-3">
-            <img class="rounded" style="width: 50px; height: 50px;" src="https://i.pinimg.com/736x/5c/24/69/5c24695df36eee73abfbdd8274085ecd--cute-anime-guys-anime-boys.jpg" />
-            <h6 class="" style="margin: 0px; margin-left: 10px;"> Yusuf Bulgurcu <i class="fa fa-check text-primary" title="Onaylanmış Hesap!" aria-hidden="true"></i> </br><small> İstanbul, TR </small></h6>
-          </div>    
+      <div class="card card-body border-0 m-0 p-0" style="overflow-y: auto; height: 0;" id="append_user_chat">
       </div>
     </div>
-    <div class="col-9 p-0 m-0 card border-0 rounded" style="box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.10), 0 6px 10px 0 rgba(0, 0, 0, 0.01); overflow: hidden;">
-      <div class="card-header p-1 bg-light border border-top-0 border-left-0 border-right-0" style="color: rgba(96, 125, 139,1.0);">
-        <img class="rounded float-left" style="width: 50px; height: 50px;" src="https://i.pinimg.com/736x/5c/24/69/5c24695df36eee73abfbdd8274085ecd--cute-anime-guys-anime-boys.jpg" />
-        <h6 class="float-left" style="margin: 0px; margin-left: 10px;"> Yusuf Bulgurcu <i class="fa fa-check text-primary" title="Onaylanmış Hesap!" aria-hidden="true"></i> </br><small> İstanbul, TR </small></h6>
+    <div class="col-9 p-0 m-0 card border-0 rounded" style="box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.10), 0 6px 10px 0 rgba(0, 0, 0, 0.01); overflow: hidden;"> 
+      <div class="card-header p-1 bg-light border border-top-0 border-left-0 border-right-0 d-none" style="color: rgba(96, 125, 139,1.0);" id="header_user_chat">
       </div>
-      <div class="card card-body bg-sohbet border-0 m-0 p-0" style="overflow-y: auto; height: 0;">
-          <div class="balon1 p-2 m-0 position-relative" data-is="You - 3:20 pm">
-            <a class="float-right"> Hey there! What's up? </a>
-          </div>
-          <div class="balon2 p-2 m-0 position-relative" data-is="Yusuf - 3:22 pm">
-            <a class="float-left sohbet2"> Checking out iOS7 you know.. </a>
-          </div>
-          <div class="balon1 p-2 m-0 position-relative" data-is="You - 3:23 pm">
-            <a class="float-right"> Check out this bubble! </a>
-          </div>
-          <div class="balon2 p-2 m-0 position-relative" data-is="Yusuf - 3:26 pm">
-            <a class="float-left sohbet2"> It's pretty cool! </a>
-          </div>
-          <div class="balon1 p-2 m-0 position-relative" data-is="You - 3:28 pm">
-            <a class="float-right"> Yeah it's pure CSS & HTML </a>
-          </div>
-          <div class="balon2 p-2 m-0 position-relative" data-is="Yusuf - 3:33 pm">
-            <a class="float-left sohbet2"> Wow that's impressive. But what's even more impressive is that this bubble is really high. </a>
-          </div>
-          <div class="balon1 p-2 m-0 position-relative" data-is="You - 3:28 pm">
-            <a class="float-right"> Yeah it's pure CSS & HTML </a>
-          </div>
-          <div class="balon2 p-2 m-0 position-relative" data-is="Yusuf - 3:33 pm">
-            <a class="float-left sohbet2"> Wow that's impressive. But what's even more impressive is that this bubble is really high. </a>
-          </div>
-          <div class="balon1 p-2 m-0 position-relative" data-is="You - 3:28 pm">
-            <a class="float-right"> Yeah it's pure CSS & HTML </a>
-          </div>
-          <div class="balon2 p-2 m-0 position-relative" data-is="Yusuf - 3:33 pm">
-            <a class="float-left sohbet2"> Wow that's impressive. But what's even more impressive is that this bubble is really high. </a>
-          </div>
-          <div class="balon1 p-2 m-0 position-relative" data-is="You - 3:28 pm">
-            <a class="float-right"> Yeah it's pure CSS & HTML </a>
-          </div>
-          <div class="balon2 p-2 m-0 position-relative" data-is="Yusuf - 3:33 pm">
-            <a class="float-left sohbet2"> Wow that's impressive. But what's even more impressive is that this bubble is really high. </a>
-          </div>
+      <div class="card card-body bg-sohbet border-0 m-0 p-0" style="overflow-y: auto; height: 0;" id="append_chat">
       </div>
-      <div class="w-100 card-footer p-0 bg-light border border-bottom-0 border-left-0 border-right-0">
-        <form class="m-0 p-0" action="" method="POST" autocomplete="off">
+      <div class="w-100 card-footer p-0 bg-light border border-bottom-0 border-left-0 border-right-0 d-none" id="footer_user_chat">
+        <div class="m-0 p-0">
           <div class="row m-0 p-0">
             <div class="col-10 m-0 p-1">
-              <input id="text" class="mw-100 border rounded form-control" type="text" name="text" title="Type a message..." placeholder="Type a message..." required>
+              <input type="text" class="mw-100 border rounded form-control chatSend" from="contact" id="send_chat_message_from_input" type="text" name="text" title="Type a message..." placeholder="Type a message..." required>
             </div>
             <div class="col-2 m-0 p-1">
-              <button class="btn btn-outline-secondary rounded border w-100" title="Gönder!" style="padding-right: 16px;"><i class="bx bx-send icon-single" aria-hidden="true"></i></button>
+              <button class="btn btn-outline-secondary rounded border w-100" id="send_chat_message_from_button" style="padding-right: 16px;"><i class="bx bx-send icon-single" aria-hidden="true"></i></button>
             </div>
           </div>
-        </form>
+        </div>
       </div>
     </div>
   </div>
@@ -188,37 +142,131 @@
     get_user_bookmap();
   }
 
+  //1)mostro gli utenti con i quali ci sono state conversazioni
   function get_user_bookmap(){
     $.get('/get_user_chat_box_bookmap', {}, 
       function (data){
+        $("#append_user_chat").empty();
         var res=jQuery.parseJSON(data);
         $.each(res, function(key, value) {
-            console.log(value["id"])
-            console.log(value["username"])
+          var div=
+          $("<div>")
+            .attr("id_room",value["id_room"])
+            .addClass("d-flex flex-nowrap border-0 pt-3 px-3 open_chat")
+            .append(
+              $("<img>")
+                .addClass("rounded")
+                .css({"width": "50px","height": "50px"})
+                .attr("src","bookmap_repo/img_profile/"+value["image"])
+            )
+            .append(
+              $("<h6>")
+                .css({"margin": "0px", "margin-left": "10px"})
+                .text(value["username"])
+            )
+            .append(
+              $("<span>")
+                .addClass("ml-2 badge badge-danger")
+                .css("height","fit-content")
+                .text(value["count"])
+            )
+          $("#append_user_chat").append(div);
         });
     });
   }
 
-  function open_chat(){
-    $.get('/get_chat_bookmap', {}, 
+  //2)apro la conversazione con l'utente di interesse
+  $(document).ready(function(e){
+    $(document).on("click", ".open_chat", function(e){
+      var id_room=$(this).attr("id_room");
+      open_chat(id_room);
+    });
+  });
+
+  //2.1)apro la conversazione con l'utente di interesse
+  function open_chat(id_room){
+    append_header_user_chat(id_room);
+    $.get('/get_chat_bookmap', {id_room:id_room}, 
     function (data){
+      $("#append_chat").empty();
       var res=jQuery.parseJSON(data);
+      var id_user=res[res.length-1].id_user;
+      $.each(res, function(key, value) {
+        var id_user_send=value['id_user_send'];
+        var message=value['message'];
+        var balon="balon1";
+        var float="float-right";
+        if (key != res.length - 1) {
+          if (id_user_send!=id_user) {
+            balon="balon2";
+            float="float-left sohbet2";
+          }
+          var div=$("<div>")
+              .addClass(""+balon+" p-2 m-0 position-relative")
+              .attr("data-is","You - 3:20 pm")
+              .append(
+                $("<a>")
+                  .addClass(float)
+                  .text(message)
+              )
+          $("#append_chat").append(div);
+          }
+      });
+      get_user_bookmap();
     });  
   }
 
-  function send_chat_bookmap(id_user_receive, name_user_receive, from, image_user_receive, idprod){
-    var message=$("#chatSend").val();
-    $.get('/send_chat_bookmap', {id_user_receive:id_user_receive, name_user_receive:name_user_receive, message:message, image_user_receive:image_user_receive, idprod:idprod}, 
-    function (data){
-      var res=jQuery.parseJSON(data);
-      change_vis('contact');
-    });
+  //2.2)appendo l'utente nell'header della chat
+  function append_header_user_chat(id_room){
+    //prima mostro l'header e il footer
+    $("#header_user_chat").removeClass("d-none");
+    $("#footer_user_chat").removeClass("d-none");
+    //poi mostro l'utente nell'header
+    $("#header_user_chat").empty();
+    var image_user=$(".open_chat[id_room="+id_room+"]").find("img").attr("src");
+    var name_user=$(".open_chat[id_room="+id_room+"]").find("h6").text();
+    var img=$("<img>")
+          .addClass("rounded float-left")
+          .css({"width": "50px", "height": "50px"})
+          .attr("src",image_user);
+    var h6=$("<h6>")
+        .addClass("float-left")
+        .css({"margin": "0px", "margin-left": "10px"})
+        .text(name_user);
+    $("#header_user_chat").append(img);
+    $("#header_user_chat").append(h6);
+    //poi nel bottone di invio messaggio mostro l'id_room
+    $("#send_chat_message_from_input").attr("id_room",id_room);
+    $("#send_chat_message_from_button").attr("id_room",id_room);
   }
 
-  function contact_seller(id_user_receive, name_user_receive, image_user_receive, idprod){
-    open_menu(5);
-    $("#name_form_contact").text("@lang('bookmap/lang.contact_seller') "+name_user_receive);
-    $("#fab_send").attr("onclick","send_chat_bookmap(\""+id_user_receive+"\",\""+name_user_receive+"\",\"contact_seller\",\""+image_user_receive+"\",\""+idprod+"\")");
+  //puoi inviare direttamente cliccando sul bottone invio
+  $(document).ready(function(){
+    $("#send_chat_message_from_input").on("keypress", function(event){
+      if(event.keyCode === 13){
+        var id_room=$(this).attr("id_room");
+        send_chat_bookmap(id_room,"","","contact");
+      }
+    });
+  });
+
+  //puoi invire direttamente con clik
+  $(document).ready(function(){
+    $("#send_chat_message_from_button").on("click", function(event){
+      var id_room=$(this).attr("id_room");
+      send_chat_bookmap(id_room,"","","contact");
+    });
+  });
+
+  //3)invio messaggio nella conversazione
+  function send_chat_bookmap(id_room, id_user_receive, idprod, from){
+    var message=$(".chatSend[from="+from+"]").val();
+    $.get('/send_chat_bookmap', {id_room:id_room, message:message, id_user_receive:id_user_receive, idprod:idprod}, 
+    function (data){
+      var idroom=jQuery.parseJSON(data);
+      change_vis('contact');
+      open_chat(idroom);
+    });
   }
 
 </script>

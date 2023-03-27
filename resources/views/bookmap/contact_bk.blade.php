@@ -476,7 +476,7 @@ function send_chat_bookmap(id_user_receive, name_user_receive, from, image_user_
 
     if (from=="contact_seller") {
 
-      message=$("#chatSend").val();
+      message=$(".chatSend").val();
 
     }else{
 

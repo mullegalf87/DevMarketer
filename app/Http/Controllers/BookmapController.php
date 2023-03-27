@@ -786,6 +786,16 @@ class BookmapController extends Controller
 
   }
 
+  //conta i messaggi da leggere dell'utente
+  public function count_get_chat_bookmap(){
+    $get_mess_chat=$this->universal_db()->table('chat_bookmap')
+      ->select(DB::raw('count(id) as count_mess_chat'))
+      ->where('id_user_receive', '=',auth()->guard('users_bookmap')->user()->id) //inserire id user Auth::user()->id
+      ->where('readen','=',0)
+      ->get();
+      return View::make('query')->with("result",json_encode($get_mess_chat));
+  }
+
   public function get_cart_bookmap(){
 
     if (auth()->guard('users_bookmap')->check()) {
@@ -828,14 +838,12 @@ class BookmapController extends Controller
     ->select('user1', 'user2')
     ->distinct()
     ->get();
-
     $distinct_users = collect($dataroom->pluck('user1')->merge($dataroom->pluck('user2')))
     ->unique()
     ->reject(function ($value) use($id_user_send){
       return $value == $id_user_send;
     })
     ->values();
-
     $result = [];
     foreach ($distinct_users as $key => $value) {
       $datauser=$this->get_data_user_chat($value);
@@ -846,19 +854,26 @@ class BookmapController extends Controller
     return View::make('query')->with("result",json_encode($result));
   }
 
+  //ottiene i nomi e quanti messaggi sono stati inviati a users
   function get_data_user_chat($value){
-    $data=$this->universal_db_user()->table('users_bookmaps')
-    ->select(DB::raw('id, username'))
-    ->where("id","=",$value)
-    ->first();
+    $id_user_send = auth()->guard('users_bookmap')->user()->id;
+    $data = $this->universal_db_user()->table('users_bookmaps as ub')
+        ->select(DB::raw('ub.id, ub.username, ub.image, cb.id_room, sum(cb.readen=0) as count'))
+        ->leftJoin('bookmap.chat_bookmap as cb', 'cb.id_user_send', '=', 'ub.id') 
+        ->where("cb.id_user_send","=",$value)
+        ->where("cb.id_user_receive","=",$id_user_send)
+        ->groupBy('ub.id', 'ub.username', 'ub.image', 'cb.id_room')
+        ->first();
     return $data;
   }
 
+  //ottiene tutti i messaggi della chat
   public function get_chat_bookmap(){
     $id_room= Request::get('id_room');
     $get_chat=$this->universal_db()->table('chat_bookmap')
     ->where('id_room', '=',$id_room)
     ->get();
+    $get_chat[]=array("id_user"=>auth()->guard('users_bookmap')->user()->id);
     //update chat_bookmap set readen=0
     $this->universal_db()->table('chat_bookmap')
       ->where('id_user_receive','=',auth()->guard('users_bookmap')->user()->id)
@@ -870,18 +885,25 @@ class BookmapController extends Controller
     return View::make('query')->with("result",json_encode($get_chat));
   }
 
-  //inserisce riga di messaggio con dati sender and receiver
+  //invia messaggi chat
   public function send_chat_bookmap(){
     $id_user_send=auth()->guard('users_bookmap')->user()->id;
-    $name_user_send=auth()->guard('users_bookmap')->user()->username;
-    $image_user_send=auth()->guard('users_bookmap')->user()->image;
-    $id_user_receive=Request::get("id_user_receive");
-    $name_user_receive=Request::get("name_user_receive");
-    $image_user_receive=Request::get("image_user_receive");
+    $id_room=Request::get("id_room");
     $message=Request::get("message");
-    $idprod=Request::get("idprod");
+    $id_user_receive=Request::get("id_user_receive");
+    $new_id_room;
+    if ($id_user_receive) {
+      $new_id_room=$this->send_chat_from_home($id_user_send, $id_user_receive, $message);
+    }else{
+      $new_id_room=$this->send_chat_from_contact($id_room, $id_user_send, $message);
+    }
+    return View::make('query')->with("result",json_encode($new_id_room));
+  }
+
+  //invia messaggi chat dalla home
+  function send_chat_from_home($id_user_send, $id_user_receive, $message){
     //query che controlla se i membri della chat hanno comunicato tra loro
-    $idroom=$this->universal_db()->table('chat_room_bookmap')
+    $id_room=$this->universal_db()->table('chat_room_bookmap')
     ->where(function($query) use ($id_user_send, $id_user_receive) {
       $query->where("user1","=",$id_user_send);
       $query->where("user2","=",$id_user_receive);
@@ -892,30 +914,51 @@ class BookmapController extends Controller
     })
     ->first();
     //controlla se non hanno comunicato tra loro crea un nuovo idroom diversamente si prende l'idroom già esistente
-    if (!isset($idroom)) {
-      $idroom=$this->universal_db()->table('chat_room_bookmap')
+    if (!isset($id_room)) {
+      $id_room=$this->universal_db()->table('chat_room_bookmap')
       ->insertGetId(array(
         "user1"=>$id_user_send,
         "user2"=>$id_user_receive,
         "date"=>now()
       ));
     }else{
-      $idroom=$idroom->id;
+      $id_room=$id_room->id;
     }
-    //inserisce i messaggi della chat con readen 0 perchè non letti
+    $this->save_chat($id_user_send, $id_user_receive, $id_room, $message);
+    return $id_room;
+  }
+
+  //invia messaggi chat dal contact
+  function send_chat_from_contact($id_room, $id_user_send, $message){
+    $get_user_chat=$this->universal_db()->table('chat_room_bookmap')
+    ->where('id', '=',$id_room)
+    ->first();
+    $user_chat=array($get_user_chat->user1, $get_user_chat->user2);
+    foreach ($user_chat as $key => $value) {
+      if ($value != $id_user_send) {
+        $id_user_receive=$value;
+      }
+    }
+    $this->save_chat($id_user_send, $id_user_receive, $id_room, $message);
+    return $id_room;
+  }
+
+  //salva messaggi della chat
+  function save_chat($id_user_send, $id_user_receive, $idroom, $message){
+    $get_data_user_send=Users_bookmap::find($id_user_send);
+    $get_data_user_receive=Users_bookmap::find($id_user_receive);
     $this->universal_db()->table('chat_bookmap')
       ->insertGetId(array(
         "id_room"=>$idroom,
         "message"=>$message,
-        "id_user_send"=>$id_user_send,
-        "name_user_send"=>$name_user_send,
-        "image_user_send"=>$image_user_send,
-        "id_user_receive"=>$id_user_receive,
-        "name_user_receive"=>$name_user_receive,
-        "image_user_receive"=>$image_user_receive,
+        "id_user_send"=>$get_data_user_send->id,
+        "name_user_send"=>$get_data_user_send->username,
+        "image_user_send"=>$get_data_user_send->image,
+        "id_user_receive"=>$get_data_user_receive->id,
+        "name_user_receive"=>$get_data_user_receive->username,
+        "image_user_receive"=>$get_data_user_receive->image,
         "readen"=>0
       ));
-    return View::make('query')->with("result",json_encode("fatto"));
   }
 
   //profile

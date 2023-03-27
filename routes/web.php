@@ -222,6 +222,8 @@ Route::get('/add_cart_bookmap', 'BookmapController@add_cart_bookmap');
 
 Route::get('/count_get_cart_bookmap', 'BookmapController@count_get_cart_bookmap');
 
+Route::get('/count_get_chat_bookmap', 'BookmapController@count_get_chat_bookmap');
+
 Route::get('/get_cart_bookmap', 'BookmapController@get_cart_bookmap');
 
 Route::get('/delete_prod_cart_bookmap', 'BookmapController@delete_prod_cart_bookmap');
