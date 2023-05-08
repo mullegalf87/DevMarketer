@@ -194,9 +194,29 @@ Route::get('/bookmap', function () {
   return redirect('bm?page=home');
 });
 
+// start
+
 Route::get('/bm', 'BookmapController@go_to_page');
 
 Route::get('bm/lang', 'BookmapController@lang_change')->name('BmLangChange');
+
+//login
+
+Route::post('register_bookmap', 'BookmapController@store');
+
+Route::post('login_bookmap', 'BookmapController@check_login');
+
+Route::get('logout_bookmap', 'BookmapController@logout_bookmap');
+
+Route::get('/auth/facebook', 'BookmapController@redirectToProvider')->name('facebook_bookmap.login');
+
+Route::get('/auth/facebook/callback', 'BookmapController@handleProviderCallback');
+
+Route::post('reset_password_without_token_bookmap', 'BookmapController@validatePasswordRequest');
+
+Route::get('/check_token_exist_bookmap', 'BookmapController@check_token_exist_bookmap');
+
+//prodotti
 
 Route::get('show_last_prod_bookmap', 'BookmapController@show_last_prod_bookmap');
 
@@ -218,6 +238,8 @@ Route::get('/delete_product_bookmap', 'BookmapController@delete_product_bookmap'
 
 Route::get('/check_count_product_user', 'BookmapController@check_count_product_user');
 
+// preferiti
+
 Route::get('/add_cart_bookmap', 'BookmapController@add_cart_bookmap');
 
 Route::get('/count_get_cart_bookmap', 'BookmapController@count_get_cart_bookmap');
@@ -228,6 +250,8 @@ Route::get('/get_cart_bookmap', 'BookmapController@get_cart_bookmap');
 
 Route::get('/delete_prod_cart_bookmap', 'BookmapController@delete_prod_cart_bookmap');
 
+// chat
+
 Route::get('/get_user_chat_box_bookmap', 'BookmapController@get_user_chat_box_bookmap');
 
 Route::get('/get_chat_bookmap', 'BookmapController@get_chat_bookmap');
@@ -235,6 +259,10 @@ Route::get('/get_chat_bookmap', 'BookmapController@get_chat_bookmap');
 Route::get('/get_room_tooken_bookmap', 'BookmapController@get_room_tooken_bookmap');
 
 Route::get('/send_chat_bookmap', 'BookmapController@send_chat_bookmap');
+
+Route::get('/get_data_prod_for_chat_bookmap', 'BookmapController@get_data_prod_for_chat_bookmap');
+
+//profilo
 
 Route::get('/upload_img_profile_bookmap', 'BookmapController@upload_img_profile_bookmap');
 
@@ -244,19 +272,7 @@ Route::get('/change_subscription_bookmap', 'BookmapController@change_subscriptio
 
 Route::get('/check_subscription_bookmap', 'BookmapController@check_subscription_bookmap');
 
-Route::post('register_bookmap', 'BookmapController@store');
-
-Route::post('login_bookmap', 'BookmapController@check_login');
-
-Route::get('logout_bookmap', 'BookmapController@logout_bookmap');
-
-Route::get('/auth/facebook', 'BookmapController@redirectToProvider')->name('facebook_bookmap.login');
-
-Route::get('/auth/facebook/callback', 'BookmapController@handleProviderCallback');
-
-Route::post('reset_password_without_token_bookmap', 'BookmapController@validatePasswordRequest');
-
-Route::get('/check_token_exist_bookmap', 'BookmapController@check_token_exist_bookmap');
+//statistiche amministratore
 
 Route::get('/get_visitor_bookmap', 'BookmapController@get_visitor_bookmap');
 
@@ -556,3 +572,8 @@ Route::get('/delete_prod_prefer_ileniadesign', 'IleniadesignController@delete_pr
 
 Route::get('/send_data_setting_ileniadesign', 'IleniadesignController@send_data_setting_ileniadesign');
 
+////Dnd PROJECT
+
+Route::get('/dnd', function () {
+  return view('dnd.index');
+});

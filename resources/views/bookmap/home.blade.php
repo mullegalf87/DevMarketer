@@ -876,7 +876,7 @@ cursor:pointer;
       </li>
     </ul>
     <form class="form-inline my-2 my-lg-0 m-auto">
-      <div class="input-group">
+      <div class="input-group search_home">
         <input type="search" class="form-control search_main_1" placeholder="Cerca...">
         <div class="input-group-append">
           <button type="button" class="btn btn-outline-secondary dropdown-toggle dropdown-toggle-split border-right-0" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="border-radius: 0;">
@@ -1023,6 +1023,9 @@ cursor:pointer;
           </div>
           <button type="button" class="btn btn-outline-secondary search_button_1 disabled_button_search">Cerca</button>
         </div>
+      </div>
+      <div class="search_all d-none">
+        <input type="search" class="form-control search-myprod-prefer" placeholder="Cerca...">
       </div>
     </form>
     <ul class="navbar-nav">
@@ -1458,7 +1461,6 @@ cursor:pointer;
 
 <script>
 //DARIO
-//1)sistemare che quando send va all'ultimo messaggio e testarlo con più users
 //2)mettere il search tra i miei prodotti, cercare per stringa e categorie come filtro, togli tutto il resto delle categorie
 //3)mettere il search tra i miei preferiti cercare per stringa e categorie come filtro, togli tutto il resto delle categorie
 //4)ricontrollare sistema degli abbonamenti
@@ -1576,7 +1578,7 @@ function show_modal_last_prod(){
       $("#place_last_prod").text(res[0].place);
 
       $("#add_cart_last_prod").attr("onclick","add_cart("+res[0].id+","+res[0].price+")");
-      $("#contact_seller_last_prod").attr("onclick","contact_seller('"+res[0].id_vendor+"', idprod_"+res[0].id+"')");
+      $("#contact_seller_last_prod").attr({"onclick":"contact_seller('"+res[0].id_vendor+"', idprod_"+res[0].id+"')"});
 
     });
 
@@ -2379,9 +2381,10 @@ function detect_device(page){
 
       case 'home':
       $("#navbar_searh_mobile_home .container").show();
-
       $("#search_geo_prod").removeClass("d-none");
       $("#search_my_prod").addClass("d-none");
+      $(".search_home").removeClass("d-none");
+      $(".search_all").addClass("d-none");
       break;
 
       case 'products':
@@ -2721,20 +2724,14 @@ function detect_device(page){
     return ("0"+num).slice(-2);
   }
 
-  function formatDate(date) {
-    var d = new Date(date);
-    var month = '' + (d.getMonth() + 1);
-    var day = '' + d.getDate();
-    var year = d.getFullYear();
-    var hours = d.getHours();
-    var minutes = d.getMinutes();
-    var time = pad(hours) + ":" + pad(minutes);
-    if (month.length < 2) 
-      month = '0' + month;
-    if (day.length < 2) 
-      day = '0' + day;
-    return day+"-"+month+"-"+year;
-
+  function formatDate(value){
+      var date=value.split(" ")[0];
+      var time=value.split(" ")[1];
+      var day=date.split("-")[2];
+      var month=date.split("-")[1];
+      var year=date.split("-")[0];
+      var newdate=day+"/"+month+"/"+year+" "+time;
+      return newdate;
   }
 
   //chiude il menu laterale da desktop
@@ -3157,10 +3154,28 @@ paypal.Buttons({
 
   // chat
   function contact_seller(id_user_receive, idprod){
+    idprod=idprod.split("idprod_")[1];
+    $.get("/get_data_prod_for_chat_bookmap",{idprod:idprod},
+    function(data){
+      var res=jQuery.parseJSON(data);
+      console.log(res)
+    });
     open_menu(5);
     $("#fab_send").attr("onclick","send_chat_bookmap(\"\",\""+id_user_receive+"\",\""+idprod+"\",\"home\")");
   }
-     
+
+  //search myproduct and prefer
+  $(document).ready(function(){
+    $(document).on("keyup",".search-myprod-prefer", function() {
+      var value = $(this).val().toLowerCase();
+      var fromappend=$(this).attr("fromappend");
+      var fromchild=$(this).attr("fromchild");
+      $("#"+fromappend+">"+fromchild).filter(function() {
+        $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+      });
+    });
+  });
+
 </script>
 </body>
 </html>

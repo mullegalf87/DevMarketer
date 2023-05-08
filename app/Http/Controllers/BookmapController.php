@@ -18,6 +18,7 @@ use Illuminate\Filesystem\Filesystem;
 use Mail;
 use App;
 use Socialite;
+use App\Models\Bookmap\Product;
 
 
 class BookmapController extends Controller
@@ -233,7 +234,7 @@ class BookmapController extends Controller
   public function universal_db(){
 
     Config::set('database.connections.mysql_dynamic.database','bookmap');
-    $universal=DB::connection('mysql_dynamic');
+    $universal=DB::connection('mysql3');
 
     return $universal;
 
@@ -959,6 +960,29 @@ class BookmapController extends Controller
         "image_user_receive"=>$get_data_user_receive->image,
         "readen"=>0
       ));
+      $countidroom=$get_user_chat=$this->universal_db()->table('chat_bookmap')
+      ->where('id_room', '=',$idroom)
+      ->count();
+      if ($countidroom==1) {
+        $this->universal_db()->table('chat_bookmap')
+        ->insertGetId(array(
+          "id_room"=>$idroom,
+          "message"=>"Gentilissimi, risponderemo il prima possibile!",
+          "id_user_send"=>$get_data_user_receive->id,
+          "name_user_send"=>$get_data_user_receive->username,
+          "image_user_send"=>$get_data_user_receive->image,
+          "id_user_receive"=>$get_data_user_send->id,
+          "name_user_receive"=>$get_data_user_send->username,
+          "image_user_receive"=>$get_data_user_send->image,
+          "readen"=>0
+        ));
+      }
+  }
+
+  public function get_data_prod_for_chat_bookmap(){
+    $idprod=Request::get('idprod');
+    $product = Product::find($idprod);
+    print_r($product->name_prod);
   }
 
   //profile

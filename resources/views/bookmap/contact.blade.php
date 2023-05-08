@@ -108,7 +108,7 @@
         <form class="m-0 p-0" action="" method="POST" autocomplete="off">
           <div class="row m-0 p-0">
             <div class="col-12 m-0 p-1">
-              <input id="text" class="mw-100 border rounded form-control" type="text" name="text" title="Type a message..." placeholder="Type a message..." required>
+              <input id="text" class="mw-100 border rounded form-control" type="search" name="text" title="Type a message..." placeholder="Search..." required>
             </div>
           </div>
         </form>
@@ -175,6 +175,23 @@
     });
   }
 
+$("#text").keyup(function() { 
+  // Retrieve the input field text and reset the count to zero
+  var filter = $(this).val(),
+  count = 0;
+  // Loop through the comment list
+  $('#append_user_chat div').each(function() {
+    // If the list item does not contain the text phrase fade it out
+    if ($(this).text().search(new RegExp(filter, "i")) < 0) {
+      $(this).hide();  // MY CHANGE
+      // Show the list item if the phrase matches and increase the count by 1
+    } else {
+      $(this).show(); // MY CHANGE
+      count++;
+    }
+  });
+});
+
   //2)apro la conversazione con l'utente di interesse
   $(document).ready(function(e){
     $(document).on("click", ".open_chat", function(e){
@@ -185,7 +202,6 @@
 
   //2.1)apro la conversazione con l'utente di interesse
   function open_chat(id_room){
-    append_header_user_chat(id_room);
     $.get('/get_chat_bookmap', {id_room:id_room}, 
     function (data){
       $("#append_chat").empty();
@@ -194,16 +210,19 @@
       $.each(res, function(key, value) {
         var id_user_send=value['id_user_send'];
         var message=value['message'];
+        var date=value['date'];
         var balon="balon1";
         var float="float-right";
+        var name_user="Tu";
         if (key != res.length - 1) {
           if (id_user_send!=id_user) {
             balon="balon2";
             float="float-left sohbet2";
+            name_user=value['name_user_send'];
           }
           var div=$("<div>")
-              .addClass(""+balon+" p-2 m-0 position-relative")
-              .attr("data-is","You - 3:20 pm")
+              .addClass(""+balon+" p-3 m-0 position-relative")
+              .attr("data-is",""+name_user+" - "+formatDate(date)+"")
               .append(
                 $("<a>")
                   .addClass(float)
@@ -213,6 +232,10 @@
           }
       });
       get_user_bookmap();
+      count_get_cart_user();
+      $('#append_chat').animate({ scrollTop: 9999 }, 'fast');
+      $(".chatSend").val("");
+      append_header_user_chat(id_room);
     });  
   }
 
@@ -265,6 +288,7 @@
     function (data){
       var idroom=jQuery.parseJSON(data);
       change_vis('contact');
+      get_user_bookmap();
       open_chat(idroom);
     });
   }

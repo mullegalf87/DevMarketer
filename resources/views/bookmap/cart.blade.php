@@ -1,6 +1,7 @@
 <style type="text/css">
   
 </style>
+
 <div id="cart_container" class="tab-content col-md-12" style="flex: 1; position: absolute; right: 0; bottom: 0; left: 0;">  
   <div class="row h-100">
     <div class="col-md-12 order-md-2 mb-4">
@@ -18,6 +19,9 @@
   
 function start_function_cart(){
   get_cart_user();
+  $(".search_home").addClass("d-none");
+  $(".search_all").removeClass("d-none");
+  $(".search-myprod-prefer").attr({"fromappend":"list_prod_cart", "fromchild":"li"});
 }
 
 //ottieni i prodotti del carrello con tutti i contenuti
@@ -94,31 +98,31 @@ function start_function_cart(){
             if(window.matchMedia("(max-width: 767px)").matches){
               // The viewport is less than 768 pixels wide
 
-              $("#list_prod_cart").append("<li class='list-group-item d-flex justify-content-between lh-condensed'>"+
-              "<img src='"+src+"' style='width: 100px; height: 100px; object-fit: cover;' class='img-thumbnail'/>"+
-              "<div>"+
+              $("#list_prod_cart").append("<li class='row justify-content-between lh-condensed'>"+
+              "<img class='col-md-2' src='"+src+"' style='width: 100px; height: 100px; object-fit: cover;' class='img-thumbnail'/>"+
+              "<div class='col-md-2'>"+
               "<h6 class='my-0' style='white-space: nowrap; width: 70px;  overflow: hidden; text-overflow: ellipsis;'>"+res[i].name_prod+"</h6>"+
               "<small class='text-muted'>"+cat+"</small><br>"+
               "<small class='text-muted'>"+res[i].name_vendor+"</small>"+
               "</div>"+
-              "<span class='text-muted'>€ "+res[i].price+"</span>"+
-              "<i class='bx bx-chat mr-2' style='' onclick='contact_seller(\""+res[i].id_vendor+"\",\""+res[i].name_vendor+"\",\""+res[i].image_vendor+"\",\"idprod_"+res[i].id+"\");'></i>"+
-              "<i class='bx bxs-trash mr-2' style='color: #dc3545!important;' onclick='delete_prod_cart(\""+res[i].id+"\")'></i>"+
+              "<span class='text-muted col-md-2'>€ "+res[i].price+"</span>"+
+              "<i class='bx bx-chat mr-2 col-md-2' style='' onclick='contact_seller(\""+res[i].id_vendor+"\",\""+res[i].name_vendor+"\",\""+res[i].image_vendor+"\",\"idprod_"+res[i].id+"\");'></i>"+
+              "<i class='bx bxs-trash mr-2 col-md-2' style='color: #dc3545!important;' onclick='delete_prod_cart(\""+res[i].id+"\")'></i>"+
               "</li>");
               
 
             } else{
               // alert("This is a tablet or desktop.");
-              $("#list_prod_cart").append("<li class='list-group-item d-flex justify-content-between lh-condensed'>"+
-              "<img src='"+src+"' style='width: 100px; height: 100px; object-fit: cover;' class='img-thumbnail'/>"+
-              "<div>"+
+              $("#list_prod_cart").append("<li class='row justify-content-between lh-condensed'>"+
+              "<img class='col-md-2' src='"+src+"' style='width: 100px; height: 100px; object-fit: cover;' class='img-thumbnail'/>"+
+              "<div class='col-md-2'>"+
               "<h6 class='my-0'>"+res[i].name_prod+"</h6>"+
               "<small class='text-muted'>"+cat+"</small><br>"+
               "<small class='text-muted'>"+res[i].name_vendor+"</small>"+
               "</div>"+
-              "<span class='text-muted'>€ "+res[i].price+"</span>"+
-              "<i class='bx bx-chat mr-2' style='' onclick='contact_seller(\""+res[i].id_vendor+"\",\""+res[i].name_vendor+"\",\""+res[i].image_vendor+"\",\"idprod_"+res[i].id+"\");'></i>"+
-              "<i class='bx bxs-trash mr-2' style='color: #dc3545!important;' onclick='delete_prod_cart(\""+res[i].id+"\")'></i>"+
+              "<span class='text-muted col-md-2'>€ "+res[i].price+"</span>"+
+              "<i class='bx bx-chat mr-2 col-md-2' style='' onclick='contact_seller(\""+res[i].id_vendor+"\",\""+res[i].name_vendor+"\",\""+res[i].image_vendor+"\",\"idprod_"+res[i].id+"\");'></i>"+
+              "<i class='bx bxs-trash mr-2 col-md-2' style='color: #dc3545!important;' onclick='delete_prod_cart(\""+res[i].id+"\")'></i>"+
               "</li>");
               
             }  
@@ -142,7 +146,6 @@ function start_function_cart(){
       });
 
   }
-
 
 function delete_prod_cart(id_prod){
 

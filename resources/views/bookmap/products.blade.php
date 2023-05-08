@@ -259,9 +259,10 @@
 <script type="text/javascript">
 
 function start_function_product(){
-
   get_product_user();
-
+  $(".search_home").addClass("d-none");
+  $(".search_all").removeClass("d-none");
+  $(".search-myprod-prefer").attr({"fromappend":"append_product_user", "fromchild":"div"});
 }
 
 function get_product_user(){
@@ -359,7 +360,6 @@ function get_product_user(){
             '<h6 class="font-weight-semibold mb-0" style="word-wrap: break-word;"> <a class="text-default mb-0" data-abc="true">'+res[i].name_prod+'</a> </h6><label class="font-weight-semibold mb-0" style="word-wrap: break-word;"> <a class="text-muted" data-abc="true" >'+res[i].desc+'</a></label>'+
           '</div>'+
           '<h3 class="mb-0 font-weight-semibold">'+res[i].price+' €</h3>'+
-          '<div> <i class="fa fa-star star"></i> <i class="fa fa-star star"></i> <i class="fa fa-star star"></i> <i class="fa fa-star star"></i> </div>'+
           '<div class="text-muted mb-0" style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">'+cat+'</div>'+
           '<div class="text-muted mb-0" style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">@lang("bookmap/lang.seller") '+res[i].name_vendor+'</div>'+ 
           // '<div class="text-muted mb-0" style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">'+res[i].place+'</div>'+ 
@@ -424,67 +424,6 @@ $(function() {
 });
 
 
-// function open_table_my_product(){
-
-// var num_height_body;
-// var num_height_div_exp;
-// var num_height_div_start;  
-// var num_height;
-
-// $("#table_product").DataTable({
-//   aaSorting: [],
-//   // responsive: true,
-//   responsive: {
-//             details: false
-//         },
-//   "bPaginate": true,
-//   "bLengthChange": false,
-//   "bFilter": true,
-//   "bInfo": true,
-//   "bAutoWidth": false,
-//   //appena carica la tabella esegue le funzioni dentro l'initicomplete
-//   "initComplete": function(settings, json) {
-
-
-//    num_height_div = $("#product_container").height();
-//    num_height_div_start = $("#start_product_container").height();
-//    num_height_body = $(".dataTables_scrollBody").height();
-//    num_height=num_height_div-num_height_div_start+num_height_body;
-//    num_height = parseFloat(num_height).toFixed(2)+"px";
-//    $(".dataTables_scrollBody").css("max-height",num_height);
-//    $(".dataTables_scrollBody").css("height",num_height);
-
-//   //permette di cambiare il testo del label
-//   $("#table_product_filter label").contents().eq(0).replaceWith('');
-//   $("#table_product_filter input").attr("placeholder","Search...");
-//   $("#table_product_filter").css({'display':'flex', 'flex-wrap':'nowrap', 'padding':'0'}).addClass("col-md-12 col-sm-12");
-//   $("#table_product_filter label").css("flex","1");
-
-//   $("#logo_loading").removeClass("rotate_logo_loading");
- 
-//  },
-
-//  "scrollY":"0px",
-//  dom: 'Bfrtip',
-//  retrieve: true, 
-//  columnDefs: [
-//  {
-//   responsivePriority: 1,
-//   targets: 0
-// },
-// {
-//   responsivePriority: 2,
-//   targets: -1
-// }
-// ]
-// });
-
-// // $("#navbar_searh_mobile_home .container").hide();
-// // $("#navbar_searh_desktop_home .container").hide();
-// // $("#map").css("height", "calc(100% - 78px)");
-
-// }
-
 //autocomplete indirizzo
 var placeSearch, autocomplete;
 var componentForm = {
@@ -522,13 +461,6 @@ function initAutocomplete(numb) {
 
 
 //modifica prodotto desktop/cell
-//numb=>serve per modificare html, id_prod per salvare i prodotti modificati
-// function edit_input_prod(numb, id_vendor, id_prod, name, cat, desc, ean, qnt, price, place, name_img){
-
-//   open_menu(3, numb, id_vendor, id_prod, name, cat, desc, ean, qnt, price, place, name_img); 
-
-// }
-
 function edit_input_prod(numb, id_vendor, id_prod, name, cat, desc, price, place, name_img){
 
   open_menu(3, numb, id_vendor, id_prod, name, cat, desc, price, place, name_img); 
