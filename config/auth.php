@@ -70,6 +70,11 @@ return [
             'driver' => 'session',
             'provider' => 'users_ileniadesigns',
         ],
+
+        'users_dnd' => [
+            'driver' => 'session',
+            'provider' => 'users_dnds',
+        ],
     ],
 
     /*
@@ -118,6 +123,11 @@ return [
         'users_ileniadesigns' => [
             'driver' => 'eloquent',
             'model' => App\Users_ileniadesign::class,
+        ],
+
+        'users_dnds' => [
+            'driver' => 'eloquent',
+            'model' => App\Users_dnd::class,
         ],
 
         // 'users' => [
@@ -174,6 +184,12 @@ return [
 
         'users_ileniadesigns' => [
             'provider' => 'users_ileniadesigns',
+            'table' => 'password_resets',
+            'expire' => 60,
+        ],
+
+        'users_dnds' => [
+            'provider' => 'users_dnds',
             'table' => 'password_resets',
             'expire' => 60,
         ],

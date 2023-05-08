@@ -574,6 +574,25 @@ Route::get('/send_data_setting_ileniadesign', 'IleniadesignController@send_data_
 
 ////Dnd PROJECT
 
-Route::get('/dnd', function () {
-  return view('dnd.index');
-});
+Route::get('/dnd', 'DndController@go_to_page');
+
+Route::post('register_dnd','DndController@register_user_dnd');
+
+Route::post('login_dnd','DndController@login_dnd');
+
+Route::get('logout_dnd','DndController@logout_dnd');
+
+Route::get("save_dnd","DndController@save_dnd");
+
+Route::get("load_game_dnd","DndController@load_game_dnd");
+
+Route::get("get_element_dnd","DndController@get_element_dnd");
+
+Route::get("delete_element_dnd","DndController@delete_element_dnd");
+
+Route::get("save_game_detail_dnd","DndController@save_game_detail_dnd");
+
+Route::get("get_game_dnd","DndController@get_game_dnd");
+
+Route::get("delete_game_dnd","DndController@delete_game_dnd");
+
